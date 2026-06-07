@@ -26,7 +26,7 @@ single Cargo **workspace**, Cargo's answer to npm/pnpm workspaces.
 > `wasm-pack` 0.13.1. The `wasm32-unknown-unknown` target is installed via
 > `rustup target add wasm32-unknown-unknown`. Every command, log line, and HTTP
 > response shown below was produced by actually building and running the code in
-> [`full-stack-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/full-stack-code).
+> [`full-stack-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/full-stack-code).
 
 ## What You'll Build
 
@@ -98,7 +98,7 @@ and `wasm-pack` (`cargo install wasm-pack`, or via the official installer).
 
 ## Project Structure
 
-The code lives in [`full-stack-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/full-stack-code) as a Cargo workspace:
+The code lives in [`full-stack-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/full-stack-code) as a Cargo workspace:
 
 ```text
 full-stack-code/

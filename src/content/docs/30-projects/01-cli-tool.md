@@ -105,7 +105,7 @@ shaky, the linked sections are worth a refresher:
 
 ## Project Structure
 
-The code lives in [`cli-tool-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/cli-tool-code). It is a small, idiomatic
+The code lives in [`cli-tool-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/cli-tool-code). It is a small, idiomatic
 multi-file binary crate. Each file has one job, the way you'd split a Node CLI
 into `cli.ts`, `store.ts`, `commands.ts`, and `types.ts`:
 
@@ -466,7 +466,7 @@ fn load_tasks(path: &Path) -> Result<Vec<Task>> {
 
 This module also carries tests that write to a temp file and reload it, proving
 the round-trip works (the full set lives in
-[`src/store.rs`](https://github.com/zeybek/rs4ts/blob/main/examples/cli-tool-code/src/store.rs)):
+[`src/store.rs`](https://github.com/zeybek/rs4ts.dev/blob/main/examples/cli-tool-code/src/store.rs)):
 
 ```rust
     #[test]

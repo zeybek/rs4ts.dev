@@ -86,7 +86,7 @@ here feels unfamiliar, the linked section covers it in depth:
 
 ## Project Structure
 
-The code lives in [`microservice-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/microservice-code). Unlike a toy
+The code lives in [`microservice-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/microservice-code). Unlike a toy
 single-file example, it is split into focused modules. Each one maps to a
 production concern:
 

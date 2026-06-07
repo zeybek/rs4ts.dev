@@ -113,7 +113,7 @@ verified on Rust 2024 edition; the version sheet targets Rust 1.96.0).
 
 ## Project Structure
 
-The code lives in [`rest-api-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/rest-api-code). It is a real Cargo
+The code lives in [`rest-api-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/rest-api-code). It is a real Cargo
 project with a clean module layout, not one giant `main.rs`:
 
 ```text
@@ -867,7 +867,7 @@ The pieces:
 
 ## Running It
 
-All commands run from inside [`rest-api-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/rest-api-code).
+All commands run from inside [`rest-api-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/rest-api-code).
 
 ### Build
 

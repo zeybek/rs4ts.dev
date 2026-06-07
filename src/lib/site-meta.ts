@@ -32,7 +32,7 @@ export const organization: Organization = {
 	name: SITE_NAME,
 	url: SITE_URL,
 	logo: `${SITE_URL}/favicon.svg`,
-	sameAs: ['https://github.com/zeybek/rs4ts'],
+	sameAs: ['https://github.com/zeybek/rs4ts.dev'],
 }
 
 export const course: Course = {

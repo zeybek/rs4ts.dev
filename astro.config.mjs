@@ -47,11 +47,11 @@ export default defineConfig({
 				{
 					icon: "github",
 					label: "GitHub",
-					href: "https://github.com/zeybek/rs4ts",
+					href: "https://github.com/zeybek/rs4ts.dev",
 				},
 			],
 			editLink: {
-				baseUrl: "https://github.com/zeybek/rs4ts/edit/main/",
+				baseUrl: "https://github.com/zeybek/rs4ts.dev/edit/main/",
 			},
 			lastUpdated: true,
 			// Inject SEO/OG/JSON-LD <head> tags the idiomatic way (overriding the

@@ -87,12 +87,12 @@ Each walkthrough maps to the directory that holds its code:
 
 | Walkthrough | Code directory | Cargo package | Type |
 |-------------|----------------|---------------|------|
-| [Project 1](/30-projects/00-rest-api/) | [`rest-api-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/rest-api-code) | `rest-api` | Native binary (Axum) |
-| [Project 2](/30-projects/01-cli-tool/) | [`cli-tool-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/cli-tool-code) | `taskr` | Native binary (clap) |
-| [Project 3](/30-projects/02-wasm-app/) | [`wasm-app-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/wasm-app-code) | `game-of-life` | WASM library |
-| [Project 4](/30-projects/03-websocket-chat/) | [`websocket-chat-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/websocket-chat-code) | `websocket-chat-code` | Native binary (Axum + WebSocket) |
-| [Project 5](/30-projects/04-microservice/) | [`microservice-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/microservice-code) | `url-shortener` | Native binary (Axum + SQLite) |
-| [Project 6](/30-projects/05-full-stack/) | [`full-stack-code/`](https://github.com/zeybek/rs4ts/tree/main/examples/full-stack-code) | `backend` + `frontend` (workspace) | Native + WASM workspace |
+| [Project 1](/30-projects/00-rest-api/) | [`rest-api-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/rest-api-code) | `rest-api` | Native binary (Axum) |
+| [Project 2](/30-projects/01-cli-tool/) | [`cli-tool-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/cli-tool-code) | `taskr` | Native binary (clap) |
+| [Project 3](/30-projects/02-wasm-app/) | [`wasm-app-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/wasm-app-code) | `game-of-life` | WASM library |
+| [Project 4](/30-projects/03-websocket-chat/) | [`websocket-chat-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/websocket-chat-code) | `websocket-chat-code` | Native binary (Axum + WebSocket) |
+| [Project 5](/30-projects/04-microservice/) | [`microservice-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/microservice-code) | `url-shortener` | Native binary (Axum + SQLite) |
+| [Project 6](/30-projects/05-full-stack/) | [`full-stack-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/full-stack-code) | `backend` + `frontend` (workspace) | Native + WASM workspace |
 
 ## A Closing Note
 
