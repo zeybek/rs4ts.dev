@@ -1,0 +1,16 @@
+# GitHub Linguist language-bar overrides.
+# https://github.com/github-linguist/linguist/blob/master/docs/overrides.md
+
+# The written guide (Markdown/MDX) is documentation, not application code —
+# keep it out of the language stats so it doesn't drown everything else.
+src/content/** linguist-documentation
+
+# Surface the hand-written Rust example projects (the whole point of the repo).
+examples/** linguist-vendored=false
+examples/** linguist-detectable=true
+# ...but never their build output.
+examples/**/target/** linguist-generated=true
+
+# Generated / data files — exclude from language stats.
+package-lock.json linguist-generated=true
+src/data/contributors.json linguist-generated=true
