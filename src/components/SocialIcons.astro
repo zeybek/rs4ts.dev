@@ -1,0 +1,76 @@
+---
+
+import config from 'virtual:starlight/user-config';
+import { Icon } from '@astrojs/starlight/components';
+
+const links = config.social || [];
+---
+
+<span class="version-badge" title="All code examples verified on stable Rust, 2024 edition">
+	Rust 2024 ed.
+</span>
+<a
+	class="header-llms"
+	href="/llms.txt"
+	target="_blank"
+	rel="noopener"
+	title="Plain-text version of the whole guide for LLMs & coding agents (Cursor, Cline, …)"
+>
+	llms.txt
+</a>
+{
+	links.map(({ label, href, icon }) => (
+		<a {href} rel="me" class="sl-flex social-link">
+			<span class="sr-only">{label}</span>
+			<Icon name={icon} />
+		</a>
+	))
+}
+
+<style>
+	@layer starlight.core {
+
+		.social-link {
+			color: var(--sl-color-text-accent);
+			padding: 0.5em;
+			margin: -0.5em;
+		}
+		.social-link:hover {
+			color: var(--sl-color-white);
+		}
+
+		.version-badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.45rem;
+			white-space: nowrap;
+			font-family: var(--font-mono);
+			font-size: var(--sl-text-xs);
+			letter-spacing: -0.01em;
+			color: var(--sl-color-gray-3);
+			border: 1px solid var(--sl-color-hairline);
+			background: var(--sl-color-gray-7);
+			padding: 0.25rem 0.55rem;
+		}
+		.version-badge::before {
+			content: '';
+			flex: none;
+			width: 0.45rem;
+			height: 0.45rem;
+			background: var(--accent);
+			box-shadow: 0 0 8px var(--accent-glow);
+		}
+
+		.header-llms {
+			white-space: nowrap;
+			font-family: var(--font-mono);
+			font-size: var(--sl-text-xs);
+			letter-spacing: -0.01em;
+			color: var(--sl-color-gray-3);
+			text-decoration: none;
+		}
+		.header-llms:hover {
+			color: var(--sl-color-white);
+		}
+	}
+</style>

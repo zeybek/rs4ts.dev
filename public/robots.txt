@@ -1,0 +1,9 @@
+# Rust for TS/JS Developers — https://rs4ts.dev
+# Open educational content. All crawlers welcome, including AI / answer-engine
+# bots (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …) — we want this
+# guide cited by generative engines (GEO).
+
+User-agent: *
+Allow: /
+
+Sitemap: https://rs4ts.dev/sitemap-index.xml

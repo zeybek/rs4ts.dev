@@ -1,0 +1,4664 @@
+{
+	"": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 268,
+				"deletions": 0
+			}
+		]
+	},
+	"00-introduction": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 309,
+				"deletions": 0
+			}
+		]
+	},
+	"00-introduction/00-target-audience": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 288,
+				"deletions": 0
+			}
+		]
+	},
+	"00-introduction/01-how-to-read": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 560,
+				"deletions": 0
+			}
+		]
+	},
+	"00-introduction/02-prerequisites": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 458,
+				"deletions": 0
+			}
+		]
+	},
+	"00-introduction/03-cheatsheet": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 219,
+				"deletions": 0
+			}
+		]
+	},
+	"00-introduction/04-faq": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 174,
+				"deletions": 0
+			}
+		]
+	},
+	"01-getting-started": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 360,
+				"deletions": 0
+			}
+		]
+	},
+	"01-getting-started/00-why-rust": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 668,
+				"deletions": 0
+			}
+		]
+	},
+	"01-getting-started/01-installation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 755,
+				"deletions": 0
+			}
+		]
+	},
+	"01-getting-started/02-hello-world": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 771,
+				"deletions": 0
+			}
+		]
+	},
+	"01-getting-started/03-cargo-basics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 995,
+				"deletions": 0
+			}
+		]
+	},
+	"01-getting-started/04-playground": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 674,
+				"deletions": 0
+			}
+		]
+	},
+	"02-basics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 453,
+				"deletions": 0
+			}
+		]
+	},
+	"02-basics/00-variables": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 818,
+				"deletions": 0
+			}
+		]
+	},
+	"02-basics/01-types": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 828,
+				"deletions": 0
+			}
+		]
+	},
+	"02-basics/02-operators": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 757,
+				"deletions": 0
+			}
+		]
+	},
+	"02-basics/03-comments": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 861,
+				"deletions": 0
+			}
+		]
+	},
+	"02-basics/04-output": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 780,
+				"deletions": 0
+			}
+		]
+	},
+	"03-functions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 103,
+				"deletions": 0
+			}
+		]
+	},
+	"03-functions/00-basic-functions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 695,
+				"deletions": 0
+			}
+		]
+	},
+	"03-functions/01-parameters": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 733,
+				"deletions": 0
+			}
+		]
+	},
+	"03-functions/02-return-values": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 766,
+				"deletions": 0
+			}
+		]
+	},
+	"03-functions/03-arrow-vs-closures": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 669,
+				"deletions": 0
+			}
+		]
+	},
+	"03-functions/04-higher-order": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 712,
+				"deletions": 0
+			}
+		]
+	},
+	"03-functions/05-function-pointers": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 609,
+				"deletions": 0
+			}
+		]
+	},
+	"03-functions/06-recursion": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 681,
+				"deletions": 0
+			}
+		]
+	},
+	"04-control-flow": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 88,
+				"deletions": 0
+			}
+		]
+	},
+	"04-control-flow/00-conditionals": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 628,
+				"deletions": 0
+			}
+		]
+	},
+	"04-control-flow/01-loops": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 761,
+				"deletions": 0
+			}
+		]
+	},
+	"04-control-flow/02-match": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 790,
+				"deletions": 0
+			}
+		]
+	},
+	"04-control-flow/03-if-let-while-let": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 746,
+				"deletions": 0
+			}
+		]
+	},
+	"04-control-flow/04-break-continue": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 735,
+				"deletions": 0
+			}
+		]
+	},
+	"04-control-flow/05-labeled-loops": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 762,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 99,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/00-stack-heap": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 660,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/01-ownership-rules": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 660,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/02-borrowing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 749,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/03-mutable-references": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 721,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/04-lifetimes": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 572,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/05-lifetime-elision": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 612,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/06-move-copy-clone": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 607,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/07-reference-counting": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 693,
+				"deletions": 0
+			}
+		]
+	},
+	"05-ownership/08-drop-trait": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 690,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 92,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/00-structs": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 814,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/01-tuple-structs": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 712,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/02-enums": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 625,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/03-option-enum": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 769,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/04-pattern-matching": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 932,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/05-impl-blocks": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 795,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/06-associated-functions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 824,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/07-associated-types": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 797,
+				"deletions": 0
+			}
+		]
+	},
+	"06-data-structures/08-field-init-shorthand": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 756,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 94,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/00-vectors": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 791,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/01-strings": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 688,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/02-string-manipulation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 500,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/03-hashmaps": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 640,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/04-hashsets": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 665,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/05-btreemap-btreeset": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 880,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/06-iterators": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 727,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/07-iterator-consumers": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 789,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/08-custom-iterators": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 876,
+				"deletions": 0
+			}
+		]
+	},
+	"07-collections/09-collection-performance": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 716,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 94,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/00-result-option": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 857,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/01-question-mark": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 750,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/02-panic": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 682,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/03-unwrap-expect": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 672,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/04-custom-errors": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 952,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/05-error-trait": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 781,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/06-anyhow-thiserror": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 743,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/07-multiple-errors": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 923,
+				"deletions": 0
+			}
+		]
+	},
+	"08-error-handling/08-best-practices": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 709,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 98,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/00-generic-functions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 596,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/01-generic-structs": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 849,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/02-generic-enums": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 750,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/03-traits": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 758,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/04-trait-methods": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 782,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/05-trait-bounds": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 737,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/06-trait-objects": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1060,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/07-impl-trait": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 776,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/08-default-impls": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 878,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/09-supertraits": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 871,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/10-operator-overloading": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 844,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/11-marker-traits": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 681,
+				"deletions": 0
+			}
+		]
+	},
+	"09-generics-traits/12-orphan-rule": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 616,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 73,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers/00-box": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 693,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers/01-rc-arc": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 654,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers/02-refcell-mutex": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 669,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers/03-cell": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 659,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers/04-cow": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 698,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers/05-weak": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 816,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers/06-deref-trait": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 775,
+				"deletions": 0
+			}
+		]
+	},
+	"10-smart-pointers/07-comparison": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 534,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 99,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/00-promises-vs-futures": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 733,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/01-async-await": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 720,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/02-tokio-intro": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 584,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/03-tokio-setup": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 752,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/04-async-functions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 666,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/05-async-trait": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 818,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/06-streams": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 772,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/07-select-join": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 913,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/08-channels": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 847,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/09-spawning-tasks": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 797,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/10-concurrency": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 938,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/11-sync-primitives": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 789,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/12-arc-mutex-pattern": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 746,
+				"deletions": 0
+			}
+		]
+	},
+	"11-async/13-async-vs-sync": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 792,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 97,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/00-modules": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 691,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/01-module-tree": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 756,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/02-use-keyword": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 741,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/03-pub-visibility": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 809,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/04-cargo": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 642,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/05-cargo-commands": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 776,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/06-dependencies": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 624,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/07-dev-dependencies": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 677,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/08-workspaces": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 798,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/09-feature-flags": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 709,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/10-build-scripts": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 700,
+				"deletions": 0
+			}
+		]
+	},
+	"12-modules-packages/11-publishing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 568,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 80,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/00-unit-tests": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 754,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/01-test-organization": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 911,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/02-assertions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 807,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/03-should-panic": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 734,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/04-integration-tests": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 755,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/05-test-fixtures": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 755,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/06-mocking": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1094,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/07-property-testing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 780,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/08-benchmarking": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 747,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/09-doc-tests": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 798,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/10-coverage": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 750,
+				"deletions": 0
+			}
+		]
+	},
+	"13-testing/11-tdd-workflow": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 721,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 76,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/00-macro-basics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 557,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/01-declarative-macros": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 603,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/02-macro-patterns": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 653,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/03-repetition": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 709,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/04-derive-macros": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 798,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/05-attribute-macros": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 609,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/06-function-like-macros": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 794,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/07-proc-macros": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 857,
+				"deletions": 0
+			}
+		]
+	},
+	"14-macros/08-common-macros": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 661,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 93,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/00-serde-intro": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 663,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/01-serde-basics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 561,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/02-derive-serialize": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 751,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/03-json": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 793,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/04-json-manipulation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 816,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/05-attributes": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 786,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/06-other-formats": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 755,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/07-custom-serialization": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 931,
+				"deletions": 0
+			}
+		]
+	},
+	"15-serialization/08-performance": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 832,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 95,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/00-framework-comparison": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 588,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/01-axum-basics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 657,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/02-axum-setup": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 897,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/03-routing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 893,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/04-extractors": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 771,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/05-middleware": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 937,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/06-state-management": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 860,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/07-request-response": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1026,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/08-json-apis": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 957,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/09-validation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 842,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/10-error-handling-web": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 710,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/11-cors": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 553,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/12-authentication": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1099,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/13-jwt": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 841,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/14-sessions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 808,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/15-websockets": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 626,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/16-sse": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 659,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/17-file-uploads": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 794,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/18-static-files": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 691,
+				"deletions": 0
+			}
+		]
+	},
+	"16-web-apis/19-deployment": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 811,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 84,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/00-sqlx-intro": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 679,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/01-sqlx-queries": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 725,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/02-sqlx-transactions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 810,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/03-diesel-intro": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 623,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/04-diesel-queries": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 936,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/05-diesel-relations": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 628,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/06-mongodb": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 730,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/07-redis": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 565,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/08-connection-pooling": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 768,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/09-migrations": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 581,
+				"deletions": 0
+			}
+		]
+	},
+	"17-database/10-orm-comparison": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 852,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 82,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/00-clap-basics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 821,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/01-clap-derive": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 707,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/02-subcommands": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 814,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/03-terminal-ui": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 823,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/04-progress-bars": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 713,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/05-colored-output": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 628,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/06-file-io": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 730,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/07-path-handling": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 704,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/08-environment-vars": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 853,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/09-cross-platform": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 746,
+				"deletions": 0
+			}
+		]
+	},
+	"18-cli-tools/10-distribution": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 692,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 99,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/00-wasm-intro": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 435,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/01-wasm-pack": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 698,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/02-first-wasm": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 694,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/03-js-interop": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 613,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/04-rust-from-js": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 824,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/05-wasm-bindgen": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 598,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/06-web-apis": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 654,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/07-dom-manipulation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 667,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/08-yew-leptos": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 683,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/09-performance": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 682,
+				"deletions": 0
+			}
+		]
+	},
+	"19-wasm/10-deployment": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 596,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 80,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/00-unsafe-intro": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 611,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/01-unsafe-rust": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 650,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/02-raw-pointers": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 606,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/03-ffi-basics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 630,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/04-calling-c": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 634,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/05-bindgen": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 720,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/06-napi": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 687,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/07-neon": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 610,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/08-safety-abstractions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 842,
+				"deletions": 0
+			}
+		]
+	},
+	"20-unsafe-ffi/09-when-to-use": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 509,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 75,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/00-profiling": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 527,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/01-flamegraph": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 598,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/02-benchmarking": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 730,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/03-optimization": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 739,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/04-memory-layout": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 731,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/05-cache-efficiency": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 683,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/06-zero-cost": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 622,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/07-compilation-time": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 761,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/08-binary-size": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 560,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/09-comparison": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 505,
+				"deletions": 0
+			}
+		]
+	},
+	"21-performance/10-when-to-optimize": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 732,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 87,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/00-builder-pattern": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 757,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/01-newtype": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 801,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/02-type-state": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 745,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/03-error-propagation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 721,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/04-visitor-pattern": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 768,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/05-strategy-pattern": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 868,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/06-decorator-pattern": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 822,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/07-command-pattern": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 821,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/08-factory-pattern": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 966,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/09-dependency-injection": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 798,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/10-raii-pattern": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 854,
+				"deletions": 0
+			}
+		]
+	},
+	"22-common-patterns/11-extension-traits": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 658,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 79,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/00-popular-crates": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 661,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/01-web-frameworks": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 719,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/02-async-runtimes": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 618,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/03-logging": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 643,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/04-tracing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 831,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/05-documentation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 603,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/06-http-clients": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 650,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/07-date-time": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 614,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/08-regex": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 549,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/09-parsing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 757,
+				"deletions": 0
+			}
+		]
+	},
+	"23-ecosystem/10-useful-crates": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 795,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 75,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/00-cargo-deep-dive": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 607,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/01-formatting": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 487,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/02-linting": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 645,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/03-clippy-lints": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 926,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/04-debugging": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 553,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/05-rust-analyzer": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 676,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/06-vscode-setup": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 573,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/07-ci-cd": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 565,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/08-github-actions": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 585,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/09-docker": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 590,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/10-cross-compilation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 562,
+				"deletions": 0
+			}
+		]
+	},
+	"24-tooling/11-cargo-plugins": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 593,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 72,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/00-phantom-data": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 725,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/01-pin-unpin": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 607,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/02-async-internals": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 809,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/03-allocators": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 660,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/04-inline-assembly": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 599,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/05-const-generics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 633,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/06-gat": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 767,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/07-specialization": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 708,
+				"deletions": 0
+			}
+		]
+	},
+	"25-advanced-topics/08-compiler-plugins": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 651,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 76,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/00-threads": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 744,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/01-thread-pools": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 621,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/02-parallel-iterators": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 638,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/03-channels": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 836,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/04-atomic-operations": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 680,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/05-memory-ordering": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 664,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/06-file-system": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 759,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/07-networking": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 689,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/08-signals": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 700,
+				"deletions": 0
+			}
+		]
+	},
+	"26-systems-programming/09-process-management": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 639,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 78,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/00-input-validation": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 760,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/01-sql-injection": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 631,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/02-xss-csrf": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 795,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/03-cryptography": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 551,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/04-password-hashing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 655,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/05-tls-ssl": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 597,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/06-secure-randomness": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 537,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/07-secrets-management": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 707,
+				"deletions": 0
+			}
+		]
+	},
+	"27-security/08-security-audit": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 597,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 81,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/00-configuration": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 913,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/01-environment": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 728,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/02-graceful-shutdown": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 787,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/03-health-checks": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 771,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/04-metrics": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 659,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/05-distributed-tracing": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 708,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/06-rate-limiting": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 705,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/07-caching": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 919,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/08-background-jobs": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 728,
+				"deletions": 0
+			}
+		]
+	},
+	"28-production/09-production-checklist": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 737,
+				"deletions": 0
+			}
+		]
+	},
+	"29-migration-guide": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 67,
+				"deletions": 0
+			}
+		]
+	},
+	"29-migration-guide/00-incremental": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 482,
+				"deletions": 0
+			}
+		]
+	},
+	"29-migration-guide/01-node-to-rust": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 665,
+				"deletions": 0
+			}
+		]
+	},
+	"29-migration-guide/02-api-compatibility": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 846,
+				"deletions": 0
+			}
+		]
+	},
+	"29-migration-guide/03-data-migration": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 691,
+				"deletions": 0
+			}
+		]
+	},
+	"29-migration-guide/04-performance-gains": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 708,
+				"deletions": 0
+			}
+		]
+	},
+	"29-migration-guide/05-common-challenges": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 474,
+				"deletions": 0
+			}
+		]
+	},
+	"30-projects": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 101,
+				"deletions": 0
+			}
+		]
+	},
+	"30-projects/00-rest-api": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1216,
+				"deletions": 0
+			}
+		]
+	},
+	"30-projects/01-cli-tool": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1066,
+				"deletions": 0
+			}
+		]
+	},
+	"30-projects/02-wasm-app": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1071,
+				"deletions": 0
+			}
+		]
+	},
+	"30-projects/03-websocket-chat": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1137,
+				"deletions": 0
+			}
+		]
+	},
+	"30-projects/04-microservice": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1321,
+				"deletions": 0
+			}
+		]
+	},
+	"30-projects/05-full-stack": {
+		"sha": "aa8b3a7876444c0a9a591a727de27f5ba5f1ce56",
+		"contributors": [
+			{
+				"name": "Ahmet Zeybek",
+				"login": "zeybek",
+				"avatar": "https://avatars.githubusercontent.com/u/30319707?v=4",
+				"url": "https://github.com/zeybek",
+				"commits": 1,
+				"additions": 1309,
+				"deletions": 0
+			}
+		]
+	}
+}

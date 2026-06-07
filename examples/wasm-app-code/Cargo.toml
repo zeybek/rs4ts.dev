@@ -1,0 +1,41 @@
+# Detach this crate from any parent Cargo workspace in the guide repo.
+[workspace]
+
+[package]
+name = "game-of-life"
+version = "0.1.0"
+edition = "2024"
+description = "Conway's Game of Life compiled to WebAssembly with wasm-bindgen"
+license = "MIT OR Apache-2.0"
+
+[lib]
+# `cdylib` produces the .wasm artifact that wasm-pack/JS loads.
+# `rlib` lets us run native `cargo test` against the same code.
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2.122"
+js-sys = "0.3.99"
+web-sys = { version = "0.3.99", features = [
+    "Window",
+    "Document",
+    "Element",
+    "HtmlElement",
+    "HtmlCanvasElement",
+    "CanvasRenderingContext2d",
+    "Performance",
+    "Node",
+    "Text",
+    "console",
+] }
+
+# Pretty Rust panics in the browser devtools console (opt-in via init()).
+console_error_panic_hook = "0.1.7"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.49"
+
+# Optimize the release .wasm for size — important for download time.
+[profile.release]
+opt-level = "s"   # optimize for size (try "z" for even smaller)
+lto = true

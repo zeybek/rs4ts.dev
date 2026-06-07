@@ -1,0 +1,179 @@
+---
+import { getEntry } from "astro:content";
+import getReadingTime from "reading-time";
+import CodeLabel from "./CodeLabel.astro";
+import { modifiedForPathname } from "../lib/git-dates.mjs";
+import { contributorsForPathname } from "../lib/contributors.mjs";
+
+const { id } = Astro.locals.starlightRoute.entry;
+const title = Astro.locals.starlightRoute.entry.data.title;
+
+const isHome = Astro.url.pathname.replace(/\/+$/, "") === "";
+const active = !isHome && id !== "404";
+
+let minutesRead = "";
+
+if (id && id !== "404") {
+	try {
+		const entry = await getEntry("docs", id);
+		if (entry?.body) minutesRead = getReadingTime(entry.body).text;
+	} catch {}
+}
+
+const contributors = active ? contributorsForPathname(Astro.url.pathname) : [];
+const lastEditor = contributors[0] ?? null;
+
+let updatedLabel = "";
+const modifiedISO = active ? modifiedForPathname(Astro.url.pathname) : null;
+if (modifiedISO) {
+	const d = new Date(modifiedISO);
+	if (!Number.isNaN(d.getTime())) {
+		updatedLabel = d.toLocaleDateString("en-US", {
+			month: "short",
+			day: "numeric",
+			year: "numeric",
+		});
+	}
+}
+---
+
+{
+	!isHome && (
+		<>
+			<h1 id="_top">
+				<CodeLabel text={title} />
+			</h1>
+			{(minutesRead || lastEditor) && (
+				<div class="page-meta">
+					{minutesRead && (
+						<span class="pm-read">
+							<svg
+								class="pm-clock"
+								viewBox="0 0 24 24"
+								width="14"
+								height="14"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<circle cx="12" cy="12" r="9" />
+								<path d="M12 7.5V12l3 1.8" />
+							</svg>
+							{minutesRead}
+						</span>
+					)}
+					{minutesRead && lastEditor && <span class="pm-sep" aria-hidden="true" />}
+					{lastEditor && (
+						<span class="pm-by">
+							<span class="pm-label">updated by</span>
+							{lastEditor.url ? (
+								<a
+									href={lastEditor.url}
+									class="pm-person"
+									title={lastEditor.name}
+									target="_blank"
+									rel="noopener"
+								>
+									{lastEditor.avatar && (
+										<img
+											class="pm-avatar"
+											src={lastEditor.avatar}
+											alt={lastEditor.name}
+											width="22"
+											height="22"
+											loading="lazy"
+										/>
+									)}
+									<span>{lastEditor.name}</span>
+								</a>
+							) : (
+								<span class="pm-person">
+									{lastEditor.avatar && (
+										<img
+											class="pm-avatar"
+											src={lastEditor.avatar}
+											alt={lastEditor.name}
+											width="22"
+											height="22"
+											loading="lazy"
+										/>
+									)}
+									<span>{lastEditor.name}</span>
+								</span>
+							)}
+							{updatedLabel && <span class="pm-date">· {updatedLabel}</span>}
+						</span>
+					)}
+				</div>
+			)}
+		</>
+	)
+}
+
+<style>
+	h1 {
+		margin-top: 1rem;
+		font-size: var(--sl-text-h1);
+		line-height: var(--sl-line-height-headings);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+	.page-meta {
+		margin-top: 0.85rem;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.5rem 0.9rem;
+		font-family: var(--font-mono);
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	.pm-read {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+	}
+	.pm-clock {
+		color: var(--accent);
+		flex-shrink: 0;
+	}
+	.pm-sep {
+		width: 1px;
+		height: 1.05em;
+		background: var(--sl-color-hairline);
+	}
+	.pm-by {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.pm-label {
+		color: var(--sl-color-gray-4);
+	}
+	.pm-person {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--sl-color-gray-1);
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+	.pm-person:hover {
+		color: var(--accent);
+	}
+	.pm-avatar {
+		width: 22px;
+		height: 22px;
+		display: block;
+		object-fit: cover;
+		border-radius: 50%;
+		border: 1px solid var(--accent);
+		background: var(--sl-color-gray-6);
+	}
+	.pm-date {
+		color: var(--sl-color-gray-4);
+	}
+</style>

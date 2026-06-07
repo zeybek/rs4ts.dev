@@ -1,0 +1,269 @@
+---
+
+import { Badge } from '@astrojs/starlight/components';
+import CodeLabel from './CodeLabel.astro';
+
+interface Props {
+	sublist: any[];
+}
+const { sublist } = Astro.props;
+
+function firstHref(entries: any[]): string {
+	for (const e of entries) {
+		if (e.type === 'link') return e.href;
+		const h = firstHref(e.entries || []);
+		if (h) return h;
+	}
+	return '';
+}
+
+function ordinal(entry: any): string | null {
+	const href = entry.type === 'link' ? entry.href : firstHref(entry.entries || []);
+	const m = href && href.match(/\/(\d{1,2})[-/]/);
+	return m ? m[1].padStart(2, '0') : null;
+}
+
+function pageLinks(entries: any[]): any[] {
+	const out: any[] = [];
+	for (const e of entries) {
+		if (e.type === 'link') out.push(e);
+		else out.push(...pageLinks(e.entries || []));
+	}
+	return out;
+}
+function hasCurrent(entries: any[]): boolean {
+	return entries.some((e: any) => (e.type === 'link' ? e.isCurrent : hasCurrent(e.entries || [])));
+}
+
+const chapterCount = sublist.filter((e: any) => e.type === 'group').length;
+---
+
+<nav class="chapter-nav" aria-label="Chapters">
+	<div class="nav-head">
+		<span class="nav-head-label">contents</span>
+		{chapterCount > 0 && <span class="nav-head-count">{chapterCount} chapters</span>}
+	</div>
+
+	<ul class="chapters">
+		{
+			sublist.map((entry: any) =>
+				entry.type === 'group' ? (
+					<li>
+						<details
+							class:list={['chapter', { 'is-current': hasCurrent(entry.entries) }]}
+							open={hasCurrent(entry.entries) || !entry.collapsed}
+						>
+							<summary>
+								<span class="ord">{ordinal(entry) ?? '··'}</span>
+								<span class="ch-label"><CodeLabel text={entry.label} /></span>
+								{entry.badge && (
+									<Badge variant={entry.badge.variant} text={entry.badge.text} class={entry.badge.class} />
+								)}
+								<svg class="caret" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
+									<path
+										d="M9 6l6 6-6 6"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2.2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									/>
+								</svg>
+							</summary>
+							<ul class="pages">
+								{pageLinks(entry.entries).map((sub: any) => (
+									<li>
+										<a href={sub.href} aria-current={sub.isCurrent ? 'page' : undefined} {...sub.attrs}>
+											<span class="dot" aria-hidden="true" />
+											<span class="p-label"><CodeLabel text={sub.label} /></span>
+											{sub.badge && (
+												<Badge variant={sub.badge.variant} text={sub.badge.text} class={sub.badge.class} />
+											)}
+										</a>
+									</li>
+								))}
+							</ul>
+						</details>
+					</li>
+				) : (
+					<li>
+						<a
+							class="chapter chapter-link"
+							href={entry.href}
+							aria-current={entry.isCurrent ? 'page' : undefined}
+							{...entry.attrs}
+						>
+							<span class="ord">{ordinal(entry) ?? '··'}</span>
+							<span class="ch-label"><CodeLabel text={entry.label} /></span>
+							{entry.badge && (
+								<Badge variant={entry.badge.variant} text={entry.badge.text} class={entry.badge.class} />
+							)}
+						</a>
+					</li>
+				)
+			)
+		}
+	</ul>
+</nav>
+
+<style>
+	.chapter-nav {
+		padding: 0.25rem 0 2rem;
+	}
+
+	.nav-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.5rem;
+		padding: 0.35rem 0.65rem 0.65rem;
+		margin-bottom: 0.35rem;
+		border-bottom: 1px solid var(--sl-color-hairline);
+	}
+	.nav-head-label {
+		font-family: var(--font-mono);
+		font-size: var(--sl-text-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.16em;
+		color: var(--sl-color-gray-4);
+	}
+	.nav-head-count {
+		font-family: var(--font-mono);
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		letter-spacing: 0.01em;
+		color: var(--accent);
+	}
+
+	.chapters {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.chapters > li {
+		border-bottom: 1px solid var(--sl-color-hairline-shade);
+	}
+
+	.chapter > summary,
+	.chapter-link {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.5rem 0.65rem;
+		cursor: pointer;
+		list-style: none;
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+	.chapter > summary::-webkit-details-marker,
+	.chapter > summary::marker {
+		display: none;
+	}
+	.chapter > summary:hover,
+	.chapter-link:hover {
+		background: var(--sl-color-hairline-shade);
+	}
+	.chapter > summary:hover .ch-label,
+	.chapter-link:hover .ch-label {
+		color: var(--accent-bright);
+	}
+
+	.ord {
+		flex: none;
+		min-width: 1.75em;
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		color: var(--sl-color-gray-4);
+		font-variant-numeric: tabular-nums;
+		transition: color 0.15s ease;
+	}
+	.ch-label {
+		flex: 1;
+		font-family: var(--font-sans);
+		font-weight: 600;
+		font-size: var(--sl-text-sm);
+		letter-spacing: -0.01em;
+		color: var(--sl-color-white);
+		overflow-wrap: anywhere;
+		transition: color 0.15s ease;
+	}
+	.caret {
+		flex: none;
+		color: var(--sl-color-gray-4);
+		transition: transform 0.2s ease, color 0.15s ease;
+	}
+	.chapter[open] > summary .caret {
+		transform: rotate(90deg);
+		color: var(--accent);
+	}
+
+	.chapter.is-current > summary {
+		background: linear-gradient(90deg, var(--accent-glow), transparent 92%);
+	}
+	.chapter.is-current > summary .ord,
+	.chapter[open] > summary .ord {
+		color: var(--accent);
+	}
+
+	.pages {
+		list-style: none;
+		margin: 0 0 0.5rem;
+		padding: 0;
+		margin-inline-start: 1.45rem;
+		border-inline-start: 1px solid var(--sl-color-hairline);
+	}
+	.pages a {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		padding: 0.3rem 0.65rem 0.3rem 0.8rem;
+		margin-inline-start: -1px;
+		border-inline-start: 2px solid transparent;
+		font-family: var(--font-sans);
+		font-size: var(--sl-text-xs);
+		line-height: 1.45;
+		color: var(--sl-color-gray-3);
+		text-decoration: none;
+		transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+	}
+	.pages .dot {
+		flex: none;
+		width: 4px;
+		height: 4px;
+		background: var(--sl-color-gray-5);
+		transition: background 0.15s ease;
+	}
+	.p-label {
+		flex: 1;
+		overflow-wrap: anywhere;
+	}
+	.pages a:hover {
+		color: var(--sl-color-white);
+		background: var(--sl-color-hairline-shade);
+	}
+	.pages a:hover .dot {
+		background: var(--sl-color-gray-3);
+	}
+	.pages a[aria-current='page'] {
+		color: var(--accent-bright);
+		font-weight: 600;
+		border-inline-start-color: var(--accent);
+		background: linear-gradient(90deg, var(--accent-glow), transparent 85%);
+	}
+	.pages a[aria-current='page'] .dot {
+		background: var(--accent);
+	}
+
+	.chapter > summary :global(.sl-badge),
+	.chapter-link :global(.sl-badge),
+	.pages a :global(.sl-badge) {
+		flex: none;
+		font-size: 0.62rem;
+	}
+	.chapter > summary :global(.sl-badge) {
+		margin-inline-end: 0.35rem;
+	}
+</style>

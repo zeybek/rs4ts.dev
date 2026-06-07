@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Conway's Game of Life — Rust + WebAssembly</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        margin: 2rem auto;
+        max-width: 760px;
+        color: #1a1a1a;
+      }
+      h1 { font-size: 1.4rem; }
+      #controls { margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+      button {
+        font: inherit;
+        padding: 0.4rem 0.9rem;
+        border: 1px solid #888;
+        border-radius: 6px;
+        background: #f4f4f4;
+        cursor: pointer;
+      }
+      button:hover { background: #e8e8e8; }
+      canvas { border: 1px solid #ccc; }
+      #fps { font-variant-numeric: tabular-nums; color: #555; margin-top: 0.5rem; }
+      code { background: #f0f0f0; padding: 0.1rem 0.3rem; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>Conway's Game of Life — Rust + WebAssembly</h1>
+    <p>
+      The simulation runs entirely in Rust compiled to WebAssembly. Click a cell
+      to toggle it; <kbd>Ctrl</kbd>+click stamps a glider.
+    </p>
+
+    <div id="controls">
+      <button id="play-pause">⏸ Pause</button>
+      <button id="step">Step</button>
+      <button id="random">Randomize</button>
+      <button id="clear">Clear</button>
+    </div>
+
+    <canvas id="game-of-life-canvas"></canvas>
+    <div id="fps">measuring…</div>
+
+    <!-- ES module entry point. `type="module"` lets us `import` the wasm glue. -->
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,268 @@
+---
+title: Rust for TypeScript & JavaScript Developers
+description: Learn Rust by mapping every concept to the TypeScript and JavaScript you already know, side-by-side, chapter by chapter. Free and open source.
+template: splash
+head:
+  # Override the <title> so it isn't "…Developers | …Developers" (the page title
+  # equals the site title) and to spell out the high-value keywords. ~56 chars.
+  - tag: title
+    content: Rust for TypeScript & JavaScript Developers — Free Guide
+# Landing page only: hide the "Edit page" link and the "Last updated" date.
+# No `hero:` block — the hero is built in the body (`.landing-hero`) so its order
+# (eyebrow → headline → tagline → typewriter → CTAs) matches the Pencil mockup,
+# and the bespoke top nav (src/components/Header.astro) can sit above it.
+editUrl: false
+lastUpdated: false
+---
+
+import { Code, LinkButton, Icon } from '@astrojs/starlight/components';
+import LandingEffects from '../../components/LandingEffects.astro';
+
+export const tsCode = `type User = { id: string; name: string };
+
+async function getUser(id: string): Promise<User> {
+  const url = "/api/users/" + id;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("not found");
+  return res.json();
+}`;
+
+export const rustCode = `struct User { id: String, name: String }
+
+async fn get_user(id: &str) -> Result<User, Error> {
+    let url = format!("/api/users/{id}");
+    let res = reqwest::get(url).await?;
+    if !res.status().is_success() {
+        return Err(Error::NotFound);
+    }
+    Ok(res.json().await?)
+}`;
+
+export const ownCode = `let s = String::from("hello");
+let s2 = s;            // ownership moves to s2
+// println!("{s}");    // compile error: s no longer valid
+println!("{s2}");      // ok — s2 owns the string`;
+
+export const errCode = `fn parse_double(input: &str) -> Result<i32, ParseIntError> {
+    let n: i32 = input.trim().parse()?;   // ? propagates the error
+    Ok(n * 2)
+}`;
+
+export const asyncCode = `#[tokio::main]
+async fn main() {
+    // both run concurrently — no event loop required
+    let (a, b) = tokio::join!(fetch_user(1), fetch_user(2));
+    println!("{a:?} {b:?}");
+}`;
+
+<div class="landing-hero">
+  <div class="eyebrow">v1.0 · every example compiles on stable Rust</div>
+  <h1 id="_top" class="lh-title"><span class="accent-word">Rust</span> for <span class="lang-ts">TS</span><span class="lh-slash">/</span><span class="lang-js">JS</span> Developers</h1>
+  <p class="lh-tagline">You already think in types, async, and modules. This guide teaches Rust by mapping every concept back to the TypeScript and JavaScript you know — side-by-side, chapter by chapter.</p>
+  <div class="type-line" aria-hidden="true"><span class="type-prompt">$</span> <span class="type-pre">you'll learn </span> <span class="type-rotate" data-typewriter data-words="ownership|borrowing|lifetimes|fearless concurrency|zero-cost abstractions|no garbage collector|errors as values">ownership</span><span class="type-caret"></span></div>
+  <div class="lh-cta">
+    <LinkButton href="/00-introduction/" variant="primary" icon="right-arrow">start reading</LinkButton>
+    <LinkButton href="/01-getting-started/00-why-rust/" variant="minimal" icon="right-arrow">why Rust?</LinkButton>
+    <LinkButton href="https://github.com/zeybek/rs4ts" variant="minimal" icon="external">source on GitHub</LinkButton>
+  </div>
+</div>
+
+<div class="st-eyebrow"><span class="st-eyebrow-label">// the_same_idea</span> one concept, two languages</div>
+
+<div class="split-terminal">
+  <div class="st-bar">
+    <span class="cw-dots" aria-hidden="true"></span>
+    <span class="st-title"><span class="lang-ts">user.ts</span><span class="st-arrow">→</span><span class="accent-word">user.rs</span></span>
+  </div>
+  <div class="st-body">
+    <div class="st-panel">
+      <div class="st-panel-head"><span class="st-dot st-dot--ts"></span><span class="st-lang">typescript</span><span class="st-note">// you already write this</span></div>
+      <Code code={tsCode} lang="ts" frame="none" />
+    </div>
+    <div class="st-divider" aria-hidden="true"></div>
+    <div class="st-panel">
+      <div class="st-panel-head"><span class="st-dot st-dot--rust"></span><span class="st-lang">rust</span><span class="st-note">// the compiler proves this</span></div>
+      <Code code={rustCode} lang="rust" frame="none" />
+    </div>
+  </div>
+</div>
+
+<div class="stat-band">
+  <div class="stat"><span class="stat-num">31</span><span class="stat-label">Chapters</span></div>
+  <div class="stat"><span class="stat-num">4,000+</span><span class="stat-label">Code examples</span></div>
+  <div class="stat"><span class="stat-num">6</span><span class="stat-label">Projects</span></div>
+  <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Free &amp; OSS</span></div>
+</div>
+
+<span class="section-label">// what_you_learn</span>
+## the ideas that make Rust click
+
+<div class="concept-grid">
+  <div class="concept">
+    <div class="concept-text">
+      <div class="concept-head"><span class="ordinal">01</span><h3 class="concept-title">ownership/</h3></div>
+      <p>Rust's defining idea: every value has a single owner, and the compiler tracks it at build time. No garbage collector, no use-after-free — the TS habit of sharing references everywhere becomes explicit moves and borrows.</p>
+      <div class="tags"><span class="tag">[move]</span><span class="tag">[borrow]</span><span class="tag">[lifetimes]</span><span class="tag">[no_gc]</span></div>
+    </div>
+    <div class="code-window">
+      <div class="cw-bar"><span class="cw-dots"></span><span class="cw-title">ownership.rs</span></div>
+      <Code code={ownCode} lang="rust" frame="none" />
+    </div>
+  </div>
+
+  <div class="concept concept--reverse">
+    <div class="concept-text">
+      <div class="concept-head"><span class="ordinal">02</span><h3 class="concept-title">error_handling/</h3></div>
+      <p>No <code>try/catch</code>, no <code>throw</code>. Errors are values: <code>Result&lt;T, E&gt;</code> and <code>Option&lt;T&gt;</code>, with the <code>?</code> operator to propagate them in one character. The type system makes you handle them — you can't forget.</p>
+      <div class="tags"><span class="tag">[result]</span><span class="tag">[option]</span><span class="tag">[question_mark]</span><span class="tag">[no_exceptions]</span></div>
+    </div>
+    <div class="code-window">
+      <div class="cw-bar"><span class="cw-dots"></span><span class="cw-title">errors.rs</span></div>
+      <Code code={errCode} lang="rust" frame="none" />
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-text">
+      <div class="concept-head"><span class="ordinal">03</span><h3 class="concept-title">async_await/</h3></div>
+      <p>The syntax you know — <code>async</code>/<code>await</code> — but powered by <code>Future</code>s and a runtime like Tokio instead of a single event loop. True multi-threaded, fearless concurrency the borrow checker guarantees is data-race free.</p>
+      <div class="tags"><span class="tag">[tokio]</span><span class="tag">[futures]</span><span class="tag">[join]</span><span class="tag">[no_event_loop]</span></div>
+    </div>
+    <div class="code-window">
+      <div class="cw-bar"><span class="cw-dots"></span><span class="cw-title">async.rs</span></div>
+      <Code code={asyncCode} lang="rust" frame="none" />
+    </div>
+  </div>
+</div>
+
+<span class="section-label">// why_this_guide</span>
+## built for people who already ship
+
+<div class="feature-grid">
+  <div class="feature-card">
+    <span class="fc-icon"><Icon name="translate" /></span>
+    <h3 class="fc-title">Learn by translation</h3>
+    <p class="fc-body">Every topic opens with the TypeScript you'd write, then the Rust equivalent — you map new ideas onto ones you already own.</p>
+  </div>
+  <div class="feature-card">
+    <span class="fc-icon"><Icon name="approve-check" /></span>
+    <h3 class="fc-title">Honest about trade-offs</h3>
+    <p class="fc-body">No "10× faster" hype. Real benchmarks, real <code>rustc</code> errors, and clear guidance on when Rust is — and isn't — the right call.</p>
+  </div>
+  <div class="feature-card">
+    <span class="fc-icon"><Icon name="open-book" /></span>
+    <h3 class="fc-title">Production-grade, end to end</h3>
+    <p class="fc-body">Ownership and the borrow checker through async/Tokio, Serde, Axum, databases, CLI tools, security, and WebAssembly.</p>
+  </div>
+  <div class="feature-card">
+    <span class="fc-icon"><Icon name="rocket" /></span>
+    <h3 class="fc-title">Code you can run</h3>
+    <p class="fc-body">Six full capstone crates — REST API, CLI, WASM app, WebSocket chat, microservice, and a full-stack app — all compile on stable Rust.</p>
+  </div>
+</div>
+
+<span class="section-label">// pick_your_path</span>
+## choose how deep you go
+
+<div class="path-grid">
+  <div class="path-card">
+    <div class="path-head"><span class="path-name">quick/</span><span class="path-hours">20–30h</span></div>
+    <p class="path-body">The essentials: syntax, <strong>ownership</strong>, error handling, async, and a first web API. Chapters 01–05, 08, 11, 16.</p>
+    <div class="depth-meter" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+  </div>
+  <div class="path-card path-card--featured">
+    <div class="path-head"><span class="path-name">standard/ <b class="popular">popular</b></span><span class="path-hours">60–80h</span></div>
+    <p class="path-body">Read <strong>00–19</strong> in order, skim the advanced topics, and build a couple of the capstone projects.</p>
+    <div class="depth-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></div>
+  </div>
+  <div class="path-card">
+    <div class="path-head"><span class="path-name">complete/</span><span class="path-hours">120–150h</span></div>
+    <p class="path-body">All <strong>31 chapters</strong> plus the six projects, front to back: the full systems-to-web journey.</p>
+    <div class="depth-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+  </div>
+</div>
+
+<span class="section-label">// start_here</span>
+## your first four pages
+
+<div class="start-list">
+  <a class="start-item" href="/00-introduction/">
+    <span class="start-num">01</span>
+    <span class="start-body">
+      <span class="start-title">Introduction<span class="start-route">/00-introduction/</span></span>
+      <span class="start-desc">who this is for and how to read it</span>
+    </span>
+    <span class="start-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="start-item" href="/01-getting-started/00-why-rust/">
+    <span class="start-num">02</span>
+    <span class="start-body">
+      <span class="start-title">Why Rust for TS/JS developers<span class="start-route">/01-getting-started/00-why-rust/</span></span>
+      <span class="start-desc">the motivation, in your terms</span>
+    </span>
+    <span class="start-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="start-item" href="/01-getting-started/">
+    <span class="start-num">03</span>
+    <span class="start-body">
+      <span class="start-title">Getting Started<span class="start-route">/01-getting-started/</span></span>
+      <span class="start-desc">install Rust and run your first program</span>
+    </span>
+    <span class="start-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="start-item" href="/05-ownership/">
+    <span class="start-num">04</span>
+    <span class="start-body">
+      <span class="start-title">Ownership<span class="start-route">/05-ownership/</span></span>
+      <span class="start-desc">the one idea that makes Rust click</span>
+    </span>
+    <span class="start-arrow" aria-hidden="true">→</span>
+  </a>
+</div>
+
+<p class="start-foot">Prefer to learn by building? <a href="/30-projects/">Jump straight to the complete projects →</a></p>
+
+<div class="final-cta">
+
+## ready to think in Rust?
+
+It's free, it's complete, and it meets you exactly where you are — with the TypeScript you already know.
+
+<div class="final-cta-actions">
+  <LinkButton href="/00-introduction/" variant="primary" icon="right-arrow">start reading</LinkButton>
+  <LinkButton href="/30-projects/" variant="minimal" icon="open-book">browse the projects</LinkButton>
+</div>
+
+<div class="final-cta-meta"><span>github.com/zeybek/rs4ts</span> · <span>MIT licensed</span> · <span>no tracking</span></div>
+
+</div>
+
+<footer class="landing-footer">
+  <div class="lf-wrap">
+    <div class="lf-top">
+      <div class="lf-brand">
+        <div class="lf-logo"><span class="lf-mark">&gt;_</span><span class="lf-word">rs<span class="lf-accent">4</span>ts</span></div>
+        <p class="lf-tagline">Learn Rust by mapping every concept back to the TypeScript and JavaScript you already know.</p>
+      </div>
+      <div class="lf-social">
+        <a class="lf-soc" href="https://github.com/zeybek/rs4ts" target="_blank" rel="noopener" aria-label="GitHub repository"><Icon name="github" /></a>
+        <a class="lf-soc" href="https://github.com/zeybek/rs4ts/stargazers" target="_blank" rel="noopener" aria-label="Star on GitHub"><Icon name="star" /></a>
+        <a class="lf-soc" href="/llms.txt" aria-label="llms.txt for LLMs & coding agents"><Icon name="document" /></a>
+      </div>
+    </div>
+    <nav class="lf-links" aria-label="Footer">
+      <a href="/00-introduction/">start reading</a>
+      <a href="/30-projects/">projects</a>
+      <a href="/29-migration-guide/">migration</a>
+      <a href="https://github.com/zeybek/rs4ts/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">contributing</a>
+      <a href="https://github.com/zeybek/rs4ts/blob/main/LICENSE" target="_blank" rel="noopener">license</a>
+    </nav>
+    <div class="lf-divider"></div>
+    <div class="lf-bottom">
+      <span>© 2026 rs4ts.dev · MIT licensed · built by <a href="https://github.com/zeybek" target="_blank" rel="noopener">zeybek</a></span>
+      <span>every example compiles on stable Rust</span>
+    </div>
+  </div>
+</footer>
+
+<LandingEffects />

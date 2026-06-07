@@ -1,0 +1,14 @@
+# Cloudflare static-asset response headers (Workers/Pages `_headers` format).
+# Our deploy is pure-static (no Worker script), so these apply to every asset.
+
+# The generated llms*.txt files are plain-text mirrors of the docs for AI/coding
+# agents (Cursor, Cline, etc.). Keep them fetchable by crawlers, but OUT of
+# Google's web index — they are not pages meant to rank, and indexing them would
+# just create thin/duplicate results. (Verified 2026: llms.txt is not an SEO/GEO
+# citation lever — it exists only for the IDE-agent audience.)
+/llms.txt
+  X-Robots-Tag: noindex
+/llms-full.txt
+  X-Robots-Tag: noindex
+/llms-small.txt
+  X-Robots-Tag: noindex

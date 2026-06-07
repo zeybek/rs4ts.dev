@@ -1,0 +1,49 @@
+---
+
+import Search from '@astrojs/starlight/components/Search.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import { Icon } from '@astrojs/starlight/components';
+
+const path = Astro.url.pathname;
+const isLanding = Astro.locals.starlightRoute.entry.data.template === 'splash';
+
+const links = [
+	{ label: 'guide', href: '/00-introduction/', match: '/00-introduction' },
+	{ label: 'why rust?', href: '/01-getting-started/00-why-rust/', match: '/01-getting-started/00-why-rust' },
+	{ label: 'projects', href: '/30-projects/', match: '/30-projects' },
+	{ label: 'migration', href: '/29-migration-guide/', match: '/29-migration-guide' },
+];
+---
+
+{
+	!isLanding && (
+		<div class="landing-nav">
+			<a class="ln-brand" href="/">
+				<span class="ln-mark">&gt;_</span>
+				<span class="ln-word">rs<span class="ln-accent">4</span>ts</span>
+			</a>
+			<nav class="ln-links" aria-label="Primary">
+				{links.map((l) => (
+					<a href={l.href} aria-current={path.startsWith(l.match) ? 'page' : undefined}>
+						{l.label}
+					</a>
+				))}
+			</nav>
+			<div class="ln-actions">
+				<div class="ln-search">
+					<Search />
+				</div>
+				<a
+					class="ln-icon"
+					href="https://github.com/zeybek/rs4ts"
+					target="_blank"
+					rel="noopener"
+					aria-label="GitHub repository"
+				>
+					<Icon name="github" />
+				</a>
+				<ThemeSelect />
+			</div>
+		</div>
+	)
+}

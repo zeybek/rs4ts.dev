@@ -1,0 +1,218 @@
+---
+import EditLink from "@astrojs/starlight/components/EditLink.astro";
+import LastUpdated from "@astrojs/starlight/components/LastUpdated.astro";
+import Pagination from "./Pagination.astro";
+import { contributorsForPathname } from "../lib/contributors.mjs";
+
+const isHome = Astro.url.pathname.replace(/\/+$/, "") === "";
+const contributors = isHome ? [] : contributorsForPathname(Astro.url.pathname);
+
+const ranked = [...contributors].sort(
+	(a, b) =>
+		(b.commits || 0) - (a.commits || 0) ||
+		(b.additions || 0) + (b.deletions || 0) - ((a.additions || 0) + (a.deletions || 0)),
+);
+const split = ranked.length > 3;
+const top = split ? ranked.slice(0, 3) : ranked;
+const rest = split ? ranked.slice(3) : [];
+const maxCommits = Math.max(1, ...top.map((c) => c.commits || 0));
+
+const meta = (c) => `${c.commits || 0} commit${c.commits === 1 ? "" : "s"} · +${c.additions || 0} / -${c.deletions || 0} lines`;
+---
+
+{
+	ranked.length > 1 && (
+		<div class="page-contributors">
+			<span class="pc-label">Contributors</span>
+			<ul class="pc-list">
+				{top.map((c) => {
+					const commits = c.commits || 0;
+					const pct = Math.max(4, Math.round((commits / maxCommits) * 100));
+					return (
+						<li class="pc-row" title={meta(c)}>
+							{c.url ? (
+								<a href={c.url} class="pc-who" target="_blank" rel="noopener">
+									{c.avatar && (
+										<img class="pc-img" src={c.avatar} alt={c.name} width="24" height="24" loading="lazy" />
+									)}
+									<span class="pc-name">{c.name}</span>
+								</a>
+							) : (
+								<span class="pc-who">
+									{c.avatar && (
+										<img class="pc-img" src={c.avatar} alt={c.name} width="24" height="24" loading="lazy" />
+									)}
+									<span class="pc-name">{c.name}</span>
+								</span>
+							)}
+							<span class="pc-meter" aria-hidden="true">
+								<span class="pc-meter-fill" style={`width:${pct}%`} />
+							</span>
+							<span class="pc-count">{`${commits} ${commits === 1 ? "commit" : "commits"}`}</span>
+						</li>
+					);
+				})}
+			</ul>
+			{rest.length > 0 && (
+				<ul class="pc-rest">
+					{rest.map((c) => (
+						<li title={meta(c)}>
+							{c.url ? (
+								<a href={c.url} class="pc-chip" target="_blank" rel="noopener">
+									{c.avatar && (
+										<img class="pc-chip-img" src={c.avatar} alt={c.name} width="20" height="20" loading="lazy" />
+									)}
+									<span>{c.name}</span>
+								</a>
+							) : (
+								<span class="pc-chip">
+									{c.avatar && (
+										<img class="pc-chip-img" src={c.avatar} alt={c.name} width="20" height="20" loading="lazy" />
+									)}
+									<span>{c.name}</span>
+								</span>
+							)}
+						</li>
+					))}
+				</ul>
+			)}
+		</div>
+	)
+}
+
+<footer class="sl-flex">
+	<div class="meta sl-flex">
+		<EditLink />
+		<LastUpdated />
+	</div>
+	<Pagination />
+</footer>
+
+<style>
+	footer {
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	.meta {
+		gap: 0.75rem 3rem;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		margin-top: 3rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	.meta > :global(p:only-child) {
+		margin-inline-start: auto;
+	}
+	.page-contributors {
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--sl-color-hairline);
+	}
+	.pc-label {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: var(--sl-text-xs);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--sl-color-gray-4);
+		margin-bottom: 1rem;
+	}
+	.pc-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.6rem;
+	}
+	.pc-row {
+		display: grid;
+		grid-template-columns: minmax(9rem, 16rem) minmax(2rem, 1fr) auto;
+		align-items: center;
+		gap: 0.9rem;
+	}
+	.pc-who {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		min-width: 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+	}
+	.pc-who:hover {
+		color: var(--accent);
+	}
+	.pc-name {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.pc-img {
+		width: 24px;
+		height: 24px;
+		flex-shrink: 0;
+		display: block;
+		object-fit: cover;
+		border-radius: 50%;
+		border: 1px solid var(--accent);
+		background: var(--sl-color-gray-6);
+	}
+	.pc-meter {
+		position: relative;
+		height: 6px;
+		background: var(--sl-color-gray-6);
+		border: 1px solid var(--sl-color-hairline);
+		overflow: hidden;
+	}
+	.pc-meter-fill {
+		position: absolute;
+		inset-block: 0;
+		inset-inline-start: 0;
+		background: var(--accent);
+	}
+	.pc-count {
+		font-family: var(--font-mono);
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-4);
+		white-space: nowrap;
+	}
+	.pc-rest {
+		list-style: none;
+		padding: 1.1rem 0 0;
+		margin: 1.1rem 0 0;
+		border-top: 1px dashed var(--sl-color-hairline);
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem 1.25rem;
+	}
+	.pc-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+	}
+	.pc-chip:hover {
+		color: var(--accent);
+	}
+	.pc-chip-img {
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+		display: block;
+		object-fit: cover;
+		border-radius: 50%;
+		border: 1px solid var(--accent);
+		background: var(--sl-color-gray-6);
+	}
+	@media (max-width: 30rem) {
+		.pc-row {
+			grid-template-columns: minmax(0, 1fr) auto;
+		}
+		.pc-meter {
+			display: none;
+		}
+	}
+</style>
