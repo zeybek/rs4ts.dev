@@ -24,6 +24,7 @@ The current stable toolchain is Rust 1.96.0 on the latest stable edition (2024);
 - How to manage connection pools: `sqlx::Pool`, the generic `deadpool`/`bb8` poolers, and the sizing and lifecycle knobs that keep a service healthy under load
 - How to run database migrations with `sqlx migrate` and Diesel's migration system — up/down scripts and running them at startup
 - How to choose between SQLx, Diesel, and SeaORM for a given project
+- How SeaORM's async ActiveRecord style works in depth: entities, `ActiveModel` writes, relations without N+1, transactions, and `sea-orm-cli` codegen
 
 ---
 
@@ -42,6 +43,7 @@ The current stable toolchain is Rust 1.96.0 on the latest stable edition (2024);
 | [Connection Pooling](/17-database/08-connection-pooling/) | Connection pool management: `sqlx::Pool`, `deadpool`/`bb8`, and sizing and lifecycle. |
 | [Migrations](/17-database/09-migrations/) | Database migrations: `sqlx migrate` and Diesel migrations; up/down scripts and running at startup. |
 | [ORM Comparison](/17-database/10-orm-comparison/) | Comparing SQLx vs Diesel vs SeaORM: compile-checked SQL vs ORM ergonomics, and when to use which. |
+| [SeaORM](/17-database/11-sea-orm/) | The async ActiveRecord ORM in depth: entities, ActiveModels, relations, transactions, and `sea-orm-cli` codegen. |
 
 ---
 
@@ -59,6 +61,7 @@ By the end of this section, you will be able to:
 - Configure a connection pool with appropriate size, timeouts, and lifetimes, and share it across handlers as a cheap clonable handle
 - Author and run up/down migrations with both SQLx and Diesel, including at application startup
 - Pick the right database layer — compile-checked SQL vs. ORM ergonomics — for a given project and justify the choice
+- Model entities, relations, and transactional writes in SeaORM's async ActiveRecord style, and generate entities from a live schema with `sea-orm-cli`
 
 ---
 
@@ -75,7 +78,7 @@ A working knowledge of [error handling](/08-error-handling/) (`Result`, `?`, `an
 
 Approximately **14 hours**, including reading, hands-on practice, and the per-topic exercises.
 
-> **Tip:** If you only have time for one track, read `sqlx-intro` → `sqlx-queries` → `sqlx-transactions` → `connection-pooling` → `migrations`. That is the most common path for a new Rust web service. Treat the Diesel pages, MongoDB, and Redis as a toolbox to reach for when a specific need arises, and read `orm-comparison` once to make the SQLx-vs-Diesel-vs-SeaORM decision deliberately.
+> **Tip:** If you only have time for one track, read `sqlx-intro` → `sqlx-queries` → `sqlx-transactions` → `connection-pooling` → `migrations`. That is the most common path for a new Rust web service. Treat the Diesel pages, MongoDB, and Redis as a toolbox to reach for when a specific need arises, read `orm-comparison` once to make the SQLx-vs-Diesel-vs-SeaORM decision deliberately, and go deeper with the `sea-orm` page if that decision lands on SeaORM.
 
 ---
 

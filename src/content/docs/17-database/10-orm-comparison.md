@@ -13,7 +13,7 @@ The three crates answer "what is the right abstraction for SQL?" differently:
 
 - **SQLx**: you write **raw SQL strings**, and (with its macros) the compiler checks them against your real database schema at build time. Async. Not an ORM.
 - **Diesel**: a **synchronous ORM and typed query builder**. You build queries through a strongly typed DSL that the compiler validates; there is no async by default.
-- **SeaORM**: an **async, ActiveRecord-style ORM** built on top of SQLx. It gives you entities, an `ActiveModel` write pattern, relations, and a dynamic query builder, with `async`/`await` throughout.
+- **SeaORM**: an **async, ActiveRecord-style ORM** built on top of SQLx. It gives you entities, an `ActiveModel` write pattern, relations, and a dynamic query builder, with `async`/`await` throughout. (Deep dive: [SeaORM](/17-database/11-sea-orm/).)
 
 For a TypeScript developer the rough map is: **SQLx is "Knex, but the compiler checks your SQL"**, **Diesel is "TypeORM, but synchronous and statically typed end-to-end"**, and **SeaORM is "TypeORM/Prisma ergonomics that stay async."** This page builds a shared example across all three and gives you a decision framework.
 

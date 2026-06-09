@@ -273,7 +273,7 @@ Each SQLx call returns a `Result<_, sqlx::Error>`. The `?` operator forwards a f
 | Relations / eager loading | first-class (`include`, `relations`) | none; you write the `JOIN` yourself |
 | Connection pool | configured object, often a singleton | `Pool<DB>`, a cheap clonable `Arc` |
 
-The mental model to adopt: **SQLx is closer to a really good driver than to Prisma.** If you want the ORM experience (entities, a query DSL, associations), that is [Diesel](/17-database/03-diesel-intro/) or [SeaORM](/17-database/10-orm-comparison/). SQLx's bet is that *SQL is the right abstraction* and the compiler should check it for you.
+The mental model to adopt: **SQLx is closer to a really good driver than to Prisma.** If you want the ORM experience (entities, a query DSL, associations), that is [Diesel](/17-database/03-diesel-intro/) or [SeaORM](/17-database/11-sea-orm/). SQLx's bet is that *SQL is the right abstraction* and the compiler should check it for you.
 
 > **Tip:** "Compile-time-checked" does not mean "compiled into the binary with no database." It means the macro phoned a live database during `cargo build`. For builds in CI or Docker where no database is reachable, SQLx supports **offline mode**: run `cargo sqlx prepare` to cache the query metadata into a `.sqlx/` directory that you commit, and the macros validate against that cache instead. More in [Migrations](/17-database/09-migrations/) and the SQLx docs.
 
