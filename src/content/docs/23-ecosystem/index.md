@@ -36,7 +36,7 @@ Coming from Node, you lean on npm: Express for web, axios for HTTP, winston for 
 | [Tracing](/23-ecosystem/04-tracing/) | Structured logging and spans with `tracing` + `tracing-subscriber`: `#[instrument]` and JSON logs. |
 | [Documentation](/23-ecosystem/05-documentation/) | JSDoc → rustdoc: doc comments, intra-doc links, examples-as-tests, and publishing to docs.rs. |
 | [HTTP Clients](/23-ecosystem/06-http-clients/) | axios/fetch → reqwest (and a note on hyper): JSON GET/POST, headers, and async client reuse. |
-| [Date and Time](/23-ecosystem/07-date-time/) | `Date` → chrono and the time crate: parsing/formatting, time zones, and durations. |
+| [Date and Time](/23-ecosystem/07-date-time/) | `Date` → chrono, time, and jiff: parsing/formatting, time zones, and durations. |
 | [Regular Expressions](/23-ecosystem/08-regex/) | The regex crate: compile-once, captures, and the linear-time no-backtracking guarantee. |
 | [Parsing](/23-ecosystem/09-parsing/) | Parser combinators with nom and pest, and when to reach for a real parser over a regex. |
 | [Useful Crates](/23-ecosystem/10-useful-crates/) | Other essentials: itertools, rayon, once_cell/LazyLock, uuid, indexmap, bytes, dashmap. |

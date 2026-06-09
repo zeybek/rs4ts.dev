@@ -1,11 +1,11 @@
 ---
-title: "Date and Time: chrono and the time Crate"
-description: "Map JavaScript's single Date to Rust's chrono and time crates, where the type encodes the time zone: parse RFC 3339, format, and do zone-aware arithmetic."
+title: "Date and Time: chrono, time, and jiff"
+description: "Map JavaScript's single Date to Rust's chrono, time, and jiff crates, where the type encodes the time zone: parse RFC 3339, format, and do zone-aware arithmetic."
 ---
 
 ## Quick Overview
 
-JavaScript gives you one built-in `Date` object (plus `Intl` for formatting and, increasingly, the `Temporal` proposal), and most Node projects reach for **date-fns**, **Luxon**, or **Day.js** to make it bearable. Rust's standard library deliberately ships only a minimal `std::time` (monotonic clocks and `Duration`, but no calendar), so for real-world dates you pick a crate: **chrono** (the long-standing, feature-rich default) or **time** (a leaner, `const`-friendly alternative). This page shows how a TypeScript developer maps `Date`, ISO parsing, formatting, time zones, and durations onto both, and which one to choose.
+JavaScript gives you one built-in `Date` object (plus `Intl` for formatting and, increasingly, the `Temporal` proposal), and most Node projects reach for **date-fns**, **Luxon**, or **Day.js** to make it bearable. Rust's standard library deliberately ships only a minimal `std::time` (monotonic clocks and `Duration`, but no calendar), so for real-world dates you pick a crate: **chrono** (the long-standing, feature-rich default), **time** (a leaner, `const`-friendly alternative), or **jiff** (the newest of the three — explicitly modeled on JavaScript's Temporal API). This page shows how a TypeScript developer maps `Date`, ISO parsing, formatting, time zones, and durations onto them, and which one to choose.
 
 > **Note:** `std::time::SystemTime` and `std::time::Instant` exist, but they have no notion of years, months, or time zones — they are for measuring elapsed time, not for calendars. For anything a `Date` does, you want a crate.
 
@@ -478,17 +478,54 @@ fn main() {
 }
 ```
 
-How to choose:
+> **Warning:** Getting the *local* offset is a subtle area. `time`'s `OffsetDateTime::now_local()` can fail (and is disabled on some multi-threaded Unix builds for soundness reasons), returning an `Err` you must handle. chrono's `Local::now()` is more forgiving. If you only ever work in UTC, neither concern applies.
+
+---
+
+## The `jiff` crate: Temporal, in Rust
+
+**jiff** (by Andrew Gallant, the author of ripgrep and the `regex` crate) is the newest of the three and the one most likely to feel *designed for you* as a TypeScript developer: its API is explicitly modeled on JavaScript's [Temporal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) proposal. Its headline feature is the `Zoned` type — an instant that *carries its IANA time zone with it* (like `Temporal.ZonedDateTime`), so arithmetic is DST-correct by default and the zone survives serialization. jiff also bundles the IANA database, so named zones work out of the box without a separate `-tz` crate.
+
+```toml
+# cargo add jiff --features serde
+[dependencies]
+jiff = { version = "0.2", features = ["serde"] }
+```
+
+```rust
+use jiff::{Timestamp, ToSpan};
+
+fn main() -> Result<(), jiff::Error> {
+    // Parse an instant — the Temporal.Instant analogue.
+    let ts: Timestamp = "2026-06-02T14:30:00Z".parse()?;
+
+    // Attach a named zone — now it is a Zoned (Temporal.ZonedDateTime).
+    let ny = ts.in_tz("America/New_York")?;
+    println!("{ny}"); // 2026-06-02T10:30:00-04:00[America/New_York]
+
+    // Calendar-aware, DST-correct arithmetic with a Span (Temporal.Duration).
+    let next_month = ny.checked_add(1.month())?;
+    println!("{next_month}");
+
+    // strftime-style formatting is there when you want it.
+    println!("{}", ny.strftime("%Y-%m-%d %H:%M %Z"));
+    Ok(())
+}
+```
+
+The type mapping is the most direct of any Rust date crate: `Timestamp` ≈ `Temporal.Instant`, `Zoned` ≈ `Temporal.ZonedDateTime`, `civil::Date`/`civil::Time`/`civil::DateTime` ≈ `Temporal.PlainDate`/`PlainTime`/`PlainDateTime`, and `Span` ≈ `Temporal.Duration` (it keeps calendar units like "1 month 2 days" distinct instead of collapsing everything to seconds). Note the `Zoned` display format above — instant, offset, *and* zone name — round-trips losslessly, exactly like Temporal's string format.
+
+How to choose between the three:
 
 | Need | Prefer |
 | --- | --- |
-| Named IANA zones (`America/New_York`) out of the box | **chrono** (+ chrono-tz) |
-| Broadest ecosystem / `strftime` familiarity | **chrono** |
+| Temporal-style API, zones bundled, DST-correct by default | **jiff** |
+| Broadest ecosystem integration (many crates take/return chrono types) | **chrono** (+ chrono-tz) |
+| `strftime` familiarity, long-standing default | **chrono** |
 | `const` datetimes, leaner deps, no unsafe | **time** |
-| A crate that minimizes its own dependencies | **time** |
-| WASM / restricted targets | either, but **time** is common |
+| WASM / restricted targets | **time** or **jiff** (with its `js` feature) |
 
-> **Warning:** Getting the *local* offset is a subtle area. `time`'s `OffsetDateTime::now_local()` can fail (and is disabled on some multi-threaded Unix builds for soundness reasons), returning an `Err` you must handle. chrono's `Local::now()` is more forgiving. If you only ever work in UTC, neither concern applies.
+For a *new* application, jiff is an excellent first choice — especially if you already think in Temporal. The practical reason to still pick chrono is ecosystem gravity: many database drivers, ORMs, and API crates speak chrono types natively, and converting at every boundary gets old.
 
 ---
 
@@ -499,6 +536,8 @@ How to choose:
 - [chrono-tz on docs.rs](https://docs.rs/chrono-tz/latest/chrono_tz/) — the IANA time-zone database.
 - [time on docs.rs](https://docs.rs/time/latest/time/): the alternative crate's reference.
 - [The `time` book](https://time-rs.github.io/book/) — format descriptions and design rationale.
+- [jiff on docs.rs](https://docs.rs/jiff/latest/jiff/) — the Temporal-inspired crate's reference.
+- [jiff's comparison with chrono and time](https://github.com/BurntSushi/jiff/blob/master/COMPARE.md) — a detailed, honest design comparison by jiff's author.
 - Related guide sections:
   - [Popular Crates and the npm Packages They Replace](/23-ecosystem/00-popular-crates/): where chrono and time sit in the wider ecosystem.
   - [Section 02: Basic Types](/02-basics/01-types/): why Rust prefers many precise types over one `number`.

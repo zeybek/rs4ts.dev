@@ -139,7 +139,7 @@ The fastest way to get oriented is a translation table. Reach for the Rust colum
 | CLI args | `commander`, `yargs`, `minimist` | **clap** | Derive structs straight from `--flags`. |
 | Error context | `Error`, custom error classes | **anyhow** (apps), **thiserror** (libraries) | Two crates, two jobs; see below. |
 | Logging | `winston`, `pino`, `debug` | **log** + `env_logger`, **tracing** | See [Logging with the `log` Facade and `env_logger`](/23-ecosystem/03-logging/), [Structured Logging and Spans with `tracing`](/23-ecosystem/04-tracing/). |
-| Date / time | `date-fns`, `dayjs`, `luxon`, `moment` | **chrono**, **time** | See [Date and Time](/23-ecosystem/07-date-time/). |
+| Date / time | `date-fns`, `dayjs`, `luxon`, `Temporal` | **chrono**, **time**, **jiff** | jiff mirrors the Temporal API — see [Date and Time](/23-ecosystem/07-date-time/). |
 | Regex | built-in `RegExp` | **regex** | Linear-time, no catastrophic backtracking — see [Regular Expressions with the `regex` Crate](/23-ecosystem/08-regex/). |
 | UUID | `uuid` | **uuid** | See [Other Essential Crates](/23-ecosystem/10-useful-crates/). |
 | `.env` files | `dotenv` | **dotenvy** | Maintained fork of the original `dotenv` crate. |
