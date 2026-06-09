@@ -18,8 +18,9 @@ use url_shortener::{routes, shutdown, telemetry};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // 1. Load configuration from the environment (with defaults).
-    let settings = Settings::from_env();
+    // 1. Load configuration from the environment. Absent variables fall back
+    //    to defaults; malformed ones abort startup (fail fast, Section 28).
+    let settings = Settings::from_env()?;
 
     // 2. Bring up structured logging before anything else can emit events.
     telemetry::init(&settings);

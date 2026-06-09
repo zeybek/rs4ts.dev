@@ -13,9 +13,10 @@ use crate::state::AppState;
 
 /// Build the complete application router from shared state.
 ///
-/// The layer order matters: layers added later wrap the handlers more tightly,
-/// so `TraceLayer` (added first here) sits outermost and sees every request,
-/// while `TimeoutLayer` runs closer to the handler. This is the typed,
+/// The layer order matters: each `.layer(...)` call wraps everything added
+/// before it, so the layer added **last** is the **outermost**. Here
+/// `TraceLayer` (added last) sits outermost and sees every request, while
+/// `TimeoutLayer` (added first) runs closer to the handler. This is the typed,
 /// compile-checked version of `app.use(...)` middleware stacking in Express.
 pub fn build_router(state: AppState) -> Router {
     let timeout = state.settings.request_timeout;

@@ -65,8 +65,10 @@ pub async fn update_task(
     let Json(input) = payload?;
     input.validate()?;
 
-    // Load, mutate, write back. With a real DB this would be a single
-    // `UPDATE ... RETURNING *`.
+    // Load, mutate, write back. Note this read-then-write is NOT atomic:
+    // two concurrent PUTs to the same id can interleave and one update wins
+    // (a lost update). Fine for this in-memory demo; with a real DB you'd
+    // make it a single `UPDATE ... RETURNING *` or use optimistic versioning.
     let mut task = store.get(id).ok_or(AppError::NotFound)?;
     input.apply_to(&mut task);
     let updated = store.update(id, task).ok_or(AppError::NotFound)?;

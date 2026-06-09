@@ -18,7 +18,8 @@ async fn spawn_app() -> String {
         std::env::set_var("RUST_LOG", "warn");
     }
 
-    let settings = url_shortener::config::Settings::from_env();
+    let settings =
+        url_shortener::config::Settings::from_env().expect("test env config must be valid");
     let state = url_shortener::state::AppState::new(settings);
     let app = url_shortener::routes::build_router(state);
 

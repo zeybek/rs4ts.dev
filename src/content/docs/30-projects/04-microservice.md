@@ -143,7 +143,7 @@ cargo add tracing@0.1
 cargo add tracing-subscriber@0.3 --features env-filter,json
 cargo add thiserror@2
 cargo add rand@0.9
-cargo add --dev reqwest@0.12 --no-default-features --features json,rustls-tls
+cargo add --dev reqwest@0.13 --no-default-features --features json
 ```
 
 The resulting `Cargo.toml`:
@@ -167,7 +167,8 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 
 [dev-dependencies]
-reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+# Plain-HTTP test client (no TLS needed against 127.0.0.1).
+reqwest = { version = "0.13", default-features = false, features = ["json"] }
 ```
 
 > [!NOTE]
@@ -183,26 +184,49 @@ reqwest = { version = "0.12", default-features = false, features = ["json", "rus
 
 A production service must be configurable without recompiling. The Node pattern
 is `dotenv` to load `.env` into `process.env`, then `zod`/`convict` to parse and
-validate. Here we centralise all of that in one strongly-typed `Settings` struct
-whose constructor never panics — every field has a default, so the service boots
-even with an empty environment.
+validate. Here we centralise all of that in one strongly-typed `Settings`
+struct. The policy follows [Section 28's fail-fast rule](/28-production/00-configuration/):
+a variable that is *absent* falls back to a default (the service boots with an
+empty environment), but a variable that is present and *malformed* aborts
+startup with a typed error instead of silently running on a value you did not
+ask for.
 
 ```rust
 //! Layered application configuration.
 //!
-//! Settings are resolved from environment variables, falling back to sane
-//! defaults when a variable is absent or cannot be parsed. This mirrors the
+//! Settings are resolved from environment variables. A variable that is
+//! *absent* falls back to a sane default, but a variable that is present and
+//! *malformed* is a startup error: the service refuses to boot rather than
+//! silently running with a value you did not ask for. This mirrors the
 //! `dotenv` + `convict`/`zod`-validated `process.env` pattern common in Node
 //! services, but with parsing and validation centralised in one typed struct.
 
 use std::env;
-use std::net::{IpAddr, Ipv4Addr, SocketAddr};
+use std::net::{IpAddr, SocketAddr};
+use std::str::FromStr;
 use std::time::Duration;
+
+/// Error returned when an environment variable is present but invalid.
+///
+/// Surfacing this at startup (instead of falling back to a default) is the
+/// "fail fast" rule from Section 28: a mistyped `PORT=eighty` should be a
+/// loud boot failure, not a service quietly listening on 8080.
+#[derive(Debug, thiserror::Error)]
+#[error("invalid value for {key}: {value:?} ({reason})")]
+pub struct ConfigError {
+    /// Name of the offending environment variable.
+    pub key: &'static str,
+    /// The raw value found in the environment.
+    pub value: String,
+    /// Why the value was rejected.
+    pub reason: String,
+}
 
 /// Strongly-typed application settings.
 ///
-/// Construct with [`Settings::from_env`], which never panics: every field has a
-/// default, so a service started with an empty environment still boots.
+/// Construct with [`Settings::from_env`]. Every field has a default, so a
+/// service started with an *empty* environment still boots — but any variable
+/// that is set must parse, or startup fails with a [`ConfigError`].
 #[derive(Debug, Clone)]
 pub struct Settings {
     /// Address the HTTP server binds to (host + port).
@@ -213,7 +237,7 @@ pub struct Settings {
     pub code_length: usize,
     /// Per-request timeout applied by the Tower timeout layer.
     pub request_timeout: Duration,
-    /// Log output format: `json` for structured logs, anything else for pretty.
+    /// Log output format: `json` for structured logs, `pretty` for development.
     pub log_format: LogFormat,
     /// Logging filter directive (the value normally found in `RUST_LOG`).
     pub log_filter: String,
@@ -229,23 +253,28 @@ pub enum LogFormat {
 }
 
 impl Settings {
-    /// Build [`Settings`] from environment variables with defaults applied.
+    /// Build [`Settings`] from environment variables.
+    ///
+    /// Absent variables get the defaults below; present-but-invalid variables
+    /// fail loudly.
     ///
     /// Recognised variables:
-    /// - `HOST` (default `0.0.0.0`)
+    /// - `HOST` (default `0.0.0.0`; must be an IP address)
     /// - `PORT` (default `8080`)
     /// - `BASE_URL` (default derived from host + port)
-    /// - `CODE_LENGTH` (default `7`)
+    /// - `CODE_LENGTH` (default `7`; must be 4..=32)
     /// - `REQUEST_TIMEOUT_SECS` (default `15`)
     /// - `LOG_FORMAT` (`json` | `pretty`, default `json`)
     /// - `RUST_LOG` (default `info,url_shortener=debug,tower_http=info`)
-    pub fn from_env() -> Self {
+    pub fn from_env() -> Result<Self, ConfigError> {
         let host = env_var("HOST").unwrap_or_else(|| "0.0.0.0".to_string());
-        let port = parse_or("PORT", 8080u16);
+        let port = parse_var("PORT", 8080u16)?;
 
-        let ip: IpAddr = host
-            .parse()
-            .unwrap_or(IpAddr::V4(Ipv4Addr::UNSPECIFIED));
+        let ip: IpAddr = host.parse().map_err(|_| ConfigError {
+            key: "HOST",
+            value: host.clone(),
+            reason: "not a valid IP address".to_string(),
+        })?;
         let bind_addr = SocketAddr::new(ip, port);
 
         // A 0.0.0.0 bind is not a usable link host, so advertise localhost.
@@ -253,25 +282,40 @@ impl Settings {
         let base_url =
             env_var("BASE_URL").unwrap_or_else(|| format!("http://{advertised_host}:{port}"));
 
-        let code_length = parse_or("CODE_LENGTH", 7usize).clamp(4, 32);
-        let request_timeout = Duration::from_secs(parse_or("REQUEST_TIMEOUT_SECS", 15u64));
+        let code_length = parse_var("CODE_LENGTH", 7usize)?;
+        if !(4..=32).contains(&code_length) {
+            return Err(ConfigError {
+                key: "CODE_LENGTH",
+                value: code_length.to_string(),
+                reason: "must be between 4 and 32".to_string(),
+            });
+        }
+
+        let request_timeout = Duration::from_secs(parse_var("REQUEST_TIMEOUT_SECS", 15u64)?);
 
         let log_format = match env_var("LOG_FORMAT").as_deref() {
+            None | Some("json") => LogFormat::Json,
             Some("pretty") => LogFormat::Pretty,
-            _ => LogFormat::Json,
+            Some(other) => {
+                return Err(ConfigError {
+                    key: "LOG_FORMAT",
+                    value: other.to_string(),
+                    reason: "expected \"json\" or \"pretty\"".to_string(),
+                })
+            }
         };
 
         let log_filter = env_var("RUST_LOG")
             .unwrap_or_else(|| "info,url_shortener=debug,tower_http=info".to_string());
 
-        Settings {
+        Ok(Settings {
             bind_addr,
             base_url,
             code_length,
             request_timeout,
             log_format,
             log_filter,
-        }
+        })
     }
 }
 
@@ -283,28 +327,41 @@ fn env_var(key: &str) -> Option<String> {
     }
 }
 
-/// Parse an environment variable into `T`, falling back to `default` on any error.
-fn parse_or<T: std::str::FromStr>(key: &str, default: T) -> T {
-    env_var(key)
-        .and_then(|v| v.parse().ok())
-        .unwrap_or(default)
+/// Parse an environment variable into `T`.
+///
+/// Absent → `default`. Present but unparseable → [`ConfigError`] (fail fast).
+fn parse_var<T>(key: &'static str, default: T) -> Result<T, ConfigError>
+where
+    T: FromStr,
+    T::Err: std::fmt::Display,
+{
+    match env_var(key) {
+        None => Ok(default),
+        Some(raw) => raw.parse().map_err(|e: T::Err| ConfigError {
+            key,
+            value: raw.clone(),
+            reason: e.to_string(),
+        }),
+    }
 }
 ```
 
 A few things a TypeScript developer should notice:
 
 - **`process.env.PORT` is `string | undefined`; here `bind_addr` is a real
-  `SocketAddr`.** The `parse_or` helper turns the stringly-typed environment
+  `SocketAddr`.** The `parse_var` helper turns the stringly-typed environment
   into typed values *once*, at the edge. After `from_env`, no handler ever sees
   a raw string or has to remember that `PORT` might be missing. The type system
   guarantees it is a `u16` inside a `SocketAddr`.
-- **`LogFormat` is an `enum`, not a string.** A typo like `LOG_FORMAT=jsno`
-  falls through the `match` to the `Json` default rather than silently
-  mis-configuring a string comparison later.
-- **`.clamp(4, 32)`** bounds the code length so a hostile `CODE_LENGTH=0` or
-  `CODE_LENGTH=99999` can't break the service — validation lives next to the
-  default. See [Section 28: Configuration](/28-production/00-configuration/) for
-  the broader pattern (and how to layer in a `config.toml` file with the
+- **Malformed values fail at startup, not at request time.** `PORT=eighty`
+  refuses to boot with `invalid value for PORT: "eighty"` instead of silently
+  listening on 8080. A typo like `LOG_FORMAT=jsno` is likewise a startup error
+  rather than a silent fallback — the same "loud error at the edge" discipline
+  a strict `zod` schema gives you in Node.
+- **Range validation lives next to the default.** A hostile `CODE_LENGTH=0` or
+  `CODE_LENGTH=99999` is rejected with a clear message. See
+  [Section 28: Configuration](/28-production/00-configuration/) for the broader
+  pattern (and how to layer in a `config.toml` file with the
   [`config`](https://docs.rs/config) crate).
 
 ### Step 3: Structured logging (`telemetry.rs`)
@@ -483,10 +540,13 @@ use crate::error::AppError;
 /// connection pool) — the handlers depend only on this trait, not the concrete
 /// type, so swapping backends does not ripple through the codebase.
 pub trait Store: Send + Sync + 'static {
-    /// Persist `target` under a freshly generated `code` and return the code.
-    fn insert(&self, code: String, target: String) -> Result<(), AppError>;
+    /// Store `target` under `code`. Returns `Ok(true)` if it was stored, or
+    /// `Ok(false)` if `code` was already taken — so the caller can retry with a
+    /// fresh code instead of silently overwriting the existing link.
+    fn insert(&self, code: String, target: String) -> Result<bool, AppError>;
 
-    /// Look up the original URL for a short `code`, incrementing its hit count.
+    /// Look up the original URL for a short `code`, bumping the global redirect
+    /// counter. Takes only a read lock, so many redirects resolve concurrently.
     fn resolve(&self, code: &str) -> Result<Option<String>, AppError>;
 
     /// Total number of links currently stored.
@@ -503,20 +563,16 @@ pub trait Store: Send + Sync + 'static {
     }
 }
 
-/// One stored link: where it points and how often it has been followed.
-#[derive(Debug, Clone)]
-struct Entry {
-    target: String,
-    hits: u64,
-}
-
-/// In-memory [`Store`] backed by an `Arc<RwLock<HashMap>>`.
+/// In-memory [`Store`] backed by an `Arc<RwLock<HashMap>>` mapping each short
+/// code to its target URL.
 ///
 /// `Arc` lets every request handler share one store cheaply; `RwLock` allows
-/// many concurrent readers (redirects) and exclusive writers (new links).
+/// many concurrent readers (redirects) and exclusive writers (new links). A
+/// separate atomic counts total redirects so the read path never needs a write
+/// lock.
 #[derive(Clone, Default)]
 pub struct InMemoryStore {
-    inner: Arc<RwLock<HashMap<String, Entry>>>,
+    inner: Arc<RwLock<HashMap<String, String>>>,
     redirects: Arc<AtomicU64>,
 }
 
@@ -545,19 +601,23 @@ impl InMemoryStore {
 }
 
 impl Store for InMemoryStore {
-    fn insert(&self, code: String, target: String) -> Result<(), AppError> {
+    fn insert(&self, code: String, target: String) -> Result<bool, AppError> {
         let mut map = self.inner.write().map_err(|_| AppError::Store)?;
-        map.insert(code, Entry { target, hits: 0 });
-        Ok(())
+        if map.contains_key(&code) {
+            return Ok(false); // collision — let the caller pick a new code
+        }
+        map.insert(code, target);
+        Ok(true)
     }
 
     fn resolve(&self, code: &str) -> Result<Option<String>, AppError> {
-        let mut map = self.inner.write().map_err(|_| AppError::Store)?;
-        match map.get_mut(code) {
-            Some(entry) => {
-                entry.hits += 1;
+        // A read lock lets concurrent redirects resolve in parallel; the hit
+        // counter is a separate atomic, so no exclusive access is needed.
+        let map = self.inner.read().map_err(|_| AppError::Store)?;
+        match map.get(code) {
+            Some(target) => {
                 self.redirects.fetch_add(1, Ordering::Relaxed);
-                Ok(Some(entry.target.clone()))
+                Ok(Some(target.clone()))
             }
             None => Ok(None),
         }
@@ -618,9 +678,10 @@ Why this shape?
   taking the write lock, using a relaxed atomic add. It is the lock-free
   equivalent of `metrics.increment('redirects')`.
 - **`rand::rng()` + `rng.random_range(..)`** is the rand 0.9 API (the old 0.8
-  `thread_rng()` / `gen_range` names are gone). A real shortener would also
-  guard against the (astronomically unlikely) collision by re-rolling on a
-  duplicate; we keep it simple here.
+  `thread_rng()` / `gen_range` names are gone). A random-code collision is
+  astronomically unlikely but free to handle: `insert` reports it by returning
+  `Ok(false)` instead of overwriting, and the `shorten` handler (Step 7)
+  re-rolls a fresh code.
 - **The `#[cfg(test)]` module** is a *unit* test compiled only in test builds,
   living right next to the code it tests: Rust's answer to a co-located
   `store.test.ts`.
@@ -752,8 +813,19 @@ pub async fn shorten(
 ) -> Result<Json<ShortenResponse>, AppError> {
     let target = validate_url(&payload.url)?;
 
-    let code = InMemoryStore::generate_code(state.settings.code_length);
-    state.store.insert(code.clone(), target.clone())?;
+    // Generate a code and claim it. `insert` returns `false` on the (astronomically
+    // unlikely) chance the random code is already taken, so we retry a few times
+    // instead of silently clobbering an existing link.
+    const MAX_ATTEMPTS: usize = 8;
+    let mut code = None;
+    for _ in 0..MAX_ATTEMPTS {
+        let candidate = InMemoryStore::generate_code(state.settings.code_length);
+        if state.store.insert(candidate.clone(), target.clone())? {
+            code = Some(candidate);
+            break;
+        }
+    }
+    let code = code.ok_or(AppError::Store)?;
 
     let short_url = format!("{}/{}", state.settings.base_url, code);
     tracing::info!(%code, %target, "created short link");
@@ -784,15 +856,26 @@ pub async fn redirect(
 ///
 /// A real service would use the `url` crate for full RFC parsing; this keeps the
 /// example dependency-light while still demonstrating typed validation errors.
+///
+/// Security note: any public shortener is an **open redirector** by design —
+/// it will happily redirect to whatever URL was submitted, which phishers love.
+/// A production deployment should mitigate: require auth on `POST /shorten`,
+/// keep a domain allow/deny list, and/or show an interstitial page instead of
+/// a silent redirect for untrusted targets.
 fn validate_url(raw: &str) -> Result<String, AppError> {
     let trimmed = raw.trim();
     if trimmed.is_empty() {
         return Err(AppError::InvalidUrl("url must not be empty".into()));
     }
-    if !(trimmed.starts_with("http://") || trimmed.starts_with("https://")) {
-        return Err(AppError::InvalidUrl(
-            "url must start with http:// or https://".into(),
-        ));
+    let rest = trimmed
+        .strip_prefix("http://")
+        .or_else(|| trimmed.strip_prefix("https://"))
+        .ok_or_else(|| AppError::InvalidUrl("url must start with http:// or https://".into()))?;
+    // Require a non-empty host before any path/query/fragment, so inputs like
+    // "http://" or "https://?x=1" are rejected rather than stored as dead links.
+    let host = rest.split(['/', '?', '#']).next().unwrap_or("");
+    if host.is_empty() {
+        return Err(AppError::InvalidUrl("url must include a host".into()));
     }
     Ok(trimmed.to_string())
 }
@@ -841,20 +924,22 @@ use axum::extract::State;
 use axum::http::StatusCode;
 use axum::Json;
 
-use crate::error::AppError;
 use crate::models::HealthResponse;
 use crate::state::AppState;
 use crate::store::Store;
 
 /// `GET /health` — liveness. Always returns `200 OK` if the process can route.
-pub async fn health(State(state): State<AppState>) -> Result<Json<HealthResponse>, AppError> {
-    let body = HealthResponse {
+///
+/// Liveness must not depend on store state (that is readiness' job), so the
+/// link count is best-effort: a store hiccup still yields a healthy `200`
+/// rather than triggering a needless restart.
+pub async fn health(State(state): State<AppState>) -> Json<HealthResponse> {
+    Json(HealthResponse {
         status: "ok",
         uptime_secs: state.uptime_secs(),
-        links: state.store.len()?,
+        links: state.store.len().unwrap_or(0),
         redirects: state.store.redirect_count(),
-    };
-    Ok(Json(body))
+    })
 }
 
 /// `GET /ready` — readiness. Probes the store; returns `503` if it is broken.
@@ -885,9 +970,10 @@ pub async fn ready(
 }
 ```
 
-`/health` returns the typed `AppError` path; `/ready` returns a tuple
-`(StatusCode, Json<Value>)` directly to show the alternative — a handler can
-return *any* `IntoResponse`, including an ad-hoc `503` with a `serde_json::json!`
+`/health` returns a plain `Json` — liveness must never depend on the store, so
+a store hiccup is swallowed with `unwrap_or(0)`. `/ready` returns a `Result`
+whose error side is a tuple `(StatusCode, Json<Value>)` — a handler can return
+*any* `IntoResponse`, including an ad-hoc `503` with a `serde_json::json!`
 body. See [Section 28: Health Checks](/28-production/03-health-checks/) for
 deeper probe design (e.g. separating "starting up" from "ready").
 
@@ -911,9 +997,10 @@ use crate::state::AppState;
 
 /// Build the complete application router from shared state.
 ///
-/// The layer order matters: layers added later wrap the handlers more tightly,
-/// so `TraceLayer` (added first here) sits outermost and sees every request,
-/// while `TimeoutLayer` runs closer to the handler. This is the typed,
+/// The layer order matters: each `.layer(...)` call wraps everything added
+/// before it, so the layer added **last** is the **outermost**. Here
+/// `TraceLayer` (added last) sits outermost and sees every request, while
+/// `TimeoutLayer` (added first) runs closer to the handler. This is the typed,
 /// compile-checked version of `app.use(...)` middleware stacking in Express.
 pub fn build_router(state: AppState) -> Router {
     let timeout = state.settings.request_timeout;
@@ -1033,8 +1120,9 @@ use url_shortener::{routes, shutdown, telemetry};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // 1. Load configuration from the environment (with defaults).
-    let settings = Settings::from_env();
+    // 1. Load configuration from the environment. Absent variables fall back
+    //    to defaults; malformed ones abort startup (fail fast, Section 28).
+    let settings = Settings::from_env()?;
 
     // 2. Bring up structured logging before anything else can emit events.
     telemetry::init(&settings);
@@ -1318,4 +1406,3 @@ Concrete next steps, roughly in order of value:
   [`tracing-subscriber`](https://docs.rs/tracing-subscriber).
 - [The Tokio tutorial](https://tokio.rs/tokio/tutorial), especially the
   graceful-shutdown chapter.
-```

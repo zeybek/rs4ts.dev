@@ -65,6 +65,12 @@ pub async fn redirect(
 ///
 /// A real service would use the `url` crate for full RFC parsing; this keeps the
 /// example dependency-light while still demonstrating typed validation errors.
+///
+/// Security note: any public shortener is an **open redirector** by design —
+/// it will happily redirect to whatever URL was submitted, which phishers love.
+/// A production deployment should mitigate: require auth on `POST /shorten`,
+/// keep a domain allow/deny list, and/or show an interstitial page instead of
+/// a silent redirect for untrusted targets.
 fn validate_url(raw: &str) -> Result<String, AppError> {
     let trimmed = raw.trim();
     if trimmed.is_empty() {

@@ -654,8 +654,10 @@ pub async fn update_task(
     let Json(input) = payload?;
     input.validate()?;
 
-    // Load, mutate, write back. With a real DB this would be a single
-    // `UPDATE ... RETURNING *`.
+    // Load, mutate, write back. Note this read-then-write is NOT atomic:
+    // two concurrent PUTs to the same id can interleave and one update wins
+    // (a lost update). Fine for this in-memory demo; with a real DB you'd
+    // make it a single `UPDATE ... RETURNING *` or use optimistic versioning.
     let mut task = store.get(id).ok_or(AppError::NotFound)?;
     input.apply_to(&mut task);
     let updated = store.update(id, task).ok_or(AppError::NotFound)?;
@@ -846,8 +848,42 @@ async fn main() {
 
     tracing::info!("listening on http://{addr}");
 
-    // Serve until the process is killed. `axum::serve` drives the accept loop.
-    axum::serve(listener, app).await.expect("server error");
+    // Serve until we receive a shutdown signal. `axum::serve` drives the
+    // accept loop; `with_graceful_shutdown` stops accepting new connections
+    // and lets in-flight requests finish — the equivalent of calling
+    // `server.close()` on SIGTERM in Node.
+    axum::serve(listener, app)
+        .with_graceful_shutdown(shutdown_signal())
+        .await
+        .expect("server error");
+
+    tracing::info!("shutdown complete");
+}
+
+/// Resolve when the process receives Ctrl+C (SIGINT) or, on Unix, SIGTERM —
+/// the signal orchestrators like Kubernetes and Docker send before a kill.
+async fn shutdown_signal() {
+    let ctrl_c = async {
+        tokio::signal::ctrl_c()
+            .await
+            .expect("failed to install Ctrl+C handler");
+    };
+
+    #[cfg(unix)]
+    let terminate = async {
+        tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
+            .expect("failed to install SIGTERM handler")
+            .recv()
+            .await;
+    };
+
+    #[cfg(not(unix))]
+    let terminate = std::future::pending::<()>();
+
+    tokio::select! {
+        _ = ctrl_c => {},
+        _ = terminate => {},
+    }
 }
 ```
 
@@ -864,6 +900,11 @@ The pieces:
 - Note the crate is referred to as `rest_api` (underscore) in code even though
   the package is `rest-api` (hyphen): Cargo normalizes hyphens to underscores
   for Rust identifiers.
+- `shutdown_signal` waits for SIGINT or SIGTERM via `tokio::select!`, so a
+  `Ctrl+C` in the terminal or a rolling deploy both drain cleanly instead of
+  dropping in-flight requests. The full production pattern (readiness probes,
+  bounded drain timeouts) is in
+  [Section 28: Graceful Shutdown](/28-production/02-graceful-shutdown/).
 
 ## Running It
 
