@@ -18,7 +18,7 @@ If you only skim one page before starting, make it this one, then keep it open i
 | `const MAX = 100` (true constant) | `const MAX: i32 = 100;` |
 | reassign with a new type | shadowing: `let x = 5; let x = "five";` |
 | `number` | sized: `i32`, `i64`, `u32`, `usize`, `f64` |
-| `bigint` | `i128` / `u128` |
+| `bigint` (arbitrary precision) | `i128` / `u128` (fixed 128-bit; for true arbitrary precision use the `num-bigint` crate) |
 | `string` | `String` (owned) and `&str` (borrowed) |
 | `boolean` | `bool` |
 | `null` / `undefined` | `Option<T>` with `None` |
@@ -116,7 +116,7 @@ See: [Vectors](/07-collections/00-vectors/), [Iterators](/07-collections/06-iter
 | --- | --- |
 | `"hello " + name` | `format!("hello {name}")` |
 | `` `total: ${n}` `` (template) | `format!("total: {n}")` |
-| `s.length` | `s.chars().count()` (characters) or `s.len()` (bytes) |
+| `s.length` (UTF-16 code units — `"🎉".length === 2`) | `s.chars().count()` (Unicode scalars) or `s.len()` (UTF-8 bytes); neither matches JS exactly |
 | `s.toUpperCase()` | `s.to_uppercase()` |
 | `s.split(",")` | `s.split(',')` |
 | `s.includes("x")` | `s.contains("x")` |

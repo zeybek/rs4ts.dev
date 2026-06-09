@@ -552,12 +552,12 @@ DEBUG gc pause 12ms";
         println!("line {:>2} [{}] {}", p.line_no, p.level, p.message);
     }
 
-    // Pair each problem with a severity score and total it, using `zip`
-    // over a parallel iterator of scores.
-    let scores = problems
+    // Total a severity score across the problems: map each one to a
+    // number, then let the `sum` consumer drive the chain.
+    let total: i32 = problems
         .iter()
-        .map(|p| if p.level == "ERROR" { 10 } else { 3 });
-    let total: i32 = problems.iter().zip(scores).map(|(_, s)| s).sum();
+        .map(|p| if p.level == "ERROR" { 10 } else { 3 })
+        .sum();
     println!("total severity score: {total}");
 }
 ```

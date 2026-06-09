@@ -3,7 +3,7 @@ title: "The Three Ownership Rules"
 description: "One owner per value, ownership moves on assignment or a function call, and values drop at scope end. How Rust frees memory deterministically without JavaScript's GC."
 ---
 
-Ownership is the mechanism Rust uses to manage memory **without a garbage collector**. Instead of a runtime that periodically scans for unreachable objects (the JavaScript model), Rust decides at *compile time* exactly when each value is freed. The whole system rests on three short rules, and this page is about those rules and nothing more.
+Ownership is the mechanism Rust uses to manage memory **without a garbage collector**. Instead of a runtime that periodically scans for unreachable objects (the JavaScript model), Rust determines when each value is freed from the structure of your code — almost always statically, at scope exit. (In rare cases where a value is only *conditionally* moved, the compiler inserts a hidden runtime "drop flag", but the rule of thumb holds: cleanup happens at a predictable point, not whenever a GC gets around to it.) The whole system rests on three short rules, and this page is about those rules and nothing more.
 
 ---
 

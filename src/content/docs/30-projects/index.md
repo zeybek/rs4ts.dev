@@ -38,7 +38,7 @@ The build and run commands depend on the project type:
 **Native projects** — REST API, CLI tool, WebSocket chat, microservice. Standard Cargo workflow:
 
 ```bash
-# from inside the project's code directory, e.g. 30-projects/rest-api-code
+# from inside the project's code directory, e.g. examples/rest-api-code
 cargo run              # build and run the binary
 cargo build --release  # optimized build for deployment
 cargo test             # run the test suite

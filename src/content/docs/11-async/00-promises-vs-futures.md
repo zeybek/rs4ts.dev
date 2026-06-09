@@ -226,7 +226,7 @@ sequential took ~204 ms (a=1, b=2)
 join! took ~102 ms (a=3, b=4)
 ```
 
-The sequential version takes ~200 ms (100 + 100); `join!` takes ~100 ms because both futures make progress together. In JavaScript, `await a; await b` would *also* take ~200 ms for the awaiting, but the underlying timers would already be counting down, so the mental model is different. The key Rust takeaway: **awaiting in sequence is sequential, and there is no hidden concurrency.**
+The sequential version takes ~200 ms (100 + 100); `join!` takes ~100 ms because both futures make progress together. In JavaScript the result depends on when the promises are *created*: `await fetch1(); await fetch2();` takes ~200 ms just like Rust, but `const a = fetch1(); const b = fetch2(); await a; await b;` finishes in ~100 ms, because each promise eagerly starts its work the moment it is created. Rust has no such hidden head start: a future does nothing until polled. The key Rust takeaway: **awaiting in sequence is sequential, and there is no hidden concurrency.**
 
 ### There is no built-in executor
 
@@ -293,7 +293,7 @@ work complete
 | **Runtime / event loop** | Built in (browser / Node libuv) | None in `std`; you choose one (Tokio, `futures`, ...) |
 | **Core mechanism** | Microtask queue managed by the engine | `poll` returning `Ready`/`Pending`, driven by an executor |
 | **Re-running** | Cannot re-run; a settled Promise is final | Re-buildable: a closure can produce a fresh future each call |
-| **Cancellation** | Hard: a started Promise keeps going | Drop the future before completion and its work stops |
+| **Cancellation** | Hard: a started Promise keeps going | Drop an *unspawned* future and its work stops (a `tokio::spawn`ed task keeps running if you drop only its `JoinHandle` — use `.abort()`) |
 | **Concurrency for free** | `Promise.all` of already-running promises | None; combine with `join!`/`select!` or spawn tasks |
 | **Overhead of unused one** | Work already happened (wasted) | Zero — an unawaited future never ran |
 
@@ -302,7 +302,7 @@ work complete
 Laziness gives Rust three things JavaScript cannot offer easily:
 
 1. **Zero-cost composition.** You can build a big tree of combined futures (`join!`, `select!`, adapters) and the work only happens when the *whole* thing is awaited. There is no partial, wasted execution.
-2. **Real cancellation.** Because a future is just a value, dropping it before it finishes stops its work cleanly. A JavaScript Promise, once started, runs to completion even if nobody is listening; there is no built-in `.cancel()`.
+2. **Real cancellation.** Because a future is just a value, dropping it before it finishes stops its work cleanly. A JavaScript Promise, once started, runs to completion even if nobody is listening; there is no built-in `.cancel()`. (One caveat: once you hand a future to `tokio::spawn`, the *runtime* owns it — dropping the returned `JoinHandle` detaches the task rather than cancelling it; call `handle.abort()` to cancel. See [select! and join!](/11-async/07-select-join/).)
 3. **Backpressure and control.** The executor decides *when* and *how often* to poll, enabling sophisticated scheduling that an always-running model can't express.
 
 > **Warning:** The flip side is the classic beginner trap: if you build a future and never `.await` it, **none of its code runs**. In JavaScript a "fire-and-forget" Promise still executes; in Rust it silently does nothing. The compiler warns you about this (see Pitfalls).

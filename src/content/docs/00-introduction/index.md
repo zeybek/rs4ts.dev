@@ -67,7 +67,7 @@ y = 11;           // allowed - y is mut
 5. **Pattern Matching** - Like switch statements on steroids
 6. **Traits** - Similar to interfaces but more capable
 7. **Async/Await** - Different syntax, same concepts
-8. **Macros** - Metaprogramming (like decorators but compile-time)
+8. **Macros** - Compile-time code transforms (closer to Babel plugins than to decorators)
 
 ### Practical Skills
 
@@ -105,13 +105,13 @@ y = 11;           // allowed - y is mut
 
 **Companies using Rust:**
 
-- **Discord** - Rewrote services, 10x performance improvement
+- **Discord** - Rewrote its Read States service from Go to Rust, eliminating GC latency spikes
 - **AWS** - Building Firecracker, Lambda runtime
 - **Microsoft** - Windows components, Azure services
 - **Meta** - Source control system (Sapling)
 - **Cloudflare** - Edge computing platform
 - **Dropbox** - File sync engine
-- **npm** - Registry infrastructure
+- **npm** - Registry authorization service
 
 **Common Rust Projects:**
 
@@ -165,27 +165,6 @@ Content is carefully sequenced:
 
 ---
 
-## Learning Time Estimates
-
-### Quick Path: 20-30 hours
-
-Focus on essentials: Installation, basics, ownership, web APIs
-**Result:** Build a simple Rust web service
-
-### Standard Path: 60-80 hours
-
-Cover sections 00-19 thoroughly
-**Result:** Confidently build production Rust applications
-
-### Complete Path: 120-150 hours
-
-All sections + projects + exercises
-**Result:** Rust mastery, ready for any Rust project
-
-**Reality check:** Most developers spend 40-60 hours before feeling comfortable with Rust. The ownership system is the hardest part, usually taking 10-20 hours to "click."
-
----
-
 ## How This Guide Is Different
 
 ### vs. The Rust Book
@@ -214,33 +193,9 @@ All sections + projects + exercises
 
 ## The Journey Ahead
 
-### Phase 1: Foundation (Sections 00-05)
+The guide moves through four phases: **Foundation** (sections 00-05, where ownership lives — take your time here), **Core Language** (06-10: data structures, collections, error handling, traits — you'll start feeling productive), **Practical Skills** (11-19: web APIs, CLI tools, WASM — where Rust becomes fun), and **Advanced Topics** (20-30: production readiness and complete projects).
 
-**Time:** ~15-20 hours  
-**Goal:** Understand Rust basics and the ownership system
-
-This is where most developers struggle. Take your time with ownership!
-
-### Phase 2: Core Language (Sections 06-10)
-
-**Time:** ~20-25 hours  
-**Goal:** Master data structures, collections, error handling, traits
-
-You'll start feeling productive here.
-
-### Phase 3: Practical Skills (Sections 11-19)
-
-**Time:** ~25-30 hours  
-**Goal:** Build real applications (web APIs, CLI tools, WASM)
-
-This is where Rust becomes fun!
-
-### Phase 4: Advanced Topics (Sections 20-30)
-
-**Time:** ~40-50 hours  
-**Goal:** Production readiness and mastery
-
-Polish your skills and build complete projects.
+Time estimates and suggested reading paths live in [How to Read This Guide](/00-introduction/01-how-to-read/).
 
 ---
 
@@ -295,15 +250,13 @@ Ready to begin? Here's your roadmap:
 - **"Should I learn Rust or Go?"** - Different use cases. Rust for systems/performance, Go for simplicity/concurrency
 - **"Will this replace JavaScript?"** - No, different domains. But you might build backends in Rust
 - **"How long until I'm productive?"** - 3-4 weeks for basic projects, 2-3 months for production code
-- **"Is Rust dying?"** - No! It's been "most loved language" on Stack Overflow for 8 years running
-- **"Should I learn Rust in 2025?"** - Yes! Adoption is growing, especially in backend/systems
+- **"Is Rust dying?"** - No! It has topped Stack Overflow's "most loved/admired language" ranking every year since 2016
+- **"Should I learn Rust in 2026?"** - Yes! Adoption is growing, especially in backend/systems
 
 ---
 
 ## Let's Begin!
 
-You're about to learn one of the most capable programming languages in existence. It will be challenging, but incredibly rewarding.
-
-**Remember:** Every Rust developer started exactly where you are now. You've got this!
+You're about to learn one of the most capable programming languages in existence. It will be challenging, but rewarding.
 
 ### [Continue to Target Audience](/00-introduction/00-target-audience/)

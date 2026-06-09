@@ -268,8 +268,8 @@ Required for:
 
 ```bash
 # Check if installed
-node --version  # Should be 14+
-npm --version   # Should be 6+
+node --version  # Should be 22+ (any maintained LTS works)
+npm --version   # Comes bundled with Node
 
 # If not installed: https://nodejs.org/
 ```
@@ -326,8 +326,6 @@ Before starting Section 01, verify:
 - [ ] I'm ready to invest 20+ hours learning
 - [ ] I'm okay with compiler errors (they're helpful!)
 - [ ] I'm willing to think differently about programming
-- [ ] I'm patient with myself as I learn
-- [ ] I'm excited to learn Rust!
 
 ---
 

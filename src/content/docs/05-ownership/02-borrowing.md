@@ -220,7 +220,7 @@ This is the "shared" half of Rust's central borrowing rule: **either many shared
 The **borrow checker** is the part of the Rust compiler that tracks the lifetime of every reference and rejects any program where a reference could point at data that is gone or is being mutated out from under it. It runs at compile time, so the checks cost nothing at runtime. The two guarantees most relevant to shared references are:
 
 1. A reference may never outlive the value it borrows (no dangling references).
-2. While any shared reference exists, the borrowed value cannot be mutated or moved.
+2. While any shared reference exists, the borrowed value cannot be mutated or moved. (The exception is *interior mutability* — types like `Cell`, `RefCell`, and `Mutex` that allow controlled mutation behind `&T`; they are the subject of [Smart Pointers](/10-smart-pointers/02-refcell-mutex/).)
 
 You do not call the borrow checker; it is simply part of `cargo build` / `cargo check`. When it rejects your code you get an error like `E0597` ("does not live long enough") or `E0502` ("cannot borrow as mutable because it is also borrowed as immutable"). Reading those errors is a core Rust skill — they almost always point at exactly the right fix.
 

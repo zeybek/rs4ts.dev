@@ -155,9 +155,9 @@ Every section follows this pattern:
 
 ```
 XX-section-name/
-├── README.md          # Section overview, navigation
-├── topic-1.md         # Individual topics
-├── topic-2.md
+├── index.md           # Section overview, navigation
+├── 00-topic-1.md      # Individual topics
+├── 01-topic-2.md
 └── ...
 ```
 

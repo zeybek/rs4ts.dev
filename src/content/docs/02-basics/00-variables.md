@@ -606,6 +606,8 @@ fn main() {
 - `numbers` is immutable (just reading)
 - Clear intent about what changes
 
+> **Note:** This example sneaks in a few things from later chapters — `&[i32]` (a borrowed slice, [Section 05](/05-ownership/)), `.iter().enumerate()` ([Section 07: Iterators](/07-collections/06-iterators/)), and `as f64` casts ([Basic Types](/02-basics/01-types/)). Don't worry about those yet; focus on which bindings are `mut` and which are not.
+
 ### Configuration with Constants
 
 **TypeScript:**

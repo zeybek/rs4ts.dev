@@ -65,105 +65,17 @@ This guide is designed specifically for TypeScript and JavaScript developers who
 
 ---
 
-## Ideal Learner Profiles
+## Which Sections Matter Most for You?
 
-### Profile 1: The Backend Developer
+Different backgrounds, different priorities. Find yourself in this table:
 
-**Background:**
-
-- 2+ years with Node.js/Express/NestJS
-- Building REST APIs and microservices
-- Facing performance bottlenecks
-- Wants to reduce cloud costs
-
-**Why Rust:**
-
-- Faster for CPU-bound work, with no GC pauses
-- Lower memory usage
-- Better CPU utilization
-- Compile-time safety
-
-**This Guide Will Help:** Sections 16 (Web APIs), 17 (Database), 28 (Production)
-
----
-
-### Profile 2: The Full-Stack Developer
-
-**Background:**
-
-- Strong TypeScript knowledge (React/Next.js)
-- Some Node.js backend experience
-- Interested in expanding skill set
-- Curious about systems programming
-
-**Why Rust:**
-
-- Career growth opportunities
-- Add WebAssembly to toolkit
-- Build faster CLI tools
-- Understanding lower-level concepts improves all coding
-
-**This Guide Will Help:** All sections, especially 19 (WASM), 18 (CLI Tools)
-
----
-
-### Profile 3: The Platform Engineer
-
-**Background:**
-
-- Working with infrastructure/DevOps
-- Writing tools and automation
-- Bash/Python scripts getting complex
-- Need better performance and reliability
-
-**Why Rust:**
-
-- Single binary deployment
-- No runtime dependencies
-- Excellent error handling
-- Fast execution
-
-**This Guide Will Help:** Sections 18 (CLI), 24 (Tooling), 26 (Systems Programming)
-
----
-
-### Profile 4: The Career Switcher
-
-**Background:**
-
-- Strong TypeScript skills
-- Looking for new opportunities
-- Interested in systems/blockchain/gamedev
-- Willing to invest time learning
-
-**Why Rust:**
-
-- High demand, growing adoption
-- Higher salaries than JavaScript roles
-- Work on interesting technical problems
-- Future-proof skill
-
-**This Guide Will Help:** Complete path through all sections
-
----
-
-### Profile 5: The Performance Optimizer
-
-**Background:**
-
-- Hitting Node.js performance limits
-- Lambda cold starts causing issues
-- High AWS bills
-- Need sub-millisecond response times
-
-**Why Rust:**
-
-- Predictable performance
-- No GC pauses
-- Lower latency
-- Smaller binaries
-
-**This Guide Will Help:** Sections 16, 21 (Performance), 28 (Production)
+| You are... | Why Rust fits | Start with |
+| --- | --- | --- |
+| **Backend developer** (Node/Express/NestJS) hitting performance limits or cloud costs | No GC pauses, lower memory, compile-time safety | 16 (Web APIs), 17 (Database), 28 (Production) |
+| **Full-stack developer** (React/Next.js) expanding your toolkit | WebAssembly, fast CLI tools, lower-level understanding | 19 (WASM), 18 (CLI Tools) |
+| **Platform engineer** whose Bash/Python tooling is getting complex | Single static binary, no runtime deps, robust error handling | 18 (CLI), 24 (Tooling), 26 (Systems) |
+| **Career switcher** eyeing systems/blockchain/gamedev roles | Growing demand, future-proof skill | The complete path, in order |
+| **Performance optimizer** fighting Lambda cold starts and p99 latency | Predictable performance, small binaries, low latency | 16 (Web APIs), 21 (Performance), 28 (Production) |
 
 ---
 
@@ -218,7 +130,7 @@ This guide is designed specifically for TypeScript and JavaScript developers who
 
 1. Can you explain what `async/await` does in TypeScript?
 2. Have you used generics (`Array<T>`, `Promise<User>`) in TypeScript?
-3. Do you understand what `null` and `undefined` mean?
+3. Can you explain how `strictNullChecks` changes the way you handle `null`/`undefined`?
 4. Have you built something with Express, Next.js, or similar?
 5. Are you willing to spend 20+ hours learning Rust basics?
 

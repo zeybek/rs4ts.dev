@@ -250,7 +250,7 @@ fn main() {
 | Mutating captured state  | Always allowed                               | Closure must be `FnMut` and bound with `let mut`                  |
 | Lifetime of captured data| GC keeps it alive forever if needed          | Borrow checker enforces captured borrows do not outlive the data  |
 | Calling repeatedly       | Always allowed                               | `Fn`/`FnMut` yes; `FnOnce` only guaranteed once                   |
-| Each closure's type      | All functions share the `Function` type      | Every closure has a unique, anonymous, compiler-generated type    |
+| Each closure's type      | Structural: same signature = same type      | Every closure has a unique, anonymous, compiler-generated type    |
 
 ### Every closure has its own unique type
 
@@ -664,6 +664,6 @@ Because `run_once` only ever calls `f` once, `FnOnce` is the correct (weakest) b
 - Closures capture their environment by `&`, `&mut`, or by value — the compiler picks the least invasive option.
 - `Fn` reads, `FnMut` mutates, `FnOnce` consumes; they form a hierarchy, and you accept the weakest one that works.
 - `move` forces capture by value, needed when a closure must outlive its scope (threads, returned closures).
-- Every closure has a unique anonymous type — unlike JavaScript's single `Function` type.
+- Every closure has a unique anonymous type — unlike TypeScript, where any two functions with the same structural signature share a type.
 
 **The mental model:** A closure is a small struct holding its captured variables plus a call method. JavaScript hides that machinery and lets the garbage collector sort out lifetimes; Rust makes capture explicit and proves at compile time that no captured borrow outlives its data.
