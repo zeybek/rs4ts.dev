@@ -1,6 +1,6 @@
 ---
 title: "Iterator Consumers: From Array Methods to `collect`, `fold`, and Friends"
-description: "Iterator consumers run a Rust pipeline and return a value: collect, fold, sum, count, find, any, all, min, and max replace JavaScript's reduce, find, some"
+description: "Iterator consumers run a Rust pipeline and return a value: collect, fold, sum, count, find, any, all, min, and max replace JS reduce, find, some, every."
 ---
 
 The sibling page on [iterators](/07-collections/06-iterators/) covered the **lazy** adaptors — `map`, `filter`, `take`, `zip` — that build a pipeline but compute nothing on their own. This page covers the other half: the **consuming adaptors** (or *consumers*) that actually run the pipeline and hand you a result. These are the methods that line up with `reduce`, `find`, `some`, `every`, and the implicit "now give me an array" that every JavaScript chain ends with.

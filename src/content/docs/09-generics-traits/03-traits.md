@@ -1,5 +1,5 @@
 ---
-title: "Traits: Rust's Interfaces"
+title: "Rust Traits vs TypeScript Interfaces"
 description: "Rust traits are TypeScript interfaces with a twist: impls are written separately, are nominal not structural, and let you add behavior to foreign types."
 ---
 

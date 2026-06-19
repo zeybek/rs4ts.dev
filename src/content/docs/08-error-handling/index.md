@@ -1,5 +1,5 @@
 ---
-title: "Error Handling"
+title: "Rust Error Handling vs try/catch"
 sidebar:
   label: "Overview"
 description: "No exceptions and no null in Rust: a tour mapping TypeScript throw/try/catch to Result, null/undefined to Option, and the ? operator that propagates failures."

@@ -1,6 +1,6 @@
 ---
 title: "Path and PathBuf: Cross-Platform Path Handling"
-description: "Build and split file paths in Rust with Path and PathBuf, mapping node:path onto typed accessors that return Option and where joining an absolute segment"
+description: "Build and split paths in Rust with Path and PathBuf, mapping node:path to typed accessors that return Option; joining an absolute segment resets the path."
 ---
 
 ## Quick Overview

@@ -1,6 +1,6 @@
 ---
 title: "Marker Traits: `Copy`, `Sized`, `Send`, and `Sync`"
-description: "Rust marker traits Copy, Sized, Send, and Sync have no methods; they tell the compiler facts about a type, enabling bitwise copies and data-race-free"
+description: "Rust marker traits Copy, Sized, Send, and Sync have no methods; they tell the compiler facts about a type, enabling bitwise copies and safe threading."
 ---
 
 Some Rust traits have no methods at all. They exist purely to **mark** a type with a property the compiler cares about: "this type is safe to copy bit-for-bit," "this type has a known size," "this type may move between threads." TypeScript has no real equivalent: these are compile-time facts the Rust compiler tracks and enforces for you, mostly without you writing a single line.

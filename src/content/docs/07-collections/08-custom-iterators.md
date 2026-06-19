@@ -1,6 +1,6 @@
 ---
 title: "Custom Iterators: Implementing `Iterator` and `IntoIterator`"
-description: "Build custom sequences in Rust: implement Iterator's next method and IntoIterator instead of a JavaScript generator, then inherit map, filter, zip, and every"
+description: "Build custom sequences in Rust: implement Iterator's next and IntoIterator instead of a JS generator, then inherit map, filter, zip, and more for free."
 ---
 
 In TypeScript you make a value iterable by writing a **generator** (`function*`) or by implementing the `[Symbol.iterator]()` protocol. In Rust you do the equivalent by implementing the **`Iterator`** trait (define one method, `next`) and, when you want `for` loops to work directly on your type, the **`IntoIterator`** trait. This page shows how to build your own lazy data producers and plug them into Rust's entire adaptor toolbox for free.

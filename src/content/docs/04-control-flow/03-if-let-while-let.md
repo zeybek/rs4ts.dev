@@ -1,6 +1,6 @@
 ---
 title: "Concise Pattern Matching: `if let`, `while let`, and `let ... else`"
-description: "When only one case matters, if let, while let, and let-else fuse the check and binding in one step, replacing TypeScript's if (x !== null) narrowing and"
+description: "When only one case matters, if let, while let, and let-else fuse the check and binding in one step, replacing TypeScript's if (x !== null) narrowing."
 ---
 
 A full [`match`](/04-control-flow/02-match/) is wonderful when you genuinely care about *every* variant, but a lot of real code only cares about *one* case: "if this `Option` is `Some`, use it." Rust gives you three lightweight tools for exactly that — `if let`, `while let`, and `let ... else` — and they will quickly become the workhorses you reach for when you would have written `if (x !== null)` in TypeScript.

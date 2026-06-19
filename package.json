@@ -11,7 +11,8 @@
     "astro": "astro",
     "prebuild": "node scripts/fetch-contributors.mjs || echo 'contributor refresh skipped (using committed cache)'",
     "contributors": "node scripts/fetch-contributors.mjs",
-    "deploy": "npm run build && wrangler deploy"
+    "indexnow": "node scripts/indexnow.mjs",
+    "deploy": "npm run build && wrangler deploy && npm run indexnow"
   },
   "engines": {
     "node": ">=22.12.0"

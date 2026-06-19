@@ -2,7 +2,7 @@
 title: "Smart Pointers"
 sidebar:
   label: "Overview"
-description: "TypeScript hides every heap, sharing, and lifetime choice; Rust's smart pointers make them explicit. Box, Rc/Arc, RefCell, Cell, Cow, Weak, and Deref, each"
+description: "TypeScript hides every heap, sharing, and lifetime choice; Rust's smart pointers make them explicit: Box, Rc/Arc, RefCell, Cell, Cow, Weak, and Deref."
 ---
 
 In TypeScript and JavaScript every object is a garbage-collected, freely-shared, freely-mutable reference; the runtime makes every storage and lifetime decision for you. Rust hands those decisions back, and **smart pointers** are the types that encode them: `Box<T>` for heap allocation with a single owner, `Rc<T>`/`Arc<T>` for shared ownership, `RefCell<T>`/`Mutex<T>` and `Cell<T>` for **interior mutability** (mutating through a shared reference), `Cow<'_, T>` for clone-on-write, and `Weak<T>` for breaking reference cycles. The `Deref` trait is the quiet machinery that makes all of them feel like the value they wrap. This section maps each TypeScript habit — implicit boxing, aliased references, mutate-anywhere objects — onto the explicit Rust type that expresses the same intent at zero or near-zero runtime cost.

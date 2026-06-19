@@ -1,6 +1,6 @@
 ---
 title: "Basic Functions and Signatures"
-description: "Rust functions look like TypeScript's but every parameter is typed and the last expression returns with no return keyword. Learn fn signatures, the unit"
+description: "Rust functions resemble TypeScript's, but every parameter is typed and the last expression returns with no return keyword. Learn fn signatures and unit."
 ---
 
 Functions are the workhorse of any program, and you already write them every day in TypeScript. The Rust syntax is close enough to feel familiar, but two ideas reshape how you read Rust code: **every parameter and return value is explicitly typed**, and **the function body is an expression** whose final line is the return value.

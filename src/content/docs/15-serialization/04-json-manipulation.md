@@ -1,6 +1,6 @@
 ---
 title: "Dynamic JSON with `serde_json::Value`"
-description: "serde_json::Value is Rust's answer to JavaScript's any JSON blob: a typed enum you build with json!, index dynamically, and convert to structs, keeping big"
+description: "serde_json::Value is Rust's answer to JS's any JSON blob: a typed enum you build with json!, index dynamically, and convert to and from typed structs."
 ---
 
 In TypeScript, `JSON.parse` hands you an `any`-typed blob you can poke at freely: `data.users[0].name`. Rust's equivalent is `serde_json::Value`, a tree-shaped enum you build with the `json!` macro, navigate with indexing, and convert to and from typed structs when you're ready to lock things down.

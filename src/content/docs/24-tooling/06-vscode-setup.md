@@ -1,6 +1,6 @@
 ---
 title: "Setting Up VS Code for Rust"
-description: "Set up VS Code for Rust with the one rust-analyzer extension: rustfmt format-on-save, Clippy on save, and the modern check.command keys instead of the"
+description: "Set up VS Code for Rust with the one rust-analyzer extension: rustfmt format-on-save, Clippy on save, and the modern check.command keys."
 ---
 
 ## Quick Overview

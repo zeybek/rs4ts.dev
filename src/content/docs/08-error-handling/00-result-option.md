@@ -1,6 +1,6 @@
 ---
 title: "Result and Option: Replacing try/catch and null"
-description: "Rust has no exceptions or null: a fallible function returns Result<T, E> and a maybe-empty one returns Option<T>, so the compiler forces the handling"
+description: "Rust has no exceptions or null: a fallible function returns Result<T, E> and a maybe-empty one returns Option<T>, so the compiler makes you handle both."
 ---
 
 Rust has no exceptions and no `null`. Instead, a function that can fail returns a **`Result<T, E>`** value, and a function that might have nothing to return uses **`Option<T>`**. Both are ordinary enums, so the possibility of failure or absence is written into the type and the compiler forces you to deal with it.

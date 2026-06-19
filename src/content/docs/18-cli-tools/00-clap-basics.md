@@ -1,6 +1,6 @@
 ---
 title: "Argument Parsing with clap (Builder API)"
-description: "Parse CLI arguments in Rust with clap's builder API, the commander and yargs equivalent: flags, options, typed values, and auto-generated --help, --version"
+description: "Parse CLI args in Rust with clap's builder API, the commander/yargs equivalent: flags, options, typed values, auto-generated --help, --version, validation."
 ---
 
 ## Quick Overview

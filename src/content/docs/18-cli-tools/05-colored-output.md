@@ -1,6 +1,6 @@
 ---
 title: "Colored Terminal Output"
-description: "Color CLI output in Rust with owo-colors and anstream the way you'd use chalk in Node, decoupling styling from detection so ANSI codes vanish in pipes and"
+description: "Color CLI output in Rust with owo-colors and anstream the way you'd use chalk in Node, decoupling styling from detection so ANSI codes vanish in pipes."
 ---
 
 How to add color and styling to a command-line tool's output in Rust, the way you would with `chalk` or `picocolors` in Node.js, and, importantly, how to make that color disappear cleanly when output is piped to a file or when the user sets `NO_COLOR`.

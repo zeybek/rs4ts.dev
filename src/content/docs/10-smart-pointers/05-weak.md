@@ -1,6 +1,6 @@
 ---
 title: "Weak References with `Weak<T>`"
-description: "A cycle of Rc/Arc leaks in Rust since there is no garbage collector. Weak<T> is the non-owning back-reference you upgrade() to access, mirroring JavaScript's"
+description: "Rc/Arc cycles leak in Rust with no garbage collector. Weak<T> is the non-owning back-reference you upgrade() to access, mirroring JavaScript's WeakRef."
 ---
 
 `Rc<T>` and `Arc<T>` give you shared ownership, but two values that own each other form a **reference cycle** that never reaches a count of zero: a genuine memory leak even in safe Rust. `Weak<T>` is the non-owning reference that lets you point *back* into a graph (child to parent, observer to subject) without keeping the target alive.

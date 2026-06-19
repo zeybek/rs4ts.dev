@@ -1,6 +1,6 @@
 ---
 title: "Common Standard-Library Macros"
-description: "Rust's everyday macros (vec!, println!, format!, write!, matches!, assert!, dbg!, todo!, include_str!) mapped to the TypeScript and JavaScript features you"
+description: "Rust's everyday macros (vec!, println!, format!, write!, matches!, assert!, dbg!, todo!, include_str!) mapped to the TS and JS features you already know."
 ---
 
 ## Quick Overview

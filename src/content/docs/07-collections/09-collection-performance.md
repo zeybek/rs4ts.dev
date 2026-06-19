@@ -1,6 +1,6 @@
 ---
 title: "Collection Performance: Big-O, Choosing a Collection, and Capacity"
-description: "Choose Rust collections by cost, not feel: Big-O for Vec, HashMap, and BTreeMap, pre-allocating with with_capacity, and why an iterator compiles like a"
+description: "Choose Rust collections by cost, not feel: Big-O for Vec, HashMap, and BTreeMap, with_capacity pre-allocation, and why iterators compile to tight loops."
 ---
 
 In JavaScript you reach for `Array`, `Object`, `Map`, and `Set` mostly by feel — the engine hides the cost model, and "it's fast enough" usually holds. Rust gives you the same four shapes of collection (`Vec`, `HashMap`, `BTreeMap`, `HashSet`) but also hands you the cost model directly: you choose the data structure, you choose when memory is allocated, and you choose between a manual loop and a lazy iterator. This page is about making those choices deliberately.

@@ -1,6 +1,6 @@
 ---
 title: "Integration Tests: The `tests/` Directory and Black-Box Testing"
-description: "Rust integration tests live in tests/, compile as separate crates, and reach only your public API. Compare with Jest's free-for-all imports, plus shared"
+description: "Rust integration tests live in tests/, compile as separate crates, and reach only your public API. Compare Jest's free imports, plus shared setup."
 ---
 
 Integration tests in Rust live in a top-level `tests/` directory, get compiled as separate crates, and can only see your crate's **public API**: exactly the way a real consumer would `use` it. This page covers how that directory works, how to test the public surface as a black box, and how to share setup code across test files without confusing Cargo.

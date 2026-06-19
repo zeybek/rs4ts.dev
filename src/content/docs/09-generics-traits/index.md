@@ -1,5 +1,5 @@
 ---
-title: "Generics & Traits"
+title: "Rust Generics & Traits for TS Devs"
 sidebar:
   label: "Overview"
 description: "Map TypeScript generics and interfaces onto Rust's monomorphized generics and nominal traits, with trait bounds, trait objects, and coherence rules explained."

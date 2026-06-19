@@ -1,5 +1,5 @@
 ---
-title: "The Three Ownership Rules"
+title: "The Three Rules of Rust Ownership"
 description: "One owner per value, ownership moves on assignment or a function call, and values drop at scope end. How Rust frees memory deterministically without JavaScript's GC."
 ---
 

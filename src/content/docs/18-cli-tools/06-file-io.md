@@ -1,6 +1,6 @@
 ---
 title: "File I/O with `std::fs`"
-description: "Read and write files in Rust with std::fs, where every call returns a Result you must handle and you choose between whole-file helpers and explicit BufReader"
+description: "Read and write files in Rust with std::fs, where every call returns a Result you must handle and you choose whole-file helpers or a buffered BufReader."
 ---
 
 ## Quick Overview

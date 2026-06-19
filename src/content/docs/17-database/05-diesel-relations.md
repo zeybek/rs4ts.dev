@@ -1,6 +1,6 @@
 ---
 title: "Diesel Relations: Associations, Joins, and Eager Loading"
-description: "Model relations in Diesel: declare joins, derive Associations, and eager-load parent/child trees with belonging_to and grouped_by to dodge N+1, all checked"
+description: "Diesel relations: declare joins, derive Associations, and eager-load parent/child trees with belonging_to and grouped_by to dodge N+1, all compile-checked."
 ---
 
 In TypeORM or Prisma you describe relations with decorators (`@OneToMany`, `@ManyToOne`) or a schema block, then `include`/`relations` pulls children in automatically. Diesel takes a more explicit, compile-checked approach: you declare which tables can be joined, derive `Associations`, and assemble parent/child trees yourself with `belonging_to` and `grouped_by`. This page shows how the **`belongs_to`/`has_many`** model maps onto Diesel and how to do **eager loading without N+1 queries**.

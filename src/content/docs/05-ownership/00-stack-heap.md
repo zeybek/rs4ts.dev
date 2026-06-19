@@ -1,6 +1,6 @@
 ---
 title: "Stack and Heap: Where Your Data Lives"
-description: "Where Rust values live: fixed-size data on the stack, growable data like String and Vec on the heap behind a handle. JavaScript hides this behind its GC;"
+description: "Where Rust values live: fixed-size data on the stack, growable data like String and Vec on the heap — what JS hides behind its GC, Rust makes explicit."
 ---
 
 Before you can understand Rust's ownership system, you need a mental model of **where** values live in memory: the **stack** or the **heap**. In TypeScript/JavaScript a garbage collector hides this distinction from you completely. In Rust the distinction is front and center: it is the reason ownership exists at all.

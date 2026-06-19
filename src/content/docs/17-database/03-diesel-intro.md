@@ -1,6 +1,6 @@
 ---
 title: "Getting Started with Diesel (the TypeORM of Rust)"
-description: "Diesel is Rust's closest answer to TypeORM: a compile-checked ORM with table! schemas and derived structs, but synchronous (no await) and verified by the"
+description: "Diesel is Rust's closest answer to TypeORM: a compile-checked ORM with table! schemas and derived structs, but synchronous (no await)."
 ---
 
 Diesel is Rust's most established ORM and query builder. If you reach for TypeORM, Prisma, or Sequelize in Node, Diesel is the closest cultural fit: you describe your tables, derive structs that map to rows, and build queries through a strongly typed DSL, except the mapping is checked by the Rust compiler instead of at runtime.

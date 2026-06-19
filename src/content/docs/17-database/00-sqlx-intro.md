@@ -1,6 +1,6 @@
 ---
 title: "SQLx: Async, Compile-Time-Checked SQL"
-description: "SQLx is an async Rust SQL toolkit, not an ORM: you write raw SQL but its macros connect to your real database at compile time, so a bad column fails the"
+description: "SQLx is an async Rust SQL toolkit, not an ORM: you write raw SQL, but its macros check it against your database at compile time, failing on a bad column."
 ---
 
 In the TypeScript world you talk to a SQL database through a query builder or an ORM — Knex, Prisma, TypeORM — and your queries are checked (if at all) only when they actually run against the database. **SQLx** takes a strikingly different position: you write **raw SQL**, but a macro connects to your real database **at compile time** and verifies the query and its result types before your program ever runs. This page is the on-ramp: what SQLx is, how to add it, and how to connect to PostgreSQL and SQLite.

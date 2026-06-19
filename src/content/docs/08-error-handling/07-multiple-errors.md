@@ -1,6 +1,6 @@
 ---
 title: "Handling Multiple Error Types"
-description: "When a Rust function fails several ways, collapse the types behind Box<dyn Error> or an aggregating enum with #[from], replacing TypeScript's untyped catch"
+description: "When a Rust function fails several ways, collapse the types behind Box<dyn Error> or an aggregating enum with #[from], replacing TS's untyped catch."
 ---
 
 In TypeScript a single `try/catch` quietly absorbs *every* kind of failure — a network error, a parse error, your own validation error — because `throw` is untyped. Rust forces you to decide, up front, how a function that can fail in several different ways should report those failures. This page is about that decision: erasing all the types behind `Box<dyn Error>`, or **aggregating** them into one purpose-built enum, and using `#[from]` so the `?` operator does the conversions for you.

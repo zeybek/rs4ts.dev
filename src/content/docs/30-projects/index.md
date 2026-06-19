@@ -2,7 +2,7 @@
 title: "Projects"
 sidebar:
   label: "Overview"
-description: "Six real Rust projects, each rebuilding a Node stack you know, an Express API, ws chat, canvas game, microservice, so you see what changes from TypeScript"
+description: "Six real Rust projects, each rebuilding a Node stack you know, an Express API, ws chat, canvas game, microservice, so you see what changes from TypeScript."
 ---
 
 You have spent twenty-nine sections trading TypeScript intuitions for Rust ones: ownership instead of garbage collection, `Result` instead of `try/catch`, traits instead of structural interfaces, `cargo` instead of `npm`. This final section is where all of it pays off. Each of the six projects below is a small but *real* application: the kind of thing you would actually ship, not a snippet that demonstrates one keyword in isolation. If the earlier sections were the vocabulary, these are the essays.

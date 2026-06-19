@@ -1,6 +1,6 @@
 ---
 title: "Interior Mutability: `RefCell<T>` and `Mutex<T>`"
-description: "RefCell<T> and Mutex<T> let Rust mutate through a shared reference by moving the borrow check to runtime: RefCell panics on a single thread, Mutex blocks"
+description: "RefCell<T> and Mutex<T> let Rust mutate through a shared reference by moving the borrow check to runtime: RefCell panics, Mutex blocks across threads."
 ---
 
 In TypeScript every object is freely mutable through any reference you hold — aliasing and mutation coexist without comment. Rust forbids that at compile time: you may have *many* shared `&` references **or** *one* exclusive `&mut`, never both. **Interior mutability** is the escape hatch that lets you mutate data through a shared reference anyway, by moving the "one writer, many readers" check from compile time to runtime. `RefCell<T>` does this on a single thread; `Mutex<T>` does it across threads.

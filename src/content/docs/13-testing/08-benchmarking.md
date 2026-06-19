@@ -1,6 +1,6 @@
 ---
 title: "Benchmarking"
-description: "Benchmark Rust with criterion: statistical confidence intervals, baselines, and black_box to defeat the optimizer. Compared to Vitest bench, with #[bench]"
+description: "Benchmark Rust with criterion: confidence intervals, baselines, and black_box to defeat the optimizer. Compared to Vitest bench; #[bench] needs nightly."
 ---
 
 ## Quick Overview

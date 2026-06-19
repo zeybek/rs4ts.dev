@@ -1,6 +1,6 @@
 ---
 title: "Server-Sent Events with Axum"
-description: "Push Server-Sent Events from Axum by returning an async Stream of events. Replace Node's imperative res.write loop with a typed Sse response, throttling, and"
+description: "Push Server-Sent Events from Axum by returning an async Stream, replacing Node's imperative res.write loop with a typed Sse response and throttling."
 ---
 
 ## Quick Overview

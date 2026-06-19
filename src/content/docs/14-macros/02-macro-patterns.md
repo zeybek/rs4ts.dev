@@ -1,6 +1,6 @@
 ---
 title: "Macro Patterns: Fragment Specifiers and Multiple Rules"
-description: "Match meaningfully in macro_rules! with fragment specifiers like :expr, :ident, :ty, and :tt, plus multiple rules for the shape-based overloading Rust"
+description: "Match meaningfully in macro_rules! with fragment specifiers like :expr, :ident, :ty, and :tt, plus multiple rules for shape-based overloading."
 ---
 
 Once you can write a basic `macro_rules!` macro, the next step is matching *meaningfully* on what the caller passed. This page is about the two tools that do the heavy lifting in `macro_rules!`: **fragment specifiers** (telling Rust *what kind* of syntax each captured piece is) and **multiple rules** (overload-like dispatch on the shape of the input).

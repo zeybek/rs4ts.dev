@@ -1,6 +1,6 @@
 ---
 title: "JSON REST APIs"
-description: "Build a full CRUD resource in Axum where serde and the Json extractor type-check request and response bodies, replacing the unsafe req.body cast you wrote in"
+description: "Build a full CRUD resource in Axum where serde and the Json extractor type-check request and response bodies — no more unsafe req.body cast from Express."
 ---
 
 ## Quick Overview

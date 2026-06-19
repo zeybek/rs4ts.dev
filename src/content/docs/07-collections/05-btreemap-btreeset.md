@@ -1,6 +1,6 @@
 ---
 title: "Sorted Collections: BTreeMap and BTreeSet"
-description: "Rust's BTreeMap and BTreeSet keep keys permanently sorted, giving free in-order iteration and O(log n) range queries that a JavaScript Map, ordered by"
+description: "Rust's BTreeMap and BTreeSet keep keys permanently sorted, giving free in-order iteration and O(log n) range queries a JavaScript Map can't."
 ---
 
 Rust's standard library ships two collections whose superpower is **order**: `BTreeMap<K, V>` and `BTreeSet<T>`. Where a `HashMap` gives you the fastest possible lookup but throws away ordering, a `BTreeMap` keeps its keys permanently sorted, which makes "give me everything between X and Y" and "iterate in order" cheap, built-in operations rather than something you reconstruct by sorting on every read.

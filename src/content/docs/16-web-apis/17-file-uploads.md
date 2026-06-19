@@ -1,6 +1,6 @@
 ---
 title: "File Uploads"
-description: "Handle multipart file uploads in Axum. Where Express leans on multer's req.file, Axum's Multipart extractor streams each part straight to disk with MIME and"
+description: "Handle multipart file uploads in Axum: where Express leans on multer's req.file, the Multipart extractor streams each part to disk with MIME checks."
 ---
 
 ## Quick Overview

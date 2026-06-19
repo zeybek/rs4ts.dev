@@ -1,6 +1,6 @@
 ---
 title: "The `Error` Trait"
-description: "Rust's std::error::Error is a trait, not a class like TypeScript's Error. See its Debug and Display bounds, the source() cause chain, Box<dyn Error>, and"
+description: "Rust's std::error::Error is a trait, not a class like TypeScript's Error: its Debug and Display bounds, the source() cause chain, and Box<dyn Error>."
 ---
 
 In TypeScript, `Error` is a runtime class you `throw`. In Rust, `std::error::Error` is a **trait** that custom error types opt into so they can be reported uniformly, chained to their underlying cause, and boxed behind a single return type.

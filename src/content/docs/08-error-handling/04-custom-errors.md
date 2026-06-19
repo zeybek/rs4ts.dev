@@ -1,6 +1,6 @@
 ---
 title: "Custom Error Types"
-description: "Instead of subclassing Error like TypeScript, Rust models failures as an enum or struct with Display and the Error trait, giving compiler-checked, exhaustive"
+description: "Instead of subclassing Error like TS, Rust models failures as an enum or struct with Display and the Error trait, for compiler-checked, exhaustive cases."
 ---
 
 In TypeScript you usually `throw new Error("...")` or subclass `Error`. Rust has no exceptions, so you instead **define a type** that lists exactly what can go wrong and return it inside `Result<T, E>`. This page is about designing those types by hand: as **enums** or **structs**, and wiring them up with the `Display` and `Error` traits so they behave like first-class errors.

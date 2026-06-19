@@ -1,6 +1,6 @@
 ---
 title: "Request Validation"
-description: "Shape-correct isn't valid. Rust's validator crate plays the role of Zod: derive Validate, enforce business rules, and return a structured 422 via a"
+description: "Shape-correct isn't valid. Rust's validator crate plays the role of Zod: derive Validate, enforce business rules, and return a structured 422 on failure."
 ---
 
 In Express.js you reach for a library like Zod, Joi, or `express-validator` and wire it up as middleware that runs before your handler. Axum's [extractors](/16-web-apis/04-extractors/) already guarantee a request *deserialized* into the right shape, but "shape-correct" is not the same as "valid". This page covers the next layer: enforcing business rules (a name is 2-50 characters, an email is well-formed, an age is in range) and returning a `400`/`422` with a helpful, structured body when those rules are broken.

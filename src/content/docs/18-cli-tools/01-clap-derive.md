@@ -1,6 +1,6 @@
 ---
 title: "Parsing Arguments with the clap Derive API"
-description: "Declare CLI arguments as struct fields and let clap's derive macro generate the parser, validation, and --help, replacing the runtime method chains of"
+description: "Declare CLI arguments as struct fields and let clap's derive macro generate the parser, validation, and --help — no runtime method chains like yargs."
 ---
 
 In Node, you reach for `commander` or `yargs` and wire up options with a chain of method calls. In Rust, the idiomatic way to build a command-line interface is **clap's derive API**: you describe your arguments as fields on a `struct`, slap `#[derive(Parser)]` on it, and the macro generates the parser, the `--help` text, the validation, and the error messages for you.

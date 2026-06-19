@@ -1,6 +1,6 @@
 ---
 title: "Project 5: Production Microservice (URL Shortener)"
-description: "Build a deployable URL shortener in Rust with axum: layered config, structured JSON logs, health probes, a typed error, and graceful shutdown, the Node"
+description: "Build a deployable URL shortener in Rust with axum: config, JSON logs, health probes, a typed error, and graceful shutdown, the Node checklist axum wires."
 ---
 
 This project is a small but *production-shaped* HTTP microservice: a URL

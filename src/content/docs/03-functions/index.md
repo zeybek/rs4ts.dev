@@ -2,7 +2,7 @@
 title: "Functions"
 sidebar:
   label: "Overview"
-description: "Map every TypeScript function piece to Rust: signatures, parameters, returns, closures, higher-order functions, fn pointers, and recursion, with the deeper"
+description: "Map every TypeScript function piece to Rust: signatures, parameters, returns, closures, higher-order functions, fn pointers, and recursion."
 ---
 
 Functions are the workhorse of any program, and you already write them every day in TypeScript and JavaScript. This section maps each piece you know — declarations, parameters, return values, arrow functions, higher-order functions, function pointers, and recursion — onto its idiomatic Rust counterpart. The syntax is close enough to feel familiar, but a few deeper ideas (typed signatures as hard contracts, the expression-oriented body, the `Fn`/`FnMut`/`FnOnce` closure traits, and the absence of default/rest parameters and guaranteed tail-call optimization) reshape how you read and write Rust code.

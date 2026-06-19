@@ -1,6 +1,6 @@
 ---
 title: "Basic Types"
-description: "Rust replaces TypeScript's single number type with many sized integers, floats, bool, char, and tuples, plus explicit casts and overflow handling instead of"
+description: "Rust replaces TypeScript's one number type with sized ints, floats, bool, char, and tuples, plus explicit casts and overflow checks, not silent coercion."
 ---
 
 Rust has a rich type system with explicit types for different sizes and purposes. Unlike TypeScript's single `number` type, Rust has many numeric types optimized for different use cases.

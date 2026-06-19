@@ -1,6 +1,6 @@
 ---
 title: "Vectors: From `Array` to `Vec<T>`"
-description: "Rust's Vec<T> is the JavaScript Array's counterpart: push, pop, and iterate, but with one element type, bounds-checked indexing that panics, ownership moves"
+description: "Rust's Vec<T> is the JS Array's counterpart: push, pop, and iterate, but with one element type, bounds-checked indexing that panics, and ownership moves."
 ---
 
 The JavaScript `Array` is the workhorse of every TypeScript codebase. Its direct Rust counterpart is `Vec<T>`: a growable, heap-allocated, contiguous list. This page maps everything you already do with arrays (`push`, `pop`, indexing, iteration) onto `Vec<T>`, and introduces two ideas JavaScript hides from you: a single **element type** and explicit **capacity**.

@@ -1,6 +1,6 @@
 ---
 title: "Serde Basics: Setup and the to_string / from_str Round-Trip"
-description: "Set up Serde in Rust and run the JSON round-trip you know from JavaScript: to_string and from_str replace JSON.stringify and JSON.parse, but parse into a"
+description: "Set up Serde and run the JSON round-trip you know from JavaScript: to_string and from_str replace JSON.stringify and JSON.parse, into a typed struct."
 ---
 
 In JavaScript, `JSON.stringify` and `JSON.parse` are built into the language and always available. Rust ships no JSON support in the standard library; instead the ecosystem standardized on **Serde**, a small set of crates you add to your project. This page is the hands-on starting point: how to add Serde to a project, and how to perform the two operations you do every day in TypeScript: turn a value into a JSON string, and parse a JSON string back into a value.

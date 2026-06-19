@@ -1,6 +1,15 @@
 # Cloudflare static-asset response headers (Workers/Pages `_headers` format).
 # Our deploy is pure-static (no Worker script), so these apply to every asset.
 
+# Content-hashed build assets: the hash in the filename changes whenever the
+# bytes change, so a one-year immutable cache can never serve stale code. Fonts
+# are versioned by path and effectively immutable too. Faster repeat views and
+# better Core Web Vitals (a ranking signal) with zero staleness risk.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # The generated llms*.txt files are plain-text mirrors of the docs for AI/coding
 # agents (Cursor, Cline, etc.). Keep them fetchable by crawlers, but OUT of
 # Google's web index — they are not pages meant to rank, and indexing them would

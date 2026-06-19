@@ -2,7 +2,7 @@
 title: "Collections"
 sidebar:
   label: "Overview"
-description: "JavaScript's Array, string, Map, and Set become Rust's typed Vec, String/&str, HashMap, and BTreeMap, reshaped by lazy iterators that do no work until you"
+description: "JS Array, string, Map, and Set become Rust's typed Vec, String/&str, HashMap, and BTreeMap, reshaped by lazy iterators that do no work until you ask."
 ---
 
 In TypeScript you keep data in `Array`, `string`, `Object`/`Map`, and `Set`, and you reshape it with array methods like `.map()`, `.filter()`, and `.reduce()`. Rust ships the same shapes as concrete, typed standard-library collections — `Vec<T>`, `String`/`&str`, `HashMap<K, V>`, `HashSet<T>`, and the sorted `BTreeMap`/`BTreeSet` — plus a sharper tool for processing them: the **lazy iterator** system. This section maps each TypeScript habit onto its idiomatic Rust collection, then shows how iterator adaptors and consumers replace your array-method muscle memory while doing strictly less work (nothing runs until you ask for a result).

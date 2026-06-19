@@ -1,6 +1,6 @@
 ---
 title: "Git-like Subcommands with clap"
-description: "Model git-style verbs like commit and remote add as a Rust enum with clap's Subcommand derive, getting exhaustive matching and nested help that commander"
+description: "Model git-style verbs like commit and remote add as a Rust enum with clap's Subcommand derive, getting exhaustive matching and nested help commander can't."
 ---
 
 Many serious command-line tools are not a single command but a **family** of commands sharing one binary: `git commit`, `git remote add`, `cargo build`, `docker container ls`. In Rust, clap's `#[derive(Subcommand)]` turns a plain enum into exactly this kind of dispatch tree, with help, validation, and nesting generated for you.

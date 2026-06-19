@@ -1,6 +1,6 @@
 ---
 title: "Pattern Matching with `match`"
-description: "Rust's match is JavaScript's switch with no fall-through and no forgotten case: it's an exhaustive expression that destructures, binds, and matches ranges"
+description: "Rust's match is JS's switch with no fall-through and no forgotten case: an exhaustive expression that destructures, binds, and matches ranges."
 ---
 
 Rust's `match` is the spiritual successor to JavaScript's `switch`, but it does far more: it is an **expression** that produces a value, and the compiler forces you to handle *every* possible case. If you have ever shipped a bug because a `switch` fell through or missed a case, `match` is about to become your favorite control-flow construct.

@@ -1,6 +1,6 @@
 ---
 title: "Progress Bars and Spinners with indicatif"
-description: "Add progress bars, spinners, byte counters, and stacked multi-progress to Rust CLIs with indicatif, the thread-safe answer to Node's cli-progress and ora in"
+description: "Add progress bars, spinners, byte counters, and multi-progress to Rust CLIs with indicatif, the thread-safe answer to Node's cli-progress and ora."
 ---
 
 Give long-running CLI work a heartbeat: progress bars, spinners, byte counters, and stacked multi-progress displays, all rendered to the terminal with the `indicatif` crate.

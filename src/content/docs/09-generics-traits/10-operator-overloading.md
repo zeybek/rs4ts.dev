@@ -1,6 +1,6 @@
 ---
 title: "Operator Overloading"
-description: "Rust operators are trait methods: a + b means a.add(b), so implementing Add, Mul, or Index opts your types into syntax JavaScript and TypeScript never let"
+description: "Rust operators are trait methods: a + b means a.add(b), so implementing Add, Mul, or Index opts your types into syntax JS and TS never let you touch."
 ---
 
 In TypeScript and JavaScript, `+`, `-`, `*`, and `[]` are baked into the language: you cannot teach `+` how to add two of your own objects. Rust takes the opposite stance. Every operator is sugar for a **trait method**, so `a + b` literally means `a.add(b)`, and you opt your own types into that syntax by implementing the right trait.

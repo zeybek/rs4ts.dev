@@ -1,6 +1,6 @@
 ---
 title: "Writing Queries with SQLx"
-description: "Write SQL with SQLx in Rust: query! and query_as! macros verify columns and types against your schema at compile time, bind params kill injection, and"
+description: "Write SQL with SQLx in Rust: query! and query_as! verify columns and types against your schema at compile time, and bound params kill injection."
 ---
 
 Learn how to run SQL with SQLx: the `query!` and `query_as!` macros that check your SQL against a real database **at compile time**, how parameter binding stops SQL injection cold, and how the `FromRow` trait maps result rows into your Rust structs.

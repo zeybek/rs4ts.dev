@@ -1,6 +1,6 @@
 ---
 title: "HashMaps: `HashMap<K, V>` vs JavaScript Objects and `Map`"
-description: "Rust's HashMap<K, V> is the typed counterpart to JavaScript objects and Map: get returns Option not undefined, keys and values are owned, and the entry API"
+description: "Rust's HashMap<K, V> is the typed counterpart to JS objects and Map: get returns Option not undefined, keys and values are owned, plus the entry API."
 ---
 
 In JavaScript and TypeScript you reach for a plain **object** (`{}`) or a **`Map`** whenever you need to look something up by key. Rust's equivalent is `std::collections::HashMap<K, V>`, a hash table that maps keys of type `K` to values of type `V`. The data structure is familiar; what's new is that keys and values are *typed*, *owned*, and the lookup API hands you an `Option` instead of `undefined`.

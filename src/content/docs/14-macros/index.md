@@ -2,7 +2,7 @@
 title: "Macros"
 sidebar:
   label: "Overview"
-description: "Rust macros are compile-time code generation with zero runtime cost, unlike TypeScript's decorators and Babel transforms. Covers macro_rules!, derive"
+description: "Rust macros are compile-time code generation with zero runtime cost, unlike TS decorators and Babel: macro_rules!, derive, attribute, and proc macros."
 ---
 
 In TypeScript you have no real compile-time metaprogramming: the closest things are runtime functions, decorators, and build-step AST transformers like Babel. Rust takes the opposite approach with **macros** — compile-time code generation that expands *before* type checking and leaves **no runtime cost** behind. This section covers both families: **declarative macros** (`macro_rules!`, pattern-matching over your source tokens) and **procedural macros** (the derive, attribute, and function-like flavors written with `syn` 2 + `quote`), plus the standard-library macros you will use every single day.

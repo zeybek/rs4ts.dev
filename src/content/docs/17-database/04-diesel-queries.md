@@ -1,6 +1,6 @@
 ---
 title: "Diesel Query Builder: From a Knex/TypeORM Chain to a Type-Checked DSL"
-description: "Diesel's query builder maps Knex and TypeORM's where/select/orderBy chains to a Rust DSL where columns are typed values, so a bad column or type mismatch"
+description: "Diesel maps Knex/TypeORM's where/select/orderBy chains to a Rust DSL where columns are typed values, so a bad column or type mismatch is a compile error."
 ---
 
 In TypeScript, when you outgrow raw SQL strings you reach for a query builder: Knex's `knex('users').where(...).orderBy(...)`, TypeORM's `repository.createQueryBuilder()`, or Prisma's `prisma.user.findMany({ where: ... })`. **Diesel** is Rust's most established equivalent, and its query builder has one defining feature: the queries you write are **checked by the Rust compiler against your schema**. A typo in a column name, comparing a `Text` column to a number, or selecting columns that don't match your struct are all *compile errors*, not runtime surprises. This page maps your `where`/`select`/`orderBy`/`insert`/`update`/`delete` instincts onto Diesel's DSL.

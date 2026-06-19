@@ -1,5 +1,5 @@
 ---
-title: "Ownership"
+title: "Rust Ownership Explained"
 sidebar:
   label: "Overview"
 description: "Rust ownership replaces garbage collection: stack vs heap, the three rules, borrowing, lifetimes, move/copy/clone, Rc/Arc, and Drop, mapped from TypeScript."

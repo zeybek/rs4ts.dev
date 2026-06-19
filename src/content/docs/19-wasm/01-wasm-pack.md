@@ -1,6 +1,6 @@
 ---
 title: "Setting Up wasm-pack"
-description: "Set up wasm-pack to turn a Rust crate into a browser-ready npm package: the cdylib crate type, web/bundler/nodejs targets, and the generated .wasm plus .js"
+description: "Set up wasm-pack to turn a Rust crate into a browser-ready npm package: the cdylib crate type, web/bundler/nodejs targets, and the .wasm plus .js it emits."
 ---
 
 The toolchain that turns a Rust crate into an npm-installable, browser-ready WebAssembly package. This is the build step that sits between `cargo` and your bundler.

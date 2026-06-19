@@ -1,6 +1,6 @@
 ---
 title: "The Tokio Runtime: Rust's Async Engine"
-description: "Node's event loop is always running; Rust ships no runtime, so Tokio drives your futures. Compare its current-thread and multi-thread work-stealing"
+description: "Node's event loop is always running; Rust ships no runtime, so Tokio drives your futures. Compare its current-thread and multi-thread schedulers."
 ---
 
 ## Quick Overview

@@ -1,6 +1,6 @@
 ---
 title: "Property-Based Testing"
-description: "Rust's proptest asserts invariants over hundreds of random inputs and shrinks failures to a minimal case, like fast-check in TypeScript but with auto-saved"
+description: "Rust's proptest asserts invariants over hundreds of random inputs and shrinks failures to a minimal case, like fast-check but with auto-saved cases."
 ---
 
 Most of the tests you write in Jest or Vitest are **example tests**: you pick a handful of inputs, compute the expected output by hand, and assert. Property-based testing flips that around: you state a *rule* that must hold for **every** input, and the framework generates hundreds of random inputs trying to break it. In Rust, the `proptest` crate brings this style to `cargo test`, complete with automatic **shrinking** that boils a wild failing input down to the smallest one that still fails.

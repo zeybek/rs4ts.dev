@@ -1,5 +1,5 @@
 ---
-title: "Lifetimes"
+title: "Rust Lifetimes Explained"
 description: "Rust lifetimes ('a) prove every reference stays valid without a garbage collector. Learn what TypeScript's GC hides and when to annotate functions and structs."
 ---
 

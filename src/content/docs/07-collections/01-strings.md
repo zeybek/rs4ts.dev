@@ -1,6 +1,6 @@
 ---
 title: "Strings: `String` vs `&str`"
-description: "Rust splits the JavaScript string into two types: the owned, growable String and the borrowed slice &str. Learn which to use, plus UTF-8, byte lengths, and"
+description: "Rust splits the JavaScript string into two types: the owned, growable String and the borrowed slice &str. Learn which to use, plus UTF-8 and byte lengths."
 ---
 
 Rust splits the single JavaScript `string` into two types: the owned, growable `String` and the borrowed slice `&str`. Understanding which one to use, and why, is one of the most useful things a TypeScript/JavaScript developer can learn early.

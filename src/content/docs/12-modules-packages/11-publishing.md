@@ -1,6 +1,6 @@
 ---
 title: "Publishing to crates.io"
-description: "Publish a Rust crate to crates.io like npm publish, but permanent: cargo publish, required metadata, enforced SemVer, and cargo yank instead of unpublish for"
+description: "Publish a Rust crate to crates.io like npm publish, but permanent: cargo publish, required metadata, enforced SemVer, and cargo yank instead of unpublish."
 ---
 
 Once your crate is useful to more than just you, you publish it to **crates.io** — Rust's central registry, the equivalent of the public npm registry. This page covers the full publishing workflow: preparing manifest metadata, the `cargo publish` command, SemVer-based versioning, and what to do when a release goes wrong (`cargo yank`).

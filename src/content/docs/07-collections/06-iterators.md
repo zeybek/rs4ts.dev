@@ -1,6 +1,6 @@
 ---
 title: "Iterators: From Array Methods to Lazy Iterator Adaptors"
-description: "Map your JavaScript .map/.filter/.slice habits onto Rust's lazy Iterator adaptors: map, filter, take, skip, zip, enumerate build a pipeline that runs no work"
+description: "Map your JS .map/.filter/.slice habits onto Rust's lazy Iterator adaptors like map, filter, take, zip, and enumerate, which run no work until consumed."
 ---
 
 In TypeScript you reach for `.map()`, `.filter()`, `.slice()`, and friends without a second thought. Rust has all of these too, but they live on the **`Iterator`** trait and behave one important way differently: they are **lazy**. This page maps your array-method muscle memory onto Rust's iterator adaptors (`map`, `filter`, `take`, `skip`, `zip`, `enumerate`) and explains the laziness that makes them both fast and, at first, slightly surprising.

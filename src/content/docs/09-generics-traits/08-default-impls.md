@@ -1,6 +1,6 @@
 ---
 title: "Default Method Implementations: Boilerplate Elimination"
-description: "Rust default trait methods ship a working body once so every implementor inherits it, like a TypeScript abstract class but extendable to types you don't own"
+description: "Rust default trait methods ship a body once so every implementor inherits it, like a TypeScript abstract class but extendable to types you don't own."
 ---
 
 Writing the same helper method on twenty classes is one of the quiet taxes of object-oriented TypeScript. A Rust **default method** lets a trait ship a working body *once*, so every implementor inherits it for free. This file is about that single idea taken seriously: how a well-designed trait turns *one* method you must write into a *whole API* you get for nothing, and where that advantage comes from.

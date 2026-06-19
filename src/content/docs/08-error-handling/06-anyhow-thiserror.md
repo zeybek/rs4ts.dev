@@ -1,6 +1,6 @@
 ---
 title: "`anyhow` & `thiserror`"
-description: "thiserror derives Display, Error, and From for typed library errors; anyhow gives apps one error type with context. Cheap, explicit error handling versus"
+description: "thiserror derives Display, Error, and From for typed library errors; anyhow gives apps one error type with context, versus TS's untyped throw."
 ---
 
 Writing `Display`, `Debug`, `Error`, and `From` impls by hand for every error type gets tedious fast. The `thiserror` and `anyhow` crates are the community-standard answer: `thiserror` **derives** those impls for your library's typed errors, and `anyhow` gives applications one ergonomic error type with rich context.

@@ -1,6 +1,6 @@
 ---
 title: "Serde: From `JSON.parse`/`JSON.stringify` to a Universal Data Model"
-description: "Serde is Rust's answer to JSON.parse and JSON.stringify, but type-checked and format-agnostic: one struct serializes to JSON, TOML, YAML, and more via a"
+description: "Serde is Rust's answer to JSON.parse and JSON.stringify, but type-checked and format-agnostic: one struct serializes to JSON, TOML, YAML, and more."
 ---
 
 In TypeScript you reach for `JSON.parse` and `JSON.stringify` so often they feel like part of the language. Rust's answer is **Serde**, a serialization framework that does the same job but with two important upgrades: it is **type-checked** (you parse *into* a known type, not into `any`) and it is **format-agnostic** (the same type serializes to JSON, TOML, YAML, MessagePack, and more). This page maps your `JSON.parse`/`JSON.stringify` instincts onto Serde's **`Serialize`** and **`Deserialize`** traits and explains the **data-model architecture** that makes one type work with every format.

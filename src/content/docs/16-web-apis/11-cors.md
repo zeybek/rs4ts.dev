@@ -1,6 +1,6 @@
 ---
 title: "CORS with Axum and tower-http"
-description: "Swap the Express cors package for tower-http's CorsLayer in Axum. Lock down origins, methods, and credentials, and learn why CORS is enforced by the browser"
+description: "Swap Express's cors for tower-http's CorsLayer in Axum: lock down origins, methods, and credentials, and see why the browser enforces CORS, not you."
 ---
 
 ## Quick Overview

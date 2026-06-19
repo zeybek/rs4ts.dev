@@ -1,6 +1,6 @@
 ---
 title: "Supertraits: One Trait Requiring Another"
-description: "A Rust supertrait (trait Sub: Super) requires implementors to also implement another trait, echoing TypeScript's interface extends but as a constraint, not"
+description: "A Rust supertrait (trait Sub: Super) requires implementors to also implement another trait, echoing TypeScript's interface extends as a constraint."
 ---
 
 In TypeScript you can write `interface Admin extends User`, declaring that every `Admin` is also a `User`. Rust has a parallel idea — a **supertrait** — written `trait Admin: User`. It looks like inheritance, and the colon even reads like `extends`, but underneath it is something more precise: a *requirement*. Saying "`Plugin` has supertrait `Component`" means "you cannot implement `Plugin` for a type unless that type also implements `Component`."

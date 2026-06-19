@@ -1,6 +1,6 @@
 ---
 title: "Sets and HashSet"
-description: "Rust's HashSet<T> is the JavaScript Set for unique values, with insert returning a bool and built-in union, intersection, and difference set algebra since"
+description: "Rust's HashSet<T> is the JS Set for unique values, with insert returning a bool and built-in union, intersection, and difference set algebra."
 ---
 
 Rust's `HashSet<T>` is the standard hash-based collection of **unique** values: the direct counterpart to the JavaScript `Set`. If you have ever reached for `new Set()` to deduplicate an array or to answer "have I seen this before?", you already know the use case; this page shows the idiomatic Rust version and the rich set algebra Rust gives you out of the box.

@@ -1,6 +1,6 @@
 ---
 title: "Procedural Macros: Writing Compiler Plugins with syn and quote"
-description: "Write Rust procedural macros that run inside the compiler: parse tokens with syn, generate code with quote, type-safe and zero-cost where TypeScript uses"
+description: "Write Rust procedural macros that run inside the compiler: parse tokens with syn, generate code with quote, type-safe and zero-cost where TS uses Babel."
 ---
 
 ## Quick Overview

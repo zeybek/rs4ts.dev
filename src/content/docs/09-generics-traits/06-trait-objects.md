@@ -1,6 +1,6 @@
 ---
 title: "Trait Objects and Dynamic Dispatch"
-description: "Trait objects bring runtime polymorphism to Rust via dyn Trait, like a TypeScript Renderer[]. Learn Box<dyn>, vtables, dyn compatibility, and dynamic vs"
+description: "Trait objects bring runtime polymorphism to Rust via dyn Trait, like a TS Renderer[]. Learn Box<dyn>, vtables, dyn compatibility, and dynamic vs static."
 ---
 
 In TypeScript, when you store a `Renderer[]` and call `.render()` on each item, the JavaScript engine looks up the right method at runtime; every method call is **dynamic dispatch**. Rust gives you that same capability, but it makes it *opt-in*: you ask for it explicitly with the `dyn` keyword. A value typed as `dyn Trait` is a **trait object**, and this file is about how trait objects work, when to reach for them, and what they cost.

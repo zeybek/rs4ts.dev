@@ -1,5 +1,5 @@
 ---
-title: "The `?` Operator"
+title: "Rust's `?` Operator vs try/catch"
 description: "Rust's ? operator propagates an Err or None to the caller with one early return, replacing TypeScript's invisible exception unwinding and converting errors via From."
 ---
 

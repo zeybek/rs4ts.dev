@@ -1,6 +1,6 @@
 ---
 title: "Custom Serialization: Hand-Written `Serialize` / `Deserialize`"
-description: "When the wire format and your Rust type diverge, hand-write Serialize/Deserialize, retarget one field with serialize_with, or mirror foreign types via"
+description: "When wire format and your type diverge, hand-write Serialize/Deserialize, retarget a field with serialize_with, or mirror foreign types via remote derive."
 ---
 
 Most of the time `#[derive(Serialize, Deserialize)]` is all you need: the field names and shapes you write in Rust become the JSON you get out. But sometimes the wire format and your in-memory type are *deliberately different*: a color stored as three bytes but exchanged as `"#1a2b3c"`, money kept as integer cents but sent as `"49.99"`, or a type from a third-party crate that does not implement Serde at all. This page covers the three escape hatches for those cases: hand-writing the `Serialize`/`Deserialize` traits, retargeting a single field with `serialize_with`/`deserialize_with`, and `#[serde(remote = "...")]` for foreign types.

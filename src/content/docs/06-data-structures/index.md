@@ -2,7 +2,7 @@
 title: "Data Structures"
 sidebar:
   label: "Overview"
-description: "Map TypeScript interfaces, unions, and null onto Rust's structs, enums, Option, pattern matching, and impl blocks: nominally typed, exhaustively checked, no"
+description: "Map TypeScript interfaces, unions, and null onto Rust's structs, enums, Option, pattern matching, and impl blocks: nominally typed, exhaustively checked."
 ---
 
 In TypeScript you model data with object literals, `interface`s, `type` aliases, and union types. Rust gives you a tighter, compiler-enforced toolkit: **structs** for fixed records, **enums** for "one of several shapes," **`Option<T>`** instead of `null`/`undefined`, **pattern matching** to destructure and branch in one step, and **`impl` blocks** to attach behavior to data. This section maps each TypeScript habit onto its idiomatic Rust counterpart so you can model a domain the Rust way — nominally typed, exhaustively checked, and with no hidden `undefined`.

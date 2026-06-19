@@ -1,5 +1,5 @@
 ---
-title: "Borrowing and References"
+title: "Borrowing & References in Rust"
 description: "A &T reference lends read-only access without moving a value, so the owner keeps it. Rust's borrow checker proves at compile time no reference ever dangles."
 ---
 

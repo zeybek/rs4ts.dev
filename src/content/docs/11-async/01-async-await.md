@@ -1,5 +1,5 @@
 ---
-title: "Async/Await Syntax"
+title: "Rust async/await vs JavaScript"
 description: "Rust's async/await mirrors JavaScript's, but .await is postfix, an async fn returns a lazy Future that runs nothing until awaited, and ?"
 ---
 

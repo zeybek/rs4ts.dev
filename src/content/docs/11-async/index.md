@@ -1,5 +1,5 @@
 ---
-title: "Async"
+title: "Async Rust for JavaScript Developers"
 sidebar:
   label: "Overview"
 description: "Map every TypeScript async habit to Rust: a Promise is eager, but a Future is lazy and runs nothing until awaited on a runtime like Tokio."

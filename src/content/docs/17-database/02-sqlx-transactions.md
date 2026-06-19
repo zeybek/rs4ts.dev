@@ -1,6 +1,6 @@
 ---
 title: "Transactions with SQLx"
-description: "SQLx makes a Rust transaction a value: begin, run through &mut *tx, then commit. Drop rolls back automatically, so the leaks Node's manual try/finally"
+description: "SQLx makes a transaction a value: begin, run through &mut *tx, then commit. Drop rolls back automatically, so you can't leak one like Node's try/finally."
 ---
 
 Database transactions let you group several statements into one atomic unit: either all of them take effect, or none of them do. SQLx models a transaction as a Rust value — a guard — whose lifetime *is* the transaction, so the borrow checker and `Drop` enforce correctness that you have to remember by hand in TypeScript.

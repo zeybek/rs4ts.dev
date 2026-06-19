@@ -1,6 +1,6 @@
 ---
 title: "Arrow Functions vs Closures"
-description: "Rust closures are JavaScript arrow functions with |args| syntax, but the compiler tracks how they capture state through the Fn, FnMut, and FnOnce traits and"
+description: "Rust closures are JavaScript arrow functions with |args| syntax, but the compiler tracks how they capture state via the Fn, FnMut, and FnOnce traits."
 ---
 
 If there is one Rust feature that feels immediately *familiar* to a TypeScript/JavaScript developer, it is the **closure**. Rust closures are the direct counterpart of JavaScript arrow functions: small, anonymous functions that capture variables from the surrounding scope. The syntax is different (`|args|` instead of `(args) =>`), and Rust's ownership system adds rules that JavaScript never enforces, but the mental model transfers almost perfectly.

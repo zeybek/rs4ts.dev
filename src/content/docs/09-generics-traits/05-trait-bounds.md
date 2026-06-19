@@ -1,6 +1,6 @@
 ---
 title: "Trait Bounds"
-description: "Rust trait bounds constrain a generic to types with the capabilities you need, like TypeScript's extends. Covers <T: Trait>, multiple bounds with +, and"
+description: "Rust trait bounds limit a generic to types with the abilities you need, like TypeScript's extends: <T: Trait>, multiple bounds with +, and where clauses."
 ---
 
 In TypeScript, a generic like `<T extends Comparable>` says "`T` can be any type, as long as it has these capabilities." Rust calls that constraint a **trait bound**, and it is not optional sugar: a generic function can only call a method on `T` if a bound *proves* `T` has that method. The bound is the contract that turns a type parameter from an opaque blob into something you can actually use.

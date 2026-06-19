@@ -1,6 +1,6 @@
 ---
 title: "Project 6: Full-Stack App (Axum API + WASM frontend)"
-description: "Build a full-stack notes app entirely in Rust: an axum JSON API plus a wasm-bindgen frontend, sharing serde types in one Cargo workspace, the"
+description: "Build a full-stack notes app entirely in Rust: an axum JSON API plus a wasm-bindgen frontend, sharing serde types in one Cargo workspace."
 ---
 
 This capstone builds a complete full-stack application **entirely in Rust**: an

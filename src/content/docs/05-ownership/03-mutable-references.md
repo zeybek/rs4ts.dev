@@ -1,6 +1,6 @@
 ---
 title: "Mutable References"
-description: "&mut T borrows a value to change it, under one rule: one writer XOR many readers. Rust catches at compile time the aliasing and loop bugs JavaScript ships to"
+description: "&mut T borrows a value to mutate it under one rule: one writer XOR many readers, catching at compile time the aliasing bugs JS ships to production."
 ---
 
 A **mutable reference** (`&mut T`) lets you temporarily borrow a value so you can *change* it without taking ownership. It is the counterpart to the shared, read-only borrows you saw in [Borrowing](/05-ownership/02-borrowing/), but it comes with one strict, far-reaching rule that does not exist in TypeScript or JavaScript.

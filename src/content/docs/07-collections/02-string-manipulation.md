@@ -1,6 +1,6 @@
 ---
 title: "String Manipulation"
-description: "Split, trim, replace, search, and parse text in Rust: a translation table from JavaScript's String.prototype, where many methods return lazy iterators and"
+description: "Split, trim, replace, search, and parse text in Rust: a translation table from JavaScript's String.prototype, where many methods return lazy iterators."
 ---
 
 Splitting, trimming, replacing, searching, parsing, and building text are everyday tasks. In TypeScript these all live on the `String.prototype`; in Rust they are split across `&str` methods, the `String` type, and the iterator system. This page is your translation table.

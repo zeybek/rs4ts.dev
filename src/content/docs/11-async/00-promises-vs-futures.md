@@ -1,6 +1,6 @@
 ---
-title: "Promises vs Futures"
-description: "A JavaScript Promise is eager and runs on creation; a Rust Future is lazy and does nothing until awaited. Rust also ships no built-in runtime, so you bring"
+title: "Rust Futures vs JavaScript Promises"
+description: "A JavaScript Promise is eager and runs on creation; a Rust Future is lazy until awaited. Rust ships no runtime, so you bring your own (Tokio)."
 ---
 
 If you know JavaScript `Promise`s, you already understand 80% of Rust's async model, and the remaining 20% is exactly where most TypeScript/JavaScript developers get burned. This page is about that 20%: the single most important difference is that a JavaScript **Promise is eager** (it starts doing work the moment it is created), while a Rust **`Future` is lazy** (it does *nothing at all* until you `.await` it or hand it to a runtime).

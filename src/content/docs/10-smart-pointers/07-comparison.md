@@ -1,6 +1,6 @@
 ---
 title: "Choosing a Smart Pointer: A Decision Guide"
-description: "A decision table mapping each need to one Rust smart pointer. Three questions (single or shared owner, mutated through &, one thread or many) pick Box, Rc"
+description: "A decision table mapping each need to one Rust smart pointer. Three questions (single or shared owner, mutate through &, one thread or many) pick the type."
 ---
 
 This page is the map for the rest of Section 10. The other files each go deep on one smart pointer; this one steps back and answers the question you will actually ask on the job: **"I have this situation — which type do I reach for?"** It is built around a single decision table that maps a *need* to a *type*, plus the reasoning that gets you there.
