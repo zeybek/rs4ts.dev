@@ -2,8 +2,18 @@
 # Open educational content. All crawlers welcome, including AI / answer-engine
 # bots (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …) — we want this
 # guide cited by generative engines (GEO).
+#
+# Content Signals (contentsignals.org / draft-romm-aipref-contentsignals) declare
+# how this content may be used. This is an open, MIT-licensed guide that WANTS
+# maximal AI reach, so every signal is an explicit yes — the inverse of the
+# privacy-protective default (and the inverse of what Cloudflare injects when AI
+# blocking is on):
+#   search    = index + excerpt in search results  -> yes
+#   ai-input  = use in RAG / grounding / AI answers -> yes  (this is GEO/citation)
+#   ai-train  = use to train / fine-tune models     -> yes  (open educational content)
 
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 Sitemap: https://rs4ts.dev/sitemap-index.xml

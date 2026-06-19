@@ -10,6 +10,15 @@
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
+# RFC 8288 Link header on the home page: advertise the LLM-readable mirror via
+# the registered `describedby` relation so agents can discover it from the root
+# response, not just the /llms.txt convention. We do NOT emit api-catalog /
+# service-doc / service-desc relations — this is a static guide with no API, so
+# those would point at endpoints that don't exist. Low-stakes hygiene: no major
+# engine is known to rank/cite on Link headers today.
+/
+  Link: </llms.txt>; rel="describedby"; type="text/plain"
+
 # The generated llms*.txt files are plain-text mirrors of the docs for AI/coding
 # agents (Cursor, Cline, etc.). Keep them fetchable by crawlers, but OUT of
 # Google's web index — they are not pages meant to rank, and indexing them would
