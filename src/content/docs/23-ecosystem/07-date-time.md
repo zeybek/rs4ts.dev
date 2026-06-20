@@ -135,7 +135,7 @@ chrono splits what JavaScript crams into one `Date` into several types, and the 
 
 ### Getting "now"
 
-```rust
+```rust playground
 use chrono::{Utc, Local, DateTime};
 
 fn main() {
@@ -153,7 +153,7 @@ fn main() {
 
 There are two parsing paths, and choosing the right one is the most common stumbling block:
 
-```rust
+```rust playground
 use chrono::{DateTime, Utc, NaiveDateTime};
 
 fn main() {
@@ -176,7 +176,7 @@ The `.parse()` on the first line uses chrono's `FromStr`, which expects a real R
 
 `format()` takes the same `strftime` specifiers as parsing and returns a lazy formatter you turn into a `String`:
 
-```rust
+```rust playground
 use chrono::{TimeZone, Utc};
 
 fn main() {
@@ -192,7 +192,7 @@ Common specifiers: `%Y` 4-digit year, `%m` zero-padded month, `%d` zero-padded d
 
 The `Datelike` and `Timelike` traits give you the getters:
 
-```rust
+```rust playground
 use chrono::{TimeZone, Utc, Datelike, Timelike};
 
 fn main() {
@@ -211,7 +211,7 @@ fn main() {
 
 chrono re-exports `TimeDelta` under the familiar name `Duration`. You add and subtract it directly:
 
-```rust
+```rust playground
 use chrono::{TimeZone, Utc, Duration};
 
 fn main() {
@@ -285,7 +285,7 @@ called `Result::unwrap()` on an `Err` value: ParseError(TooShort)
 
 The fix is to parse into a `NaiveDateTime` with an explicit format, then attach the zone you *know* the data is in:
 
-```rust
+```rust playground
 use chrono::{NaiveDateTime, Utc, TimeZone};
 
 fn main() {
@@ -382,7 +382,7 @@ Calling `.unwrap()` on a `LocalResult` panics on **both** `None` and `Ambiguous`
 
 A subscription service: parse a sign-up timestamp from JSON, compute the next monthly renewal date (correctly handling that a Jan 31 sign-up renews on the last day of February), and render a "last seen" string the way date-fns' `formatDistanceToNow` would.
 
-```rust
+```rust playground
 // cargo add chrono --features serde
 // cargo add serde --features derive
 // cargo add serde_json
@@ -456,7 +456,7 @@ Note how `next_renewal` lands on the 28th (the last valid "31st-ish" day in Febr
 time = { version = "0.3", features = ["formatting", "parsing", "macros"] }
 ```
 
-```rust
+```rust playground
 use time::OffsetDateTime;
 use time::format_description::well_known::Rfc3339;
 use time::macros::{datetime, format_description};
@@ -492,7 +492,7 @@ fn main() {
 jiff = { version = "0.2", features = ["serde"] }
 ```
 
-```rust
+```rust playground
 use jiff::{Timestamp, ToSpan};
 
 fn main() -> Result<(), jiff::Error> {
@@ -595,7 +595,7 @@ The `Istanbul` zone prints `+03` for `%Z` because Turkey's current zone has no s
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add chrono
 use chrono::NaiveDate;
 
@@ -625,7 +625,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add chrono
 use chrono::{NaiveDate, Datelike, Weekday, Duration};
 

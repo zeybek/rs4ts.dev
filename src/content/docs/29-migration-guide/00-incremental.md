@@ -272,7 +272,7 @@ A slice you cannot instantly route back to Node is not an incremental migration;
 
 A team is strangling the order-checkout path out of a Node monolith. The Rust slice must accept the **exact** JSON the Node endpoint accepted and emit the **exact** JSON it emitted — clients and the proxy must not be able to tell the difference. Serde's `rename` attributes bridge idiomatic Rust field names to the legacy `camelCase` wire shape.
 
-```rust
+```rust playground
 // order-service/src/main.rs — a strangled checkout slice, wire-compatible with the old Node route
 // Cargo.toml: serde = { version = "1", features = ["derive"] }, serde_json = "1"
 use serde::{Deserialize, Serialize};
@@ -410,7 +410,7 @@ fn main() {
 
 Change the parameter to a borrow (`&str`) and pass `&payload`. The caller keeps ownership, so `payload` is still usable afterward.
 
-```rust
+```rust playground
 fn process(payload: &str) -> usize {
     payload.len()
 }

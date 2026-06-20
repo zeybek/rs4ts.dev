@@ -55,7 +55,7 @@ Three things to hold onto: the variadic `sum`/`dict` are **runtime function call
 
 The Rust counterparts look superficially similar but happen entirely at **compile time**, before type checking, and produce real, checked Rust code.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 // A variadic, type-GENERIC constructor macro. A plain function cannot do this:
@@ -107,7 +107,7 @@ The `hashmap!` invocation is *replaced* by the compiler with the block of code o
 
 When you write `square!(5)` with this macro:
 
-```rust
+```rust playground
 macro_rules! square {
     ($x:expr) => {
         $x * $x
@@ -138,7 +138,7 @@ The trailing `!` is the syntactic flag that says "this is a macro invocation, no
 
 A famous footgun in C's textual macros does **not** happen with `macro_rules!` fragment matchers. Consider:
 
-```rust
+```rust playground
 macro_rules! square {
     ($x:expr) => { $x * $x };
 }
@@ -164,7 +164,7 @@ A C-style textual macro would paste `n + 1 * n + 1` and print `9`. Rust's `:expr
 
 This is the property that makes `macro_rules!` safe to use and is unlike anything in TypeScript/JavaScript text- or AST-based code generation. Identifiers a macro *creates* live in their own syntactic context and will not capture or be captured by identifiers at the call site:
 
-```rust
+```rust playground
 // A macro that introduces a temporary binding `tmp` internally.
 macro_rules! swap {
     ($a:expr, $b:expr) => {{
@@ -339,7 +339,7 @@ Let the macro invent its own temporaries freely; hygiene keeps them safe. When t
 
 A small, production-flavored logging macro that captures the *expression source* and the *current location* — two things a function literally cannot do, because by the time a function runs, the original source text and call site are gone. This mirrors the standard `dbg!` macro.
 
-```rust
+```rust playground
 /// Logs an expression's source text, its file:line, and its value,
 /// then returns the value so it can be used inline. Like a typed `console.log`
 /// that also tells you WHERE and WHAT it logged — checked at compile time.
@@ -371,7 +371,7 @@ listening on port 9000
 
 The macro recorded the literal text `raw.trim().parse::<u16>().unwrap_or(8080)` via `stringify!`, the exact `file!`/`line!`, and the computed value, all resolved at compile time, with the temporary `value` kept hygienically separate from anything in `parse_port`. The standard library ships exactly this idea as `dbg!`:
 
-```rust
+```rust playground
 fn main() {
     let n = 5;
     let doubled = dbg!(n * 2); // prints to stderr, returns the value
@@ -435,7 +435,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! max2 {
     ($a:expr, $b:expr) => {
         if $a >= $b { $a } else { $b }
@@ -479,7 +479,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! show {
     ($e:expr) => {{
         let val = $e; // hygienic: does NOT clash with the caller's `val`
@@ -531,7 +531,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! count {
     () => { 0usize };
     ($head:expr $(, $tail:expr)*) => {

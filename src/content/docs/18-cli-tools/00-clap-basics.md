@@ -391,7 +391,7 @@ For more information, try '--help'.
 
 Rather than checking combinations by hand after parsing, declare the constraint and let clap enforce it:
 
-```rust
+```rust playground
 use clap::{Arg, ArgAction, Command};
 
 fn main() {
@@ -621,7 +621,7 @@ For more information, try '--help'.
 
 **Instructions:** Build a `Command` named `echo` that accepts a required positional `text`, a `--upper`/`-u` boolean flag, and a `--repeat`/`-r` option (default `"1"`). Print `text` `repeat` times, uppercased if `--upper` is set.
 
-```rust
+```rust playground
 use clap::{Arg, ArgAction, Command};
 
 fn main() {
@@ -690,7 +690,7 @@ HI
 
 **Instructions:** Build a `ping`-like tool with a required `host` positional, a `--count`/`-c` option typed as `u16` (default `4`), and a `--quiet`/`-q` flag. Print a fake ping line per count unless `--quiet`, then a summary. Confirm that `--count notnum` produces a clap error with exit code 2.
 
-```rust
+```rust playground
 use clap::{value_parser, Arg, ArgAction, Command};
 
 fn main() {
@@ -765,7 +765,7 @@ For more information, try '--help'.
 
 **Instructions:** Build a `log` tool with a required `--level` option limited to `debug`, `info`, `warn`, `error`, plus a required positional `message`. Print the message prefixed with the upper-cased level. Confirm that an invalid level lists the allowed values.
 
-```rust
+```rust playground
 use clap::{builder::PossibleValuesParser, Arg, Command};
 
 fn main() {

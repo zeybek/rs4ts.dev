@@ -61,7 +61,7 @@ You configure tsserver through `.vscode/settings.json` (and the `typescript.*` /
 
 rust-analyzer plays the identical role. You install it once as a `rustup` component (your editor extension usually does this for you), and configure it through the `rust-analyzer.*` keys:
 
-```rust
+```rust playground
 // src/main.rs — what rust-analyzer does for you while you type
 use std::collections::HashMap;
 
@@ -327,7 +327,7 @@ Go-to-definition into `std` (e.g. jumping into `Vec::push`) needs the standard l
 
 Here is the kind of code where rust-analyzer earns its keep: a small status-code module with a trait `impl` and an exhaustive `match`. As you write it, rust-analyzer's "Implement missing members" fills the `Display` skeleton, "Add missing match arms" completes the `match`, and inlay hints confirm the inferred types throughout.
 
-```rust
+```rust playground
 use std::fmt;
 
 /// A subset of HTTP statuses for a tiny router.
@@ -475,7 +475,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Celsius(f64);
 
@@ -567,7 +567,7 @@ error[E0004]: non-exhaustive patterns: `Status::ServerError` not covered
 
 After applying the assist and filling the arm:
 
-```rust
+```rust playground
 enum Status {
     Ok,
     NotFound,
@@ -623,7 +623,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn word_counts(text: &str) -> BTreeMap<String, usize> {

@@ -49,7 +49,7 @@ Rust turns each of these informal ideas into a trait the compiler enforces.
 
 Here the marker traits do their work. `Copy` makes a small struct duplicate on assignment instead of move; the implicit `Sized` bound lets generics accept normal values; and `Send`/`Sync` are checked when we cross a thread boundary.
 
-```rust
+```rust playground
 use std::sync::{Arc, Mutex};
 use std::thread;
 
@@ -121,7 +121,7 @@ The unsized (or **dynamically sized**) types you will encounter are `str` and `[
 
 To accept an unsized type in a generic, relax the bound with `?Sized` ("may or may not be sized"):
 
-```rust
+```rust playground
 // `?Sized` lets this accept `str` (unsized) behind a reference, not just `String`.
 fn print_len<T: AsRef<str> + ?Sized>(s: &T) {
     println!("len = {}", s.as_ref().len());
@@ -342,7 +342,7 @@ help: consider relaxing the implicit `Sized` restriction
 - **Use `?Sized` on borrow-only generic parameters** (`fn f<T: ?Sized>(x: &T)`) to accept slices, `str`, and trait objects in addition to sized types. This is how `AsRef<str>`-style flexible APIs are built.
 - **Verify a type's marker traits with a one-line compile-time assertion** when you want a guarantee documented in code: `fn assert_send_sync<T: Send + Sync>() {}` then `assert_send_sync::<MyType>();`. If it stops compiling later, you broke thread-safety.
 
-```rust
+```rust playground
 // Compile-time proof that types have the marker traits you expect.
 fn assert_send_sync<T: Send + Sync>() {}
 fn assert_send<T: Send>() {}
@@ -368,7 +368,7 @@ all the asserted bounds hold
 
 A production-flavored **thread-safe event bus**: subscribers register handler closures by topic, and `publish` fans an event out to every handler in parallel. The marker traits are the load-bearing part of the design — the handler type bound `Fn(&str) + Send + Sync + 'static` is exactly what lets handlers be stored, cloned across threads, and run concurrently, and the compiler enforces it.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -490,7 +490,7 @@ If you ever change `Handler` to `Rc<dyn Fn(&str)>`, this program stops compiling
 
 **Instructions:** Define an `Rgb` color struct with three `u8` fields. Derive the traits that let you (a) duplicate it on assignment without moving, (b) compare two colors with `==`, and (c) print it with `{:?}`. Add a `luminance(self) -> f64` method (use `0.299*r + 0.587*g + 0.114*b`). In `main`, bind a color, assign it to a second variable, call `luminance` on the *first* one afterward, and confirm both names still work.
 
-```rust
+```rust playground
 // TODO: derive the right traits so this struct is Copy, comparable, and printable
 struct Rgb {
     r: u8,
@@ -508,7 +508,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Copy, PartialEq)]
 struct Rgb {
     r: u8,
@@ -566,7 +566,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // `?Sized` relaxes the implicit `Sized` bound so `T` may be `str`;
 // `AsRef<str>` gives a uniform way to view it as a string slice.
 fn log_line<T: AsRef<str> + ?Sized>(prefix: &str, message: &T) {
@@ -617,7 +617,7 @@ struct Cache<K, V> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::hash::Hash;
 use std::sync::{Arc, Mutex};

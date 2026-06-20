@@ -425,7 +425,7 @@ fn main() {
 
 **Solution:**
 
-```rust
+```rust playground
 fn main() {
     let x: u8 = 255;
 
@@ -716,7 +716,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let x: i32 = 10;
     let y: f64 = 3.14;
@@ -746,7 +746,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let student = ("Alice", 20, 95.5);
     let (name, age, score) = student;
@@ -774,7 +774,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn safe_add(a: u8, b: u8) -> u8 {
     a.saturating_add(b) // Clamps to 255
 }

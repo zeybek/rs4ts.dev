@@ -54,7 +54,7 @@ console.log(between);
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn main() {
@@ -87,7 +87,7 @@ last: Some(("charlie", 90))
 
 The range query becomes a single, efficient `.range(..)` call that touches only the entries inside the window:
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn main() {
@@ -140,7 +140,7 @@ A `BTreeMap` is implemented as a **B-Tree** — a balanced search tree where eac
 
 The defining requirement is right there in the method signatures: a `BTreeMap` key must implement the **`Ord`** trait (total ordering), because the collection sorts by comparing keys. A `HashMap` instead needs `Hash` + `Eq`. All the obvious primitives — integers, `char`, `bool`, `&str`/`String`, and tuples/`Vec`s of orderable things — implement `Ord` already. (`Ord` and its companions `PartialOrd`/`Eq` are part of the trait system covered in [Section 09](/09-generics-traits/).)
 
-```rust
+```rust playground
 use std::collections::BTreeSet;
 
 // Deriving Ord (plus the traits it builds on) makes a struct usable as a key.
@@ -181,7 +181,7 @@ The four derives matter: `#[derive(PartialEq, Eq, PartialOrd, Ord)]` generates a
 
 `BTreeSet<T>` is the sorted analogue of `HashSet<T>` (see [Sets and HashSet](/07-collections/04-hashsets/)): a collection of unique, ordered elements. Duplicate inserts are silently ignored, membership tests are `O(log n)`, and iteration is in sorted order.
 
-```rust
+```rust playground
 use std::collections::BTreeSet;
 
 fn main() {
@@ -216,7 +216,7 @@ contains async: true
 | `..end`                | from the smallest key up to (excluding) `end` |
 | `..`                   | the whole map, in order (same as iterating) |
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 use std::ops::Bound::{Excluded, Unbounded};
 
@@ -259,7 +259,7 @@ The `Bound` enum (`Included`, `Excluded`, `Unbounded`) is the escape hatch when 
 
 `BTreeSet` has the same `.range(..)`:
 
-```rust
+```rust playground
 use std::collections::BTreeSet;
 
 fn main() {
@@ -279,7 +279,7 @@ fn main() {
 
 Everything you know from [HashMaps](/07-collections/03-hashmaps/) carries over (the `entry` API, `get_mut`, `remove`, set operations on sets) because both maps implement the same conceptual interface. Here is the classic word-count, which now prints alphabetically with no extra sorting:
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn main() {
@@ -309,7 +309,7 @@ the: 3
 
 `BTreeSet` also supports the same `union`, `intersection`, and `difference` as `HashSet`, but here the results come out **sorted**:
 
-```rust
+```rust playground
 use std::collections::BTreeSet;
 
 fn main() {
@@ -338,7 +338,7 @@ difference: [1, 2]
 
 Because the data is sorted, `BTreeMap`/`BTreeSet` offer methods that have no `HashMap` equivalent. `pop_first`/`pop_last` remove and return the smallest/largest entry, turning a `BTreeMap` into a serviceable ordered queue or simple priority queue:
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn main() {
@@ -366,7 +366,7 @@ handling p5: low
 
 `split_off` cuts the map in two at a key, keeping the lower part and returning the upper part as a new map:
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn main() {
@@ -529,7 +529,7 @@ Validate or `min`/`max`-clamp user-supplied bounds before passing them to `.rang
 
 - **Build with a `HashMap`, present with a `BTreeMap`** when ordering only matters at the end. Do the hot inserts in a `HashMap`, then `.collect()` into a `BTreeMap` once for display:
 
-  ```rust
+  ```rust playground
   use std::collections::{BTreeMap, HashMap};
 
   fn main() {
@@ -567,7 +567,7 @@ Validate or `min`/`max`-clamp user-supplied bounds before passing them to `.rang
 
 A time-series metric store, the kind you'd find behind a monitoring dashboard. Samples arrive keyed by timestamp; the consumer asks for windowed averages and "the latest value as of time T". A `BTreeMap` makes every one of those a sorted range query.
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 /// A time-series store keyed by Unix-millisecond timestamps. Because a
@@ -696,7 +696,7 @@ fn main() {
 
 <details><summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn first_repeated(text: &str) -> Option<String> {
@@ -762,7 +762,7 @@ fn main() {
 
 <details><summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn report(scores: &BTreeMap<u32, Vec<&str>>, lo: u32, hi: u32) -> Vec<String> {
@@ -835,7 +835,7 @@ fn main() {
 
 <details><summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn merge(

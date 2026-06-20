@@ -80,7 +80,7 @@ thiserror = "2"
 
 Here is the direct counterpart to the `loadConfig` example. The `#[derive(Deserialize)]` line is what replaces `zod`: the shape and its validation are generated at compile time from the struct definition itself.
 
-```rust
+```rust playground
 // Cargo.toml: serde = { version = "1", features = ["derive"] }, serde_json = "1", anyhow = "1"
 use serde::{Deserialize, Serialize};
 
@@ -241,7 +241,7 @@ This pairing has no single npm equivalent, so it surprises Node developers. Rust
 - **thiserror**, for **libraries**. It derives the `std::error::Error` trait for your own typed enum, so callers can `match` on specific variants. Use it when the *caller* needs to react differently to different failures.
 - **anyhow** — for **applications**. Its `anyhow::Error` is a single boxed type that can hold *any* error, with cheap `.context("...")` annotations and an automatic backtrace. Use it in `main` and binaries where you just want to bubble failures up with a readable message.
 
-```rust
+```rust playground
 // cargo add anyhow thiserror serde --features derive ; cargo add serde_json
 use anyhow::{Context, Result};
 use serde::Deserialize;
@@ -340,7 +340,7 @@ Node has many overlapping options for every job (a dozen HTTP clients, several t
 
 `#[derive(Serialize)]` lives behind serde's `derive` feature flag, which is *off* by default. If you `cargo add serde` without it and then derive, the compiler cannot find the macro:
 
-```rust
+```rust playground
 // does not compile — serde added WITHOUT the `derive` feature
 use serde::Serialize;
 
@@ -500,7 +500,7 @@ The `.error_for_status()?` line is worth calling out: unlike `fetch`, which reso
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add serde --features derive ; cargo add serde_json ; cargo add anyhow
 use serde::{Deserialize, Serialize};
 
@@ -544,7 +544,7 @@ User { user_id: 7, full_name: "Grace Hopper", email: None }
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add thiserror
 use std::num::ParseIntError;
 use thiserror::Error;

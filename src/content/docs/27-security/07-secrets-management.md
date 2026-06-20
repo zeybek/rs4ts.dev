@@ -534,7 +534,7 @@ The startup log line — the one that leaks secrets in the Node version — is n
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt;
 
 struct ApiToken(String);

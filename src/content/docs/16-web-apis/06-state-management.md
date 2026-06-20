@@ -354,7 +354,7 @@ That message (captured by driving the router with `tower`'s `oneshot`) is the ru
 
 This compiles, but it is a real hazard, and Clippy flags it. A `std::sync::MutexGuard` held while the task is suspended at an `.await` can block the runtime and risks deadlocks:
 
-```rust
+```rust playground
 use std::sync::{Arc, Mutex};
 
 struct Store {
@@ -482,7 +482,7 @@ async fn main() {
 
 For a value that is set once and read everywhere — and that you do not need to fake in tests — a `static` initialized lazily works without any `State` plumbing:
 
-```rust
+```rust playground
 use std::sync::OnceLock;
 
 #[derive(Debug)]

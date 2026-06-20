@@ -262,7 +262,7 @@ serde_json = { version = "1", optional = true }
 json = ["dep:serde_json"]
 ```
 
-```rust
+```rust playground
 // src/main.rs
 fn plain_report(name: &str, count: u64) -> String {
     format!("{name}: {count}")
@@ -638,7 +638,7 @@ serde_json = { version = "1", optional = true }
 json = ["dep:serde_json"]
 ```
 
-```rust
+```rust playground
 // src/main.rs
 fn plain_report(name: &str, count: u64) -> String {
     format!("{name}: {count}")

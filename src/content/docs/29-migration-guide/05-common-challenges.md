@@ -46,7 +46,7 @@ Nothing here is wrong in JavaScript. `counts` and `events` are freely shared, mu
 
 The same idea — a shared counter that any code path can update — compiles cleanly in Rust once you make ownership explicit. A `&mut HashMap` passed into a function is the direct analogue of "mutate the shared map," and it is perfectly idiomatic:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 // A direct port of the JS module-level mutable cache.
@@ -126,7 +126,7 @@ This message is not a bug; it is the compiler telling you that the JavaScript ow
 
 1. **Don't alias.** If you can restructure so that only one thing mutates the value, do that. One closure that takes the level as a parameter replaces two closures that each capture the vector:
 
-   ```rust
+   ```rust playground
    fn main() {
        let mut events: Vec<String> = Vec::new();
 
@@ -265,7 +265,7 @@ Rewriting an I/O-bound service in Rust and then being disappointed that latency 
 
 A Node service keeps a single in-memory request counter: one shared `Map` for the whole process, mutated from every request handler. That works because Node is single-threaded. The Rust equivalent that actually uses multiple OS threads must make the sharing explicit with `Arc<Mutex<T>>`: `Arc` gives every thread a counted owner of the same allocation, and `Mutex` guarantees only one thread mutates at a time. The compiler will not let you forget the lock.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -373,7 +373,7 @@ fn main() {
 
 Collapse the two aliasing closures into one closure that takes the level as a parameter, so each call borrows and releases `events` in turn:
 
-```rust
+```rust playground
 fn main() {
     let mut events: Vec<String> = Vec::new();
 
@@ -402,7 +402,7 @@ Output:
 
 **Instructions:** Start from a single-threaded counter and make it correctly increment from three threads, 10 times each, then print `total: 30`.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn main() {
@@ -416,7 +416,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::thread;

@@ -59,7 +59,7 @@ Every method above is on the single `string` type, and indexing (`csv[0]`) retur
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn main() {
     // The same log-line processor.
     let line = "  2026-05-31 ERROR  Disk full on /dev/sda1  ";
@@ -127,7 +127,7 @@ h é l l o
 
 `csv.split(',')` does **not** give you a `Vec`. It returns a `Split` iterator that yields each piece on demand. That is why we wrote `let fields: Vec<&str> = csv.split(',').collect();`: `.collect()` runs the iterator and gathers the results. If you only need to walk the pieces once, skip the `Vec` entirely and iterate directly:
 
-```rust
+```rust playground
 fn main() {
     for field in "name,age,city".split(',') {
         println!("- {field}");
@@ -291,7 +291,7 @@ help: consider cloning the value if the performance cost is acceptable
 
 - **Prefer `&str` parameters.** A function that reads text should take `&str`, not `&String`; it accepts both `String` and string literals via deref coercion:
 
-  ```rust
+  ```rust playground
   fn shout(s: &str) -> String { s.to_uppercase() }
 
   fn main() {
@@ -313,7 +313,7 @@ help: consider cloning the value if the performance cost is acceptable
 
 A URL-slug generator, the kind of helper a web backend uses to turn an article title into a clean path segment. It exercises trimming, casing, character classification, filtering, splitting, and joining.
 
-```rust
+```rust playground
 /// Turn an arbitrary title into a lowercase, hyphen-separated slug.
 /// Non-alphanumeric runs collapse to a single hyphen; edges are trimmed.
 fn slugify(title: &str) -> String {
@@ -383,7 +383,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn normalize_whitespace(input: &str) -> String {
     input.split_whitespace().collect::<Vec<_>>().join(" ")
 }
@@ -424,7 +424,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn word_count(text: &str) -> HashMap<String, usize> {
@@ -476,7 +476,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn mask_card(card: &str) -> String {
     let digits: String = card.chars().filter(|c| c.is_ascii_digit()).collect();
     let n = digits.len();

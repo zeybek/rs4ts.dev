@@ -51,7 +51,7 @@ console.log(x, y); // 5 6
 
 Rust makes the same program work without a garbage collector. The size and location of every value is decided at compile time, and cleanup happens deterministically when a value goes out of scope.
 
-```rust
+```rust playground
 fn main() {
     // --- Lives entirely on the stack: fixed, known size ---
     let age: i32 = 30; // 4 bytes
@@ -98,7 +98,7 @@ The catch: the stack only works for data whose size is **known at compile time**
 
 We can observe stack values sitting next to each other in memory:
 
-```rust
+```rust playground
 fn main() {
     let a: i32 = 1;
     let b: i32 = 2;
@@ -132,7 +132,7 @@ A `String` is the textbook example. Its growable text cannot live on the stack b
 1. A fixed-size **handle on the stack**: a pointer to the heap buffer, a length, and a capacity.
 2. The **actual bytes on the heap**, which the pointer points to.
 
-```rust
+```rust playground
 fn main() {
     let greeting = String::from("hi");
 
@@ -166,7 +166,7 @@ Notice the two addresses are in completely different regions of memory: the hand
 
 Even though the *contents* of a `String` or `Vec<T>` can grow, the *handle* on the stack is always the same fixed size. We can prove it:
 
-```rust
+```rust playground
 fn main() {
     println!("size_of i32       = {}", std::mem::size_of::<i32>());
     println!("size_of f64       = {}", std::mem::size_of::<f64>());
@@ -204,7 +204,7 @@ A `String` is 24 bytes on the stack regardless of whether it holds `"hi"` or a m
 
 Most of the time the standard library decides heap usage for you (`String`, `Vec`). When you want to *explicitly* move a single value to the heap, you use `Box<T>`. The box itself is one pointer on the stack; the value it owns lives on the heap.
 
-```rust
+```rust playground
 fn main() {
     let boxed: Box<i32> = Box::new(42);
     println!("boxed value = {}", *boxed); // deref to read the heap value
@@ -379,7 +379,7 @@ Stack values are faster to allocate, faster to access (better cache locality), a
 
 If a function just reads a `String`, take `&str` (a borrow), not an owned `String`. You avoid both a move (which would strand the caller's value) and a clone (which would duplicate the heap buffer). Borrowing is the subject of [Borrowing and References](/05-ownership/02-borrowing/), but the memory reason is here: a borrow is a cheap 16-byte pointer-plus-length, never a heap copy.
 
-```rust
+```rust playground
 // reads without taking ownership or copying the heap buffer
 fn char_count(text: &str) -> usize {
     text.chars().count()
@@ -413,7 +413,7 @@ You never call `free`. Design your code so values live exactly as long as they a
 
 A common back-end task: ingesting telemetry events. A single event mixes small fixed-size fields (IDs, timestamps, flags) with variable-length data (an endpoint string, a list of tags). This is exactly where the stack/heap split shows up in everyday code.
 
-```rust
+```rust playground
 /// A telemetry event ingested from a client. Mixes stack-only fields
 /// (fixed-size numbers, a bool) with heap-backed fields (String, Vec).
 #[derive(Debug)]
@@ -515,7 +515,7 @@ The struct is a fixed **72 bytes** no matter how long the endpoint or how many t
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let count: u32 = 100; // stack only
     let label = String::from("temp"); // handle on stack, bytes on heap
@@ -565,7 +565,7 @@ The `u32` and the `(f64, f64)` tuple are pure stack values. The `String` and `Ve
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn build_greeting(name: &str) -> String {
     let mut greeting = String::from("Hello, ");
     greeting.push_str(name);

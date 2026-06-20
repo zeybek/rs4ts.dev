@@ -55,7 +55,7 @@ JavaScript does not care that `render` "reads like" an accessor; there is no com
 
 The naive Rust translation — a `render(&self)` that does `self.render_count += 1` — does **not** compile, because `&self` is a shared (read-only) reference. Wrapping the field in `Cell<u32>` makes it work while keeping the `&self` signature:
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 struct Widget {
@@ -138,7 +138,7 @@ Changing to `&mut self` is one fix, but it forces *every caller* to hold a uniqu
 
 `Cell<T>` deliberately exposes a tiny surface:
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 fn main() {
@@ -170,7 +170,7 @@ Importantly, neither method ever hands out a `&T` or `&mut T` pointing *inside* 
 
 `Cell<T>` has a few more move-in/move-out helpers. These all take `&self`:
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 fn main() {
@@ -199,7 +199,7 @@ swap: x=2, y=1
 
 There is also `update`, stabilized in Rust 1.88, which reads, applies a closure, and stores the result. Handy for the very common "increment" pattern:
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 fn main() {
@@ -219,7 +219,7 @@ Output:
 
 If you happen to hold a `&mut Cell<T>`, the cell stops being necessary, and Rust gives you direct, free access to the inside:
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 fn main() {
@@ -384,7 +384,7 @@ Coming from JavaScript, interior mutability feels natural and you may sprinkle `
 
 A request-metrics recorder is a perfect fit: handlers usually receive `&self` (the metrics object is shared), the tracked values are all `Copy`, and you never need to borrow *into* them: just bump counters and read totals.
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 /// Tracks request statistics while exposing only `&self` methods, so it can
@@ -505,7 +505,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 struct View {
@@ -562,7 +562,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 struct IdGenerator {
@@ -623,7 +623,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::Cell;
 use std::rc::Rc;
 

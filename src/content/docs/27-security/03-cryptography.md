@@ -517,7 +517,7 @@ Because GCM authenticates the entire ciphertext, even a one-bit change makes the
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use subtle::ConstantTimeEq;
 
 /// Compare two byte strings in constant time. Returns `false` for a length

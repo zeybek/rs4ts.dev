@@ -61,7 +61,7 @@ Two things to fix firmly in mind before the Rust version:
 
 The same shape in Rust. Note the **postfix** `.await`, the `async fn`, and that the work only happens at the `.await` point.
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -172,7 +172,7 @@ The declared return type of an `async fn` is its **`Output`**, not its actual re
 
 In JavaScript, `fetchUser(99)` starts immediately. In Rust, building a future runs **none** of its body. The body only advances when a runtime polls it, which happens because you `.await` it (or hand it to `tokio::spawn`). If you call an `async fn` and ignore the result, the compiler warns you that nothing happened:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -209,7 +209,7 @@ That phrase, "futures do nothing unless you `.await` or poll them," is the singl
 
 Two `.await`s in a row behave like `await a; await b` in JavaScript: the second future does not begin until the first resolves. The total time is roughly the **sum**:
 
-```rust
+```rust playground
 use std::time::{Duration, Instant};
 use tokio::time::sleep;
 
@@ -241,7 +241,7 @@ To run them **concurrently** (the equivalent of `Promise.all([a, b])`, ~75ms tot
 
 The `?` operator works inside an `async fn` the same way it works in any function: if the value is `Err`, the future short-circuits and resolves to that `Err`. You typically `.await` first to get a `Result`, then apply `?`:
 
-```rust
+```rust playground
 use std::num::ParseIntError;
 use std::time::Duration;
 use tokio::time::sleep;
@@ -464,7 +464,7 @@ Calling synchronous blocking APIs (a long CPU loop, `std::thread::sleep`, blocki
 
 A small production-flavored slice of a service: load a user and their orders, then build a summary. It shows `async fn`, `.await`, `?` propagation through several layers, a real error type, and an async `main` returning `Result`. (It also previews `tokio::join!` for concurrency, fully covered in [Select & Join](/11-async/07-select-join/).)
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -598,7 +598,7 @@ The equivalent TypeScript would look almost identical structurally (`async funct
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -635,7 +635,7 @@ Err(ParseIntError { kind: InvalidDigit })
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 

@@ -265,7 +265,7 @@ Diff in /path/to/fmt_demo/src/main.rs:1:
 
 `cargo clippy` is Rust's linter, the `eslint` equivalent, with hundreds of built-in lints that catch bugs, non-idiomatic code, and performance footguns. Given this code:
 
-```rust
+```rust playground
 fn main() {
     let ready = true;
     if ready == true {
@@ -609,7 +609,7 @@ cargo new greeter
 cd greeter
 ```
 
-```rust
+```rust playground
 // src/main.rs
 use std::env;
 
@@ -663,7 +663,7 @@ cargo init                # initializes the CURRENT directory
 cargo add rand            # writes rand to [dependencies] and updates Cargo.lock
 ```
 
-```rust
+```rust playground
 // src/main.rs
 use rand::RngExt;
 

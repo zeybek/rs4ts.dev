@@ -59,7 +59,7 @@ console.log(largest(versions)); // Version { major: 2, minor: 0 }
 
 Rust expresses the same idea with a trait bound. Here we lean on the standard library's `PartialOrd` trait (which gives us the `>` operator) instead of inventing a `compareTo`.
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 // `T: PartialOrd` is the bound: T must support `<`, `>`, etc.
@@ -109,7 +109,7 @@ The largest value is pear
 
 In TypeScript an *unconstrained* `<T>` still lets you do a lot: you can pass `T` around, put it in arrays, return it. But the moment you call a method, you need a constraint. Rust takes this further: with a bare `<T>`, the **only** things you can do with a `T` value are move it, store it, and pass it on. You cannot print it, compare it, clone it, or add it, because nothing has promised those operations exist.
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 trait Summary {
@@ -182,7 +182,7 @@ This mirrors TypeScript's `<T extends A & B>`, but `+` is a bound combinator, no
 
 When you have several type parameters each with several bounds, the angle-bracket form becomes a wall of text. A `where` clause moves the bounds below the signature, where they read top-to-bottom:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::fmt::{Debug, Display};
 use std::hash::Hash;
@@ -224,7 +224,7 @@ Bounds gate what you can call and what you can *produce*. Two common patterns:
 
 **1. A bound that lets you synthesize a return value.** Here `T: Default` is what makes `T::default()` legal:
 
-```rust
+```rust playground
 // `T: Default` lets us conjure a value when the Option is None.
 fn or_default<T: Default>(opt: Option<T>) -> T {
     match opt {
@@ -249,7 +249,7 @@ fn main() {
 
 **2. Returning a *bounded* anonymous type with `impl Trait`.** Sometimes the concrete return type is unspeakable (a closure, a chained iterator). You return "some type that satisfies this bound" and let the compiler fill in the real type:
 
-```rust
+```rust playground
 // The caller only learns: "this returns something that yields u32s."
 fn evens(upto: u32) -> impl Iterator<Item = u32> {
     (0..upto).filter(|n| n % 2 == 0)
@@ -275,7 +275,7 @@ fn main() {
 
 This signature:
 
-```rust
+```rust playground
 trait Summary {
     fn summarize(&self) -> String;
 }
@@ -450,7 +450,7 @@ fn make_pair_better<T: Clone>(x: T) -> (T, T) {
 
 Every type parameter `<T>` carries an invisible `T: Sized` bound: the value has a known size at compile time. This is usually invisible and correct. But if you want to accept *unsized* types like `str` or `[T]` or `dyn Trait` behind a reference, you must opt out with `?Sized`:
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 // `T: ?Sized` lets this accept `&str`, `&dyn Display`, etc. — not just sized types.
@@ -490,7 +490,7 @@ a string slice
 
 A generic "save this record" helper for a persistence layer. Any type that can be serialized (via [`serde`](/15-serialization/)'s `Serialize` trait) and logged (via `Debug`) can flow through one function, with no per-type save code. The bounds `Serialize + Debug` are the whole contract.
 
-```rust
+```rust playground
 use serde::Serialize;
 use std::fmt::Debug;
 
@@ -602,7 +602,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn smallest<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut min = list[0];
     for &item in list {
@@ -657,7 +657,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 fn describe_extremes<T>(list: &[T]) -> String
@@ -715,7 +715,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn repeated(value: i32, times: usize) -> impl Iterator<Item = i32> {
     std::iter::repeat(value).take(times)
 }

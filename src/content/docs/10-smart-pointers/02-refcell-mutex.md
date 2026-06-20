@@ -58,7 +58,7 @@ Under Node v22 this prints `3`. Note three things a Rust developer will care abo
 
 The naive port fails: if `record` takes `&self`, you cannot assign to `self.hits`. Wrapping the field in `RefCell<T>` restores the ability to mutate through a shared reference: `borrow_mut()` hands you a temporary exclusive handle, checked at runtime.
 
-```rust
+```rust playground
 use std::cell::RefCell;
 
 #[derive(Debug)]
@@ -182,7 +182,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 `RefCell` is **not** thread-safe (it is `!Sync`), so the compiler will not let you share one across threads. When you need interior mutability *across* threads, reach for `std::sync::Mutex<T>`. It enforces the identical rule — one writer at a time — but instead of panicking when the data is busy, `lock()` **blocks** the calling thread until the lock is free.
 
-```rust
+```rust playground
 use std::sync::{Arc, Mutex};
 use std::thread;
 
@@ -224,7 +224,7 @@ Eight threads each increment 1000 times; the `Mutex` serializes every `*n += 1`,
 
 A `MutexGuard` (and a `RefMut`) keeps the lock until it is dropped. Wrapping the locked work in a block releases it early, before any expensive non-locked work runs:
 
-```rust
+```rust playground
 use std::sync::Mutex;
 
 fn main() {
@@ -249,7 +249,7 @@ sum = 60
 
 If you own a `Mutex<T>` by `&mut` (or by value), the compiler has already proven no other thread can touch it, so locking is pure overhead. `get_mut()` (borrow) and `into_inner()` (by value) reach the data without any locking:
 
-```rust
+```rust playground
 use std::sync::Mutex;
 
 fn main() {
@@ -389,7 +389,7 @@ A `MutexGuard` held across an `.await` or a slow I/O call keeps every other thre
 - **Compose intentionally:** `Rc<RefCell<T>>` for a shared, mutable, single-threaded graph; `Arc<Mutex<T>>` for the multithreaded version. Document *why* the shared mutability is needed.
 - **Use `try_borrow_mut()` / `try_lock()` when contention is expected and recoverable.** They return a `Result` instead of panicking/blocking, so you can fall back gracefully:
 
-  ```rust
+  ```rust playground
   use std::cell::RefCell;
 
   fn main() {
@@ -412,7 +412,7 @@ A `MutexGuard` held across an `.await` or a slow I/O call keeps every other thre
 
 A **memoizing cache** is interior mutability's sweet spot: the *interface* is a read-only "look up a value," but the *implementation* must mutate a cache on a miss. With `RefCell` the public `get` method takes `&self`, so the memoizer composes like any other read-only service. Callers never need `&mut`.
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::collections::HashMap;
 
@@ -529,7 +529,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::RefCell;
 
 struct RateLimiter {
@@ -584,7 +584,7 @@ The single `borrow_mut()` at the top of `try_acquire` is dropped when the method
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -633,7 +633,7 @@ Each `make_logger` call takes its own `Rc::clone`, so both closures own the same
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::{Arc, Mutex};
 use std::thread;
 

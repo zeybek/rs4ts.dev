@@ -70,7 +70,7 @@ Three things to notice. The constructor *did* validate (`café` is correctly rej
 
 The idiomatic Rust version makes the same promise — "every byte is ASCII" — but the invariant is genuinely unbreakable from outside the module, so the `unsafe` fast-path decode is *sound*. The `bytes` field is private, there is no method that lets external code write arbitrary bytes, and `push` re-checks every character.
 
-```rust
+```rust playground
 // src/main.rs
 
 /// A string guaranteed to contain only ASCII bytes.
@@ -207,7 +207,7 @@ The same code in C (return a `char*` into a buffer, free the buffer, print the p
 
 Some abstractions own a resource that the type system cannot track: a heap allocation made through the global allocator, an OS handle, a C pointer. The pattern scales: hold the resource in a private field, uphold the invariant in every method, and release it exactly once in [`Drop`](/05-ownership/08-drop-trait/). Here is a teaching-sized version of what `Vec<T>` does internally:
 
-```rust
+```rust playground
 // src/main.rs
 use std::alloc::{self, Layout};
 use std::ptr::NonNull;
@@ -302,7 +302,7 @@ Every `unsafe` block names the invariant it leans on; `push` refuses to write pa
 
 The fourth of the five "unsafe superpowers" (see [What `unsafe` Really Means (and What It Does Not)](/20-unsafe-ffi/00-unsafe-intro/)) is *implementing* an `unsafe trait`. The two you will meet first are `Send` (safe to move to another thread) and `Sync` (safe to share `&T` across threads). The compiler auto-implements them for types built from `Send`/`Sync` parts, but a type containing a **raw pointer** is `!Send` and `!Sync` by default: the compiler cannot know whether sharing it is safe, so it conservatively says no. When you *can* prove it is safe, you promise so with `unsafe impl`:
 
-```rust
+```rust playground
 // src/main.rs
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
@@ -395,7 +395,7 @@ A safe abstraction is **sound** if there is *no* sequence of safe calls a user c
 
 The most common way to accidentally make a safe wrapper *unsound* is to expose unrestricted mutation. Adding a `bytes_mut()` method to `Ascii` lets safe code write non-ASCII bytes, after which `as_str()` constructs a `&str` over invalid UTF-8: undefined behavior, reached without the caller ever typing `unsafe`:
 
-```rust
+```rust playground
 pub struct Ascii {
     bytes: Vec<u8>, // INVARIANT: all bytes < 128
 }
@@ -546,7 +546,7 @@ Undefined behavior can lie dormant: code with a latent UB bug may produce correc
 
 The canonical safe abstraction in the standard library is `<[T]>::split_at_mut`, which hands out *two* mutable slices into one buffer, something the borrow checker rejects on its face, yet is perfectly sound because the two slices cover disjoint ranges. Below is a production-flavored, fully-safe reimplementation. The `unsafe` is confined to two `from_raw_parts_mut` calls, the invariant (`mid <= len`, ranges disjoint) is established by an `assert!`, and the returned lifetimes are tied to the input so misuse is a compile error.
 
-```rust
+```rust playground
 // src/main.rs
 use std::slice;
 
@@ -656,7 +656,7 @@ impl Ascii {
 
 Replace the leaky `bytes_mut` with an invariant-preserving `push` that re-checks every character. There is now no safe path to an invalid state, so `as_str`'s `unsafe` block is sound.
 
-```rust
+```rust playground
 pub struct Ascii {
     bytes: Vec<u8>, // INVARIANT: all bytes < 128
 }
@@ -711,7 +711,7 @@ push('€') -> Err('€')
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::mem::MaybeUninit;
 
 /// A slot written at most once, then read many times.
@@ -792,7 +792,7 @@ The proposed `unsafe impl Sync` is **unsound**: `Sync` promises that `&SharedBox
 
 A version that *is* sound to share puts synchronization between the threads and the data, so concurrent access is no longer a race:
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicI64, Ordering};
 
 /// Sound to share: all access through `ptr` is atomic.

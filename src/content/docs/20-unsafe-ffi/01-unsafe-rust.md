@@ -54,7 +54,7 @@ In Rust there is no VM and no garbage collector underneath you. The "trust me" c
 
 Here is the same little-endian read in Rust. Notice that the bounds check lives in **safe** code, and only the actual pointer read sits inside an `unsafe` block.
 
-```rust
+```rust playground
 use std::ptr;
 
 /// Read a little-endian `u32` out of a byte slice at `offset`.
@@ -116,7 +116,7 @@ This page focuses on the first three, which are the ones you hit while writing d
 
 A raw pointer is created in safe code, but reading or writing through it requires `unsafe`:
 
-```rust
+```rust playground
 fn main() {
     let mut num = 5;
 
@@ -146,7 +146,7 @@ Notice the asymmetry: *making* a raw pointer is harmless, because a pointer is j
 
 A function declared `unsafe fn` has *preconditions* its caller must satisfy: invariants the compiler can't verify. Calling it therefore requires `unsafe`:
 
-```rust
+```rust playground
 /// SAFETY: `p` must be non-null, properly aligned, and point to an
 /// initialized `i32` valid for reads for the duration of the call.
 unsafe fn read_i32(p: *const i32) -> i32 {
@@ -267,7 +267,7 @@ error[E0133]: call to unsafe function `dangerous` is unsafe and requires unsafe 
 
 The opposite mistake is wrapping perfectly safe code in `unsafe` "to be safe", which does nothing useful and the compiler flags it:
 
-```rust
+```rust playground
 fn main() {
     let x = 5;
     let y = unsafe { x + 1 }; // there is nothing unsafe here
@@ -293,7 +293,7 @@ Treat this as an instruction to shrink your `unsafe` block until it contains *on
 
 This is the trap that catches everyone coming from a garbage-collected language. The pointer's pointee can be dropped while the pointer lives on, and **the code still compiles**:
 
-```rust
+```rust playground
 fn main() {
     // `5 + 5` is a temporary that is dropped at the end of THIS statement.
     let dangling: *const i32 = &(5 + 5) as *const i32;
@@ -315,7 +315,7 @@ There is no compiler error here, and no exception at runtime: dereferencing `dan
 
 This used to be the "obvious" way to read a mutable global. In edition 2024 it does not compile:
 
-```rust
+```rust playground edition="2021"
 static mut COUNTER: u32 = 0;
 
 fn main() {
@@ -350,7 +350,7 @@ The `println!` implicitly takes `&COUNTER`, and a `&` to a `static mut` is now d
 
 For a mutable global counter, the safe, race-free, no-`unsafe`-needed answer is an atomic:
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicU32, Ordering};
 
 // A `static` (not `static mut`) holding an atomic. Safe to share across threads.
@@ -379,7 +379,7 @@ No `unsafe` anywhere, and it is correct even if `add_to_count` is called from ma
 
 In the rare low-level case where a real mutable static is unavoidable (some FFI scenarios), form a raw pointer *without* going through a reference, using the `&raw const` / `&raw mut` operators. They sidestep the `static_mut_refs` error because no reference is ever created:
 
-```rust
+```rust playground
 static mut COUNTER: u32 = 0;
 
 fn add_to_count(inc: u32) {
@@ -426,7 +426,7 @@ The idiomatic pattern is *unsafe inside, safe outside*: a module performs the un
 
 A classic, genuinely-useful `unsafe` abstraction is splitting one mutable slice into two non-overlapping halves. The borrow checker cannot prove the halves don't overlap (it sees two `&mut` derived from the same slice and refuses), so the standard library's own `split_at_mut` uses `unsafe` internally, and exposes a completely safe API. Here is the same technique, written out so you can see the `unsafe` and the `SAFETY` reasoning:
 
-```rust
+```rust playground
 /// Split `values` into two non-overlapping mutable slices at index `mid`.
 /// Fully safe to call: the function upholds all invariants internally.
 fn split_at_mut(values: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
@@ -515,7 +515,7 @@ fn main() {
 
 It does **not** compile: dereferencing (and writing through) a raw pointer is an unsafe operation, so the compiler rejects it with `error[E0133]: dereference of raw pointer is unsafe and requires unsafe block`. Wrap the write in an `unsafe` block — and document the precondition the caller must uphold:
 
-```rust
+```rust playground
 /// SAFETY: `p` must be non-null, properly aligned, and valid for writes.
 fn set_to_42(p: *mut i32) {
     // SAFETY: callers promise `p` points to a writable, aligned i32.
@@ -563,7 +563,7 @@ fn current() -> usize {
 
 Use an `AtomicUsize` in a plain `static`. No `unsafe`, no `static mut`, and correct across threads:
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 static REQUESTS: AtomicUsize = AtomicUsize::new(0);
@@ -607,7 +607,7 @@ total seen: 2
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn first_and_rest(buf: &mut [u8]) -> Option<(&mut u8, &mut [u8])> {
     if buf.is_empty() {
         return None; // checked in safe code

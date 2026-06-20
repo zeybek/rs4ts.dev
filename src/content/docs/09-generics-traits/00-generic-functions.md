@@ -50,7 +50,7 @@ console.log(bad<number>([])); // undefined — no error, types were erased
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 // Rust - the same two functions, with type parameters in <>
 fn first<T>(items: &[T]) -> &T {
     &items[0]
@@ -112,7 +112,7 @@ This is the single most important idea for a TS/JS developer. TypeScript **erase
 
 We can prove it. Compiling this program to LLVM IR:
 
-```rust
+```rust playground
 use std::hint::black_box;
 
 #[inline(never)]
@@ -153,7 +153,7 @@ The headline win is **zero-cost abstraction**: a generic `first<T>` is exactly a
 
 Most of the time Rust infers the type parameter. When it cannot, or when you want to be explicit, you supply the type argument. In an expression, that uses the **turbofish** syntax `::<>`:
 
-```rust
+```rust playground
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut max = list[0];
     for &item in list {
@@ -179,7 +179,7 @@ The name "turbofish" comes from the `::<>` glyph resembling a fish. Why the lead
 
 You will see the turbofish most often on standard-library methods whose return type the compiler cannot otherwise pin down:
 
-```rust
+```rust playground
 fn main() {
     // `parse` is generic over its return type; tell it what to produce:
     let n = "42".parse::<i32>().unwrap();
@@ -193,7 +193,7 @@ fn main() {
 
 Equivalently, you can move the type to the *binding* and let inference flow backward; these two lines are interchangeable:
 
-```rust
+```rust playground
 fn main() {
     let v = (0..3).collect::<Vec<i32>>(); // turbofish on the method
     let v: Vec<i32> = (0..3).collect();   // annotation on the variable
@@ -365,7 +365,7 @@ In TypeScript a generic costs nothing at runtime and nothing in output size; it 
 
 A small data-pipeline module: two reusable, fully generic helpers, `group_by` (bucket items by a derived key) and `max_by_key` (find the "biggest" item by a derived score). Both are parameterized over the element type *and* a closure, so they work for any data the caller throws at them. This is the kind of generic utility you would otherwise reach for Lodash to provide in TypeScript.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::hash::Hash;
 
@@ -489,7 +489,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn swap<A, B>(pair: (A, B)) -> (B, A) {
     let (a, b) = pair;
     (b, a)
@@ -529,7 +529,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 fn print_pair<T: Display, U: Display>(a: T, b: U) {
@@ -572,7 +572,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn count_matching<T, F>(items: &[T], pred: F) -> usize
 where
     F: Fn(&T) -> bool,

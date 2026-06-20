@@ -134,7 +134,7 @@ let m: std::collections::HashMap<String, u32> = std::collections::HashMap::new()
 
 A real example using two standard-library types:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::collections::HashSet;
 
@@ -317,7 +317,7 @@ help: there is a method `write` with a similar name
 
 **Fix:** bring the trait into scope. The compiler even tells you which `use` line to add.
 
-```rust
+```rust playground
 use std::io::Write; // needed for the `write_all` / `flush` methods
 
 fn main() {
@@ -497,7 +497,7 @@ Invoice #7 for $42.00
 
 A realistic external-crate example, using `serde` (see [Specifying Dependencies](/12-modules-packages/06-dependencies/) for adding it):
 
-```rust
+```rust playground
 // Bring traits + derive macros into scope from an external crate.
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -583,7 +583,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::fmt::Write as _; // brings the trait in for `write!`; `as _` keeps the name unbound
 
@@ -613,7 +613,7 @@ fn main() {
 
 **Instructions:** The crate has `parser::json::parse` and `parser::csv::parse`. Both are named `parse`, so you cannot import both directly. Add two `use` lines that rename them to `parse_json` and `parse_csv`, then call each in `main`.
 
-```rust
+```rust playground
 mod parser {
     pub mod json {
         pub fn parse(input: &str) -> usize { input.len() }
@@ -671,7 +671,7 @@ Without `as`, the second `use parser::...::parse;` would trigger `error[E0252]: 
 
 **Instructions:** The `auth` module nests `issue` inside `auth::tokens`. Add a `pub use` inside `auth` so that `issue` is reachable as `auth::issue`. Then at the crate root, import `Session` and `issue` together in one `use` line and use them in `main`.
 
-```rust
+```rust playground
 mod auth {
     #[derive(Debug)]
     pub struct Session { pub user: String }

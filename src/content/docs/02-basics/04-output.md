@@ -91,7 +91,7 @@ println!("{:#?}", user);
 
 ### Basic Printing
 
-```rust
+```rust playground
 fn main() {
     // Print with newline
     println!("Hello!");
@@ -117,7 +117,7 @@ Error message!
 
 ### Placeholders
 
-```rust
+```rust playground
 fn main() {
     let name = "Alice";
     let age = 30;
@@ -555,7 +555,7 @@ fn main() {
 
 ### Displaying Table Data
 
-```rust
+```rust playground
 fn print_table(users: &[(&str, u8, f64)]) {
     println!("{:<15} {:>5} {:>10}", "Name", "Age", "Score");
     println!("{:-<32}", ""); // Separator
@@ -628,7 +628,7 @@ Charlie            35      92.00
 
 Print "Hello, Rust!" three times:
 
-```rust
+```rust playground
 fn main() {
     // Your code here
 }
@@ -637,7 +637,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     println!("Hello, Rust!");
     println!("Hello, Rust!");
@@ -651,7 +651,7 @@ fn main() {
 
 Print a person's name and age in format: "Alice is 30 years old"
 
-```rust
+```rust playground
 fn main() {
     let name = "Alice";
     let age = 30;
@@ -662,7 +662,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let name = "Alice";
     let age = 30;
@@ -676,7 +676,7 @@ fn main() {
 
 Format π (3.14159) with 2 decimal places:
 
-```rust
+```rust playground
 fn main() {
     let pi = 3.14159;
     // Your code here
@@ -686,7 +686,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let pi = 3.14159;
     println!("{:.2}", pi); // 3.14
@@ -699,7 +699,7 @@ fn main() {
 
 Print a vector using debug format:
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5];
     // Your code here
@@ -709,7 +709,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5];
     println!("{:?}", numbers); // [1, 2, 3, 4, 5]
@@ -734,7 +734,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let name = "Alice";
     let score = 95.5;

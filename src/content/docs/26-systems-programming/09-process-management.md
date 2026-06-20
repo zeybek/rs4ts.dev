@@ -72,7 +72,7 @@ A few things a TypeScript developer takes for granted here:
 
 The same idea in Rust. `Command` is the builder, `.output()` runs it to completion and buffers stdout/stderr, and the returned `Output` carries the exit `status`:
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -98,7 +98,7 @@ The two failure modes that blur together in Node are **separate and explicit** i
 
 Here is the simplest possible run: fire a command and inspect its `ExitStatus`. This is the analogue of Node's `spawn` with inherited stdio (the child writes directly to your terminal):
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -136,7 +136,7 @@ code: Some(0)
 
 ### Arguments: `.arg()` vs `.args()`
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -158,7 +158,7 @@ Each argument is passed to the OS as a **separate, already-tokenized string**. I
 
 `.output()` returns `Output`, which has three fields:
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -194,7 +194,7 @@ Note that `output.stdout` and `output.stderr` are `Vec<u8>`, **not** `String`. A
 - `status.code()` — `Option<i32>`: `Some(n)` for a normal exit, `None` if the process was **terminated by a signal** (Unix).
 - Signal death (Unix) — when `code()` is `None`, the process was killed by a signal; you can inspect *which* via `std::os::unix::process::ExitStatusExt::signal()`.
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -221,7 +221,7 @@ That `Some(1)` is the direct equivalent of Node's `result.code === 1`. The `None
 
 Each `Command` starts by **inheriting the parent's environment**, just like Node. You can add, override, clear, or remove specific variables:
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -253,7 +253,7 @@ hello from rust
 
 `.current_dir(path)` sets the child's working directory, the analogue of Node's `{ cwd }` option:
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -300,7 +300,7 @@ Unlike JavaScript, where everything in `child_process` is non-blocking (or an ex
 
 ### Pitfall 1: Expecting a shell (globbing, pipes, `$VARS`)
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -320,7 +320,7 @@ fn main() {
 
 If you forget to handle the result of `.status()`/`.output()`/`.spawn()`, you get a real warning, because these return `#[must_use]` types:
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -525,7 +525,7 @@ This is the synchronous, type-checked cousin of a Node task runner. Notice there
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::process::Command;
 
 fn main() {
@@ -558,7 +558,7 @@ A real run prints something like `Current year: 2026`. `String::from_utf8_lossy`
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::io::Write;
 use std::process::{Command, Stdio};
 
@@ -605,7 +605,7 @@ The scoped block is the key detail: dropping `ChildStdin` closes the write end o
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::process::Command;
 use std::time::Duration;
 

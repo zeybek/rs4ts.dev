@@ -85,7 +85,7 @@ A few things to notice about the TypeScript version, because they contrast sharp
 
 The same stack and pair, idiomatic Rust:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Stack<T> {
     items: Vec<T>,
@@ -249,7 +249,7 @@ struct Point<T> {
 
 When you `#[derive(...)]` on a generic struct, Rust generates an implementation that is **conditional**: `Point<T>` is `Clone` *only when `T: Clone`*, `Debug` *only when `T: Debug`*, and so on. You get exactly the capabilities your `T` supports — no more, no less. The following compiles and runs:
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Default, PartialEq)]
 struct Point<T> {
     x: T,
@@ -437,7 +437,7 @@ This is a *feature*, not a limitation: the compiler tells you the method exists,
 
 Prefer to put trait bounds on the `impl` block (or individual methods) rather than on the `struct` itself:
 
-```rust
+```rust playground
 // Idiomatic: the struct stays unconstrained...
 struct Wrapper<T> {
     value: T,
@@ -476,7 +476,7 @@ This way you can still construct `Wrapper<SomethingNotDisplay>`; you just can't 
 
 When a constrained `impl` has several bounds, a `where` clause reads better than stacking them in the angle brackets:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::hash::Hash;
 
@@ -512,7 +512,7 @@ Before writing your own generic container, check whether `Vec<T>`, `VecDeque<T>`
 
 A production-flavored generic cache: a bounded key/value store with eviction, reused for two completely different element types. The constrained `impl` requires `K: Eq + Hash + Clone` (so we can use a `HashMap` and clone a key to evict) and `V: Clone`.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::hash::Hash;
 
@@ -663,7 +663,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Wrapper<T> {
     value: T,
 }
@@ -731,7 +731,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::hash::Hash;
 
@@ -810,7 +810,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct RingBuffer<T, const N: usize> {
     data: [Option<T>; N],
     head: usize,

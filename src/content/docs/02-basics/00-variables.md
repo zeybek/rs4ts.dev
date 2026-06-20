@@ -81,7 +81,7 @@ const MAX_POINTS: u32 = 100_000;
 
 ### Immutable Variables
 
-```rust
+```rust playground
 fn main() {
     let x = 5;
     println!("The value of x is: {}", x);
@@ -102,7 +102,7 @@ fn main() {
 
 ### Mutable Variables
 
-```rust
+```rust playground
 fn main() {
     let mut x = 5;
     println!("The value of x is: {}", x);
@@ -129,7 +129,7 @@ The value of x is: 6
 
 Rust has a unique feature called **shadowing** that lets you redeclare a variable:
 
-```rust
+```rust playground
 fn main() {
     let x = 5;
 
@@ -175,7 +175,7 @@ let mut spaces2 = "   ";
 
 ### Constants
 
-```rust
+```rust playground
 // Constants must:
 // 1. Have a type annotation
 // 2. Be assigned a constant expression (evaluated at compile time)
@@ -359,7 +359,7 @@ help: consider making this binding mutable
 
 **Solution:**
 
-```rust
+```rust playground
 fn main() {
     let mut counter = 0;  // Add 'mut'
 
@@ -423,7 +423,7 @@ help: consider changing this to be mutable
 
 **Solution:**
 
-```rust
+```rust playground
 fn main() {
     let mut v = vec![1, 2, 3];  // Add 'mut'
     v.push(4);  // OK
@@ -441,7 +441,7 @@ let x = 6;  // "This is reassignment, right?"
 
 **Reality:** It's shadowing - a new variable with the same name.
 
-```rust
+```rust playground
 fn main() {
     let x = 5;
     println!("Address: {:p}", &x);
@@ -467,7 +467,7 @@ the exact hex values or assume a fixed offset.
 
 **<span class="inline-icon inline-icon--x" role="img" aria-label="no"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span> Don't default to `mut`:**
 
-```rust
+```rust playground
 fn main() {
     let mut x = 5;  // Unnecessary mut
     let mut y = 10; // Unnecessary mut
@@ -477,7 +477,7 @@ fn main() {
 
 **<span class="inline-icon inline-icon--check" role="img" aria-label="yes"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> Only use `mut` when needed:**
 
-```rust
+```rust playground
 fn main() {
     let x = 5;      // Immutable - won't change
     let mut y = 10; // Mutable - will change
@@ -516,7 +516,7 @@ let spaces = format!("Count: {}", spaces);
 
 **<span class="inline-icon inline-icon--x" role="img" aria-label="no"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span> Don't use variables for constants:**
 
-```rust
+```rust playground
 fn main() {
     let max_points = 100_000;  // Used everywhere
     // ... lots of code ...
@@ -525,7 +525,7 @@ fn main() {
 
 **<span class="inline-icon inline-icon--check" role="img" aria-label="yes"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> Use `const` for values that never change:**
 
-```rust
+```rust playground
 const MAX_POINTS: u32 = 100_000;
 
 fn main() {
@@ -579,7 +579,7 @@ console.log(calculateRunningAverage(nums));
 
 **Rust:**
 
-```rust
+```rust playground
 fn calculate_running_average(numbers: &[i32]) -> Vec<f64> {
     let mut sum = 0;
     let mut averages = Vec::new();
@@ -626,7 +626,7 @@ function connect() {
 
 **Rust:**
 
-```rust
+```rust playground
 const MAX_CONNECTIONS: u32 = 100;
 const TIMEOUT_MS: u64 = 5000;
 const API_URL: &str = "https://api.example.com";
@@ -678,7 +678,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let mut x = 5;  // Add 'mut'
     println!("x is: {}", x);
@@ -694,7 +694,7 @@ fn main() {
 
 Rewrite using shadowing to convert a string to its length:
 
-```rust
+```rust playground
 fn main() {
     let text = "Hello, Rust!";
     let text_length = text.len();
@@ -705,7 +705,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let text = "Hello, Rust!";
     println!("Text: '{}'", text);
@@ -738,7 +738,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 const MAX_HEALTH: u32 = 100;
 const STARTING_GOLD: u32 = 50;
 const PLAYER_NAME: &str = "Hero";
@@ -756,7 +756,7 @@ fn main() {
 
 Write a function that counts from 1 to n:
 
-```rust
+```rust playground
 fn count_to(n: i32) {
     // Implement using a mutable counter
 }
@@ -770,7 +770,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn count_to(n: i32) {
     let mut counter = 1;
     while counter <= n {

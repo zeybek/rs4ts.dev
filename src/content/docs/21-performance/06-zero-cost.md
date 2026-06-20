@@ -55,7 +55,7 @@ The chained version is clean and reads top-to-bottom, but it does measurably mor
 
 The same two functions in Rust. The idiomatic one is the iterator chain.
 
-```rust
+```rust playground
 /// Sum the squares of the even numbers — idiomatic, expressive, FAST.
 fn sum_sq_even_iter(data: &[i64]) -> i64 {
     data.iter()
@@ -326,7 +326,7 @@ That call cannot be inlined or vectorized away. It is usually fine — dynamic d
 
 Coming from JavaScript, where `arr.map(f)` runs `f` immediately, this surprises everyone. In Rust, an adapter with no consumer does *nothing*:
 
-```rust
+```rust playground
 fn main() {
     let data = vec![1, 2, 3];
     data.iter().map(|x| {
@@ -377,7 +377,7 @@ Only `collect` when you actually need to *store* the result. See [Optimization T
 
 The `for i in 0..data.len() { data[i] }` pattern is a JavaScript reflex. In Rust it adds bounds checks and reads worse, and Clippy flags it:
 
-```rust
+```rust playground
 fn main() {
     let data = vec![10, 20, 30];
     let mut sum = 0;
@@ -420,7 +420,7 @@ Follow the lint: `for &x in &data { sum += x; }`, or just `data.iter().sum()`.
 
 A production-flavored task: parse an access log, keep only successful (2xx) responses, and total the bytes served. The natural Rust solution is one fused iterator pass with no intermediate collections, and it is also the fast one.
 
-```rust
+```rust playground
 /// One parsed access-log record we care about.
 #[derive(Debug)]
 struct Hit {
@@ -513,7 +513,7 @@ fn max_abs(data: &[i32]) -> Option<i32> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn max_abs(data: &[i32]) -> Option<i32> {
     data.iter().map(|&x| x.abs()).max()
 }
@@ -546,7 +546,7 @@ The whole thing fuses into one pass; no temporary `Vec`, no bounds checks.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn dot(a: &[f64], b: &[f64]) -> f64 {
     a.iter().zip(b).map(|(x, y)| x * y).sum()
 }
@@ -579,7 +579,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn count_long_words(text: &str, n: usize) -> usize {
     text.split_whitespace().filter(|w| w.len() > n).count()
 }

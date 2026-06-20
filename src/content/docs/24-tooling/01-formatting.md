@@ -79,7 +79,7 @@ This is the workflow you already know: install, configure, format-on-save, and a
 
 Rust gives you the same three capabilities — write, check, and editor integration — but the tool is already installed and the config is optional. Here is unformatted Rust analogous to the TypeScript above:
 
-```rust
+```rust playground
 // src/main.rs (before formatting)
 use std::collections::HashMap;
 #[derive(Debug)]
@@ -105,7 +105,7 @@ cargo fmt --check  # fail if anything is unformatted  (≈ prettier --check)
 
 After `cargo fmt`, the file becomes:
 
-```rust
+```rust playground
 // src/main.rs (after cargo fmt)
 use std::collections::HashMap;
 #[derive(Debug)]
@@ -274,7 +274,7 @@ cargo fmt --all --check
 
 `rustfmt` will reflow a hand-aligned matrix or table into something less readable. The correct escape hatch is the `#[rustfmt::skip]` attribute on the item, not disabling the formatter project-wide. It preserves your exact layout, and `cargo fmt --check` will then treat the skipped block as already-clean:
 
-```rust
+```rust playground
 #[rustfmt::skip]
 const MATRIX: [[i32; 3]; 3] = [
     [1, 0, 0],
@@ -406,13 +406,13 @@ fn main() {
 
 Paste this ugly source into `src/main.rs`:
 
-```rust
+```rust playground
 fn main(){let nums=vec![3,1,2];let mut sorted=nums.clone();sorted.sort();println!("{:?} -> {:?}",nums,sorted);}
 ```
 
 `cargo fmt --check` prints a diff and `echo $?` shows `1`. After `cargo fmt`, the file becomes:
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![3, 1, 2];
     let mut sorted = nums.clone();
@@ -467,7 +467,7 @@ and exits `0` without grouping anything. To actually merge `use a::b;` and `use 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[rustfmt::skip]
 const PALETTE: [[u8; 3]; 4] = [
     [255,   0,   0], // red

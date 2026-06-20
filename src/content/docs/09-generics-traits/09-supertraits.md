@@ -70,7 +70,7 @@ console.log(logger.bootLog());
 
 The same plugin shape in idiomatic Rust. The `Component` behavior and the `Plugin` behavior are two separate traits, and `Plugin` declares `Component` as its supertrait with a colon.
 
-```rust
+```rust playground
 // A small plugin system. Every Plugin is first a Component (it has a name and
 // can describe itself); Plugin adds lifecycle behavior on top.
 
@@ -170,7 +170,7 @@ fn boot_log(&self) -> String {
 
 Default methods still behave the way [Default Method Implementations](/09-generics-traits/08-default-impls/) describes. A type can override `Component::describe`, and `Plugin::boot_log` will pick up the override because method dispatch resolves on the concrete type:
 
-```rust
+```rust playground
 trait Component {
     fn name(&self) -> &str;
     fn describe(&self) -> String {
@@ -223,7 +223,7 @@ booting metrics exporter -> /metrics -> scraping every 15s
 
 The supertrait does not have to be one you wrote. A very common pattern is requiring a `std` trait like `Display` so your trait's default methods can format `self`:
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 // Every Greet type must also be Display.
@@ -291,7 +291,7 @@ Both say "`Self: Component`." The colon form is the idiom you will read everywhe
 
 If a generic function is bounded by the subtrait, it automatically gets the supertrait's API too. You do not repeat the bound:
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 trait Greet: Display {
@@ -444,7 +444,7 @@ Requiring `Display` or `Debug` as a supertrait is a clean, idiomatic pattern: it
 
 When a trait needs more than one prerequisite, list them with `+`, exactly like multiple bounds:
 
-```rust
+```rust playground
 use std::fmt::{Debug, Display};
 
 // Multiple supertraits joined with `+`, just like multiple bounds.
@@ -489,7 +489,7 @@ A supertrait is a tax every implementor pays. Requiring a tiny, focused supertra
 
 Since Rust 1.86 (2025), you can **upcast** a trait object from a subtrait to its supertrait: a `&dyn Plugin` can be passed where a `&dyn Component` is expected. Lean on that to write functions against the narrowest trait they actually use.
 
-```rust
+```rust playground
 trait Component {
     fn name(&self) -> &str;
 }
@@ -531,7 +531,7 @@ component: logger
 
 A configurable plugin registry, the shape you would find in a build tool or a server's middleware system. `Component` is the base capability (identity and a self-describing line); `Plugin` builds lifecycle behavior on top. The registry stores a heterogeneous list of plugins as trait objects and boots them all.
 
-```rust
+```rust playground
 // Every Plugin is first a Component; Plugin adds lifecycle on top.
 trait Component {
     fn name(&self) -> &str;
@@ -651,7 +651,7 @@ Three things to highlight. First, `boot_all` is bounded only by `Plugin`, yet it
 
 **Instructions:** Define a trait `Named` with one required method `name(&self) -> String`. Define a second trait `Animal: Named` with a required method `sound(&self) -> String` and a **provided** method `speak(&self) -> String` that returns `"{name} says {sound}"` by calling both. Implement both traits for a `Dog` struct (name `"Rex"`, sound `"woof"`). In `main`, build a `Dog` and print `speak()`.
 
-```rust
+```rust playground
 trait Named {
     // TODO: name(&self) -> String
 }
@@ -674,7 +674,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Named {
     fn name(&self) -> String;
 }
@@ -725,7 +725,7 @@ Note that `Named` needs its own `impl` block; `Animal`'s `impl` cannot supply `n
 
 **Instructions:** Define a trait `Priced: Display` with a required method `price_cents(&self) -> u64` and a provided method `receipt(&self) -> String` that prints `"{self}: $X.XX"` (dollars to two decimals). Implement `Display` and `Priced` for a `Coffee { size: String }` where `"small"` costs `350`, `"large"` costs `525`, and anything else costs `450`. In `main`, print the receipt for a large coffee.
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 trait Priced: Display {
@@ -748,7 +748,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 trait Priced: Display {
@@ -803,7 +803,7 @@ The `{self}` in `receipt` only works because `Priced: Display` guarantees every 
 
 **Instructions:** Define a trait `Serialize: Debug + Display` with a provided method `to_record(&self) -> String` that returns `"{self} | {self:?}"` (Display then Debug). Implement `Display` for a `User { id: u32, handle: String }` (format `"@handle (#id)"`), derive `Debug`, and give it an empty `impl Serialize for User {}`. Write a generic function `dump<T: Serialize>(item: &T)` that prints `item.to_record()`. In `main`, dump a user.
 
-```rust
+```rust playground
 use std::fmt::{Debug, Display};
 
 trait Serialize: Debug + Display {
@@ -826,7 +826,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt::{Debug, Display};
 
 trait Serialize: Debug + Display {

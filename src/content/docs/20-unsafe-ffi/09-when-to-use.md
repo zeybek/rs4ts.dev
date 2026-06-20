@@ -55,7 +55,7 @@ Run with `node --experimental-strip-types checksum.ts` and it prints `0x91c102ca
 
 Here is the punchline first: that same CRC32, in Rust, needs **zero `unsafe` and zero FFI**, because a battle-tested, pure-safe-Rust crate already exists. The first move when you think "I need to call C" is almost always "search crates.io."
 
-```rust
+```rust playground
 // src/main.rs  —  Cargo.toml: crc32fast = "1.5"
 use crc32fast::Hasher;
 
@@ -162,7 +162,7 @@ error[E0133]: call to unsafe function `std::intrinsics::transmute` is unsafe and
 
 The fix is not to add `unsafe { }`. It is to use the safe, explicit, **endianness-defined** API. `transmute` would silently give you platform-dependent byte order, which is a latent bug. The safe functions force you to *say which order you mean*:
 
-```rust
+```rust playground
 fn main() {
     let value: u32 = 0x4142_4344;
     let be = value.to_be_bytes(); // big-endian: [0x41, 0x42, 0x43, 0x44]
@@ -187,7 +187,7 @@ round-trips: true
 
 The classic case is "I need two mutable views into one buffer, so I'll cast to `*mut`." You do not: `split_at_mut` is a *safe* standard-library function whose `unsafe` is already written, audited, and tested inside `std`:
 
-```rust
+```rust playground
 // "I need two mutable views into one Vec, which requires raw pointers." No —
 // std gives you split_at_mut, a SAFE function whose unsafe is already audited.
 fn normalize_halves(data: &mut [f64]) {
@@ -237,7 +237,7 @@ Calling a C function looks like calling a Rust function, but every FFI call carr
 
 - **Prefer safe concurrency and parallelism over native escape hatches.** A CPU-bound aggregation that *feels* like it needs C is usually a `rayon` parallel iterator away. No `unsafe`, scales across cores:
 
-  ```rust
+  ```rust playground
   // src/main.rs  —  Cargo.toml: rayon = "1.12"
   use rayon::prelude::*;
 
@@ -302,7 +302,7 @@ Calling a C function looks like calling a Rust function, but every FFI call carr
 
 A practical decision walkthrough: you are building a service that needs to **deduplicate and share a large in-memory catalog** across request handlers. The instinct from JavaScript — "just hold references to the same objects everywhere" — translates in a naive Rust port to "I need raw pointers so handlers can share the catalog and mutate it." That instinct is wrong; the safe tools cover it exactly.
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -372,7 +372,7 @@ The decision record for this feature would read: *"Shared mutable catalog. Consi
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // src/main.rs  —  Cargo.toml: sha2 = "0.11"  (or `cargo add sha2` for the current version)
 use sha2::{Digest, Sha256};
 
@@ -407,7 +407,7 @@ b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn boost_first_half(data: &mut [i32]) {
     let mid = data.len() / 2;
     // split_at_mut yields two non-overlapping &mut slices — safely.
@@ -447,7 +447,7 @@ $ cargo run
 
 Representing edges as **indices into a `Vec`** sidesteps the self-referential-pointer problem entirely: indices are plain `usize` values the borrow checker is happy with, there is no aliasing to prove, and the whole structure is `Copy`-friendly and serializable for free.
 
-```rust
+```rust playground
 struct Node {
     label: String,
     edges: Vec<usize>, // indices into Graph::nodes, not pointers

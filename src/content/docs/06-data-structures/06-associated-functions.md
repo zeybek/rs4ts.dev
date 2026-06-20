@@ -69,7 +69,7 @@ Three things to notice, because each maps to a distinct Rust idea:
 
 Rust splits these into two categories. Functions with `self` are **methods** (covered in [Methods and `impl` Blocks](/06-data-structures/05-impl-blocks/)); functions *without* `self` are **associated functions**. There is no `new` keyword and no automatic constructor. You write `new` as a plain associated function that returns `Self`.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct User {
     id: u32,
@@ -166,7 +166,7 @@ Because an associated function has no `self`, the word `self` is simply not in s
 
 `Self` lets one constructor build on another. A named constructor can call `Self::new` to avoid repeating field logic:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Temperature {
     celsius: f64,
@@ -212,7 +212,7 @@ When you call a method, `value.method()` quietly desugars to `Type::method(value
 
 Rust's standard library has a trait, `Default`, whose single associated function `default()` returns a "sensible zero value" of the type. You rarely write it by hand: `#[derive(Default)]` generates it for you when every field is itself `Default` (numbers default to `0`, `String` to `""`, `bool` to `false`, `Option<T>` to `None`).
 
-```rust
+```rust playground
 // #[derive(Default)] writes `Settings::default()` for you.
 #[derive(Debug, Default)]
 struct Settings {
@@ -243,7 +243,7 @@ Settings { verbose: false, retries: 0, label: "" }
 
 A TypeScript constructor can only `throw` on bad input, and a thrown error is invisible in the type signature. Rust associated functions return a value, so a constructor that can fail simply returns a [`Result`](/08-error-handling/) instead of `Self`. The convention is to keep `new` infallible and use a descriptive name (or `try_new`) for the checked version.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Percentage {
     value: u8,
@@ -440,7 +440,7 @@ When a type has many optional settings, a single `new(...)` with a long argument
 
 This is the production shape of the chaining teaser from [Methods and `impl` Blocks](/06-data-structures/05-impl-blocks/). The associated function `HttpRequest::builder(...)` is the entry point; the rest of the API hangs off it.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct HttpRequest {
     url: String,
@@ -612,7 +612,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Duration {
     seconds: u64,
@@ -677,7 +677,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Username(String);
 
@@ -755,7 +755,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Pizza {
     size: String,

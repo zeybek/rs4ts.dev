@@ -62,7 +62,7 @@ Two things to keep in mind, because Rust handles them differently: `.find()` ret
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Order {
     id: u32,
@@ -146,7 +146,7 @@ The aggregate numbers match the TypeScript version exactly (`paid_count = 3`, `r
 
 In TypeScript a chain *ends* in an array because the methods return arrays. In Rust the chain ends in `.collect()`, which can build **many** different collections (`Vec`, `String`, `HashMap`, `HashSet`, even `Result`) depending on the target type you ask for:
 
-```rust
+```rust playground
 use std::collections::{HashMap, HashSet};
 
 fn main() {
@@ -182,7 +182,7 @@ doubled=[2, 4, 6]
 
 One of the most useful tricks: an iterator of `Result`s can collect into a single `Result<Vec<_>, E>`. The first `Err` stops the process and becomes the whole result. This is the idiomatic way to "parse every item, but bail on the first failure":
 
-```rust
+```rust playground
 fn main() {
     let good: Result<Vec<i32>, _> =
         vec!["1", "2", "3"].iter().map(|s| s.parse::<i32>()).collect();
@@ -203,7 +203,7 @@ There is no clean JavaScript equivalent. You would reach for a `for` loop with a
 
 ### `sum`, `product`, `count` — numeric reductions
 
-```rust
+```rust playground
 fn main() {
     let total: i32 = (1..=5).sum();        // 1+2+3+4+5
     let fact: u64 = (1..=5u64).product();  // 5!
@@ -221,7 +221,7 @@ total=15 fact=120 evens=5
 
 ### `min`, `max`, and the `_by` / `_by_key` family
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![3, 7, 2, 9, 4];
     println!("min={:?} max={:?}", nums.iter().min(), nums.iter().max());
@@ -254,7 +254,7 @@ All of them return `Option<T>` (`None` for an empty iterator). The `f64` case is
 
 ### `find`, `position`, `find_map` — "give me the first one that…"
 
-```rust
+```rust playground
 fn main() {
     let data = vec!["", "  ", "hello", "world"];
 
@@ -283,7 +283,7 @@ parsed=Some(12)
 
 ### `any` / `all` — the boolean short-circuiters
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![2, 4, 6, 8];
     let has_odd = nums.iter().any(|n| n % 2 == 1);  // like .some()
@@ -309,7 +309,7 @@ These behave exactly like JavaScript's `some`/`every`, including the "vacuous tr
 
 This is where Rust splits one JavaScript method into two:
 
-```rust
+```rust playground
 fn main() {
     // fold: you SUPPLY a seed, so the result type can differ from the items.
     let folded = (1..=4).fold(100, |acc, n| acc + n); // 100 + 1+2+3+4
@@ -466,7 +466,7 @@ error[E0277]: the trait bound `f64: Ord` is not satisfied
 
 A chain of lazy adaptors with no consumer does nothing, and the compiler warns:
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![1, 2, 3];
     nums.iter().map(|n| println!("{n}")); // runs NOTHING; warning: unused `Map`
@@ -485,7 +485,7 @@ Rust emits `warning: unused 'Map' that must be used` with the note `iterators ar
 - **Reach for `fold` over `reduce`.** `fold` is total (always returns a value) and lets the accumulator be any type. Use `reduce` only when there is genuinely no identity element and you want the `Option`.
 - **`partition` splits in one pass.** When you would write two `filter`s, use `partition` instead. It walks the iterator once and returns a `(matches, rest)` tuple:
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![1, 2, 3, 4, 5, 6];
     let (evens, odds): (Vec<i32>, Vec<i32>) = nums.iter().partition(|&&n| n % 2 == 0);
@@ -499,7 +499,7 @@ evens=[2, 4, 6] odds=[1, 3, 5]
 
 - **Use `try_fold` for short-circuiting accumulation.** It stops at the first `None`/`Err`, which is perfect for checked arithmetic or validation that builds state:
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![1, 2, 3, 4];
     let checked: Option<i32> = nums.iter().try_fold(0i32, |acc, &n| acc.checked_add(n));
@@ -519,7 +519,7 @@ Some(10)
 
 A small log-analysis pass: parse raw lines into structured entries, drop the malformed ones, and compute a handful of metrics, every one of them a different consumer.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
@@ -648,7 +648,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn order_stats(prices: &[u32]) -> (u32, u32, f64) {
     let count = prices.len();
     let total: u32 = prices.iter().sum();
@@ -702,7 +702,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn parse_all(tokens: &[&str]) -> Result<i32, std::num::ParseIntError> {
     let nums: Vec<i32> = tokens
         .iter()
@@ -753,7 +753,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn most_common_word(text: &str) -> Option<(String, u32)> {

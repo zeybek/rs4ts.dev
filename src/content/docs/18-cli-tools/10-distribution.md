@@ -344,7 +344,7 @@ error: environment variable `GIT_HASH` not defined at compile time
 
 Use `option_env!` instead, which returns `Option<&str>` and never fails to compile:
 
-```rust
+```rust playground
 fn main() {
     // option_env! yields None instead of failing the build.
     let hash = option_env!("GIT_HASH").unwrap_or("dev");
@@ -410,7 +410,7 @@ codegen-units = 1
 strip = true
 ```
 
-```rust
+```rust playground
 // build.rs — runs at build time, before the crate is compiled.
 use std::process::Command;
 
@@ -568,7 +568,7 @@ codegen-units = 1   # let the optimizer see the whole crate
 strip = true        # remove symbol/debug info from the binary
 ```
 
-```rust
+```rust playground
 // src/main.rs
 fn main() {
     println!("Hello, world!");
@@ -608,7 +608,7 @@ edition = "2024"
 clap = { version = "4", features = ["derive"] }
 ```
 
-```rust
+```rust playground
 // src/main.rs
 use clap::Parser;
 
@@ -651,7 +651,7 @@ Hello, Ada!
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // build.rs
 use std::process::Command;
 
@@ -672,7 +672,7 @@ fn main() {
 }
 ```
 
-```rust
+```rust playground
 // src/main.rs
 fn main() {
     // option_env! returns Option<&str> resolved at compile time.

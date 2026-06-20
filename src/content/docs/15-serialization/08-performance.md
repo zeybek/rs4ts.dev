@@ -58,7 +58,7 @@ cargo add serde --features derive
 cargo add serde_json
 ```
 
-```rust
+```rust playground
 use serde::Deserialize;
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader, Cursor};
@@ -141,7 +141,7 @@ Let's unpack each performance lever in the Rust version and contrast it with wha
 
 When you declare a field as `&'a str` instead of `String`, you are telling Serde: *do not copy this string; hand me a slice that points into the input.* This is **zero-copy** deserialization. Compare the two struct definitions:
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 // Owning: every string field is a fresh heap allocation + memcpy.
@@ -174,7 +174,7 @@ This is the deserialization counterpart of the broader ownership story; if `&str
 
 A `&str` field can only borrow if the string appears **verbatim** in the input. JSON allows escapes (`\n`, `\"`, `\uXXXX`), and the *unescaped* bytes do not exist contiguously in the source; Serde would have to allocate to produce them. A plain `&str` field therefore **fails at runtime** on an escaped string. The escape-tolerant choice is `Cow<'a, str>` ("clone on write"): it borrows when it can and allocates only when it must.
 
-```rust
+```rust playground
 use serde::Deserialize;
 use std::borrow::Cow;
 
@@ -216,7 +216,7 @@ The derive macro auto-detects the borrow for a plain `&'a str` field. For `Cow<'
 
 `serde_json::from_str` parses one value from a fully-loaded string. For a multi-gigabyte file or a network socket you do not want the whole thing in memory. `Deserializer::from_reader(...).into_iter::<T>()` gives you a `StreamDeserializer`: an iterator that pulls one JSON value at a time from any `Read` source.
 
-```rust
+```rust playground
 use serde::Deserialize;
 use std::io::Cursor;
 
@@ -262,7 +262,7 @@ Memory use stays flat regardless of input size, because only one `Event` exists 
 
 `serde_json::Value` is the dynamic, JavaScript-object-like representation: an enum tree where every object key is a heap `String`, every nested array/object is its own allocation, and numbers are stored generically. It is the right tool when the shape is genuinely unknown ([Dynamic JSON with `serde_json::Value`](/15-serialization/04-json-manipulation/)), but on a hot path it is the slow option because you pay to build the *entire* tree even if you read one field.
 
-```rust
+```rust playground
 use serde::Deserialize;
 use serde_json::Value;
 
@@ -300,7 +300,7 @@ Both print the same two values, but they do very different amounts of work. The 
 
 `serde_json::to_string` allocates a fresh `String` every call. In a loop that serializes many values, reuse one buffer instead: `to_writer` appends into any `Write` target, and `Vec::clear()` drops the contents while **keeping the capacity**.
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -372,7 +372,7 @@ Three points deserve emphasis for a TypeScript developer:
 
 A `&str` field cannot hold an escaped string, because the unescaped bytes are not contiguous in the source. Serde reports this at **runtime** as a deserialization error:
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -478,7 +478,7 @@ The cryptic "not general enough" message is Serde's way of saying the type only 
 
 Without the attribute, the derive generates the **owning** implementation for a `Cow<'a, str>` field — it always allocates, silently defeating the point:
 
-```rust
+```rust playground
 use serde::Deserialize;
 use std::borrow::Cow;
 
@@ -532,7 +532,7 @@ If you find yourself writing `let v: Value = from_str(...)?;` and then `v["a"]["
 
 A production-flavored task: a metrics ingestion service receives a request body containing many NDJSON samples, parses each with a borrowed struct (zero string copies for the metric label), aggregates per-label totals, and serializes a compact summary back out — reusing a single output buffer. This is a complete, runnable `src/main.rs` using only `serde` (with `derive`) and `serde_json`.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::io::{BufRead, BufReader, Read};
@@ -644,7 +644,7 @@ Notice the pipeline's properties: input is read line-by-line into one reused buf
 
 **Instructions:** Start from the owning `Token` below. Rewrite it to borrow its two string fields from the input (`&'a str` with a lifetime parameter), then write a function `first_token(src: &str) -> Token<'_>` that parses it. Parse the literal `{"kind":"ident","lexeme":"user_count"}` and print both fields. Confirm it compiles and runs.
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 // TODO: make this borrow from the input instead of allocating two Strings.
@@ -663,7 +663,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -726,7 +726,7 @@ fn main() -> Result<(), serde_json::Error> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::Deserialize;
 use std::io::Cursor;
 
@@ -794,7 +794,7 @@ fn main() -> Result<(), serde_json::Error> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 // Only `version` is declared; `data`, `signature`, and `nested` are

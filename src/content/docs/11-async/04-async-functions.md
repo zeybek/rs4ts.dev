@@ -471,7 +471,7 @@ port = 8080
 
 A small profile service: independent `async fn`s for each I/O step, composed by a higher-level `async fn` that drives them **concurrently** with `join!`. This is the Rust analogue of the `buildProfile` + `Promise.all` pattern from the TypeScript example. (The network calls are simulated with `sleep` so the snippet runs without a server.)
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -558,7 +558,7 @@ The two `fetch_*` futures are constructed *lazily* and only start making progres
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -632,7 +632,7 @@ longest: "a much longer line"
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 

@@ -270,7 +270,7 @@ XSS is fundamentally a **context confusion** bug: data crosses into a code conte
 
 - When you *don't* use a template engine, escape manually with a tiny helper (this is what askama does internally):
 
-  ```rust
+  ```rust playground
   fn escape_html(input: &str) -> String {
       let mut out = String::with_capacity(input.len());
       for c in input.chars() {
@@ -395,7 +395,7 @@ The compiler is happy because there's no *type* error — only a *security* erro
 
 ### Pitfall 3: Comparing tokens with `==`
 
-```rust
+```rust playground
 fn tokens_match(cookie: &str, form: &str) -> bool {
     cookie == form // early-exit comparison: leaks match length via timing
 }
@@ -656,7 +656,7 @@ Every comment posted with `<script>` in the body is stored verbatim but rendered
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use base64::{engine::general_purpose::STANDARD, Engine as _};
 
 /// Generate a per-request CSP nonce: 16 random bytes, standard base64.
@@ -740,7 +740,7 @@ Dependencies: `cargo add axum-extra --features cookie`.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use subtle::ConstantTimeEq;
 
 /// Validate a CSRF token. Length is compared in variable time (it is not secret),

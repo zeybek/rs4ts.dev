@@ -56,7 +56,7 @@ In Rust we want the opposite: each window should be a **borrowed slice** into th
 
 Here is the **lending iterator** trait and a `Windows` implementation. The associated type `Item<'a>` carries a lifetime; that is the generic associated type:
 
-```rust
+```rust playground
 // A "lending" iterator: each item may borrow from the iterator itself.
 // The associated type `Item<'a>` is generic over a lifetime — that is the GAT.
 trait LendingIterator {
@@ -204,7 +204,7 @@ GATs were first proposed in [RFC 1598](https://github.com/rust-lang/rfcs/blob/ma
 
 A GAT can be generic over a **type** too, not only a lifetime. This expresses *type families* — a single trait that maps an input type to an output container type:
 
-```rust
+```rust playground
 use std::rc::Rc;
 use std::sync::Arc;
 
@@ -418,7 +418,7 @@ A vtable entry would need a single concrete type for `Item`, but a GAT is a *fam
 
 - **Drive lending iterators with `while let`**, and offer ergonomic helpers as **default trait methods that consume items** rather than free functions taking returning closures (which hit the borrow-checker limitation shown above). A consuming `count` is a clean example:
 
-  ```rust
+  ```rust playground
   trait LendingIterator {
       type Item<'a>
       where
@@ -498,7 +498,7 @@ A vtable entry would need a single concrete type for `Item`, but a GAT is a *fam
 
 A **zero-copy log scanner**. We read newline-delimited records out of one in-memory buffer and hand each line back as a borrowed `&str` view, no per-line `String` allocation, unlike `buffer.split('\n').collect::<Vec<_>>()` or the JavaScript version that copies every slice. This is the production-grade payoff of lending iterators: high-throughput parsing with zero allocation per item.
 
-```rust
+```rust playground
 // A zero-copy line reader over an in-memory buffer. Each call to `next`
 // lends a `&str` view into the buffer; no per-line String is allocated.
 trait LendingIterator {
@@ -607,7 +607,7 @@ Cross-links within this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait LendingIterator {
     type Item<'a>
     where
@@ -658,7 +658,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait LendingIterator {
     type Item<'a>
     where
@@ -719,7 +719,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::rc::Rc;
 use std::sync::Arc;
 

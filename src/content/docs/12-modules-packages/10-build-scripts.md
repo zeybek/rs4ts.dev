@@ -237,7 +237,7 @@ Under `cargo build -vv` (very verbose) you can see the directives `cc` emits on 
 
 If you are linking against a *pre-installed* system library rather than compiling your own C, you skip `cc` and print the directives yourself:
 
-```rust
+```rust playground
 // build.rs — link against a system-installed library (e.g. libz)
 fn main() {
     // Tell the linker to link `libz` dynamically.
@@ -260,7 +260,7 @@ By default, **a build script re-runs whenever any file in the package changes**.
 | `cargo::rerun-if-changed=PATH` | the file or directory at `PATH` changes | a watched input in a `chokidar` glob |
 | `cargo::rerun-if-env-changed=VAR` | the value of env var `VAR` differs from the last build | reading `process.env.X` and reacting to it |
 
-```rust
+```rust playground
 // build.rs — explicit, minimal re-run triggers
 use std::env;
 
@@ -302,7 +302,7 @@ Two more directives round out the common set:
 - **`cargo::rustc-env=KEY=VALUE`** sets an env var that your crate reads with the `env!("KEY")` macro at compile time. This is the cleanest way to embed small values like a git hash or build timestamp without writing a file.
 - **`cargo::warning=MESSAGE`** surfaces a warning in the build output, useful for nudging users about missing optional tooling.
 
-```rust
+```rust playground
 // build.rs — embed the git commit hash, no file generation needed
 use std::process::Command;
 
@@ -366,7 +366,7 @@ If your script reads `data/a.csv` and `data/b.csv` but only prints `cargo::rerun
 
 Cargo validates `cargo::` keys. A typo produces a hard error, not a silent no-op. This is the real message for an unknown key:
 
-```rust
+```rust playground
 // build.rs
 fn main() {
     println!("cargo::rerun-if-changed=build.rs");
@@ -548,7 +548,7 @@ The payoff over a runtime approach: the lookup compiles to a jump table, there i
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // build.rs
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -589,7 +589,7 @@ Real output: `built at unix time 1780203193`.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // build.rs
 use std::env;
 

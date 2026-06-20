@@ -69,7 +69,7 @@ Two TypeScript abilities to keep in mind, because Rust treats them differently:
 
 A single Rust `trait` does the job of that abstract class. A method that ends in `;` is **required**; a method with a `{ ... }` body is **provided**.
 
-```rust
+```rust playground
 trait Logger {
     // REQUIRED: no body, so every implementor must supply it.
     fn name(&self) -> String;
@@ -163,7 +163,7 @@ fn log(&self, message: &str) {
 
 This is the pattern that makes provided methods pull their weight. `log` is written once, in the trait, in terms of `self.level()` and `self.name()`. When `log` runs, `self.name()` dispatches to *whatever the concrete type defined*. So the trait author writes the orchestration once, and each implementor only fills in the small required pieces. The standard library's `Iterator` is the canonical example: you implement the one required method `next`, and dozens of provided methods (`map`, `filter`, `sum`, `collect`, ...) are written in terms of it.
 
-```rust
+```rust playground
 // Implement only `next`; inherit `map`, `sum`, `collect`, and friends.
 struct CountUp { n: u32, max: u32 }
 
@@ -198,7 +198,7 @@ sum = 15, doubled = [2, 4, 6, 8, 10]
 
 Most of the time you call a trait method with ordinary method syntax (`value.method()`), and Rust figures out which trait it belongs to. But there are two more explicit forms, useful when a name is ambiguous or you want to be precise:
 
-```rust
+```rust playground
 trait Summary {
     fn title(&self) -> String;       // required
     fn author(&self) -> String;      // required
@@ -361,7 +361,7 @@ warning: function cannot return without recursing
 
 The idiomatic fix is to extract the shared logic into its own method that *both* the default and the override can call:
 
-```rust
+```rust playground
 trait Renderer {
     // The shared logic lives in its own method, so both the default
     // and any override can reuse it without recursion.
@@ -429,7 +429,7 @@ An override must match the trait method's signature exactly — same parameters,
 
 A small, production-flavored validation framework. Each rule *must* supply its core `check`, but gets a free `is_valid` boolean helper and a `validate` method that decorates errors with the rule's name: both provided, both written once in the trait.
 
-```rust
+```rust playground
 /// A validation rule applied to a string field (e.g. a form input).
 trait Validator {
     /// REQUIRED: the core check. Returns `Ok(())` or an error message.
@@ -575,7 +575,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Animal {
     fn name(&self) -> String;
     fn noise(&self) -> String;
@@ -649,7 +649,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Handler {
     fn body(&self) -> String;
     fn status(&self) -> u16 {
@@ -722,7 +722,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Counter {
     fn next_value(&mut self) -> u64;
 

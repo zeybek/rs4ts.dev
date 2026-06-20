@@ -53,7 +53,7 @@ console.log(big); // [4, 5, 6]
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn main() {
     // The same closures, written the Rust way.
     let double = |n: i32| n * 2;
@@ -144,7 +144,7 @@ This is the part with no JavaScript equivalent. When a closure uses a variable f
 
 These form a hierarchy: every `Fn` is also an `FnMut`, and every `FnMut` is also an `FnOnce`. (Anything you can call repeatedly, you can certainly call once.) When you *accept* a closure as a parameter, ask for the **weakest** trait that works: `FnOnce` if you call it once, `FnMut` if you call it repeatedly and it mutates, `Fn` if it only reads.
 
-```rust
+```rust playground
 // Reads its environment only — call it as many times as you like.
 fn apply_twice<F: Fn(i32) -> i32>(f: F, x: i32) -> i32 {
     f(f(x))
@@ -193,7 +193,7 @@ In the earlier `scale` example, `|n: i32| n * factor` only *reads* `factor`, so 
 
 The `move` keyword forces a closure to take **ownership** of everything it captures, instead of borrowing. You need it whenever the closure must outlive the scope that created the captured values, most importantly when spawning threads or returning a closure from a function:
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -222,7 +222,7 @@ Without `move`, the closure would try to *borrow* `data`, but the new thread mig
 
 For `Copy` types (like integers), `move` copies the value in, leaving the original usable:
 
-```rust
+```rust playground
 fn main() {
     let x = 10; // i32 is Copy
     let add_x = move |n: i32| n + x; // copies x into the closure
@@ -398,7 +398,7 @@ When writing a function that takes a closure, choose `FnOnce` if you call it onc
 
 The single most common place you will write closures is in iterator chains: `map`, `filter`, `fold`, and friends. This replaces the `Array.prototype` methods you know from JavaScript:
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5, 6];
     let threshold = 3;
@@ -449,7 +449,7 @@ console.log(result); // "succeeded on attempt 3"
 
 **Rust:**
 
-```rust
+```rust playground
 /// Runs `operation` up to `max_attempts` times, stopping at the first `Ok`.
 /// The operation is `FnMut` because real-world retries often mutate state
 /// (bump an attempt counter, rotate an endpoint, etc.).
@@ -541,7 +541,7 @@ console.log(big); // [4, 5, 6]
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5, 6];
     let threshold = 3;
@@ -578,7 +578,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // `impl FnMut() -> u32` means "some concrete type that implements FnMut".
 fn make_counter() -> impl FnMut() -> u32 {
     let mut count = 0;
@@ -630,7 +630,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn run_once<F: FnOnce() -> String>(f: F) -> String {
     f()
 }

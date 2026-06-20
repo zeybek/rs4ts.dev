@@ -78,7 +78,7 @@ cargo add rand
 
 This resolves to `rand = "0.10"` (the current stable line; `0.10.1` at the time of writing). The API changed meaningfully across `0.8 → 0.9 → 0.10`, so code you find online may not match; the snippets here are written and compiled against `0.10`.
 
-```rust
+```rust playground
 use rand::{rng, RngExt};        // RngExt provides the ergonomic .random* methods
 use rand::rngs::SysRng;         // SysRng = the OS CSPRNG (called OsRng before 0.10)
 use rand::TryRng;               // SysRng's fill is fallible, via try_fill_bytes
@@ -171,7 +171,7 @@ seed byte 0 = 102, n = 2173754844
 
 The deepest difference is the **type-level guarantee**. In JavaScript nothing stops you from passing the output of `Math.random()` where a secret is expected; it is all `number`. In Rust you can write a function that *only* accepts a cryptographically secure generator, and the compiler rejects a fast non-secure one:
 
-```rust
+```rust playground
 use rand::{RngExt, SeedableRng, CryptoRng};
 use rand::rngs::{StdRng, SmallRng, SysRng};
 
@@ -280,7 +280,7 @@ The takeaway: bound your security-sensitive helpers on `CryptoRng` so this class
 
 Generating a token securely is only half the job. Verifying it with the ordinary `==` operator leaks length and prefix information through timing, because `==` returns as soon as it finds the first differing byte. Compare in **constant time** with the `subtle` crate (`cargo add subtle`):
 
-```rust
+```rust playground
 use subtle::ConstantTimeEq;
 
 fn tokens_match(stored: &str, candidate: &str) -> bool {
@@ -337,7 +337,7 @@ subtle = "2.6"
 getrandom = "0.4"
 ```
 
-```rust
+```rust playground
 use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
 use rand::rngs::SysRng;
 use rand::TryRng;
@@ -456,7 +456,7 @@ key = 7e93...  (48 chars)
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add rand
 use rand::{rng, RngExt};
 
@@ -499,7 +499,7 @@ Real output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add rand
 use rand::{RngExt, SeedableRng, CryptoRng};
 use rand::rngs::{StdRng, SmallRng, SysRng};

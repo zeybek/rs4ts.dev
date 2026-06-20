@@ -72,7 +72,7 @@ console.log(user.email); // 'alice@example.com'
 
 Rust expresses the same two ideas with dedicated syntax. Field init shorthand is the bare field name; struct update syntax is `..other` as the **last** thing inside the braces.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct User {
     id: u64,
@@ -203,7 +203,7 @@ This is the single most important difference. Whether `..base` leaves `base` usa
 
 A fully-`Copy` struct stays usable after an update:
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Copy)]
 struct Point {
     x: i32,
@@ -377,7 +377,7 @@ error[E0063]: missing field `active` in initializer of `User`
 
 This is the idiomatic Rust answer to the TypeScript `{ ...DEFAULTS, ...overrides }` pattern. Derive or implement `Default`, then override only the fields that differ:
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct ServerConfig {
     host: String,
@@ -444,7 +444,7 @@ Struct update shines when you change one or two fields out of many. If you are o
 
 A production configuration layer: a `Default` baseline, a `new` constructor that uses field shorthand, an environment-specific override built with struct update, and a per-deployment tweak built from that. This is the everyday shape of config plumbing in a Rust service.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct ServerConfig {
     host: String,
@@ -537,7 +537,7 @@ Notice how `prod` inherits `log_level: "debug"` from `dev` (not from `Default`),
 
 **Instructions:** Given the struct below, write a `main` that creates a `base` `Theme`, then a `user_theme` that is identical except `dark_mode: true` and `font_size: 16`. Print both, and make sure `base` is still printable after creating `user_theme`.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct Theme {
     primary: String,
@@ -556,7 +556,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct Theme {
     primary: String,
@@ -603,7 +603,7 @@ Theme { primary: "#0066cc", secondary: "#666666", font_size: 16, dark_mode: true
 
 **Instructions:** Implement `Default` for `QueryOptions` (defaults: `limit = 25`, everything else zero/false). Add an associated function `paged(limit: u32, offset: u32) -> Self` that sets those two fields using **field init shorthand** and fills the rest from `Default`. In `main`, build one value with `paged(50, 100)` and print it.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct QueryOptions {
     limit: u32,
@@ -624,7 +624,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct QueryOptions {
     limit: u32,
@@ -678,7 +678,7 @@ QueryOptions { limit: 50, offset: 100, descending: false, include_archived: fals
 
 > **Hint:** Because each method takes `self` by value, `..self` is free to move the remaining fields — there is no original to keep usable.
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Default, PartialEq)]
 struct QueryOptions {
     limit: u32,
@@ -700,7 +700,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Default, PartialEq)]
 struct QueryOptions {
     limit: u32,

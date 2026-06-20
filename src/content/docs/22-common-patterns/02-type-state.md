@@ -72,7 +72,7 @@ console.log(draft.views()); // Error: a draft has no views
 
 In Rust, the state becomes a generic type parameter. `Post<Draft>` and `Post<Published>` are different types, and each one only has the methods that are valid for it:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 // State marker types. They hold no data and are never instantiated.
@@ -197,7 +197,7 @@ This consume-and-return shape is why type-state pairs so naturally with Rust's [
 
 **Zero cost is real, not a slogan.** The marker types and `PhantomData` compile to nothing. We can prove it with `std::mem::size_of`:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 struct Draft;
@@ -305,7 +305,7 @@ Three states with a clear linear flow? Great fit. A dozen states with arbitrary 
 - **Name the marker field `_state`** (leading underscore) to document intent and silence dead-code lints.
 - **Seal your states with a private trait** when you want to *guarantee* no downstream crate invents a new state. Bound the type parameter on a `State` trait whose supertrait lives in a private module:
 
-  ```rust
+  ```rust playground
   use std::marker::PhantomData;
 
   mod sealed {
@@ -391,7 +391,7 @@ Three states with a clear linear flow? Great fit. A dozen states with arbitrary 
 
 A very common real use is a **typed request builder** that refuses to `send()` until both the HTTP method and the URL are set, caught at compile time, with the call order left flexible. Here we track two independent bits of state with two type parameters:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 // Two markers, reused for both "slots".
@@ -550,7 +550,7 @@ Related chapters in this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 struct Closed;
@@ -611,7 +611,7 @@ closing 127.0.0.1:8080
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 trait TurnstileState {
@@ -683,7 +683,7 @@ status: locked
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 struct Missing;

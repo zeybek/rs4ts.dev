@@ -50,7 +50,7 @@ The key traits to keep in mind:
 
 In Rust, the equivalent variadic behavior is resolved at **compile time** by a macro. The `$( ... ),*` syntax means "match a comma-separated list, and stamp out the body once per match."
 
-```rust
+```rust playground
 // A variadic builder macro: turn any number of expressions into a Vec<String>.
 macro_rules! string_list {
     // $( $x:expr ),*  matches zero-or-more comma-separated expressions.
@@ -121,7 +121,7 @@ $( ... )  sep  rep
 
 Repetition appears in **two** places, and they must agree:
 
-```rust
+```rust playground
 macro_rules! demo {
     //  v-- matcher: how we PARSE the input
     ( $( $x:expr ),* ) => {
@@ -168,7 +168,7 @@ The separator in the **matcher** controls how callers must punctuate the input. 
 
 The real `vec!` macro has *two* rules: one for the list form `vec![a, b, c]` and one for the repeat form `vec![value; count]`. Here is a working re-implementation that mirrors how the standard library defines it:
 
-```rust
+```rust playground
 macro_rules! myvec {
     // Repeat form: [elem; count]
     ( $elem:expr ; $count:expr ) => {
@@ -205,7 +205,7 @@ A few things worth unpacking:
 
 Repetitions can nest, which is how you express "a list of lists." Each `$( ... )` level corresponds to one level of grouping:
 
-```rust
+```rust playground
 // A grid: rows separated by `;`, cells within a row separated by `,`.
 macro_rules! grid {
     ( $( $( $cell:expr ),+ );+ $(,)? ) => {
@@ -235,7 +235,7 @@ The outer `$( ... );+` iterates over rows; the inner `$( $cell:expr ),+` iterate
 
 When the body expands two metavariables together inside one `$( ... )`, Rust steps through them **in lockstep**: they must have the same number of items:
 
-```rust
+```rust playground
 macro_rules! zip_print {
     ( [ $( $a:expr ),* ] , [ $( $b:expr ),* ] ) => {
         $(
@@ -298,7 +298,7 @@ There is no iterator, no closure, and no array of arguments at runtime: just thr
 
 There is no built-in "length of repetition" operator, but a common idiom expands each item into a `1usize` and sums them, letting you pre-size a `Vec`:
 
-```rust
+```rust playground
 // Count metavariables by mapping each to `1usize` and summing.
 macro_rules! count {
     () => (0usize);
@@ -474,7 +474,7 @@ Repetition macros shine for *variadic* construction and *literal* DSLs. If your 
 
 A genuinely useful application of repetition is generating **table-driven tests**. In TypeScript you might loop over an array of cases inside a single `it.each(...)`. In Rust, a small macro can stamp out a *separate* `#[test]` function per row, so each case shows up individually in the test runner with its own name.
 
-```rust
+```rust playground
 // A slug generator we want to test thoroughly.
 fn slugify(s: &str) -> String {
     s.trim()
@@ -579,7 +579,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! set {
     ( $( $x:expr ),* $(,)? ) => {{
         let mut s = ::std::collections::HashSet::new();
@@ -624,7 +624,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! hashmap {
     ( $( $key:expr => $val:expr ),* $(,)? ) => {{
         let mut map = ::std::collections::HashMap::new();
@@ -673,7 +673,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! count {
     () => (0usize);
     ( $head:expr $(, $tail:expr )* ) => (1usize + count!( $( $tail ),* ));

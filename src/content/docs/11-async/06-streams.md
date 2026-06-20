@@ -56,7 +56,7 @@ Key properties of the JavaScript model, to contrast against Rust:
 
 The same paginated fetch as a Rust `Stream`, consumed with `while let`:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 use tokio_stream::StreamExt;
@@ -148,7 +148,7 @@ The `Poll<Option<Item>>` return type encodes three states:
 
 You rarely write `poll_next` by hand, just as you rarely write a manual `Iterator`. But seeing it makes the model concrete: a stream is a thing the runtime polls repeatedly until it yields `None`.
 
-```rust
+```rust playground
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use tokio_stream::{Stream, StreamExt};
@@ -193,7 +193,7 @@ Real output:
 
 The `Stream` trait deliberately has *only* `poll_next`. All the ergonomic methods — `next`, `map`, `filter`, `take`, `collect`, `fold` — live on an **extension trait** called `StreamExt`, mirroring how `Iterator`'s adapters are inherent but its async equivalents are bolted on separately. You must bring `StreamExt` into scope to use them:
 
-```rust
+```rust playground
 use tokio_stream::StreamExt;
 
 #[tokio::main]
@@ -227,7 +227,7 @@ sum = 15
 
 There are **two** `StreamExt` traits in the ecosystem: `futures::StreamExt` and `tokio_stream::StreamExt`. They overlap heavily but are not identical. For instance, `enumerate` lives on `futures::StreamExt`, not the tokio one:
 
-```rust
+```rust playground
 // `enumerate` is provided by the `futures` crate's StreamExt.
 use futures::StreamExt;
 
@@ -310,7 +310,7 @@ You saw `tokio::pin!` twice already. Here is why. To poll a stream, the runtime 
 
 A frequent real-world source of a stream is "values arriving on a channel." `tokio-stream` wraps an mpsc receiver into a `Stream` so you can apply combinators and `while let`:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::sync::mpsc;
 use tokio::time::sleep;
@@ -372,7 +372,7 @@ The stream ends exactly when the last sender is dropped: the natural "the produc
 
 Just like `Iterator` adapters, `Stream` adapters (`map`, `filter`, `take`, `then`, `merge`, ...) build a new lazy stream and run nothing until consumed. `merge` interleaves two same-typed streams, yielding from whichever is ready:
 
-```rust
+```rust playground
 use tokio_stream::StreamExt;
 
 #[tokio::main]
@@ -531,7 +531,7 @@ The same rule as any async code: do not call blocking APIs (`std::thread::sleep`
 
 A telemetry ingester: a producer task emits sensor readings onto a bounded channel, and a consumer treats the receiver as a stream: filtering out invalid readings, throttling is unnecessary here because the channel already provides backpressure, and accumulating a running summary. This is a common production shape: one side produces, the other consumes a `Stream` with combinators.
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::sync::mpsc;
 use tokio::time::sleep;
@@ -642,7 +642,7 @@ The bogus `-999.0` reading is filtered out before it reaches the summary, the va
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use tokio_stream::StreamExt;
 
 #[tokio::main]
@@ -675,7 +675,7 @@ sum = 126
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::pin::Pin;
 use std::task::{Context, Poll};
 use tokio_stream::{Stream, StreamExt};
@@ -726,7 +726,7 @@ Real output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::sync::mpsc;
 use tokio::time::sleep;

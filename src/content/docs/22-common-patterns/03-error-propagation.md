@@ -321,7 +321,7 @@ The compiler tells you exactly what is missing: implement `From<std::io::Error> 
 
 `anyhow::Error` is *opaque*: it has no variants to match. If at some boundary you need to recover from a *specific* underlying error you wrapped, use `downcast_ref`:
 
-```rust
+```rust playground
 use anyhow::{anyhow, Result};
 use thiserror::Error;
 
@@ -560,7 +560,7 @@ fn load_count(path: &str) -> Result<u32, LoadError> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -619,7 +619,7 @@ error: could not read `/no/such/file`
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use anyhow::{Context, Result};
 use thiserror::Error;
 
@@ -684,7 +684,7 @@ The key insight: because the *library* returns a typed `CacheError`, the edge ca
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use anyhow::{anyhow, Result};
 use thiserror::Error;
 

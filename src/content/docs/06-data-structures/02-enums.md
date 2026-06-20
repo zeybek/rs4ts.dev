@@ -59,7 +59,7 @@ console.log(describe(event)); // clicked at (20, 80)
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 // One language construct. Each variant is a shape; some carry data.
 #[derive(Debug)]
 enum WebEvent {
@@ -210,7 +210,7 @@ Methods on enums are covered alongside structs in [Methods and `impl` Blocks](/0
 
 When variants carry *no* data, an enum behaves like a classic C enum, and you can pin each tag to an integer and cast to it:
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Copy)]
 enum HttpStatus {
     Ok = 200,
@@ -379,7 +379,7 @@ Two TypeScript unions with the same members are interchangeable. In Rust two enu
 
 A job/task status is a textbook case for a data-carrying enum: each state carries different information, and several states are *terminal*. In TypeScript you'd model it as a discriminated union; in Rust the enum carries the right payload per state and a method answers questions about it.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 enum JobState {
     Queued,
@@ -457,7 +457,7 @@ Notice what the type system buys you: a `Failed` value *always* has a `code` and
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Shape {
     Circle { radius: f64 },
@@ -510,7 +510,7 @@ Triangle { base: 6.0, height: 2.0 } -> area 6.00
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -582,7 +582,7 @@ name field is a string
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Copy, PartialEq)]
 enum Light {
     Red,

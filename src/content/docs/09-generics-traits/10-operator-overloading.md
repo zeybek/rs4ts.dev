@@ -73,7 +73,7 @@ a + b      = (1, 2)(3, 4)
 
 In Rust, `+` is sugar for the `Add` trait. Implement `Add` for `Vector2` and `a + b` simply works, with full type checking and zero runtime surprises.
 
-```rust
+```rust playground
 // Rust - a 2D vector that supports the `+` operator
 use std::ops::Add;
 
@@ -169,7 +169,7 @@ impl Add for Vector2 {
 
 `Add` defaults `Rhs` to `Self`, but you can set `Rhs` to a different type. A common case is multiplying a vector by a scalar `f64`:
 
-```rust
+```rust playground
 use std::ops::Mul;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -214,7 +214,7 @@ v * 2.0 = Vector2 { x: 2.0, y: 4.0 }
 
 The assignment operators take `&mut self` and return `()`. Unary `-` is `Neg`. Indexing returns a *reference* so the compiler can also support `a[i] = v` through `IndexMut`. Here they are together:
 
-```rust
+```rust playground
 use std::ops::{AddAssign, Neg, Index, IndexMut};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -315,7 +315,7 @@ struct Version {
 
 Rust's "operators are traits" model is the same idea as TypeScript's "iterables implement `Symbol.iterator`," generalized to every operator. It means the language core stays tiny, your numeric types are first-class citizens (a `BigDecimal` from a crate adds with `+` exactly like `i32` does), and generic code can be written over "anything that supports `+`" via the bound `T: Add<Output = T>`:
 
-```rust
+```rust playground
 use std::ops::Add;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -399,7 +399,7 @@ note: calling this operator moves the left-hand side
 
 **Fixes:** derive `Clone`/`Copy` if the type is small and cheap, or implement the operator on **references** so it borrows instead of moves:
 
-```rust
+```rust playground
 use std::ops::Add;
 
 #[derive(Debug)]
@@ -530,7 +530,7 @@ Operators should preserve their intuitive meaning. Overloading `*` to mean "repe
 
 A currency-safe `Money` type, stored as integer cents to avoid floating-point rounding errors, that supports `+`, `-`, `* quantity`, and `.sum()` over an iterator. This is the kind of value object you would put at the heart of a billing or checkout service.
 
-```rust
+```rust playground
 use std::iter::Sum;
 use std::ops::{Add, Mul, Sub};
 
@@ -671,7 +671,7 @@ Notice how `price * qty`, `cart.iter()...sum()`, and `total - discount` all read
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::ops::{Add, Mul};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -735,7 +735,7 @@ a * b = 5+5i
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::ops::AddAssign;
 
 #[derive(Debug, Default, Clone, Copy)]
@@ -791,7 +791,7 @@ mean = 20
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::ops::{Index, IndexMut};
 
 struct Matrix {

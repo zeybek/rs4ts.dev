@@ -252,7 +252,7 @@ The second difference is that Rust's matrix is about *compiler versions*, not ru
 
 `cargo clippy` by itself exits `0` even when it emits warnings — warnings are advisory by default. A CI step that runs plain `cargo clippy` shows the lints in the log but passes the job anyway, so nothing is actually enforced. You must add `-- -D warnings` to promote warnings to errors. With it, a single unused variable fails the build:
 
-```rust
+```rust playground
 fn main() {
     let unused = compute(); // fails `cargo clippy -- -D warnings`
     println!("done");
@@ -478,7 +478,7 @@ jobs:
 
 To reproduce the lint failure locally, put this in `src/main.rs`:
 
-```rust
+```rust playground
 fn main() {
     let total = 1 + 2; // unused, so clippy -D warnings fails
     println!("hello");

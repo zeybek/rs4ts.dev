@@ -73,7 +73,7 @@ console.log(typeof restored.greet); // "undefined"
 
 In Rust you annotate the type once. The derive macro generates the trait implementations the serializer needs:
 
-```rust
+```rust playground
 // Cargo.toml:
 //   [dependencies]
 //   serde = { version = "1", features = ["derive"] }
@@ -140,7 +140,7 @@ The single `#[derive(Serialize, Deserialize)]` line replaces both `JSON.stringif
 
 For a struct, the generated `Serialize` impl visits each field in declaration order. You rarely look at it, but it helps to see that it is plain, ordinary Rust. Here is a hand-written `Serialize` that is effectively what the derive produces:
 
-```rust
+```rust playground
 use serde::ser::{Serialize, SerializeStruct, Serializer};
 
 struct User {
@@ -202,7 +202,7 @@ This is the rule that trips up everyone coming from TypeScript. Because the gene
 
 Enums are where Serde shines compared to TypeScript's hand-rolled discriminated unions. Each variant kind serializes to a distinct, predictable JSON shape:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -246,7 +246,7 @@ This is the **externally tagged** representation, the default. The variant name 
 
 The derive handles every shape of struct Rust allows, and each maps to a sensible JSON value:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -403,7 +403,7 @@ The names you derive must be in scope and must be Serde's. A common mistake is t
 
 By default, deserialization **ignores** fields in the input that your struct does not declare. This is usually what you want for forward-compatible APIs, but it can hide typos:
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -445,7 +445,7 @@ Temperature { celsius: 21.5 }
 
 A typical domain model for an e-commerce order: nested structs, an enum with data-carrying variants, a `Vec`, and a `HashMap`, all serializable from a single derive on each type, and verified to round-trip.
 
-```rust
+```rust playground
 // Cargo.toml:
 //   [dependencies]
 //   serde = { version = "1", features = ["derive"] }
@@ -571,7 +571,7 @@ One derive per type and the entire nested graph — struct inside struct inside 
 2. Make it both serializable and deserializable.
 3. In `main`, construct a value, serialize it to a JSON string, print it, then deserialize it back and print the resulting struct with `{:?}`.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // TODO: add the right derive(s)
@@ -590,7 +590,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -637,7 +637,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -700,7 +700,7 @@ Some("missing field `radius` at line 1 column 12")
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::ser::{Serialize, SerializeStruct, Serializer};
 use serde::Deserialize;
 

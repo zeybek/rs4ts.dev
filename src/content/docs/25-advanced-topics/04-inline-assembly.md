@@ -60,7 +60,7 @@ Notice what the runtime guarantees: the WebAssembly module is validated before i
 
 The simplest useful `asm!` block: take a value in a register, run one instruction, hand a value back. Here it is on **AArch64** (Apple Silicon, ARM servers), the architecture this page was compiled and run on:
 
-```rust
+```rust playground
 use std::arch::asm;
 
 /// Add 5 to `x` using a single AArch64 `add` instruction.
@@ -257,7 +257,7 @@ error: invalid reference to argument at index 1
 
 The most *dangerous* mistake compiles cleanly and then corrupts your program. If your assembly writes to a register that you did not list as an output or clobber, the compiler assumes that register is untouched — it may have been holding a live value. The classic case is calling another function: a `bl`/`call` instruction clobbers all the caller-saved registers per the ABI. You must tell the compiler with `clobber_abi("C")`:
 
-```rust
+```rust playground
 use std::arch::asm;
 
 extern "C" fn the_answer() -> u64 { 42 }
@@ -313,7 +313,7 @@ On x86/x86-64, Rust defaults to **Intel** syntax (`add dst, src`). If you paste 
 
 A genuinely justified use of `asm!`: reading the CPU's hardware cycle/tick counter with the absolute minimum overhead, for fine-grained microbenchmarking. There is no single stable, portable intrinsic that lowers to exactly one instruction here, and the counter lives in a special register, so a one-instruction `asm!` is the right call. We provide both x86-64 (`rdtsc`) and AArch64 (`cntvct_el0`) versions behind `cfg`, wrapped in one safe function.
 
-```rust
+```rust playground
 use std::arch::asm;
 
 /// Read a monotonically increasing hardware cycle/tick counter with the lowest
@@ -425,7 +425,7 @@ Cross-links within this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::arch::asm;
 
 // AArch64: a single `add` with a shifted operand does it in one instruction.
@@ -484,7 +484,7 @@ times_nine(6) = 54
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::arch::asm;
 
 #[cfg(target_arch = "aarch64")]
@@ -546,7 +546,7 @@ max_u64(99, 42) = 99
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::arch::asm;
 
 /// Returns the 12-byte CPU vendor string, or `None` on non-x86-64 targets.

@@ -54,7 +54,7 @@ To actually use the other cores in Node you reach for [`worker_threads`](https:/
 
 In Rust, the parallel version is the sequential version with `iter()` swapped for `par_iter()` (after importing the Rayon prelude):
 
-```rust
+```rust playground
 // Cargo.toml: run `cargo add rayon`
 use rayon::prelude::*;
 use std::time::Instant;
@@ -133,7 +133,7 @@ Internally, Rayon uses **work stealing** over a divide-and-conquer split: it rec
 
 ### Reductions: `sum`, `reduce`, and order independence
 
-```rust
+```rust playground
 use rayon::prelude::*;
 
 fn main() {
@@ -194,7 +194,7 @@ Note that `collect` *does* preserve order when the source is indexed (a range, `
 
 Not every iterator can be split into halves cheaply. A `Vec` knows its length and can be indexed, so Rayon splits it directly. A *sequential* iterator like `str::lines()` or a `File`'s line reader can only be advanced one item at a time; Rayon can't jump to the middle. For those, `par_bridge` adapts any `Iterator` into a `ParallelIterator` by pulling items one at a time (under a lock) and feeding them to worker threads:
 
-```rust
+```rust playground
 use rayon::prelude::*;
 use std::collections::HashMap;
 
@@ -315,7 +315,7 @@ error[E0596]: cannot borrow `results` as mutable, as it is a captured variable i
 
 This is the borrow checker stopping a data race before it can exist. The idiomatic fix is not a lock; it's to `map` and `collect`, letting Rayon assemble the result for you:
 
-```rust
+```rust playground
 use rayon::prelude::*;
 
 fn main() {
@@ -337,7 +337,7 @@ If you genuinely need to accumulate into shared state (rare), wrap it in a `Mute
 
 Parallelism is not free: splitting, dispatching to the pool, and joining all cost time. When the per-element work is trivial and the collection is small, that overhead dwarfs the actual computation and parallel is *slower*:
 
-```rust
+```rust playground
 use rayon::prelude::*;
 use std::time::Instant;
 
@@ -397,7 +397,7 @@ Here the parallel version is **~50x slower**. Adding `1` to a thousand numbers t
 
 A common production task: aggregate word frequencies across a large corpus of documents. Each document is processed independently (embarrassingly parallel), then the per-document counts are merged. The `fold` + `reduce` pattern lets each thread build a local `HashMap` and merge them at the end, with no lock contention on a shared map:
 
-```rust
+```rust playground
 // Cargo.toml: run `cargo add rayon`
 use rayon::prelude::*;
 use std::collections::HashMap;
@@ -495,7 +495,7 @@ When the corpus is too large to hold in memory, combine this with [Advanced File
 
 **Instructions:** Compute the sum of the squares of all *even* numbers from 1 to 1,000,000, using a parallel iterator. Start from this sequential stub and parallelize it:
 
-```rust
+```rust playground
 fn main() {
     let total: u64 = (1..=1_000_000u64)
         .into_iter()
@@ -511,7 +511,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // Cargo.toml: run `cargo add rayon`
 use rayon::prelude::*;
 
@@ -546,7 +546,7 @@ Output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // Cargo.toml: run `cargo add rayon`
 use rayon::prelude::*;
 
@@ -592,7 +592,7 @@ Output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // Cargo.toml: run `cargo add rayon`
 use rayon::prelude::*;
 use std::collections::HashMap;

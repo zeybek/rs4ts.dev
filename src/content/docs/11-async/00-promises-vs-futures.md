@@ -190,7 +190,7 @@ Constructing `ReadyValue(99)` does nothing. The `poll() called` line proves the 
 
 Because JavaScript Promises are already running, `Promise.all([a, b])` runs `a` and `b` concurrently for free; they both started when you created them. In Rust, two futures awaited one after another run **sequentially**, because the first does not even begin until you `.await` it. To get concurrency you must combine them with something like [`join!`](/11-async/07-select-join/).
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 
@@ -234,7 +234,7 @@ This is the second half of the story. JavaScript has a built-in event loop (in t
 
 The most common is [Tokio](/11-async/02-tokio-intro/). But any executor works; here is the same idea using a minimal one from the `futures` crate, with no Tokio at all:
 
-```rust
+```rust playground
 use futures::executor::block_on;
 
 async fn greet(name: &str) -> String {
@@ -260,7 +260,7 @@ Hello, Rust!
 
 `#[tokio::main]` is convenient, but it is only a macro that expands to "build a runtime and call `block_on`." You can do it yourself, which makes the "you supply the runtime" point unmistakable:
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn do_work() -> &'static str {
@@ -400,7 +400,7 @@ The fix is to enter an async context: add `#[tokio::main]` to make `main` async,
 
 Because of eager Promises, JavaScript developers often write code assuming a "kick off now, await later" pattern:
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn slow(label: &str) -> &str {
@@ -441,7 +441,7 @@ Coming from Node, it is tempting to assume "async just works." It does not: with
 
 A retry helper shows why laziness is a genuine advantage. In JavaScript, once you call an `async` function you get a `Promise` that is already running and can only be awaited once. Retrying means *calling the function again*. Rust makes this explicit and clean: you pass a closure that builds a **fresh future** for each attempt.
 
-```rust
+```rust playground
 use std::future::Future;
 use tokio::time::{sleep, Duration};
 
@@ -537,7 +537,7 @@ Each call to `op()` builds a brand-new future; `with_retry` polls it to completi
 
 **Instructions:** The program below compiles with a warning and prints only `done`. Fix it so it also logs the event. Do not change the body of `log_event`.
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn log_event(name: &str) {
@@ -557,7 +557,7 @@ async fn main() {
 
 The future returned by `log_event(...)` is never polled, so its body never runs. Add `.await`:
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn log_event(name: &str) {
@@ -589,7 +589,7 @@ done
 
 **Instructions:** This program fetches two prices sequentially, taking ~160 ms. Rewrite it so both fetches run concurrently and the total wait is ~80 ms. Keep both results.
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 
@@ -617,7 +617,7 @@ async fn main() {
 
 Build both futures and drive them together with `tokio::join!`. (Awaiting them one at a time is sequential precisely because the second future hasn't started yet.)
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 

@@ -56,7 +56,7 @@ The catch: `JSON.parse(json) as User` is a **lie the compiler believes**. TypeSc
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -169,7 +169,7 @@ Serde splits the work cleanly. `#[derive(Serialize, Deserialize)]` teaches your 
 
 You don't need a wrapper struct for everything. A JSON array of objects deserializes straight into a `Vec<T>`:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -268,7 +268,7 @@ untagged: [42,"abc"]
 
 This trips up everyone, so it's worth a dedicated demonstration:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -333,7 +333,7 @@ The mental shift: in TypeScript, JSON validation is *your* job (or a library lik
 
 A non-`Option` field is **required**. Leave it out and deserialization fails, which is usually what you want, but it surprises developers coming from `JSON.parse`'s permissiveness.
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -373,7 +373,7 @@ The fix is intentional: make the field `Option<u16>`, or add `#[serde(default)]`
 
 By default, Serde **ignores** JSON keys that don't map to a struct field. This is forgiving (good for evolving APIs) but can hide typos in your data.
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 // Unknown fields are silently ignored by default.
@@ -414,7 +414,7 @@ strict error: unknown field `extra`, expected `name` at line 1 column 23
 
 With `#[serde(untagged)]`, Serde tries variants **top to bottom** and accepts the first that parses. Put a broad variant first and it will swallow inputs meant for a stricter one. A JSON `42` is a valid `f64`, so a `Float`-first enum never reaches `Int`:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // WRONG order: Float matches integers too, so 42 deserializes as Float(42.0).
@@ -477,7 +477,7 @@ Coming from JavaScript, it's tempting to deserialize into `serde_json::Value` (a
 
 A paginated API response: a wrapper with pagination metadata, a `Vec` of nested `Order` objects, a `HashMap` of feature flags, an `Option` field that only appears once an order ships, and an internally tagged status enum: exactly the kind of payload a Rust service receives from another service or returns to a client.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -636,7 +636,7 @@ Related sections in this guide:
 
 **Instructions:** Create a `BlogPost` struct with `title: String`, `tags: Vec<String>`, and `published: bool`. Build one, serialize it to a JSON string with `serde_json::to_string`, print it, then deserialize it back and print the recovered title. Remember the `derive` feature and the `Serialize`/`Deserialize` derives.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // TODO: derive Serialize + Deserialize (and Debug)
@@ -659,7 +659,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -704,7 +704,7 @@ recovered title: Hello
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -759,7 +759,7 @@ The `None` captain rendered as `null`. To omit it instead, you'd add `#[serde(sk
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]

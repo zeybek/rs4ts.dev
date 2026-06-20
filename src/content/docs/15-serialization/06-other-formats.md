@@ -240,7 +240,7 @@ let text = serde_norway::to_string(&cfg).unwrap();
 
 TOML documents are key/value tables at the root. Trying to serialize a bare `Vec` (or any non-map) at the top level fails. This compiles but errors at runtime:
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -274,7 +274,7 @@ The fix is to wrap the array in a struct field, e.g. `struct Catalog { items: Ve
 
 CSV is flat. If a struct field is itself a struct (or a `Vec`/`HashMap`), the `csv` crate cannot lay it out as columns and refuses when it tries to write the header. This compiles but errors at runtime:
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -534,7 +534,7 @@ One `AppConfig` type, three text formats, and a single `load_config` that dispat
 
 **Instructions:** In a fresh project (`cargo new`, then add `serde --features derive`, `serde_json`, `toml`, `serde_norway`, and `rmp-serde`), define `Point { x: i32, y: i32, label: String }` deriving `Serialize`, `Deserialize`, `Debug`, and `PartialEq`. Serialize one `Point` to JSON, TOML, YAML, and MessagePack (use `to_vec_named` for MessagePack), deserialize each back, and `assert!` that all four parsed values equal the original.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // TODO: derive Serialize, Deserialize, Debug, PartialEq
@@ -604,7 +604,7 @@ The `Box<dyn std::error::Error>` return type lets the different error types from
 
 **Instructions:** Define `Server { host: String, port: u16 }` and `Settings { title: String, server: Server }` (derive `Serialize`, `Deserialize`, `Debug`). Parse the TOML literal below into a `Settings`, print the host and port, then serialize it back to TOML and print the result. Observe how the nested struct becomes a `[server]` table.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // TODO: define Server and Settings with the right derives
@@ -625,7 +625,7 @@ port = 8080
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -685,7 +685,7 @@ The nested `Server` struct maps to TOML's `[server]` table both ways. Notice tha
 
 **Instructions:** Define `Sale { product: String, units: u32, revenue: f64 }` deriving `Deserialize` and `Debug`. Using `csv::Reader::from_reader`, deserialize the CSV string below into `Sale` records, then print the total revenue and the single product with the highest revenue. Each row deserializes into a fully-typed `Sale`, no manual string-to-number parsing.
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 // TODO: define Sale with derive(Deserialize, Debug)
@@ -705,7 +705,7 @@ gizmo,45,900.0
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]

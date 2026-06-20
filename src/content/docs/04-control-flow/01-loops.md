@@ -55,7 +55,7 @@ console.log(`first power of two over 100: ${firstBig}`);
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn main() {
     let scores = [88, 92, 75];
 
@@ -115,7 +115,7 @@ In Rust, `for pattern in expression { ... }` requires `expression` to be somethi
 
 The most common iterables:
 
-```rust
+```rust playground
 fn main() {
     // A range: 1, 2, 3 (the end is EXCLUSIVE)
     for i in 1..4 {
@@ -153,7 +153,7 @@ A **range** like `1..4` is the closest thing to `for (let i = 1; i < 4; i++)`. N
 
 If you want both the index and the value — the legitimate reason a TS/JS dev uses the C-style loop — call `.enumerate()` on the iterator. It yields `(index, value)` tuples, which you destructure right in the `for` pattern:
 
-```rust
+```rust playground
 fn main() {
     let names = ["Alice", "Bob", "Carol"];
     for (index, name) in names.iter().enumerate() {
@@ -174,7 +174,7 @@ This is the Rust equivalent of JavaScript's `array.forEach((value, index) => ...
 
 Because the thing after `in` is just an iterator, you compose adapters instead of editing a loop header:
 
-```rust
+```rust playground
 fn main() {
     // Count down: rev() reverses any iterator that supports it
     for i in (0..3).rev() {
@@ -204,7 +204,7 @@ step 9
 
 `while condition { ... }` runs the body while the condition is `true`. The only catch (covered in [conditionals](/04-control-flow/00-conditionals/)) is that the condition must be a real `bool`. There is no truthiness, so `while queue.length` does not compile; you write `while !queue.is_empty()`.
 
-```rust
+```rust playground
 fn main() {
     let mut count = 3;
     while count > 0 {
@@ -224,7 +224,7 @@ while 1
 
 `loop { ... }` repeats forever until you `break`. That alone is just `while (true)`. What is genuinely new for a JavaScript developer is that `loop` is an **expression**: `break value` makes the entire `loop` evaluate to `value`, so you can assign it to a binding.
 
-```rust
+```rust playground
 fn main() {
     let mut n = 1;
     let result = loop {
@@ -299,7 +299,7 @@ help: remove the unnecessary `let` keyword
 
 **Fix:** loop over a range.
 
-```rust
+```rust playground
 fn main() {
     for i in 0..5 {
         println!("{i}");
@@ -311,7 +311,7 @@ fn main() {
 
 This compiles, but it is not idiomatic and reintroduces bounds checks and off-by-one risk:
 
-```rust
+```rust playground
 fn main() {
     let scores = [88, 92, 75];
     // Works, but un-idiomatic:
@@ -323,7 +323,7 @@ fn main() {
 
 **Fix:** iterate the elements directly; use `.enumerate()` only if you actually need the index.
 
-```rust
+```rust playground
 fn main() {
     let scores = [88, 92, 75];
     for score in &scores {
@@ -336,7 +336,7 @@ fn main() {
 
 `1..4` yields `1, 2, 3` — **not** `4`. Coming from `for (i = 1; i <= 4; i++)`, you will reach for the wrong one.
 
-```rust
+```rust playground
 fn main() {
     let exclusive: Vec<i32> = (1..4).collect();  // [1, 2, 3]
     let inclusive: Vec<i32> = (1..=4).collect(); // [1, 2, 3, 4]
@@ -381,7 +381,7 @@ error[E0502]: cannot borrow `numbers` as mutable because it is also borrowed as 
 
 **Fix:** collect the changes first, or build a new collection, then apply them after the loop ends. The rules behind this error are the subject of [Section 05 — Ownership](/05-ownership/).
 
-```rust
+```rust playground
 fn main() {
     let mut numbers = vec![1, 2, 3];
     let mut to_add = Vec::new();
@@ -399,7 +399,7 @@ fn main() {
 
 `for x in collection` (without `&`) **consumes** the collection: each element is moved into `x`. Afterward the original is gone:
 
-```rust
+```rust playground
 fn main() {
     let owned = vec![String::from("a"), String::from("b")];
     for s in owned { // moves each String out of `owned`
@@ -411,7 +411,7 @@ fn main() {
 
 **Fix:** borrow with `&` if you still need the collection after the loop:
 
-```rust
+```rust playground
 fn main() {
     let owned = vec![String::from("a"), String::from("b")];
     for s in &owned { // borrows; `owned` survives
@@ -479,7 +479,7 @@ let found = loop {
 
 A `for` loop that just accumulates is often clearer as an iterator chain, and the compiler optimizes it just as well:
 
-```rust
+```rust playground
 fn main() {
     let scores = [88, 92, 75];
 
@@ -504,7 +504,7 @@ fn main() {
 
 A small slice of a job-runner: poll a backend until a job finishes (using `loop` + `break value`), render a text progress bar with a `for` range, then drain a work queue with `while`.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Job {
     id: u32,
@@ -601,7 +601,7 @@ running build
 
 **Instructions:** Print the numbers `1` through `15`, but print `Fizz` for multiples of 3, `Buzz` for multiples of 5, and `FizzBuzz` for multiples of both.
 
-```rust
+```rust playground
 fn main() {
     for n in 1..=15 {
         // TODO: print Fizz / Buzz / FizzBuzz / the number
@@ -612,7 +612,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     for n in 1..=15 {
         let line = if n % 15 == 0 {
@@ -671,7 +671,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn next_power_of_two_above(target: u32) -> u32 {
     let mut p = 1u32;
     loop {
@@ -719,7 +719,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn collatz_steps(mut n: u64) -> u32 {
     let mut steps = 0;
     while n != 1 {

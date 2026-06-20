@@ -58,7 +58,7 @@ Because `throw` and `catch` are untyped and uniform, nothing in the signature of
 
 Rust splits the two cases apart. Recoverable failure is a value (`Result`); an unrecoverable bug is a `panic!`.
 
-```rust
+```rust playground
 // Rust: two distinct mechanisms.
 
 // (1) Recoverable failure -> the type system forces the caller to deal with it.
@@ -173,7 +173,7 @@ Indexing out of bounds is one of several library operations that panic on a brok
 
 By default a panic unwinds, and unwinding is *not* a silent crash: every value on the stack is dropped in reverse order, so cleanup code runs. Rust has no `finally`; the `Drop` trait fills that role.
 
-```rust
+```rust playground
 struct Guard;
 
 impl Drop for Guard {
@@ -219,7 +219,7 @@ Two things to take away. First, `Guard::drop` ran *during* the unwind: your clea
 
 If a *spawned* thread panics, only that thread dies. The panic is stored in the thread's `JoinHandle` and surfaces as an `Err` when you `join` it.
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -437,7 +437,7 @@ A panic in a spawned thread is captured in its `JoinHandle` and does not propaga
 
 A production service typically faces both kinds of failure during startup. User-supplied configuration is **recoverable**: report it and let the operator fix it. An internal helper called with a logically impossible argument represents a **bug** and should panic loudly. Here is a config loader that draws that line clearly.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// A recoverable error: the operator can fix bad config and retry.
@@ -571,7 +571,7 @@ fn divide(numerator: i64, denominator: i64) -> i64 {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, PartialEq)]
 enum MathError {
     DivideByZero,
@@ -612,7 +612,7 @@ The caller now decides what to do with a zero denominator instead of having the 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 /// Picks element `index` from `slice`, wrapping around with modulo.
 ///
 /// # Panics
@@ -649,7 +649,7 @@ The empty-slice case is genuinely impossible to serve, so panicking is the right
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn run_plugin<F: FnOnce() + std::panic::UnwindSafe>(name: &str, plugin: F) {
     match std::panic::catch_unwind(plugin) {
         Ok(()) => println!("plugin `{name}` ran successfully"),

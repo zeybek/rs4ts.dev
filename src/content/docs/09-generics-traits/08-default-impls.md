@@ -96,7 +96,7 @@ This works, but it leans on **class inheritance**: `Welcome` and `NotFound` *are
 
 The same design as a trait. The single required method is `body`; everything else is a default that implementors inherit.
 
-```rust
+```rust playground
 trait HttpResponder {
     // The ONE required method each responder must supply.
     fn body(&self) -> String;
@@ -193,7 +193,7 @@ The whole trick is that a default body may call **other trait methods**, includi
 
 This is why a tiny required surface produces a large free API. Consider a reporting trait whose only required method is `rows`:
 
-```rust
+```rust playground
 trait Report {
     // Required: the raw rows.
     fn rows(&self) -> Vec<String>;
@@ -256,7 +256,7 @@ summary = 3 row(s): jan=10,feb=12,mar=9
 
 The standard library uses this everywhere. `Ord` requires `cmp` and provides `max`, `min`, and `clamp`; `Iterator` requires `next` and provides the rest. You can mirror the pattern in your own code: define the one operation that only the implementor can know, then derive a family of conveniences.
 
-```rust
+```rust playground
 use std::cmp::Ordering;
 
 // Define ONE comparison, get a family of methods free.
@@ -308,7 +308,7 @@ This is where the analogy with abstract classes breaks down, in Rust's favor. A 
 
 This is the **extension trait** pattern: add methods to types you do not own. Here we bolt new methods onto every iterator of `i64` by giving an empty blanket `impl` that simply inherits all the defaults:
 
-```rust
+```rust playground
 // An "extension trait" that adds methods to ANY iterator-of-numbers via defaults.
 trait NumericExt: Iterator<Item = i64> + Sized {
     fn sum_squares(self) -> i64 {
@@ -412,7 +412,7 @@ For more information about this error, try `rustc --explain E0609`.
 
 The fix is to add a required getter and let the default call it:
 
-```rust
+```rust playground
 trait Named {
     fn name(&self) -> &str;            // required getter
     fn greeting(&self) -> String {
@@ -515,7 +515,7 @@ There is no `super` in Rust. Once a type overrides a default, the trait's origin
 
 A read-side repository trait. A concrete store implements one method, `all`, and inherits an entire query API: count, lookup, existence check, projection, and a generic filter. Swapping the backing store (in-memory here, but it could be SQL or a cache) requires writing only `all` again.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Clone, Debug)]
@@ -653,7 +653,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Notifier {
     fn recipient(&self) -> String;
     fn channel(&self) -> &str {
@@ -736,7 +736,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Shape {
     fn area(&self) -> f64;
     fn name(&self) -> &str {
@@ -817,7 +817,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Loggable {
     // Required: the one-line label for this value.
     fn label(&self) -> String;

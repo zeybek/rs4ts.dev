@@ -57,7 +57,7 @@ That last guarantee is exactly what Rust's raw pointers give up.
 
 A raw pointer is a typed address. You can build one from a reference, from an integer, or by casting another pointer. Reading or writing through it happens in `unsafe`.
 
-```rust
+```rust playground
 fn main() {
     // ── Creating raw pointers is SAFE ──────────────────────────────
     let mut x: i32 = 42;
@@ -202,7 +202,7 @@ The single most important row is **aliasing**. The borrow checker's entire job i
 
 A pointer to a `Sized` type is one machine word. A pointer to an **unsized** type — a slice `[T]` or a `str` — is a **fat pointer**: it carries the address *plus* the length.
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 fn main() {
@@ -257,7 +257,7 @@ The fix is to wrap the dereference in `unsafe { *p }`, but only after you have c
 
 This one is insidious because **it compiles cleanly with no warning**:
 
-```rust
+```rust playground
 fn main() {
     let dangling: *const i32 = {
         let temp = 10;
@@ -316,7 +316,7 @@ A `*const T` can be `std::ptr::null()`, which is *not* `None`. It is a real poin
 - **Keep `unsafe` blocks tiny.** Wrap only the dereference, not the surrounding logic, and write a `// SAFETY:` comment explaining why each invariant holds. Clippy's `undocumented_unsafe_blocks` lint can enforce this.
 - **Use `&raw const` / `&raw mut` for fields, not `&x as *const _`.** Stabilized in Rust 1.82, these operators produce a raw pointer *without ever forming a reference*, essential for unaligned fields of a `#[repr(packed)]` struct, where forming a normal reference would itself be UB:
 
-  ```rust
+  ```rust playground
   use std::mem::size_of;
 
   #[repr(C, packed)]
@@ -343,7 +343,7 @@ A `*const T` can be `std::ptr::null()`, which is *not* `None`. It is a real poin
 
 - **Convert to a reference with `as_ref()` / `as_mut()` for the null check.** These return `Option<&T>`, doing the null check for you (you still owe the validity/aliasing invariants):
 
-  ```rust
+  ```rust playground
   use std::ptr;
 
   fn main() {
@@ -374,7 +374,7 @@ A `*const T` can be `std::ptr::null()`, which is *not* `None`. It is a real poin
 
 A common production scenario: a buffer of bytes is handed to you across an FFI boundary (a pointer + length from C, see [Calling C from Rust](/20-unsafe-ffi/04-calling-c/)), and you want to read it as a Rust slice without copying. `std::slice::from_raw_parts` builds a fat slice pointer from a thin data pointer and a length. The pattern is to take the raw pointer in an `unsafe fn` with a documented contract, then expose a safe API.
 
-```rust
+```rust playground
 use std::slice;
 
 /// A read-only view over a buffer we do NOT own — for example, memory
@@ -420,7 +420,7 @@ The raw pointer and the single `unsafe` block are confined to `from_raw`; everyt
 
 A second classic example is splitting one mutable slice into two non-overlapping halves. The borrow checker cannot prove the halves are disjoint, so the standard library's `split_at_mut` does it with raw pointers, and you can write it yourself:
 
-```rust
+```rust playground
 /// Split a slice into two disjoint mutable halves with raw pointers.
 /// This is essentially how the standard library's `split_at_mut` works.
 fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
@@ -486,7 +486,7 @@ Real output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::ptr;
 
 fn swap<T>(a: &mut T, b: &mut T) {
@@ -530,7 +530,7 @@ a=world, b=hello
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::slice;
 
 /// # Safety
@@ -575,7 +575,7 @@ null sum=0
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn get_two_mut<T>(s: &mut [T], i: usize, j: usize) -> (&mut T, &mut T) {
     assert!(i != j, "indices must differ");
     assert!(i < s.len() && j < s.len(), "index out of bounds");

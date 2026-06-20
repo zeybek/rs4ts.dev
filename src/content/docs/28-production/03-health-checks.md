@@ -705,7 +705,7 @@ Running it prints `database healthy=true detail=None`. Flip `healthy` to `false`
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 use tokio::sync::Mutex;

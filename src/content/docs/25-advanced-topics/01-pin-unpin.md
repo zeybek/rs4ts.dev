@@ -64,7 +64,7 @@ This freedom is exactly what Rust cannot offer for free, because Rust values are
 
 In Rust, "move" is a real, byte-level operation, and an internal pointer that survives a move becomes dangling. To hold the kind of self-referential structure that JavaScript hands you for free, you must pin the value so it can never move, and you must opt out of `Unpin` with `PhantomPinned`:
 
-```rust
+```rust playground
 use std::marker::PhantomPinned;
 use std::pin::Pin;
 
@@ -179,7 +179,7 @@ The receiver is `Pin<&mut Self>`, **not** `&mut self`. That single design choice
 
 `Unpin` is an auto-trait (like `Send`/`Sync`): the compiler implements it automatically for almost every type. A type is `Unpin` when moving it even while pinned is perfectly safe, which is true for any type with no self-references. `i32`, `String`, `Vec<T>`, your structs and enums: all `Unpin` by default. For an `Unpin` type, `Pin` is a no-op wrapper and you get full mutable access right back:
 
-```rust
+```rust playground
 use std::pin::Pin;
 use std::mem;
 
@@ -212,7 +212,7 @@ The only types that are **not** `Unpin` are those that contain a `PhantomPinned`
 
 `Box::pin` allocates. Since Rust 1.68 the standard `std::pin::pin!` macro pins a value to the current **stack frame**: no allocation, no `unsafe`. This is how you poll a future by hand, or feed one to `select!`:
 
-```rust
+```rust playground
 use std::future::Future;
 use std::pin::pin;
 use std::sync::Arc;
@@ -393,7 +393,7 @@ loop {
 
 A common production need: run one long-running async operation while doing periodic work (a heartbeat, a progress tick, a timeout) without canceling and restarting the operation. The operation's future must be **pinned once** and re-borrowed each loop iteration. `tokio::pin!` pins it on the stack:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -519,7 +519,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::future::Future;
 use std::pin::pin;
 use std::sync::Arc;
@@ -563,7 +563,7 @@ This is a (deliberately naive) executor: `pin!` gives us the `Pin<&mut F>` that 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::marker::PhantomPinned;
 use std::pin::Pin;
 

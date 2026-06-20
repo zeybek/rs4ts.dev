@@ -61,7 +61,7 @@ TypeScript's union is structural and runtime-erased: the `kind` field is a real 
 
 Rust spells the same idea with `enum` plus angle-bracket type parameters. Here is a generic `Either<L, R>` and a generic `Cache<T>` with methods:
 
-```rust
+```rust playground
 // A generic enum with two type parameters.
 #[derive(Debug)]
 enum Either<L, R> {
@@ -169,7 +169,7 @@ match self {
 
 This is the deepest difference from TypeScript. When you write `Cache<String>` and `Cache<i32>`, the Rust compiler generates two *separate*, fully-specialized enums — as if you had hand-written `CacheString` and `CacheI32`. There is no boxing, no tag-dispatch overhead, and the layout is optimal for each type. You can observe the distinct layouts:
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 #[derive(Debug)]
@@ -202,7 +202,7 @@ The two sizes are the point: `Slot<u8>` is 2 bytes (1 byte payload + 1 byte tag)
 
 Because `Option<T>` and `Result<T, E>` are generic enums with a known shape, the `?` operator can short-circuit on them:
 
-```rust
+```rust playground
 fn first_two(s: &str) -> Option<(char, char)> {
     let mut it = s.chars();
     let a = it.next()?; // if None, return None from first_two
@@ -256,7 +256,7 @@ TypeScript bolts optionality onto every type with `T | undefined`, and `strictNu
 
 Because the compiler controls the tag, it can be clever. For types that have an impossible bit pattern (a "niche"), `Option` reuses it instead of adding a separate tag. A reference or `Box` can never be null, so `Option<&T>` and `Option<Box<T>>` use the all-zero pointer as `None` and are the **same size** as the bare pointer:
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 fn main() {
@@ -407,7 +407,7 @@ TypeScript developers often look for "the empty value." There is no `null` in sa
 
 A production-flavored use of a generic enum: a `Fetch<T, E>` state machine, the kind you would model a data-fetching hook around (idle → loading → success/failure). It is generic so the same machine works for any payload and error type.
 
-```rust
+```rust playground
 use std::fmt;
 
 /// The lifecycle of an asynchronous request, generic over its payload `T`
@@ -562,7 +562,7 @@ impl<T> List<T> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum List<T> {
     Cons(T, Box<List<T>>),
@@ -625,7 +625,7 @@ The recursive variant must be wrapped in `Box` so the enum has a known, finite s
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, PartialEq)]
 enum Either<L, R> {
     Left(L),
@@ -690,7 +690,7 @@ Note how `map_right` changes only the second type parameter (`R` to `R2`) while 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Tree<T> {
     Leaf(T),

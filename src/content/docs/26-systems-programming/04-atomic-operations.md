@@ -57,7 +57,7 @@ console.log(total);
 
 Here is the idiomatic Rust version: a counter that eight threads increment in parallel, with no lock.
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 use std::thread;
@@ -102,7 +102,7 @@ total = 8000
 
 Every atomic exposes the same core trio:
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 fn main() {
@@ -150,7 +150,7 @@ Every atomic method takes an `Ordering`. It controls how this operation synchron
 - `Ok(previous)` if the swap happened (the value was `expected`).
 - `Err(actual)` if it did not (the value was something else, and `actual` tells you what).
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 fn main() {
@@ -181,7 +181,7 @@ This is the JS `Atomics.compareExchange(view, index, expected, replacement)` pat
 
 CAS shines when you need a custom read-modify-write that no single `fetch_*` method provides, for example "store the maximum value any thread has seen." You read the current value, compute the new one, and try to swap. If another thread changed it underneath you, you retry with the fresh value:
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 fn main() {
@@ -338,7 +338,7 @@ error[E0597]: `counter` does not live long enough
 
 Atomicity applies to *each call*, not to a sequence of calls. This `load`-then-`store` is two separate atomic operations, so another thread can slip in between them and you lose updates, exactly the bug atomics were supposed to prevent:
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 fn main() {
@@ -370,7 +370,7 @@ This compiles and prints `1` on a single thread, but under contention it loses u
 - **Reach for a `Mutex`/`RwLock` when the data is not a single primitive.** Atomics cannot make a `Vec` or `HashMap` thread-safe; do not try to fake it with a flag.
 - **When exclusive access is available, skip synchronization entirely.** `get_mut()` returns an `&mut` to the inner value (no atomic operation needed) and `into_inner()` consumes the atomic to return the plain value — both are free because the borrow checker has proven no other thread can touch it:
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 fn main() {
@@ -398,7 +398,7 @@ into_inner: 7
 
 A common production need is a **lock-free unique ID generator** shared across worker threads — every request, job, or span needs a distinct ID, and you do not want a mutex on the hot path. `fetch_add` returns the value *before* the increment, so each caller atomically claims a unique number, even under heavy contention. An `AtomicBool` provides a clean cooperative shutdown signal at the same time.
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::thread;
@@ -497,7 +497,7 @@ Every ID is unique with zero locking. `fetch_add` guarantees no two threads ever
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 use std::thread;
@@ -542,7 +542,7 @@ final = 1000
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::Arc;
 use std::thread;
@@ -610,7 +610,7 @@ Only one thread can move the flag from `false` to `true`; every other `compare_e
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::Arc;
 use std::thread;

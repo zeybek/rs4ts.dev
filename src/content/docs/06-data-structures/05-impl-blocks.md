@@ -65,7 +65,7 @@ There is no way, from the signatures alone, to tell that `area()` only *reads* w
 
 In Rust the data lives in a `struct` and the behavior lives in an `impl` block. Each method spells out its relationship to the value via its first parameter.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct Rectangle {
     width: f64,
@@ -153,7 +153,7 @@ Every method's first parameter is some form of `self`. This is Rust's `this`, bu
 
 When you write `rect.area()`, Rust desugars it to a plain function call and automatically inserts the right kind of reference. These two lines are identical:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct User {
     name: String,
@@ -195,7 +195,7 @@ Both print `Hi, Ada!`. The dot syntax is just sugar: Rust looks at `greet`'s sig
 
 A single type can have **as many `impl` blocks as you like**. They all contribute methods to the same type; there is no requirement to put everything in one block.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Counter {
     count: u32,
@@ -409,7 +409,7 @@ A subtle one: taking `self` by value when you only read makes every call consume
 
 A shopping cart that uses all three receiver kinds the way you would in production: `&mut self` to build it up, `&self` to query it, and `self` to finalize it into an immutable receipt. It is also split across two `impl` blocks: one for mutation, one for read-only queries.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct CartItem {
     name: String,
@@ -500,7 +500,7 @@ The receiver kinds map directly onto the cart's lifecycle: you *build* it (`&mut
 
 A close cousin is the owning-builder style, where each step takes `mut self` by value, mutates, and returns `self` so calls can be chained:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct RequestBuilder {
     url: String,
@@ -612,7 +612,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Temperature {
     celsius: f64,
@@ -686,7 +686,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Stack {
     values: Vec<i32>,
@@ -754,7 +754,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Account {
     balance: i64,

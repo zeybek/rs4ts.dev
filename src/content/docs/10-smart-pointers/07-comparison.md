@@ -55,7 +55,7 @@ console.log(account === ledgerView); // true — same underlying object
 
 Rust makes you state your intent, and each intent maps to a specific wrapper. The same scenario (a uniquely owned value, a shared read-only value, a shared *mutable* single-threaded value, and a shared mutable *cross-thread* value) uses four different types, and the type *is* the documentation.
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::rc::Rc;
 use std::sync::{Arc, Mutex};
@@ -285,7 +285,7 @@ If you want the rule enforced at *compile* time instead, you did not need interi
 
 A small in-memory job registry that several worker threads share and mutate. Walking the three questions: multiple owners (every worker holds the store) → reference counting; across threads → `Arc`; mutated through a shared handle → `Mutex`. The table lands us squarely on `Arc<Mutex<HashMap<...>>>`.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -398,7 +398,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 fn strip_comment(line: &str) -> Cow<'_, str> {
@@ -438,7 +438,7 @@ The clean line is handed straight back (no allocation); only the commented line 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
@@ -499,7 +499,7 @@ owners=2
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 use std::thread;

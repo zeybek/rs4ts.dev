@@ -121,7 +121,7 @@ You'll learn:
 
 Your first Rust program:
 
-```rust
+```rust playground
 fn main() {
     println!("Hello, world!");
 }

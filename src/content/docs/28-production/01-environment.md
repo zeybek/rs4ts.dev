@@ -166,7 +166,7 @@ That non-zero exit is exactly what an orchestrator like Kubernetes wants: a misc
 
 In Node, `process.env.DATABASE_URL` has type `string | undefined`, and it is entirely up to you to remember the `undefined` half. In Rust:
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -267,7 +267,7 @@ The deepest difference is *when* you find out something is wrong. A Node service
 
 On the current stable toolchain (2024 edition), `std::env::set_var` and `remove_var` are `unsafe` functions, because changing the environment is not thread-safe: another thread could be reading it. Writing the obvious code fails to compile:
 
-```rust
+```rust playground edition="2021"
 fn main() {
     std::env::set_var("KEY", "value"); // does not compile (error[E0133])
 }
@@ -588,7 +588,7 @@ Running with `API_KEY=abc123 cargo run` prints `Using key: abc123`. Running with
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::env;
 
 fn max_connections() -> Result<u32, String> {

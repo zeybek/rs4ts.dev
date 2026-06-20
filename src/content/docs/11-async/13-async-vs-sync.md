@@ -72,7 +72,7 @@ The timer was due at 50 ms but did not fire until 316 ms; the CPU loop held the 
 
 Rust makes you pick the tool that matches the workload. For **I/O-bound** work, async tasks on a runtime overlap waits exactly like the event loop: three 100 ms "requests" finish in about 100 ms total. This example uses two crates, the `tokio` runtime and `futures` (for `join_all`), so add them first with `cargo add tokio --features full` and `cargo add futures`:
 
-```rust
+```rust playground
 use std::time::{Duration, Instant};
 use tokio::time::sleep;
 
@@ -105,7 +105,7 @@ elapsed = 101 ms
 
 For **CPU-bound** work, async does *nothing*: there is no waiting to overlap, only computation to spread across cores. That is a job for threads. The data-parallel crate [`rayon`](https://docs.rs/rayon) turns a sequential iterator into a parallel one with a one-word change, and on a multi-core machine the speedup is real:
 
-```rust
+```rust playground
 use std::time::Instant;
 use rayon::prelude::*;
 
@@ -175,7 +175,7 @@ A CPU-bound loop never hits an `.await`; it just computes. So it never yields. O
 
 This is the single most important practical consequence. A blocking or CPU-heavy synchronous call inside an async task starves its sibling tasks, because cooperative scheduling only hands off control at `.await`. On a single-thread runtime it is dramatic and deterministic:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::{sleep, Instant};
 
@@ -220,7 +220,7 @@ The heartbeat was supposed to tick at 50, 100, and 150 ms. Instead it does not f
 
 The fix is to move the blocking work off the async workers with `tokio::task::spawn_blocking`, which runs it on a dedicated blocking-thread pool:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::{sleep, Instant};
 
@@ -267,7 +267,7 @@ A point that surprises Node developers: lots of excellent Rust programs use *no*
 
 For CPU-bound parallelism with no I/O, plain OS threads need no runtime at all:
 
-```rust
+```rust playground
 use std::thread;
 use std::time::Instant;
 
@@ -347,7 +347,7 @@ error[E0728]: `await` is only allowed inside `async` functions and blocks
 
 The error names the cure: make `summarize` async too (and the coloring spreads), or bridge into the async world explicitly. Bridging from a synchronous function uses a runtime's `block_on`, which runs a future to completion on the current thread and returns its value:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::runtime::Runtime;
 use tokio::time::sleep;
@@ -521,7 +521,7 @@ Spawning a million async tasks for I/O is fine; they are cheap and mostly idle. 
 
 A production-flavored pipeline that mixes both worlds: a batch image service that **downloads** images (I/O-bound → async, overlapped) and then **processes** each one (CPU-bound → offloaded with `spawn_blocking` so it never stalls the downloads). This is the canonical "concurrent I/O feeding parallel compute" shape.
 
-```rust
+```rust playground
 use std::time::{Duration, Instant};
 use tokio::task::JoinSet;
 use tokio::time::sleep;
@@ -632,7 +632,7 @@ Related sections of this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use rayon::prelude::*;
 
 /// CPU-bound: count Collatz steps to reach 1. Pure computation, no waiting.
@@ -684,7 +684,7 @@ The computation is pure CPU work with no waiting, so `async`/Tokio would add ove
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::{sleep, Instant};
 
@@ -745,7 +745,7 @@ The heartbeat ticks at 52 and 104 ms — right on time — because `spawn_blocki
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::{Duration, Instant};
 use rayon::prelude::*;
 use tokio::time::sleep;

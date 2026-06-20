@@ -58,7 +58,7 @@ final: 100
 
 Rust forces you to name an ordering on every atomic operation. The most common and most useful pattern is **release/acquire publication**: one thread writes some data and then "publishes" a flag with `Release`; another thread reads the flag with `Acquire` and is then guaranteed to see the data.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::thread;
@@ -111,7 +111,7 @@ There are five `Ordering` values. Think of them as a ladder from "no synchroniza
 
 `Relaxed` guarantees the single operation is indivisible (no torn reads/writes) and nothing else. It creates **no happens-before relationship** with any other memory. It is perfect for a counter whose value is the only thing you care about:
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::thread;
@@ -162,7 +162,7 @@ An `Acquire` load says: *"every memory read I do after this load must not be reo
 
 A read-modify-write operation (`fetch_add`, `swap`, `compare_exchange`) both reads and writes. `AcqRel` makes the read half an `Acquire` and the write half a `Release`. Use it when a single RMW both observes a previous publication *and* publishes its own result:
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::thread;
@@ -212,7 +212,7 @@ CAS counter = 200000
 
 `SeqCst` does everything `AcqRel` does **and** adds a single global total order that *all* `SeqCst` operations across all threads agree on. This extra guarantee matters only in subtle cases involving more than two variables, such as the store-buffer / Dekker pattern below: each thread writes its own flag and reads the other's.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::thread;
@@ -359,7 +359,7 @@ error: atomic loads cannot have `Release` or `AcqRel` ordering
 
 This is the dangerous one because it **compiles cleanly**: there is no diagnostic. It is a logic bug, not a type error.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::thread;
@@ -415,7 +415,7 @@ This builds and, on a typical x86 desktop, will print `consumer saw 42` every ti
 
 A background metrics worker that increments a `Relaxed` counter and watches a `Release`/`Acquire` shutdown flag: the two most common orderings, each used where it is exactly right.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::thread;
@@ -487,7 +487,7 @@ This compiles and runs; the exact count varies run to run (it depends on timing)
 
 **Instructions:** The program below publishes a value through a flag using `Relaxed` on both ends, so the consumer's read of `data` is not guaranteed to see `1234`. Change *only* the orderings so the data is correctly published, and have the consumer `assert_eq!` it.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::thread;
@@ -516,7 +516,7 @@ fn main() {
 
 <details><summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::thread;
@@ -564,7 +564,7 @@ The `Release` store and the `Acquire` load that observes `true` create the happe
 
 <details><summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{AtomicU8, Ordering};
 use std::thread;
@@ -623,7 +623,7 @@ init ran 1 time(s)
 
 <details><summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::sync::atomic::{fence, AtomicBool, AtomicU64, Ordering};
 use std::thread;

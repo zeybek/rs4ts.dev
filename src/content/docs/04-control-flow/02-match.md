@@ -75,7 +75,7 @@ Running this with Node v22 prints `[ 'one', 'two' ]` for `risky(1)`: case `1` "f
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum HttpStatus {
     Ok,
@@ -127,7 +127,7 @@ There is no `break`, there is no fall-through, and there is no `default` you can
 
 In JavaScript a `switch` is a statement — it *does* things, it does not *evaluate to* a value. That is why `describeStatus` had to `return` inside each `case`. In Rust, `match` is an expression, so you can assign its result directly:
 
-```rust
+```rust playground
 fn main() {
     let code = 503;
     // The match evaluates to a String, which we bind to `message`.
@@ -160,7 +160,7 @@ A `switch` case can only test for equality against a constant. A `match` arm is 
 
 The arms below combine destructuring (`ServerError(code)`) with formatting in one step; no separate `status.code` access needed:
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum HttpStatus {
     Ok,
@@ -278,7 +278,7 @@ error[E0004]: non-exhaustive patterns: `Some(_)` not covered
 
 In a `switch`, `default` can sit anywhere. In a `match`, arms are tried top-to-bottom, so a catch-all above a specific pattern makes the specific one **unreachable**:
 
-```rust
+```rust playground
 fn main() {
     let n = 3;
     let label = match n {
@@ -309,7 +309,7 @@ Move specific patterns above the catch-all.
 
 Every arm feeds the same `match` expression, so they must agree on a type:
 
-```rust
+```rust playground
 fn main() {
     let n = 1;
     // let x = match n {
@@ -342,7 +342,7 @@ For your own enums, list the variants. Reserve `_` for genuinely open-ended valu
 
 If a `match` has one meaningful arm and a do-nothing `_ => {}`, an `if let` is cleaner. That is its own topic; see [Concise Pattern Matching](/04-control-flow/03-if-let-while-let/):
 
-```rust
+```rust playground
 fn main() {
     let config_value: Option<u16> = Some(8080);
 
@@ -367,7 +367,7 @@ When you want to check that a value is in a range *and* keep the value, `name @ 
 
 A tiny command interpreter — the kind you might build for a REPL, a chat bot, or a debug console. It shows `|` patterns, ranges, the `@` binding, guards, destructuring, and nested `match`es all working together to parse and execute typed commands.
 
-```rust
+```rust playground
 /// A tiny command interpreter, the kind you'd build for a REPL or a chat bot.
 #[derive(Debug)]
 enum Command {
@@ -467,7 +467,7 @@ Notice `volume 250` falls through to `Unknown`: the `v @ 0..=100` pattern reject
 
 A compact tour of every pattern feature in this file's scope, all in one program:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Point {
     x: i32,
@@ -606,7 +606,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn fizzbuzz(n: u32) -> String {
     match (n % 3, n % 5) {
         (0, 0) => "FizzBuzz".to_string(),
@@ -662,7 +662,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn status_category(code: u16) -> &'static str {
     match code {
         100..=199 => "informational",
@@ -737,7 +737,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Expr {
     Num(f64),

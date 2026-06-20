@@ -113,7 +113,7 @@ This is correct and concise, and it mirrors the Node version closely. But like t
 
 `std::fs` gives you three one-call helpers that open, do the work, and close the file for you. They are the equivalent of Node's `readFileSync` / `writeFileSync`:
 
-```rust
+```rust playground
 use std::fs;
 use std::io;
 
@@ -163,7 +163,7 @@ Every fallible call returns `Result<T, std::io::Error>`, aliased as `io::Result<
 
 A raw `File` performs **one system call per read or write**. Writing 100,000 lines directly to a `File` means 100,000 `write(2)` syscalls. Slow. `BufWriter` batches them into a memory buffer (8 KB by default) and flushes in big chunks; `BufReader` does the symmetric thing for reads. This is the explicit version of what Node's stream layer does for you under the hood.
 
-```rust
+```rust playground
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, BufWriter, Write};
 
@@ -211,7 +211,7 @@ Key points:
 
 There is more than one way to iterate lines, and the right choice depends on file size and whether you need owned strings.
 
-```rust
+```rust playground
 use std::fs::{self, File};
 use std::io::{self, BufRead, BufReader, Write};
 
@@ -291,7 +291,7 @@ Every `std::fs` call blocks the current thread until the OS finishes. For a typi
 
 In JavaScript, `writeFileSync` either works or throws; you can fire and forget. In Rust, a `Result` you do not use triggers a warning, because the write may have silently failed (disk full, permission denied).
 
-```rust
+```rust playground
 use std::fs;
 
 fn main() {
@@ -366,7 +366,7 @@ The fix is exactly what the compiler suggests: add `use std::io::Write;`.
 
 A `BufWriter` flushes its buffer when it is dropped, but the flush at drop time **cannot return an error**, so a failure (disk full, broken pipe) is silently swallowed. Always call `.flush()?` explicitly when you care whether the bytes actually landed:
 
-```rust
+```rust playground
 use std::fs::File;
 use std::io::{self, BufWriter, Write};
 
@@ -392,7 +392,7 @@ fn main() -> io::Result<()> {
 
 Node's `"utf8"` mode quietly substitutes `�` for invalid bytes; `fs::read_to_string` refuses and returns an error. Read raw bytes and convert lossily if you want the Node behavior:
 
-```rust
+```rust playground
 use std::fs;
 use std::io;
 
@@ -432,7 +432,7 @@ A surprising number of bugs come from `read_line` not behaving like a "give me t
 - **Return `io::Result<T>` and propagate with `?`** rather than `.unwrap()` in real tools. Reserve `.unwrap()`/`.expect()` for tests and quick prototypes; see [`unwrap` and `expect`](/08-error-handling/03-unwrap-expect/).
 - **Match on `error.kind()`** to recover from expected conditions (a missing optional config file) while still failing loudly on unexpected ones:
 
-```rust
+```rust playground
 use std::fs;
 use std::io::ErrorKind;
 
@@ -587,7 +587,7 @@ In a real tool you would parse these three positional arguments with clap instea
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, BufWriter, Write};
 
@@ -632,7 +632,7 @@ fn main() -> io::Result<()> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fs;
 use std::io::{self, ErrorKind};
 
@@ -679,7 +679,7 @@ The `Err(e) if e.kind() == ErrorKind::NotFound` guard handles the expected "file
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, BufWriter, Write};
 

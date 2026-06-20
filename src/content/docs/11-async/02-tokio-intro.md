@@ -53,7 +53,7 @@ Key facts about the Node model that a TypeScript/JavaScript developer relies on 
 
 Rust gives you the same `async`/`await` syntax, but **no event loop is running unless you start one**. Tokio provides that loop. The most common way to start it is the `#[tokio::main]` attribute, which wraps your `async fn main` in a runtime:
 
-```rust
+```rust playground
 use std::time::{Duration, Instant};
 use tokio::time::sleep;
 
@@ -446,7 +446,7 @@ Related sections in this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 

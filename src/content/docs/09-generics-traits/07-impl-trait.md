@@ -70,7 +70,7 @@ Both of those behaviors differ from Rust in instructive ways, as we will see.
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 trait Summary {
     fn summarize(&self) -> String;
 }
@@ -175,7 +175,7 @@ This is the central contrast with the TypeScript return-by-interface version:
 
 Why hide the type at all? Because some real return types are effectively impossible to write by hand: closures have unnameable anonymous types, and iterator adapters produce deeply nested generic types like `Map<Filter<Range<u32>, {closure}>, {closure}>`. `impl Trait` lets you describe such a value by what it _does_ rather than what it _is_:
 
-```rust
+```rust playground
 fn make_adder(n: i32) -> impl Fn(i32) -> i32 {
     move |x| x + n
 }
@@ -210,7 +210,7 @@ Both positions produce **static dispatch**: the call goes directly to the right 
 
 Until recently you could not write `-> impl Trait` as the return type of a method _inside a trait definition_. Since **Rust 1.75** you can; the feature is called **return-position `impl Trait` in traits**, or **RPITIT**:
 
-```rust
+```rust playground
 trait Container {
     // The method returns "some iterator of i32" without naming the type.
     fn items(&self) -> impl Iterator<Item = i32>;
@@ -269,7 +269,7 @@ A TypeScript developer often reads `-> impl Summary` as "returns a `Summary` int
 
 On the 2024 edition, a return-position `impl Trait` automatically captures any in-scope lifetimes, so returning an iterator that borrows an argument "just works" without the older `+ '_` annotation:
 
-```rust
+```rust playground
 // On edition 2024, the returned iterator may borrow from `data` with no
 // extra lifetime annotation needed.
 fn first_words(data: &[String]) -> impl Iterator<Item = &str> {
@@ -349,7 +349,7 @@ help: if you change the return type to expect trait objects, box the returned ex
 
 **Fix:** when branches genuinely return different concrete types, switch to a trait object, `Box<dyn Trait>`, which _does_ allow runtime variation (at the cost of one heap allocation and dynamic dispatch). The compiler even spells out the edit:
 
-```rust
+```rust playground
 fn make_iter(reverse: bool) -> Box<dyn Iterator<Item = i32>> {
     let v = vec![1, 2, 3];
     if reverse {
@@ -521,7 +521,7 @@ Since Rust 1.75, returning `impl Trait` from a trait method (including `async fn
 
 A small, production-flavored log-processing pipeline. `impl Trait` in **argument** position keeps the parser ergonomic (it accepts any iterator of lines), and `impl Trait` in **return** position hides both the parser's iterator-adapter type and a generated filter closure. This is precisely the kind of code where naming the real types would be miserable.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct LogLine {
     level: String,
@@ -627,7 +627,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn describe_all(items: &[impl std::fmt::Display]) -> String {
     items
         .iter()
@@ -674,7 +674,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn make_counter(start: i32) -> impl FnMut() -> i32 {
     let mut current = start;
     move || {
@@ -712,7 +712,7 @@ The closure captures `current` by value (`move`) and mutates it, so it implement
 
 **Instructions:** Define a trait `DataSource` with one method `records(&self) -> impl Iterator<Item = String>`. Implement it for a struct `StaticList { data: Vec<String> }` so that `records` yields clones of the stored strings. Write a free function `print_records(source: &impl DataSource)` that iterates the source's records and prints each on its own line. In `main`, build a `StaticList` containing `"alpha"` and `"beta"` and pass it to `print_records`.
 
-```rust
+```rust playground
 trait DataSource {
     // TODO: records(&self) -> impl Iterator<Item = String>
 }
@@ -735,7 +735,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait DataSource {
     fn records(&self) -> impl Iterator<Item = String>;
 }

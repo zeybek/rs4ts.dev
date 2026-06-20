@@ -68,7 +68,7 @@ console.log(s.toUpperCase()); // HELLO — the primitive is boxed transiently
 
 Rust lets your wrapper opt into "act like my inner value" by implementing `Deref`. After that, the inner type's methods are callable directly, and a `&Wrapper` coerces into a `&Inner` at call sites. No manual forwarding, no `unwrap()`.
 
-```rust
+```rust playground
 use std::ops::Deref;
 
 /// A newtype guaranteeing the wrapped string is non-empty and trimmed.
@@ -151,7 +151,7 @@ The genuinely useful behavior is **deref coercion**. In two specific situations 
 
 This is why all of the following work without a single explicit `*`:
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 fn main() {
@@ -192,7 +192,7 @@ Notice the `shared.first()` case chains coercions: `Rc<Vec<i32>>` → `Vec<i32>`
 
 This is the canonical example, and it is pure deref coercion. The standard library implements `impl Deref for String { type Target = str; ... }`. So when you call a `fn greet(name: &str)` with a `&String`, the compiler sees the mismatch, finds `String: Deref<Target = str>`, and inserts the coercion automatically.
 
-```rust
+```rust playground
 fn greet(name: &str) {
     println!("Hello, {name}!");
 }
@@ -229,7 +229,7 @@ Hello, Ada!
 
 `Deref` gives `&Target`. To get `&mut Target` (for mutation through the wrapper, or to mutate behind a `Box`), implement `DerefMut`:
 
-```rust
+```rust playground
 use std::ops::{Deref, DerefMut};
 
 struct MyBox<T>(T);
@@ -449,7 +449,7 @@ It is tempting, coming from class-based TypeScript, to give a "subclass-like" st
 
 A common production pattern is a **bounded stack**: a collection with its own `push`/`pop` policy that nonetheless wants to offer the full read-only slice API (`len`, `iter`, `first`, `contains`, ...) without re-implementing each method. `Deref<Target = [T]>` delivers exactly that: the wrapper controls mutation, while reads flow through to the slice.
 
-```rust
+```rust playground
 use std::ops::Deref;
 
 /// A stack with a fixed capacity. It owns its `push`/`pop` policy, but
@@ -587,7 +587,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::ops::Deref;
 
 struct Sentence(String);
@@ -636,7 +636,7 @@ The single `impl Deref` is all it takes: `&Sentence` coerces to `&str` for `word
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::Cell;
 use std::ops::{Deref, DerefMut};
 
@@ -706,7 +706,7 @@ Each method call on `logged` goes through `deref` once, so the counter lands on 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::ops::{Deref, DerefMut};
 
 struct Resource {

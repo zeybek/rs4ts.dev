@@ -97,7 +97,7 @@ strip = true
 
 A matching `src/main.rs` that uses those dependencies:
 
-```rust
+```rust playground
 // src/main.rs
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
@@ -303,7 +303,7 @@ serde = "1.0"
 serde_json = "1.0"
 ```
 
-```rust
+```rust playground
 use serde::Serialize; // imports the TRAIT, not the derive macro
 
 #[derive(Serialize)] // does not compile
@@ -408,7 +408,7 @@ codegen-units = 1
 strip = true
 ```
 
-```rust
+```rust playground
 // src/main.rs
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
@@ -581,7 +581,7 @@ serde_json = "1.0"
 
 `src/main.rs`:
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]

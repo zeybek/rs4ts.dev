@@ -55,7 +55,7 @@ In Rust, none of these are free. You opt into a runtime, you start it, and (hist
 
 A future in Rust is inert. Calling an `async fn` returns a value that has done **no work**. Only an executor that repeatedly `poll`s it makes it progress. The most common executor is Tokio, started with the `#[tokio::main]` attribute:
 
-```rust
+```rust playground
 // Cargo.toml: cargo add tokio --features full
 use std::time::{Duration, Instant};
 use tokio::time::sleep;
@@ -174,7 +174,7 @@ done in 151ms
 
 **The two Tokio flavors map cleanly onto the Node mental model.** A **current-thread** runtime is the closest analogue to Node's single-threaded event loop: one thread, concurrent but never parallel:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -205,7 +205,7 @@ The default `#[tokio::main]` uses the **multi-thread** flavor, which is somethin
 
 **You can build the runtime by hand** instead of using the macro. This is what you do for fine-grained control (worker count, naming threads) or when async is only part of a larger sync program:
 
-```rust
+```rust playground
 use tokio::runtime::Builder;
 
 fn main() {
@@ -326,7 +326,7 @@ The fix is to start a runtime first (`#[tokio::main]` or `Runtime::new()?.block_
 
 Calling `std::thread::sleep`, doing heavy CPU work, or making a synchronous (blocking) I/O call inside an async task ties up the OS thread instead of yielding it. On a current-thread runtime (the one closest to Node's model) that single thread is *the entire runtime*, so everything else stalls:
 
-```rust
+```rust playground
 use std::time::{Duration, Instant};
 use tokio::time::sleep;
 
@@ -394,7 +394,7 @@ See [Promises vs Futures](/11-async/00-promises-vs-futures/) for the full lazy-v
 
 A common production task: fan out many network requests but **cap concurrency** so you don't overwhelm a downstream service. In Node you might reach for `p-limit`; in Tokio a `Semaphore` is the idiomatic tool. This mirrors a real URL health-checker, with `fetch` standing in for a `reqwest` call (see [HTTP Clients](/23-ecosystem/06-http-clients/)).
 
-```rust
+```rust playground
 // Cargo.toml: cargo add tokio --features full
 use std::sync::Arc;
 use std::time::{Duration, Instant};
@@ -581,7 +581,7 @@ sum = 1249999975000000
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // Cargo.toml: cargo add tokio --features full
 use std::time::Duration;
 use tokio::time::{sleep, timeout};

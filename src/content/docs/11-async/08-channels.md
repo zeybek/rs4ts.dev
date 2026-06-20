@@ -68,7 +68,7 @@ Notice what JavaScript does *not* give you: there is no static guarantee that ex
 
 The `mpsc` channel is the workhorse and maps directly onto the producer/consumer queue above:
 
-```rust
+```rust playground
 use tokio::sync::mpsc;
 
 #[derive(Debug)]
@@ -132,7 +132,7 @@ Two structural facts fall out of the type system for free: `mpsc::Receiver` is *
 
 To get multiple producers, clone the sender, but remember to drop the original so the channel can actually close:
 
-```rust
+```rust playground
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -178,7 +178,7 @@ worker 3 reporting in
 
 `oneshot::channel::<T>()` is for a single reply. The `Sender::send` method **takes `self` by value**, so it can only ever be called once. The type system enforces "exactly one message."
 
-```rust
+```rust playground
 use tokio::sync::oneshot;
 
 #[tokio::main]
@@ -212,7 +212,7 @@ Note that the **`Receiver` is itself a future**: you `rx.await` it directly rath
 
 `broadcast::channel::<T>(capacity)` is fan-out. Clone-free subscription via `tx.subscribe()`, and **each** receiver gets a copy of **every** value sent after it subscribed. The value type must be `Clone`.
 
-```rust
+```rust playground
 use tokio::sync::broadcast;
 
 #[tokio::main]
@@ -262,7 +262,7 @@ This is the typed, ownership-aware replacement for `EventEmitter`. The capacity 
 
 `watch::channel(initial)` is for state that changes over time where consumers only care about the **current** value, not the history: config reloads, a "current health" flag, the latest sensor reading. The sender overwrites; receivers `borrow()` the newest value.
 
-```rust
+```rust playground
 use tokio::sync::watch;
 use tokio::time::{Duration, sleep};
 
@@ -318,7 +318,7 @@ If you `send` three times before a watcher calls `changed()`, it only ever sees 
 
 This is the single most useful composition. One task owns some state; everyone else talks to it by sending a request that carries its own private `oneshot` reply channel:
 
-```rust
+```rust playground
 use tokio::sync::{mpsc, oneshot};
 
 /// A request carries a oneshot sender for its individual reply.
@@ -395,7 +395,7 @@ Because the actor is the *only* task that touches `store`, there is no lock and 
 
 The standard library has its own `mpsc` that *looks* like Tokio's, and reaching for it inside async code is a classic mistake.
 
-```rust
+```rust playground
 use std::sync::mpsc; // standard library, NOT tokio
 use std::thread;
 
@@ -573,7 +573,7 @@ Because `std::sync::mpsc::recv()` blocks the calling OS thread, calling it direc
 
 A production graceful-shutdown worker pool brings the whole family together: an `mpsc` carries jobs (with backpressure), each job carries a `oneshot` for its individual reply, and a `watch<bool>` broadcasts the shutdown signal to every worker. The single `mpsc::Receiver` is shared across workers behind an `Arc<tokio::sync::Mutex<_>>`, and `tokio::select!` lets each worker react to *either* a new job *or* the shutdown flag.
 
-```rust
+```rust playground
 use tokio::sync::{mpsc, oneshot, watch};
 use tokio::time::{Duration, sleep};
 
@@ -706,7 +706,7 @@ Related sections of this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -755,7 +755,7 @@ The key insight: the producer task *owns* `tx` after the `async move`, so when t
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use tokio::sync::oneshot;
 
 async fn compute(input: u64) -> u64 {
@@ -800,7 +800,7 @@ Output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use tokio::sync::broadcast;
 
 #[tokio::main]

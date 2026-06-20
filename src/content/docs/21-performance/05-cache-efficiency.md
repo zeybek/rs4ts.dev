@@ -82,7 +82,7 @@ function averageX(xs: Float64Array): number {
 
 In Rust, `Vec<Particle>` is **already contiguous**: the structs are stored inline, back-to-back, with no per-element pointer. That is a big head start over JavaScript's array-of-references. But it is still *Array of Structs*: to read one field you stride over every other field too. The data-oriented alternative is **Struct of Arrays**, where each field is its own `Vec`.
 
-```rust
+```rust playground
 // Array of Structs (AoS): the natural, OOP-flavored layout.
 #[derive(Clone)]
 struct Particle {
@@ -154,7 +154,7 @@ The CPU never loads one `f32`. It loads the whole 64-byte cache line containing 
 
 Consider summing the `x` field of a "fat" entity. Here is the struct from the benchmark below; `std::mem::size_of` reports its real size:
 
-```rust
+```rust playground
 #[derive(Clone)]
 struct Entity {
     x: f32, y: f32, z: f32,
@@ -328,7 +328,7 @@ error[E0502]: cannot borrow `*self` as immutable because it is also borrowed as 
 
 **Fix:** iterate the *fields* directly with `zip`, not through a helper that re-borrows `self`. The borrow checker can see that `self.x` and `self.vx` are disjoint fields and allows one mutable and one immutable borrow simultaneously:
 
-```rust
+```rust playground
 struct Particles {
     x: Vec<f32>,
     vx: Vec<f32>,
@@ -372,7 +372,7 @@ SoA complicates your code and only helps specific access patterns (Pitfall from 
 - **Use indices, not pointers, to link elements.** Replace `next: Option<Box<Node>>` with `next: Option<u32>` indexing into a `Vec<Node>` (an "arena" or "slot map"). You keep relationships without the cache misses, and you sidestep `Rc`/lifetime gymnastics. See [Smart Pointers](/10-smart-pointers/) and [Common Patterns](/22-common-patterns/).
 - **Hot/cold split fat structs.** Keep frequently-touched fields inline and box the rarely-used remainder behind one pointer:
 
-  ```rust
+  ```rust playground
   struct MonsterInline {        // everything inline
       x: f32, y: f32, hp: i32,
       name: String, lore: String, loot_table: Vec<u32>,
@@ -408,7 +408,7 @@ SoA complicates your code and only helps specific access patterns (Pitfall from 
 
 A data-oriented particle system in SoA layout, the shape you would find in a game engine or simulation. Each per-frame update is a set of tight, contiguous passes, and a read-only query touches a single column.
 
-```rust
+```rust playground
 /// Data-oriented particle system, Struct-of-Arrays layout.
 /// Each "column" is a contiguous Vec, so the per-step update streams
 /// linearly through memory and the autovectorizer can use SIMD.
@@ -531,7 +531,7 @@ struct Order {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Clone)]
 struct Order {
     id: u64,
@@ -596,7 +596,7 @@ Output: `revenue: 5000 cents`.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Orders {
     id: Vec<u64>,
     customer: Vec<String>,
@@ -638,7 +638,7 @@ Output: `shipped: 2`.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Bodies {
     x: Vec<f64>,
     y: Vec<f64>,

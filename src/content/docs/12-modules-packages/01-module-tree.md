@@ -53,7 +53,7 @@ export function describe(itemName: string): string {
 
 Rust expresses the same relationships, but the "coordinates" are positions in the **module tree**, not directories on disk. The separator is `::`, not `/`.
 
-```rust
+```rust playground
 mod store {
     // A constant living at `crate::store::TAX_RATE`.
     pub const TAX_RATE: f64 = 0.08;
@@ -137,7 +137,7 @@ A **path** is the sequence of names you walk to reach a node, joined by `::`. Th
 
 An **absolute path** starts at the crate root with the keyword `crate`, then walks down. It reads the same no matter which module you write it in:
 
-```rust
+```rust playground
 mod store {
     pub const TAX_RATE: f64 = 0.08;
     pub mod checkout {
@@ -172,7 +172,7 @@ A **relative path** starts from where you are:
 - `self::` means "starting in the current module." `self::total` is the `total` function declared alongside the caller.
 - `super::` means "starting in the parent module." Each `super::` climbs one level toward the root. This is the closest thing Rust has to `../`.
 
-```rust
+```rust playground
 fn deliver_order() {}
 
 mod back_of_house {
@@ -211,7 +211,7 @@ Note `super::super::` to climb two levels. There is no `super::super::super::...
 
 If an item lives in the *same* module (or has been brought into scope with `use`), you name it directly with no prefix, exactly like referencing a same-file function in TypeScript. `self::` is optional in front of a same-module item; you only *need* it to disambiguate when a name has been imported that would otherwise win:
 
-```rust
+```rust playground
 mod metrics {
     pub fn record(event: &str) {
         println!("recorded: {event}");
@@ -470,7 +470,7 @@ When you get `E0433` or `E0603`, read the `help:` lines; Rust frequently prints 
 
 A small order-processing pipeline laid out as a module tree, exercising absolute and relative paths together the way a real service would. `money` is a shared utility reached absolutely from anywhere; `catalog` and `orders` are siblings that talk to each other relatively; `receipt` is a child module of `orders`.
 
-```rust
+```rust playground
 //! A tiny order-processing pipeline organized as a module tree.
 
 mod money {
@@ -600,7 +600,7 @@ fn main() {
 
 Each traversed segment needs `pub`: the inner module and the function (the outer `garden` is reachable from the crate root because `main` is also at the root, so it does not strictly need `pub` for these two calls, but `vegetables` and `plant` do).
 
-```rust
+```rust playground
 mod garden {
     pub mod vegetables {
         pub fn plant() -> &'static str {
@@ -656,7 +656,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 mod app {
     pub fn version() -> &'static str {
         "1.0.0"
@@ -691,7 +691,7 @@ MyApp v1.0.0
 
 **Instructions:** Inside `service::worker::task::run`, log two lines using `crate::logging::write`. Make the **first** call with an absolute `crate::` path and the **second** call with the fully relative `super::super::super::` path so they target the same function. The program should print both log lines.
 
-```rust
+```rust playground
 mod logging {
     pub fn write(line: &str) {
         println!("LOG: {line}");
@@ -717,7 +717,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 mod logging {
     pub fn write(line: &str) {
         println!("LOG: {line}");

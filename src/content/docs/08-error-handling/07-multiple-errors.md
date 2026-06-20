@@ -81,7 +81,7 @@ Rust makes the failure set part of the signature and gives you two ways to model
 
 The quickest way to let one function surface many error types is to return `Box<dyn Error>`: a heap-allocated trait object that can hold *any* type implementing the `Error` trait. The `?` operator converts each concrete error into the box automatically.
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fs;
 
@@ -119,7 +119,7 @@ This is the closest Rust gets to TypeScript's "throw anything." But notice what 
 
 When callers need to tell the failure modes apart, give them a closed `enum` with one variant per source. The `thiserror` crate generates the `Display`, `Error`, `source()`, and `From` wiring:
 
-```rust
+```rust playground
 use std::num::ParseIntError;
 use thiserror::Error;
 
@@ -193,7 +193,7 @@ So any error type at all can become a `Box<dyn Error>`. When `?` sees a `Result<
 
 An aggregating enum keeps the type information. Here is the same `ConfigError` written *by hand*, so you can see precisely what `#[from]` generates:
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseIntError;
@@ -285,7 +285,7 @@ In the `thiserror` enum, two attributes look similar but do different jobs:
 
 A variant can have at most one `#[from]` field, and a `#[from]` field cannot share the variant with other data — because a `From<X>` conversion only receives the `X`, it has nothing to fill the extra fields with. When you need extra context, switch to `#[source]`:
 
-```rust
+```rust playground
 use std::num::ParseFloatError;
 use thiserror::Error;
 
@@ -326,7 +326,7 @@ caused by: Some("invalid float literal")
 
 Sometimes a variant is a pure pass-through: it wraps another error and should adopt that error's message and cause as its own, adding nothing. `#[error(transparent)]` delegates both `Display` and `source()` straight to the inner error:
 
-```rust
+```rust playground
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -362,7 +362,7 @@ This is the idiomatic way to let a higher-level error enum absorb a lower-level 
 
 If you chose `Box<dyn Error>` but still occasionally need to react to a specific error, you recover the concrete type with `downcast_ref::<T>()`, Rust's checked-cast analog of `instanceof`. It returns `Some(&T)` if the box really holds a `T`, and `None` otherwise:
 
-```rust
+```rust playground
 use std::error::Error;
 use std::io;
 
@@ -532,7 +532,7 @@ When you aggregate with `#[from]`/`#[source]`, the underlying error is already r
 
 A price-list import pipeline. It reads a file (an `io::Error` source), parses each row's price (a `ParseFloatError` source), and validates the row shape (its own logic). All three collapse into one `ImportError` enum: the I/O failure uses `#[from]` so `?` boxes it automatically, while the row-level errors use `#[source]` because they carry a row number. A `category()` method shows how a caller (an HTTP layer, say) can branch on the aggregated error to choose a status code.
 
-```rust
+```rust playground
 use std::num::ParseFloatError;
 use thiserror::Error;
 
@@ -728,7 +728,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseIntError;
@@ -804,7 +804,7 @@ oops -> error: input was not a valid integer
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::num::ParseIntError;
 use thiserror::Error;
 
@@ -859,7 +859,7 @@ The whole `impl Display`, `impl Error`, and two `From` blocks from Exercise 1 co
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 

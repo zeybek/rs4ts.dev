@@ -596,7 +596,7 @@ console.timeEnd("fib");
 
 **Rust:**
 
-```rust
+```rust playground
 // fib.rs
 fn fibonacci(n: u32) -> u32 {
     if n <= 1 {

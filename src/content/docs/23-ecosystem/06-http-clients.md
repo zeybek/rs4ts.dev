@@ -603,7 +603,7 @@ The placeholder API echoes back a newly assigned id (it prints `created comment 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]

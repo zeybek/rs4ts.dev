@@ -72,7 +72,7 @@ Everything here is a **string**. `path.join` is just clever string concatenation
 
 Rust models a path as its own type. A borrowed, unsized view is **`Path`** (the `&str` of the path world); an owned, growable buffer is **`PathBuf`** (the `String` of the path world). The pairing is exactly the `str`/`String` relationship from [the basics](/02-basics/).
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::{Path, PathBuf};
 
@@ -108,7 +108,7 @@ Some("/home/ada/notes")
 
 And here is the output-path helper, the direct equivalent of the TypeScript `outputPath` function:
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::{Path, PathBuf};
 
@@ -155,7 +155,7 @@ A `&PathBuf` automatically coerces to `&Path` (via `Deref`), so you write functi
 
 `PathBuf::push` and `Path::join` add a component, inserting the platform separator for you. But there is one rule that surprises every newcomer: **pushing an absolute path replaces the whole buffer.**
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::Path;
 
@@ -181,7 +181,7 @@ Two details to internalize:
 - **`extension()` does not include the leading dot.** Rust gives you `"txt"`; Node's `path.extname` gives you `".txt"`. Adjust your comparisons accordingly.
 - These accessors return `&OsStr`, not `&str`. See the next section.
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::Path;
 
@@ -218,7 +218,7 @@ A path on disk is not guaranteed to be valid UTF-8. On Unix a filename is an arb
 - **`path.to_string_lossy() -> Cow<str>`**: always succeeds, replacing invalid sequences with the U+FFFD replacement character. Use this for display when you would rather show *something* than fail.
 - **`path.display()`** returns a helper whose `Display` impl is lossy in the same way; use it inside `println!("{}", path.display())`. A `Path` does *not* implement `Display` directly, precisely so you cannot accidentally print one without acknowledging the lossiness.
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::Path;
 
@@ -242,7 +242,7 @@ utf-8: /srv/www/index.html
 
 `Path` offers structural queries that operate on whole *components*, not raw substrings:
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::Path;
 
@@ -307,7 +307,7 @@ The `ends_with(".html") == false` result is the headline surprise for a JavaScri
 
 `std::path` always targets the platform you compile for. On Unix the separator is `/`; on Windows the API accepts both `/` and `\` as separators and also understands drive prefixes like `C:` and UNC paths (`\\server\share`). The `components()` iterator normalizes all of this into typed `Component` values (`RootDir`, `Prefix`, `Normal`, `ParentDir`, `CurDir`), so your matching logic is portable without `if (process.platform === "win32")` branches.
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::{MAIN_SEPARATOR, MAIN_SEPARATOR_STR};
 
@@ -390,7 +390,7 @@ error[E0308]: mismatched types
 
 The idiomatic fix — which also handles case-insensitivity, something `=== ".png"` in JavaScript silently gets wrong — looks like this:
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::Path;
 
@@ -430,7 +430,7 @@ If you only need an exact, case-sensitive match, `path.extension() == Some(std::
 
 - **Accept `impl AsRef<Path>` in your function signatures.** This lets callers pass a `&str`, `String`, `&Path`, or `PathBuf` interchangeably: the path analogue of taking `&str`. Convert once at the top with `.as_ref()`.
 
-  ```rust
+  ```rust playground
   // src/main.rs
   use std::path::{Path, PathBuf};
 
@@ -464,7 +464,7 @@ If you only need an exact, case-sensitive match, `path.extension() == Some(std::
 
 A common CLI chore: given a source tree and an output directory, compute where each file should land after a conversion step, mirroring the directory structure and swapping the extension. This is the core of a static-site generator, an asset transpiler, or a backup tool. It exercises `strip_prefix`, `join`, `set_extension`, and `Option`/`Result` handling together.
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::{Path, PathBuf};
 
@@ -551,7 +551,7 @@ Notice how the "this file isn't under the root I expected" case is a `None` you 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::Path;
 
@@ -602,7 +602,7 @@ archive.tar.gz   -> other
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // src/main.rs
 use std::path::{Component, Path, PathBuf};
 
@@ -660,7 +660,7 @@ This is the kind of check a file-serving CLI or upload handler needs. Matching o
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // src/main.rs
 use std::collections::BTreeMap;
 use std::path::Path;

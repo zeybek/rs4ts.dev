@@ -416,7 +416,7 @@ Most code keeps the `.unwrap()` (a poisoned lock usually means a bug already hap
 
 A small in-memory metrics registry — the kind a web service keeps to count requests per route. Many request-handling tasks increment counters concurrently; a background task or `/metrics` endpoint reads snapshots. It is read-and-write heavy with short critical sections, and it wraps the locking inside a tidy `Metrics` type that is cheap to `Clone` (it only clones the inner `Arc`).
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::sync::{Arc, RwLock};
 use std::time::Duration;
@@ -581,7 +581,7 @@ The key habit: a fresh `Arc::clone(&total)` *before* each `tokio::spawn`, so eac
 
 **Instructions:** Create an `Arc<RwLock<Vec<String>>>`. Spawn one writer task that pushes `"event-1"`, `"event-2"`, `"event-3"` with a short `sleep` between each. Spawn 3 reader tasks that each sleep briefly, then read the current length. After everything finishes, print the final vector (which must be all three events).
 
-```rust
+```rust playground
 use std::sync::{Arc, RwLock};
 use std::time::Duration;
 use tokio::time::sleep;
@@ -597,7 +597,7 @@ async fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::{Arc, RwLock};
 use std::time::Duration;
 use tokio::time::sleep;

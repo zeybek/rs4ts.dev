@@ -67,7 +67,7 @@ const clone = { ...user };
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 // Rust - one `struct` item defines both the type AND the runtime layout
 #[derive(Debug, Clone)]
 struct User {
@@ -216,7 +216,7 @@ A `User` is not a reference to data living elsewhere (as a JavaScript object var
 
 You can move one owned field out of a struct. After that, the moved field is gone, but the *other* fields remain usable:
 
-```rust
+```rust playground
 struct Profile {
     name: String,
     bio: String,
@@ -479,7 +479,7 @@ struct Article {
 
 `#[derive(Debug)]` should be on virtually every struct: it costs nothing at runtime if unused and makes debugging vastly easier. Add `Clone` when you genuinely need copies, `PartialEq` for `==`, and `Default` for "empty" values:
 
-```rust
+```rust playground
 #[derive(Debug, Clone, PartialEq, Default)]
 struct Settings {
     dark_mode: bool,
@@ -530,7 +530,7 @@ A `.clone()` of a struct with `String`/`Vec` fields is a real, deep allocation. 
 
 A small e-commerce domain model assembled entirely from structs: note nested structs, a `Vec` of structs, owned `String` fields, and an explicit `.clone()` that produces an independent snapshot.
 
-```rust
+```rust playground
 // A small e-commerce domain model built from structs.
 
 #[derive(Debug, Clone)]
@@ -655,7 +655,7 @@ Notice how `order_total_cents` **borrows** the order with `&Order` rather than t
 
 **Instructions:** Define a `Rectangle` struct with `width` and `height` fields (`u32`). In `main`, create a `30 x 50` rectangle, debug-print it, then print its area (`width * height`).
 
-```rust
+```rust playground
 // Define Rectangle here (don't forget the derive)
 
 fn main() {
@@ -666,7 +666,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Rectangle {
     width: u32,
@@ -697,7 +697,7 @@ area = 1500
 
 **Instructions:** Define an `Account` struct with an `owner: String` and a `balance_cents: i64`, deriving `Debug` and `Clone`. Create an account for "Eve" with `10_000` cents. Clone it into a `mut` copy, subtract `2_500` from the copy's balance, then print both. The original must still read `10_000`.
 
-```rust
+```rust playground
 // Define Account here
 
 fn main() {
@@ -708,7 +708,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct Account {
     owner: String,
@@ -746,7 +746,7 @@ copy:     Account { owner: "Eve", balance_cents: 7500 }
 
 **Instructions:** Define a `Track` struct (`title: String`, `duration_secs: u32`) and an `Album` struct (`title: String`, `artist: String`, `tracks: Vec<Track>`). Write a free function `total_runtime(album: &Album) -> u32` that sums the track durations by **borrowing** the album (so the caller can still use it). In `main`, build an album with at least three tracks, then print the artist/title and the total runtime formatted as `M:SS`.
 
-```rust
+```rust playground
 // Define Track and Album, and total_runtime here
 
 fn main() {
@@ -757,7 +757,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct Track {
     title: String,

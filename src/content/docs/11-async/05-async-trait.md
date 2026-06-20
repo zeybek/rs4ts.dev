@@ -391,7 +391,7 @@ When you genuinely need trait objects — heterogeneous collections, plugin regi
 cargo add async-trait
 ```
 
-```rust
+```rust playground
 // async-trait crate — makes the trait dyn-compatible by boxing the returned future.
 use async_trait::async_trait;
 
@@ -498,7 +498,7 @@ The macro generates a `Send`-bounded `HttpService` from the base `LocalHttpServi
 
 A repository pattern, the Rust equivalent of the opening TypeScript example. The service layer depends on a `dyn UserRepository` so it is decoupled from the concrete backend (in-memory for tests, SQL in production). Because we need `dyn`, this uses the `async-trait` crate.
 
-```rust
+```rust playground
 // Real-world: a `Repository` trait with two backends, used behind a `dyn` trait
 // object so the service layer is decoupled from the concrete database.
 use async_trait::async_trait;
@@ -702,7 +702,7 @@ B: down
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use async_trait::async_trait;
 
 #[async_trait]

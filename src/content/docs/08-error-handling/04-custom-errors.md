@@ -91,7 +91,7 @@ Two pain points a TypeScript developer feels here:
 
 Rust encodes the failure modes in the type system. The set of things that can go wrong becomes an `enum`, and the function signature (`Result<u16, ConfigError>`) makes the possibility of failure impossible to ignore.
 
-```rust
+```rust playground
 use std::fmt;
 
 /// Possible failures when reading and validating a config value.
@@ -289,7 +289,7 @@ struct ParseConfigError {
 
 The struct form shines when you want to attach context and expose a cause via `source()`:
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseIntError;
@@ -478,7 +478,7 @@ The fix: implement `Display`, or (for quick debugging only) print with `{:?}` us
 
 Here is the recommended shape, all three traits in place, with the three formatters shown side by side:
 
-```rust
+```rust playground
 use std::fmt;
 
 #[derive(Debug)]
@@ -524,7 +524,7 @@ ItemNotFound {
 
 A checkout flow that can fail in three meaningfully different ways. The domain layer returns a `CheckoutError`; the "transport" layer `match`es the variant to pick an HTTP-like status code. This is the pattern you would use behind an API handler.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::error::Error;
 use std::fmt;
@@ -686,7 +686,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 
@@ -780,7 +780,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseFloatError;
@@ -867,7 +867,7 @@ Implement `Display` and `Error` (with `source()` returning the inner `ParseIntEr
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseIntError;

@@ -104,7 +104,7 @@ Two things to carry into the Rust version. First, every command holds a referenc
 
 Here is the same editor, idiomatic Rust style: commands are an **enum**, the editor is the single owner of its state, and undo is computed by **inverting** a recorded command rather than by giving each command a back-reference.
 
-```rust
+```rust playground
 // Rust - commands as a plain enum; the editor interprets each variant.
 #[derive(Clone, Debug)]
 enum Command {
@@ -238,7 +238,7 @@ The deciding question is **open versus closed**. An `enum` makes the set of comm
 
 When a command carries no data worth naming and you never need to inspect or serialize it, skip the enum entirely. A command is a `Box<dyn FnMut>`:
 
-```rust
+```rust playground
 // A command is just a boxed closure that mutates the receiver.
 type Command = Box<dyn FnMut(&mut Counter)>;
 
@@ -337,7 +337,7 @@ error[E0308]: mismatched types
 
 The compiler even spells out the fix in its last line. Declare the element type as a trait object so the closures are erased to a common type:
 
-```rust
+```rust playground
 fn main() {
     let mut commands: Vec<Box<dyn Fn(&mut i32)>> = Vec::new();
     commands.push(Box::new(|x: &mut i32| *x += 1));
@@ -430,7 +430,7 @@ The very first draft of the editor stored `Delete { at, len }` and tried to reco
 
 A drawing application's command bus: each command implements an `execute`/`undo` trait and captures the state it needs to reverse itself, the bus owns the document and two stacks of `Box<dyn Command>`, and `AddShape`/`MoveShape` show the two ways a command records undo data (remembering the id it created, and snapshotting the position it overwrote).
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// Shared application state the commands operate on.
@@ -588,7 +588,7 @@ This is the trait-object form, and it earns the extra machinery here: each comma
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Clone, Copy, Debug)]
 enum Op {
     Add(f64),
@@ -658,7 +658,7 @@ This stores a full snapshot of the prior total rather than computing an inverse 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Default)]
 struct Turtle {
     x: i32,
@@ -728,7 +728,7 @@ The `Box<dyn Fn>` is required because the four closures are four distinct anonym
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Default)]

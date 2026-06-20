@@ -47,7 +47,7 @@ In TypeScript every function is a first-class object. There is exactly one notio
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn double(x: i32) -> i32 {
     x * 2
 }
@@ -99,7 +99,7 @@ When you write `fn double(x: i32) -> i32 { .. }`, Rust creates a value `double` 
 
 A **function pointer** (`fn(i32) -> i32`, with no name in braces) is the runtime-flavored version: an actual pointer to code, the size of one machine word. You rarely write the function-item type yourself. Rust coerces a function item to a function pointer automatically wherever a `fn` type is expected (assigning to an annotated variable, passing to a `fn` parameter, putting items of different functions into the same collection, and so on).
 
-```rust
+```rust playground
 fn double(x: i32) -> i32 { x * 2 }
 
 fn main() {
@@ -125,7 +125,7 @@ size of fn pointer:   8
 
 To "pass a function" you just use its name as a value, no `&`, no parentheses, no special syntax:
 
-```rust
+```rust playground
 fn square(x: i32) -> i32 { x * x }
 
 fn main() {
@@ -145,7 +145,7 @@ A closure is a function bundled with the environment it captured. A `fn` pointer
 
 > A closure can be coerced to a `fn` pointer **only if it captures nothing**.
 
-```rust
+```rust playground
 fn run(f: fn(i32) -> i32, x: i32) -> i32 {
     f(x)
 }
@@ -186,7 +186,7 @@ The takeaway for API design: **accept `impl Fn(...)` (a generic), not `fn(...)`*
 
 A subtle, delightful Rust feature: tuple-struct constructors and enum-variant constructors are themselves callable function values. You can pass their name anywhere a function is expected.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Meters(f64);
 
@@ -239,7 +239,7 @@ There is no TypeScript equivalent: a `class`/tuple type does not give you a free
 
 Every function pointer and function item implements all three closure traits — `Fn`, `FnMut`, and `FnOnce` — because it has no state to mutate or consume. That is why a `fn` pointer is accepted by any generic bounded on the least restrictive trait it needs:
 
-```rust
+```rust playground
 fn shout(s: &str) -> String { s.to_uppercase() }
 
 fn call_fn<F: Fn(&str) -> String>(f: F, s: &str) -> String { f(s) }
@@ -342,7 +342,7 @@ error[E0308]: mismatched types
 
 **Fix:** force the function-pointer type, either with an annotation (`let mut op: fn(i32) -> i32 = double;`) or with an `as` cast, exactly as the compiler suggests:
 
-```rust
+```rust playground
 fn double(x: i32) -> i32 { x * 2 }
 fn triple(x: i32) -> i32 { x * 3 }
 
@@ -389,7 +389,7 @@ In TypeScript you never take the address of a function — and you do not in Rus
 
 A command dispatch table, the kind of thing you would build for a calculator REPL, a chat-bot command router, or a tiny scripting layer. Each command is a plain function with an identical signature, and the registry maps names to function pointers. This is where `fn` pointers genuinely shine: every value is a single word, copyable, and storable in a `HashMap`.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 // Each command is a plain function with the same signature.
@@ -502,7 +502,7 @@ The structure is nearly identical. The differences are Rust-flavored: the regist
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn add(a: i32, b: i32) -> i32 { a + b }
 fn sub(a: i32, b: i32) -> i32 { a - b }
 fn mul(a: i32, b: i32) -> i32 { a * b }
@@ -538,7 +538,7 @@ Each `match` arm returns a different function *item*, but the declared return ty
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn transform_all(values: &[i32], f: fn(i32) -> i32) -> Vec<i32> {
     values.iter().map(|&v| f(v)).collect()
 }
@@ -571,7 +571,7 @@ Output: `[-1, -2, -3]`.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn flaky(attempt: u32) -> Result<u32, String> {
     if attempt >= 3 {
         Ok(attempt)

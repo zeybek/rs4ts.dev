@@ -68,7 +68,7 @@ Every one of these dispatches happens **while the program runs**. `min` re-check
 
 Here is a small request-router builder. It uses two **rules** (overloading on shape) and four different **fragment specifiers**: `:literal`, `:expr`, and `:ident`, plus the `stringify!` helper.
 
-```rust
+```rust playground
 // A small request-routing macro showing several fragment specifiers and
 // multiple rules selected by the SHAPE of the input.
 macro_rules! route {
@@ -121,7 +121,7 @@ Rust parses your program into an abstract syntax tree. A macro matcher does not 
 
 A captured fragment is treated as a **single opaque syntax node** in the output. This is the property that makes `:expr` safe:
 
-```rust
+```rust playground
 macro_rules! square_expr {
     ($x:expr) => { $x * $x };
 }
@@ -141,7 +141,7 @@ square_expr!(2 + 3) = 25
 
 Even better: a macro **invocation in expression position is itself a single node**. So when you embed a macro call inside a larger expression, the whole expansion is grouped:
 
-```rust
+```rust playground
 macro_rules! add_expr {
     ($x:expr) => { $x + 1 };
 }
@@ -183,7 +183,7 @@ Output:
 
 Here are the most common ones exercised in one program:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 // :ident + :ty + :expr together — declare a typed constant.
@@ -268,7 +268,7 @@ The cost of `:tt` is that you lose the parser's help: nothing checks that the to
 
 A `macro_rules!` macro is an ordered list of `(matcher) => { transcriber };` arms. The compiler tries them **top to bottom** and uses the **first** matcher that fits the entire input. This is how you emulate function overloading, something Rust functions cannot do:
 
-```rust
+```rust playground
 macro_rules! greet {
     () => {
         String::from("Hello, world!")
@@ -349,7 +349,7 @@ error: `$e:expr` is followed by `[`, which is not allowed for `expr` fragments
 
 **Fix:** Capture the indexable thing as a `:tt` (or restructure the matcher to separate the pieces with an allowed delimiter such as a comma), then build the index expression in the transcriber. Here `:tt` accepts the single identifier `arr` and the parser is satisfied:
 
-```rust
+```rust playground
 macro_rules! index {
     ($container:tt [ $i:expr ]) => { $container[$i] };
 }
@@ -415,7 +415,7 @@ This usually compiles but quietly does the wrong thing (`route!(GET ...)` produc
 
 A metavariable substitutes the *syntax*, not a cached value. If you mention `$x` twice and the caller passes a side-effecting expression, it runs twice:
 
-```rust
+```rust playground
 macro_rules! square {
     ($x:expr) => { $x * $x };
 }
@@ -456,7 +456,7 @@ macro_rules! square {
 
 A common production need is reading typed configuration from environment variables with optional defaults — the Rust analog of the JavaScript `makeConfig` helper above, but type-checked at compile time. This macro uses `:ident`, `:ty`, `:literal`, and `:expr`, plus two rules (required vs. defaulted):
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 // Read a typed env var into a local binding.
@@ -549,7 +549,7 @@ The `config_field!` macro picks the second rule when a `default ...` clause is p
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! min {
     ($a:expr) => { $a };
     ($a:expr, $($rest:expr),+ $(,)?) => {{
@@ -585,7 +585,7 @@ The first rule is the recursion base case (one expression). The second rule bind
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! getter {
     ($field:ident : $ty:ty) => {
         fn $field(&self) -> &$ty {
@@ -628,7 +628,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! match_or {
     ($value:expr, $pat:pat => $result:expr, _ => $default:expr) => {
         match $value {

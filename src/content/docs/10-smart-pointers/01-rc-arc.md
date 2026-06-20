@@ -69,7 +69,7 @@ for (const h of handlers) {
 
 Rust will not let you freely alias an owned value. That is the entire point of the [ownership rules](/05-ownership/01-ownership-rules/). To opt into shared ownership you wrap the value in `Rc<T>` and create additional owners with `Rc::clone`. Each clone is a cheap reference-count bump that hands back another owner pointing at the **same** allocation.
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 // A read-only piece of shared context every request handler can see.
@@ -188,7 +188,7 @@ Notice `self.config.service_name`: you read fields straight through the `Rc` as 
 
 Here is `Arc<T>` shared across threads. Swap `use std::rc::Rc` for `use std::sync::Arc` and the shape is the same:
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::thread;
 
@@ -376,7 +376,7 @@ This is important enough to have its own page: [Weak References with `Weak<T>`](
 
 A practical, single-threaded scenario: a small interpreter or template engine where many evaluation nodes need read access to one shared, immutable environment (interned strings, built-in functions, configuration). Cloning the whole environment per node would be wasteful; borrowing would tangle lifetimes through the whole tree. Shared ownership via `Rc` is the clean fit, and `Drop` lets us *see* the deterministic cleanup.
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 /// Read-only environment shared by every node in an evaluation tree.
@@ -506,7 +506,7 @@ The `[freed]` line printing **last** — after `drop(env)`, not at it — is the
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 fn main() {
@@ -557,7 +557,7 @@ count after one drop = 2
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 struct Resource {
@@ -617,7 +617,7 @@ The `dropping Resource(db-pool)` line appears between `drop(b)` and the final pr
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::thread;
 

@@ -52,7 +52,7 @@ addDistance(d, 2 as Meters); // compiles — the brand is erased at runtime
 
 Rust gives you real, **nominally distinct** types with no runtime overhead, using tuple structs.
 
-```rust
+```rust playground
 // A tuple struct: positional fields, accessed by .0 / .1 / .2
 struct Rgb(u8, u8, u8);
 
@@ -98,7 +98,7 @@ Running it prints:
 
 A plain tuple `(u8, u8, u8)` is anonymous: any `(u8, u8, u8)` is the same type as any other. A **tuple struct** attaches a name, turning it into its own type:
 
-```rust
+```rust playground
 struct Rgb(u8, u8, u8); // declaration: a 3-field tuple struct
 
 fn main() {
@@ -111,7 +111,7 @@ Compared with the named-field struct from [Structs](/06-data-structures/00-struc
 
 You can destructure a tuple struct in a `let` binding, just like a tuple (full coverage in [Pattern Matching](/06-data-structures/04-pattern-matching/)):
 
-```rust
+```rust playground
 struct Point(f64, f64);
 
 fn main() {
@@ -125,7 +125,7 @@ fn main() {
 
 A **unit struct** has no fields. It is named after the *unit type* `()` (the empty tuple), and it carries no data at all:
 
-```rust
+```rust playground
 struct AlwaysEqual; // no fields, no parentheses
 
 fn main() {
@@ -135,7 +135,7 @@ fn main() {
 
 Why would you want a value that holds nothing? Because in Rust, **behavior lives on types via traits** (see [impl blocks](/06-data-structures/05-impl-blocks/) and section 09). A unit struct is the perfect peg to hang a trait implementation on when there is no state to store: a strategy object, a marker, or a typestate token. It is **zero-sized**: it occupies 0 bytes.
 
-```rust
+```rust playground
 fn main() {
     struct AlwaysEqual;
     println!("{}", std::mem::size_of::<AlwaysEqual>()); // 0
@@ -161,7 +161,7 @@ The newtype is the workhorse behind three big wins, each expanded in the section
 
 That a newtype is free is easy to confirm:
 
-```rust
+```rust playground
 #[derive(Clone, Copy)]
 struct Wrapper(u32);
 
@@ -177,7 +177,7 @@ fn main() {
 
 Tuple structs and unit structs get `impl` blocks just like named structs ([impl blocks](/06-data-structures/05-impl-blocks/), [associated functions](/06-data-structures/06-associated-functions/)):
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Copy)]
 struct Celsius(f64);
 
@@ -210,7 +210,7 @@ Celsius(0.0)
 
 A unit struct most often exists *to* carry an `impl` of some trait:
 
-```rust
+```rust playground
 trait Greet {
     fn greet(&self) -> String;
 }
@@ -280,7 +280,7 @@ note: an implementation of `Add` might be missing for `Meters`
 
 **Fix:** operate on the inner values explicitly, then re-wrap, or implement the `Add` trait (section 09) if the arithmetic is meaningful for the domain:
 
-```rust
+```rust playground
 struct Meters(f64);
 
 fn main() {
@@ -364,7 +364,7 @@ error[E0616]: field `0` of struct `Email` is private
 
 This bites people coming from any language. In Rust (as in math) `(5)` is just `5` with grouping parentheses. A one-element **tuple** needs a trailing comma: `(5,)`. This matters when you build *plain* tuples; tuple *structs* are unaffected because you write the name (`Wrapper(5)`).
 
-```rust
+```rust playground
 fn main() {
     let not_a_tuple = (5,); // one-element tuple (note the comma)
     println!("{}", not_a_tuple.0); // 5
@@ -445,7 +445,7 @@ When a type exists only to carry trait behavior — a logging sink, a hashing st
 
 You can make a newtype transparently expose the inner type's methods by implementing `Deref` (a smart-pointer trait; full treatment in section 10). This is convenient for wrappers like `Username(String)`:
 
-```rust
+```rust playground
 use std::ops::Deref;
 
 struct Username(String);
@@ -480,7 +480,7 @@ ALICE
 
 Two production-flavored uses of tuple structs come together here: **type-safe domain IDs** and a **newtype that bypasses the orphan rule** so we can implement `Display` for a `Vec<String>` (which we are not allowed to do directly, because both `Display` and `Vec` are defined outside our crate).
 
-```rust
+```rust playground
 use std::fmt;
 
 // Newtype over Vec<String> so we can implement the foreign trait `Display`.
@@ -586,7 +586,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Copy, PartialEq)]
 struct Kilometers(f64);
 
@@ -625,7 +625,7 @@ Kilometers(42.195) = Miles(26.218749345)
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone, PartialEq)]
 pub struct NonEmptyString(String);
 
@@ -674,7 +674,7 @@ None
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Tax {
     fn rate(&self) -> f64;
 }

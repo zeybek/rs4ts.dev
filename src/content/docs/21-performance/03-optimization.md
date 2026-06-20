@@ -60,7 +60,7 @@ Every `.map()`/`.filter()` builds a fresh intermediate array, every `{ ...r }` c
 
 The slices borrow directly from the input string, the iterator chain is a single lazy pass with no intermediate `Vec`, and a `Cow` (clone-on-write) means the path is only re-allocated when it actually needs rewriting.
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 #[derive(Debug)]
@@ -129,7 +129,7 @@ A `String` is an **owned, heap-allocated, growable** buffer (a pointer + length 
 
 Take `&str` instead. It accepts *both* owned `String`s (via automatic deref coercion) and string literals, with no copy:
 
-```rust
+```rust playground
 fn word_count(text: &str) -> usize {
     text.split_whitespace().count()
 }
@@ -165,7 +165,7 @@ If `word_count` had taken `String`, the caller would have to either give up owne
 
 The fix is almost always to borrow instead. Compare a clone-in-loop against the same loop that borrows (release build):
 
-```rust
+```rust playground
 use std::time::Instant;
 
 fn shout_clone(words: &[String]) -> Vec<String> {
@@ -211,7 +211,7 @@ borrow        : 4.214458ms
 
 Each `w.clone()` allocated and filled a throwaway `String` that was immediately consumed by `to_uppercase()`. Removing it roughly halved the work here. Clippy flags the most obvious cases automatically; cloning a `Copy` type is a hard "just remove it":
 
-```rust
+```rust playground
 fn main() {
     let x: i32 = 42;
     let y = x.clone(); // clippy warns: clone on a Copy type is pointless
@@ -241,7 +241,7 @@ Sometimes a function *usually* returns its input unchanged but *occasionally* ne
 
 In JavaScript, `arr.map(...).filter(...).reduce(...)` allocates a new array at each step and walks the data multiple times. In Rust, iterator adaptors are **lazy**: `.map()` and `.filter()` build a tiny zero-cost state machine and do *no work* until a consumer (`.sum()`, `.collect()`, a `for` loop) pulls elements through. The whole chain runs in **one pass**, pulling a single element all the way through before touching the next, and the compiler fuses and inlines it into code equivalent to a hand-written loop.
 
-```rust
+```rust playground
 fn sum_even_squares(nums: &[i64]) -> i64 {
     // One pass, no intermediate Vec, no per-element bounds checks.
     nums.iter().filter(|&&n| n % 2 == 0).map(|&n| n * n).sum()
@@ -263,7 +263,7 @@ The key difference from JavaScript: `.filter(...).map(...).sum()` here makes **z
 
 A common subtler waste is collecting into a `Vec` only to immediately iterate it again. If you do not need to *store* the intermediate, do not `.collect()` it:
 
-```rust
+```rust playground
 fn total_len(words: &[&str]) -> usize {
     // stays lazy: sums lengths in one pass, allocates nothing
     words.iter().map(|w| w.len()).sum()
@@ -285,7 +285,7 @@ Verified output:
 
 A `Vec` (and `String`, `HashMap`, `HashSet`) tracks both a **length** and a **capacity**. When you push past capacity, it allocates a bigger buffer — roughly **doubling** — and copies everything over. If you know roughly how many items are coming, tell it up front with `with_capacity`. The difference is stark:
 
-```rust
+```rust playground
 fn main() {
     let mut grown: Vec<u64> = Vec::new();
     let mut reallocs = 0;
@@ -354,7 +354,7 @@ When the borrow checker complains that a value is moved or borrowed, the temptin
 
 Writing `fn f(s: &String)` works but is strictly worse than `fn f(s: &str)`: it cannot accept string literals without an allocation, and it pins the caller to an owned `String`. Clippy catches this by default:
 
-```rust
+```rust playground
 fn count_chars(s: &String) -> usize { // should be &str
     s.chars().count()
 }
@@ -411,7 +411,7 @@ For more information about this error, try `rustc --explain E0515`.
 
 Reaching for `.iter().cloned().collect::<Vec<_>>()` to duplicate a slice is both slower and noisier than `.to_vec()`, and often you did not need the copy at all; a borrow would have worked.
 
-```rust
+```rust playground
 fn main() {
     let v = vec![1, 2, 3];
     let w = v.iter().cloned().collect::<Vec<_>>(); // verbose redundant clone
@@ -463,7 +463,7 @@ These habits are safe defaults, but for *targeted* optimization always benchmark
 
 A request-routing audit: ingest a batch of raw access-log lines, find every server error, and group the offending paths by HTTP method, all in one lazy pass with the minimum possible allocation. Paths are normalized through a `Cow` so only the genuinely-malformed ones allocate, and the report map is pre-sized.
 
-```rust
+```rust playground
 use std::borrow::Cow;
 use std::collections::HashMap;
 
@@ -580,7 +580,7 @@ Walk the allocation budget: parsing allocates nothing (all slices borrow from `r
 
 **Instructions:** The function below takes a `&String` and clones words it does not need to clone. Rewrite it to take `&str`, allocate nothing extra, and still return the number of words longer than `min_len`. It should compile with no Clippy warnings.
 
-```rust
+```rust playground
 fn count_long_words(text: &String, min_len: usize) -> usize {
     let owned = text.clone(); // ??? do we need this?
     owned.split_whitespace().filter(|w| w.len() > min_len).count()
@@ -595,7 +595,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn count_long_words(text: &str, min_len: usize) -> usize {
     // No clone, no owned String: borrow and count in one lazy pass.
     text.split_whitespace().filter(|w| w.len() > min_len).count()
@@ -645,7 +645,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 fn trim_whitespace(s: &str) -> Cow<'_, str> {
@@ -704,7 +704,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn distinct_even_squares(nums: &[i64]) -> Vec<i64> {

@@ -80,7 +80,7 @@ cross test  --target aarch64-unknown-linux-gnu
 
 This is the program we will cross-compile in the examples below:
 
-```rust
+```rust playground
 // src/main.rs
 fn main() {
     let arch = std::env::consts::ARCH; // e.g. "x86_64", "aarch64"
@@ -232,7 +232,7 @@ That last point is what makes Rust + musl the gold standard for tiny containers,
 
 The deepest conceptual shift: in Node, *every* platform difference is resolved at runtime by the installed interpreter. In Rust, platform differences are resolved at **compile time**. You pick the target up front, and the compiler can even compile *different code* per platform:
 
-```rust
+```rust playground
 // Compile-time platform branching — only the matching arm is compiled in.
 fn platform_note() -> &'static str {
     #[cfg(target_os = "linux")]
@@ -325,7 +325,7 @@ A common production task: from a developer laptop (or a CI job), produce a tiny 
 
 The tool, a trivial stand-in for a real CLI:
 
-```rust
+```rust playground
 // src/main.rs
 fn platform_note() -> &'static str {
     #[cfg(target_os = "linux")]
@@ -480,7 +480,7 @@ The key insight: `rustup target add` installed only `rust-std` (the standard lib
 cargo new greet && cd greet
 ```
 
-```rust
+```rust playground
 // src/main.rs
 fn main() {
     let arch = std::env::consts::ARCH;

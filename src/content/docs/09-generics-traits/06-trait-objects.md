@@ -75,7 +75,7 @@ renderAll(widgets);
 
 The same scenario in Rust. The heterogeneous array becomes `Vec<Box<dyn Renderer>>`, and `widget.render()` performs dynamic dispatch through the trait object.
 
-```rust
+```rust playground
 // Rust - a shared trait, several structs, one heterogeneous Vec of trait objects
 trait Renderer {
     fn render(&self) -> String;
@@ -144,7 +144,7 @@ That pointer is special: it is a **fat pointer**, two machine words wide instead
 
 We can see the fat pointer with `std::mem::size_of`:
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 trait Shape {
@@ -199,7 +199,7 @@ The trait-object pointers are 16 bytes (two 8-byte words); the concrete pointers
 
 These are the two forms you will use constantly. The difference is **ownership**, exactly the same distinction as anywhere else in Rust (see [Section 05: Ownership](/05-ownership/)):
 
-```rust
+```rust playground
 trait Speak {
     fn speak(&self) -> String;
 }
@@ -256,7 +256,7 @@ When `s.speak()` runs on a `&dyn Speak`, the compiler does not know (and does no
 
 Here is the same capability expressed both ways:
 
-```rust
+```rust playground
 trait Shape {
     fn area(&self) -> f64;
 }
@@ -366,7 +366,7 @@ error[E0308]: mismatched types
 
 **Fix:** make the element type a trait object and box each element, annotating the `Vec`:
 
-```rust
+```rust playground
 trait Renderer {
     fn render(&self) -> String;
 }
@@ -444,7 +444,7 @@ help: alternatively, box the return type, and wrap all of the returned values in
 
 **Fix:** box it. The compiler's second suggestion is exactly right when the branches return *different* types:
 
-```rust
+```rust playground
 trait Animal {
     fn speak(&self) -> String;
 }
@@ -544,7 +544,7 @@ error[E0038]: the trait `Container` is not dyn compatible
 
 The mirror image of the TypeScript instinct: because dynamic dispatch is *all* you ever had in JavaScript, it is tempting to make every trait-using function take `&dyn Trait`. If a function only ever handles one concrete type per call and you do not need a heterogeneous collection, a generic is simpler *and* faster:
 
-```rust
+```rust playground
 trait Shape {
     fn area(&self) -> f64;
 }
@@ -593,7 +593,7 @@ Store and return owned trait objects as `Box<dyn Trait>` (or `Rc<dyn Trait>` / `
 
 If a trait is meant to be used behind `dyn`, avoid `Self`-returning methods and generic methods in its core surface. When you *do* need such a method only on concrete types, fence it off with `where Self: Sized` so the rest of the trait stays usable as an object:
 
-```rust
+```rust playground
 trait Greeter {
     fn greet(&self) -> String;
 
@@ -647,7 +647,7 @@ If the variety is *closed* — you know all the variants up front and they will 
 
 A middleware pipeline, the kind you would find behind an HTTP server or a CLI request handler. Each middleware is its own type implementing a shared `Middleware` trait; the pipeline stores them as a heterogeneous, runtime-assembled list of owned trait objects and runs them in order. This is a textbook use of dynamic dispatch: the set of stages is decided at runtime and they are different types living in one `Vec`.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Request {
     path: String,
@@ -801,7 +801,7 @@ Two things make this a natural fit for trait objects. First, the pipeline is *as
 
 **Instructions:** Define a trait `Drawable` with one required method `draw(&self) -> String`. Implement it for two unit structs, `Line` (returns `"---"`) and `Dot` (returns `"."`). Write a function `draw_all(items: &[Box<dyn Drawable>])` that prints each item's `draw()` output. In `main`, build a `Vec<Box<dyn Drawable>>` containing a `Line`, a `Dot`, and another `Line`, then call `draw_all`.
 
-```rust
+```rust playground
 trait Drawable {
     // TODO: draw(&self) -> String
 }
@@ -823,7 +823,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Drawable {
     fn draw(&self) -> String;
 }
@@ -901,7 +901,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Formatter {
     fn format(&self, value: f64) -> String;
 }
@@ -965,7 +965,7 @@ $19.50
 
 **Instructions:** Define a trait `Handler` with `on_event(&mut self, event: &str) -> String`. Implement it for `Counter { count: u32 }` — it increments `count` and returns `"counter saw '<event>' (total <n>)"` — and a unit struct `Echo` returning `"echo: <event>"`. Build a `Bus` struct holding `Vec<Box<dyn Handler>>` with `new()`, `register(&mut self, handler: Box<dyn Handler>)`, and `dispatch(&mut self, event: &str)` (which calls `on_event` on every handler and prints the result; you will need `iter_mut()` because `on_event` takes `&mut self`). In `main`, register a `Counter` and an `Echo`, then dispatch `"login"` and `"logout"`.
 
-```rust
+```rust playground
 trait Handler {
     // TODO: on_event(&mut self, event: &str) -> String
 }
@@ -991,7 +991,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Handler {
     fn on_event(&mut self, event: &str) -> String;
 }

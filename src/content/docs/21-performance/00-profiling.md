@@ -73,7 +73,7 @@ The Rust workflow has the same shape — run under a sampling profiler, then rea
 
 Here is the equivalent program. Save it as `src/main.rs` in a fresh project (`cargo new word_freq`):
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// Normalize a word: keep alphanumeric characters, then lowercase.
@@ -335,7 +335,7 @@ A realistic scenario: a backend service exposes a `/report` endpoint that has go
 
 First, the report builder — an HTTP-handler-free, runnable extract you can profile directly:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::time::Instant;
 

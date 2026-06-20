@@ -553,7 +553,7 @@ The trusting client succeeds; the untrusting client is rejected. Walking the unt
 
 The key change is swapping `with_no_client_auth()` for a verifier built from your trusted client-CA root store:
 
-```rust
+```rust playground
 // Cargo.toml:
 //   cargo add rustls
 //   cargo add tokio --features full

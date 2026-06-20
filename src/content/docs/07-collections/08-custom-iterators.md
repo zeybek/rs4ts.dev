@@ -62,7 +62,7 @@ Two things to carry into Rust: the generator is **lazy** (no values are computed
 
 Rust splits the same job across `Iterator` (the thing that produces values) and `IntoIterator` (the thing that *hands you* a producer). First, the Fibonacci producer:
 
-```rust
+```rust playground
 struct Fibonacci {
     a: u64,
     b: u64,
@@ -103,7 +103,7 @@ sum of even fibs < 100: 44
 
 Now the `Playlist` equivalent. Implement `IntoIterator` so `for track in playlist` works:
 
-```rust
+```rust playground
 struct Playlist {
     tracks: Vec<String>,
 }
@@ -159,7 +159,7 @@ Because every adaptor is built on `next`, implementing that single method gives 
 
 ### A minimal example, step by step
 
-```rust
+```rust playground
 struct Countdown {
     current: u32,
 }
@@ -203,7 +203,7 @@ The loop calls `next()` repeatedly until it returns `None`. The `cd2.map(...).co
 
 A `for` loop in Rust is **syntactic sugar**. This:
 
-```rust
+```rust playground
 fn main() {
     let v = vec![1, 2, 3];
 
@@ -235,7 +235,7 @@ Verified output:
 
 Standard collections let you write `for x in v`, `for x in &v`, and `for x in &mut v`. You get the same flexibility for your own type by implementing `IntoIterator` once per ownership flavor. The trick is that you implement it for `Grid`, `&Grid`, and `&mut Grid` separately:
 
-```rust
+```rust playground
 struct Grid {
     cells: Vec<i32>,
 }
@@ -300,7 +300,7 @@ total = 60
 
 The Fibonacci and `Countdown` examples yield *owned* values, so the iterator owns all its state. When you want to iterate over data that lives elsewhere and yield **references** into it, you create a separate iterator struct that *borrows* the source. This is the pattern the standard library uses for `slice::Iter`, and it requires a lifetime parameter:
 
-```rust
+```rust playground
 struct Ring {
     data: Vec<char>,
 }
@@ -489,7 +489,7 @@ For a collection, the idiomatic shape mirrors the standard library: a separate `
 
 When a function produces a sequence, return `impl Iterator<Item = T>` rather than a concrete type or a `Vec`. This keeps the result lazy and hides the (often unnameable) adaptor type:
 
-```rust
+```rust playground
 // Returns a lazy iterator; the caller decides whether to collect, sum, etc.
 fn evens_up_to(max: u32) -> impl Iterator<Item = u32> {
     (0..max).filter(|n| n % 2 == 0)
@@ -531,7 +531,7 @@ The most common mistake is over-engineering. If you only need to transform or fi
 
 A paginating iterator over a (mocked) HTTP API. Each call to `next()` "fetches" the next page until the server reports no more pages: a stateful, lazy producer that is impossible to express as a simple adaptor chain. Because it is a real `Iterator`, the entire adaptor library applies to the result.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct User {
     id: u32,
@@ -683,7 +683,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Stepper {
     current: i64,
     step: i64,
@@ -728,7 +728,7 @@ Output:
 
 **Instructions:** Given `struct Playlist { tracks: Vec<String> }`, implement `IntoIterator for Playlist` (yielding `String`) and `IntoIterator for &Playlist` (yielding `&String`). Then loop over `&playlist` to print each track, and consume `playlist` to build a `Vec<String>` of uppercased tracks. Delegate to `Vec`'s own iterators.
 
-```rust
+```rust playground
 struct Playlist {
     tracks: Vec<String>,
 }
@@ -748,7 +748,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Playlist {
     tracks: Vec<String>,
 }
@@ -827,7 +827,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Span {
     front: u32,
     back: u32,

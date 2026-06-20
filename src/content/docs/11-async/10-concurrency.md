@@ -66,7 +66,7 @@ function countPrimes(maxN: number): Promise<number> {
 
 Rust draws the same picture, but the pieces are explicit. A **task** (`tokio::spawn`) is the lightweight, async analogue of "kick off a promise." On Tokio's default multi-thread runtime, those tasks are scheduled across a pool of worker threads, so I/O-bound tasks run **concurrently** and CPU work spread across them can run **in parallel**: no Worker-Thread ceremony, no copying.
 
-```rust
+```rust playground
 // Rust + Tokio 1.52 — concurrency via tasks.
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
@@ -105,7 +105,7 @@ fetched ["user-1", "user-2", "user-3"] in ~102 ms
 
 For **CPU-bound** parallelism Rust does not need a separate isolate or message passing. You can use plain OS threads with shared, borrow-checked memory:
 
-```rust
+```rust playground
 use std::thread;
 
 // CPU-bound work split across OS threads — true parallelism, no async needed.
@@ -296,7 +296,7 @@ This is the heart of why async exists: a single thread can serve thousands of wa
 
 A loose `tokio::spawn` is fire-and-forget: if the parent finishes, the child may be silently abandoned, and errors inside it vanish. **Structured concurrency** keeps a group of tasks tied to a scope: you spawn them into a container, await them together, and when the container is dropped any stragglers are cancelled. Tokio's [`JoinSet`](https://docs.rs/tokio/latest/tokio/task/struct.JoinSet.html) is the workhorse:
 
-```rust
+```rust playground
 use tokio::task::JoinSet;
 
 async fn process(item: u32) -> u32 {
@@ -342,7 +342,7 @@ This is where Rust pulls decisively ahead of JavaScript. A `Promise`, once start
 
 The simplest form is a timeout, which drops the loser:
 
-```rust
+```rust playground
 use tokio::time::{timeout, sleep, Duration};
 
 async fn slow_query() -> &'static str {
@@ -369,7 +369,7 @@ timed out — the query future was dropped/cancelled
 
 Because cancellation runs destructors, you get RAII-style cleanup for free. A guard's `Drop` fires whether the task completes or is aborted:
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 // A guard whose Drop runs even when the future is cancelled (dropped).
@@ -414,7 +414,7 @@ Notice the `CleanupGuard::drop` ran even though the job never reached its own en
 
 For graceful shutdown — letting a worker finish its current unit and clean up — use a `CancellationToken` from `tokio-util`. Cloning the token shares one cancellation state, so a single `.cancel()` signals every holder at once. This is the idiomatic shape for a long-lived worker loop, combining it with [`select!`](/11-async/07-select-join/):
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 use tokio_util::sync::CancellationToken;
 use tokio::task::JoinSet;
@@ -601,7 +601,7 @@ Because JavaScript Promises cannot really be cancelled, developers sometimes ass
 
 A concurrent fetcher that processes a list of URLs with **bounded concurrency**: the bread-and-butter of crawlers, batch importers, and fan-out API clients. It combines everything on this page: tasks for concurrency, a `Semaphore` to cap in-flight work (like a connection pool), and a `JoinSet` for structured collection so nothing leaks.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::time::Instant;
 use tokio::sync::Semaphore;
@@ -701,7 +701,7 @@ The timing tells the story: 10 requests at 100ms each, run three-wide, take roug
 
 **Instructions:** The program below checks three services one after another, taking ~250ms. Rewrite it to run all three checks concurrently using `tokio::spawn` (or `JoinSet`), so the total time drops to roughly the slowest single check (~120ms). Print how many of the three are "healthy" (latency under 100ms).
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 
@@ -727,7 +727,7 @@ async fn main() {
 
 Spawn each check into a `JoinSet` so they overlap; collect as they complete. (You could also use `tokio::join!` since the count is fixed.)
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::task::JoinSet;
 use tokio::time::{sleep, Duration};
@@ -780,7 +780,7 @@ The three checks overlap, so the total is governed by the slowest one (~120ms), 
 
 **Instructions:** Three downloads run concurrently; one of them (`id == 3`) fails fast. Complete the program so that, on the first error, it prints the error, **aborts the remaining in-flight downloads**, and stops. Use a `JoinSet` and its `abort_all()` method.
 
-```rust
+```rust playground
 use tokio::task::JoinSet;
 use tokio::time::{sleep, Duration};
 
@@ -811,7 +811,7 @@ async fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use tokio::task::JoinSet;
 use tokio::time::{sleep, Duration};
 
@@ -891,7 +891,7 @@ async fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 use tokio_util::sync::CancellationToken;
 

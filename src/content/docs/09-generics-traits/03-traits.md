@@ -71,7 +71,7 @@ console.log(`Tweet:   ${tweet.summarize()}`);
 
 The same scenario in idiomatic Rust. Notice that the data (`struct`) and the behavior (`impl ... for ...`) are written as separate blocks.
 
-```rust
+```rust playground
 // Rust - a trait plus two structs that implement it
 trait Summary {
     fn summarize(&self) -> String;
@@ -184,7 +184,7 @@ Method-call syntax (`value.method()`) is identical to TypeScript. The compiler r
 
 A type can also have methods that belong to *no* trait; these live in an **inherent `impl`** block. Mixing both is common:
 
-```rust
+```rust playground
 trait Summary {
     fn summarize(&self) -> String;
 }
@@ -399,7 +399,7 @@ If most implementors would write the same method, give it a default in the trait
 
 When you write a function over "anything summarizable," prefer a generic with a trait bound (static dispatch, zero-cost) and reach for `dyn` only when you genuinely need a heterogeneous collection at runtime:
 
-```rust
+```rust playground
 trait Summary {
     fn summarize(&self) -> String;
 }
@@ -445,7 +445,7 @@ Put constructors and type-specific helpers in an inherent `impl Type` block; kee
 
 A small notification system. Each delivery channel is its own type implementing a shared `Notifier` trait, and a dispatcher broadcasts a message across a heterogeneous list of channels. This is a classic place where defining a trait and implementing it per type pays off.
 
-```rust
+```rust playground
 // Each channel implements one trait; the dispatcher works over any of them.
 trait Notifier {
     /// Send a message; returns a short delivery receipt string.
@@ -550,7 +550,7 @@ Two things worth highlighting. First, `Vec<Box<dyn Notifier>>` is a heterogeneou
 
 **Instructions:** Define a trait `Describe` with one required method `describe(&self) -> String`. Create two structs, `Dog { name: String }` and `Cat { name: String }`, and implement `Describe` for both so that a dog says "woof" and a cat says "meow." In `main`, construct one of each and print both descriptions.
 
-```rust
+```rust playground
 trait Describe {
     // TODO: declare describe(&self) -> String
 }
@@ -569,7 +569,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Describe {
     fn describe(&self) -> String;
 }
@@ -619,7 +619,7 @@ Lily the cat says meow
 
 **Instructions:** Define a trait `Pluralize` with a method `pluralize(&self, count: usize) -> String`. Implement it for `&str` so that `"apple".pluralize(1)` produces `"1 apple"` and `"apple".pluralize(3)` produces `"3 apples"` (append an `s` whenever `count != 1`). In `main`, print both. This is allowed even though `&str` is a foreign type, because the trait is local to your crate.
 
-```rust
+```rust playground
 trait Pluralize {
     // TODO: pluralize(&self, count: usize) -> String
 }
@@ -634,7 +634,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // We OWN the trait, so we may implement it for the foreign type &str.
 trait Pluralize {
     fn pluralize(&self, count: usize) -> String;
@@ -697,7 +697,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Shape {
     fn area(&self) -> f64;
     fn name(&self) -> &str;

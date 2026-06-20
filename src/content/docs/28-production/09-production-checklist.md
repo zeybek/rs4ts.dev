@@ -346,7 +346,7 @@ The fix is to implement `IntoResponse` for `MyError` (as in the main example). T
 
 `unwrap()` turns a recoverable error into a panic. In a handler that aborts the request (and, without `catch_panic`, can take down the worker). Clippy will not flag it by default, but the `clippy::unwrap_used` restriction lint will; turn it on for production crates:
 
-```rust
+```rust playground
 #![warn(clippy::unwrap_used)]
 
 fn parse_port(raw: &str) -> u16 {
@@ -392,7 +392,7 @@ A `reqwest`/`sqlx` call with no timeout will wait as long as the upstream hangs,
 
 ### Bound every outbound call
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::{sleep, timeout};
 

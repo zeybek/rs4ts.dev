@@ -57,7 +57,7 @@ console.log("price back =", view.getFloat64(0, true)); // 101.5
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 use std::mem::{align_of, size_of};
 
 // Rust - the struct *is* the layout. Each field has a concrete, sized type.
@@ -106,7 +106,7 @@ Every Rust type `T` has:
 
 Here are the primitives a TypeScript developer should memorize. All output below is real, from a probe program:
 
-```rust
+```rust playground
 use std::mem::{align_of, size_of};
 
 fn main() {
@@ -169,7 +169,7 @@ But Rust reported **16**. That is because the default representation, called **`
 
 You can see the difference by *forbidding* reordering with `#[repr(C)]`, which pins fields to declaration order:
 
-```rust
+```rust playground
 use std::mem::{align_of, size_of};
 
 #[repr(C)] // C layout: fields stay in declaration order
@@ -212,7 +212,7 @@ The lesson: **field order only affects size when you opt out of `repr(Rust)`'s r
 
 Since Rust 1.77 the standard library has `std::mem::offset_of!`, which tells you exactly where a field sits, invaluable for `repr(C)` structs that mirror a C header or a wire format:
 
-```rust
+```rust playground
 use std::mem::{align_of, offset_of, size_of};
 
 #[repr(C)]
@@ -260,7 +260,7 @@ align = 4
 
 This is the single most delightful layout trick in Rust. A reference (`&T`), a `Box<T>`, and an `NonZero*` integer can never be all-zeroes/null. The compiler treats that forbidden bit pattern as a **niche** and reuses it to represent `None`, so wrapping such a type in `Option` costs **zero extra bytes**:
 
-```rust
+```rust playground
 use std::mem::size_of;
 use std::num::NonZeroU32;
 
@@ -311,7 +311,7 @@ This is the layout-level reason Rust's `Option<&T>` is the right way to express 
 
 A Rust `enum` is a **tagged union**: it stores a discriminant (which variant) plus enough room for the largest variant's payload, all rounded to the enum's alignment.
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 enum Direction {
@@ -401,7 +401,7 @@ Because the compiler is free to reorder, you must **never** assume a particular 
 
 ### Pitfall 4: A giant enum variant bloating a hot `Vec`
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 enum Cmd {
@@ -443,7 +443,7 @@ Since C layout honors declaration order, put 8-byte fields, then 4-byte, then 2-
 
 ### Box the fat variant to shrink an enum
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 enum Cmd {
@@ -464,7 +464,7 @@ The enum shrinks from 257 bytes to 8 (a single pointer), so a `Vec<Cmd>` of most
 
 ### Fix integer discriminants for protocol enums
 
-```rust
+```rust playground
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 enum Opcode {
@@ -496,7 +496,7 @@ Set on the wire = 0x02
 
 A market-data feed handler holds tens of millions of ticks in memory. The struct is tiny, but multiplied across the buffer, layout decides whether the working set fits in RAM (and in cache). Here we contrast a naive ordering that mirrors how you'd write the TypeScript interface against a hand-packed `#[repr(C)]` layout — both pinned to C order so the difference is visible:
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 // Naive order, mirroring a TypeScript interface field-by-field.
@@ -578,7 +578,7 @@ Reordering fields shaved 16 bytes off each tick — a **40% memory reduction**, 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 #[allow(dead_code)]
@@ -627,7 +627,7 @@ In `Bad`, the `bool` and `u8` sit before larger-aligned fields, forcing the comp
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 #[allow(dead_code)]
@@ -685,7 +685,7 @@ The pattern: if a type has a forbidden bit pattern (null pointer, the unused ran
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::mem::size_of;
 
 #[repr(u8)]

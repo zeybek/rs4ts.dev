@@ -155,7 +155,7 @@ There is no `undefined`. A missing variable is `Err(VarError::NotPresent)`; a pr
 
 The idioms map cleanly onto the `?.`/`??` patterns you already know:
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -187,7 +187,7 @@ port=8080 log_level=None in_ci=true extra="--fast"
 
 Because `env::var` yields a `String`, parsing looks like any other Rust parse. A compact "default if unset *or* unparseable" reads as a chain:
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -218,7 +218,7 @@ port=8080 debug=true
 
 When you genuinely need to tell "not set" apart from "set to garbage bytes", match on `VarError`:
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -242,7 +242,7 @@ CONFIG_PATH = /etc/app.toml
 
 If you want the raw bytes regardless of encoding (paths on Linux/macOS can legally be non-UTF-8), use `env::var_os`, which returns `Option<OsString>` and never errors:
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -426,7 +426,7 @@ origins = ["https://a.com", "https://b.com"]
 
 This surprises everyone coming from JavaScript. In the latest stable edition (2024), `std::env::set_var` and `remove_var` are `unsafe` functions:
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -458,7 +458,7 @@ Both languages read the environment that existed when the process started (plus 
 
 Code ported from a single-threaded mindset trips on edition 2024 immediately:
 
-```rust
+```rust playground edition="2021"
 use std::env;
 
 fn main() {
@@ -656,7 +656,7 @@ The second run shows real env vars overriding `.env`; the third shows a clean, a
 
 **Instructions:** Write a program that reads a `WORKERS` environment variable. If it is set to a valid integer of at least `1`, use it. If it is set but invalid (zero, negative, or non-numeric), print a warning to stderr and fall back to `1`. If it is unset, default to `4`. Print `spawning N workers`.
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -668,7 +668,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -718,7 +718,7 @@ spawning 1 workers
 
 **Instructions:** Define a `Settings` struct with fields `host: String` (required), `port: u16` (default `3000`), and `allowed_origins: Vec<String>` (default empty, populated from a comma-separated value). Read it with the `SVC_` prefix and print each field. Add `cargo add envy` and `cargo add serde --features derive`.
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -787,7 +787,7 @@ origins = []
 
 **Instructions:** Resolve a `log level` from three sources, highest priority first: a `--log-level <value>` (or `--log-level=<value>`) command-line argument, then the `LOG_LEVEL` environment variable, then the default `"info"`. Use `std::env::args` for the flag and `std::env::var` for the variable. Print `log level = X`.
 
-```rust
+```rust playground
 use std::env;
 
 fn resolve_log_level() -> String {
@@ -803,7 +803,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::env;
 
 fn resolve_log_level() -> String {

@@ -71,7 +71,7 @@ strong = null; // drop the only strong reference
 
 Rust has **no garbage collector**, so a reference cycle built from `Rc<T>` is a real leak: the strong counts prop each other up and never hit zero. The fix is to make the "back pointer" a `Weak<T>` so it does not count toward ownership.
 
-```rust
+```rust playground
 // Rust — a tree where children link back to their parents via Weak.
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
@@ -142,7 +142,7 @@ The shape mirrors the TypeScript tree: children point down with strong reference
 
 Every `Rc<T>` allocation carries two counts in its heap header: a **strong count** and a **weak count**. The value `T` is dropped when the strong count reaches `0`; the allocation itself is freed when *both* counts reach `0`. If two `Rc`s own each other, their strong counts can never fall to zero:
 
-```rust
+```rust playground
 // This LEAKS: a strong cycle whose Drop never runs.
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -192,7 +192,7 @@ Notice what is **missing**: there are no `Dropping node ...` lines. When `main` 
 
 Change `parent` from `Rc<Node>` to `Weak<Node>` and the cycle is broken, because a `Weak` does not raise the strong count.
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 
@@ -264,7 +264,7 @@ These two functions are the whole API:
 
 `upgrade()` is the safety valve. Because the data may already be gone, you are *forced* to handle the `None` case; there is no way to dereference a `Weak` directly:
 
-```rust
+```rust playground
 use std::rc::{Rc, Weak};
 
 fn main() {
@@ -323,7 +323,7 @@ There are two distinct `Weak` types, and they are *not* interchangeable:
 - `std::rc::Weak<T>` pairs with `Rc<T>` — single-threaded, cheaper.
 - `std::sync::Weak<T>` pairs with `Arc<T>` — thread-safe, atomic counts.
 
-```rust
+```rust playground
 // The thread-safe analog: Arc::downgrade produces a std::sync::Weak.
 use std::sync::{Arc, Weak};
 
@@ -467,7 +467,7 @@ Most parent/child relationships in Rust are better modeled with plain references
 
 A DOM-like element tree is the canonical case: rendering walks *down* into children, while event bubbling and selector matching walk *up* to parents and the document root. The downward links own the nodes; the upward links must not, or the document would never free.
 
-```rust
+```rust playground
 // Real-world: a DOM-like element tree with safe upward navigation.
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
@@ -596,7 +596,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::rc::{Rc, Weak};
 
 fn count_living(weaks: &[Weak<i32>]) -> usize {
@@ -659,7 +659,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 
@@ -745,7 +745,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::rc::{Rc, Weak};
 

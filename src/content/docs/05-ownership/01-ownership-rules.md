@@ -50,7 +50,7 @@ console.log(orderId); // still usable afterward — nothing was "consumed"
 
 Rust enforces a stricter discipline. The same `let archived = order_id;` **moves** ownership, and the original binding becomes unusable.
 
-```rust
+```rust playground
 fn print_receipt(id: String) {
     println!("Receipt: {id}");
 } // `id` dropped here, its heap buffer freed
@@ -156,7 +156,7 @@ When a binding goes out of scope, Rust automatically runs cleanup for the value 
 
 You can *see* this happen by implementing the `Drop` trait so the value prints when it is cleaned up:
 
-```rust
+```rust playground
 struct Connection {
     label: &'static str,
 }
@@ -204,7 +204,7 @@ A natural question: if you give a value away, how do you keep using your data? T
 
 1. **Get it back.** A function can take ownership and return it (possibly alongside other results):
 
-   ```rust
+   ```rust playground
    fn measure(s: String) -> (String, usize) {
        let len = s.len();
        (s, len) // hand the String back to the caller
@@ -432,7 +432,7 @@ error[E0382]: borrow of partially moved value: `user`
 
 A common production scenario: an upload pipeline that receives raw bytes from a client, validates and parses them, and produces a stored document. Ownership makes the *stages* explicit: the raw bytes have exactly one owner at each step, and once they are parsed, the original buffer is consumed and cannot be accidentally reused.
 
-```rust
+```rust playground
 /// A raw upload received from a client.
 struct Upload {
     filename: String,
@@ -537,7 +537,7 @@ fn main() {
 
 Clone before moving so each call has its own owned `String`, and log first for clarity:
 
-```rust
+```rust playground
 fn greet(name: String) {
     println!("Welcome, {name}!");
 }
@@ -585,7 +585,7 @@ fn append_event(/* ??? */) -> String {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let mut log = String::from("event:");
     log = append_event(log, "login"); // give it away, get the updated one back
@@ -621,7 +621,7 @@ Note the `mut log: String` parameter: the binding takes ownership *and* is allow
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Timer {
     name: String,
 }

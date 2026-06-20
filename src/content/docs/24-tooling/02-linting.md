@@ -59,7 +59,7 @@ Note the three rule levels (`"error"`, `"warn"`, `"off"`), the `--fix` flag for 
 
 Clippy needs no installation in a standard `rustup` setup and no config file to start producing value. Write some non-idiomatic Rust:
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3];
     if numbers.len() == 0 {
@@ -205,7 +205,7 @@ The next two sections cover each. They are exactly the ESLint pattern of "config
 
 By default Clippy *warns*. To make lints fail the build (the Rust equivalent of an ESLint rule set to `"error"`), promote them to `deny`. The most common gate is a crate-root inner attribute:
 
-```rust
+```rust playground
 #![deny(clippy::all)]
 
 fn main() {
@@ -290,7 +290,7 @@ all = { level = "deny", priority = -1 }
 unwrap_used = "warn"
 ```
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3];
     println!("{}", numbers.len());
@@ -329,7 +329,7 @@ A TypeScript developer used to ESLint running inside `npm run build` may assume 
 
 Sometimes a lint is wrong for your situation. The fix is not to disable Clippy globally; it is to `allow` that one lint at the narrowest scope, the way you would write `// eslint-disable-next-line`:
 
-```rust
+```rust playground
 fn main() {
     #[allow(clippy::useless_vec)]
     let numbers = vec![1, 2, 3];
@@ -371,7 +371,7 @@ cargo clippy --all-targets --all-features -- -D warnings
 
 - **Use `cargo clippy --fix` for the mechanical ones.** Many lints are auto-applicable. Given this code:
 
-  ```rust
+  ```rust playground
   fn main() {
       let numbers = vec![1, 2, 3];
       if numbers.len() == 0 {
@@ -384,7 +384,7 @@ cargo clippy --all-targets --all-features -- -D warnings
 
   Running `cargo clippy --fix` (add `--allow-no-vcs` outside a git repo) rewrites it in place to the idiomatic form:
 
-  ```rust
+  ```rust playground
   fn main() {
       let numbers = [1, 2, 3];
       if numbers.is_empty() {
@@ -399,7 +399,7 @@ cargo clippy --all-targets --all-features -- -D warnings
 
 - **Prefer `#[expect(...)]` over `#[allow(...)]` for intentional suppressions** (stable since Rust 1.81). `expect` behaves like `allow`, but if the lint *stops* firing, Clippy warns that the expectation is now unfulfilled, so a suppression you no longer need does not silently rot:
 
-  ```rust
+  ```rust playground
   fn main() {
       // If the `vec!` were later changed to an array, `useless_vec` would no
       // longer fire, and Clippy would flag this attribute as unnecessary.
@@ -447,7 +447,7 @@ pedantic = { level = "warn", priority = -1 }
 [dependencies]
 ```
 
-```rust
+```rust playground
 //! A small order-total calculator that passes a strict Clippy config.
 
 /// A line item in a shopping cart.
@@ -526,7 +526,7 @@ Notice the idioms that keep `pedantic` quiet: `#[must_use]` on a pure function, 
 
 **Instructions:** Create a new project with `cargo new lint_practice`. Paste the following into `src/main.rs`, run `cargo clippy`, and identify which lint name fires and what fix it suggests. Then apply the fix and confirm a clean run.
 
-```rust
+```rust playground
 fn main() {
     let words = vec!["alpha", "beta", "gamma"];
     let count = words.iter().count();
@@ -552,7 +552,7 @@ warning: called `.iter().count()` on a `Vec`
 
 The fixed, Clippy-clean version:
 
-```rust
+```rust playground
 fn main() {
     let words = ["alpha", "beta", "gamma"];
     let count = words.len();
@@ -588,7 +588,7 @@ unwrap_used = "warn"
 [dependencies]
 ```
 
-```rust
+```rust playground
 fn main() {
     // A parse that cannot fail on a hard-coded literal. We expect the
     // `unwrap_used` warning here and document why it is acceptable.
@@ -611,7 +611,7 @@ fn main() {
 
 **Instructions:** Take the function below, run `cargo clippy -- -W clippy::pedantic`, and resolve the pedantic finding by changing the signature — without changing what the function does. (Hint: the lint is about taking ownership you do not need.)
 
-```rust
+```rust playground
 fn shout(message: String) -> String {
     message.to_uppercase()
 }
@@ -627,7 +627,7 @@ fn main() {
 
 With `pedantic` enabled, Clippy fires `clippy::needless_pass_by_value`: `shout` takes a `String` by value but only reads it, so it forces every caller to give up ownership for no reason. The fix is to accept a borrow, `&str`, which also makes the function callable with `&String`, `&str`, and string literals alike:
 
-```rust
+```rust playground
 fn shout(message: &str) -> String {
     message.to_uppercase()
 }

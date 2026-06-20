@@ -63,7 +63,7 @@ Running this on Node v22 prints `distinct customers: 1000`. Note what you *didn'
 
 The direct Rust translation looks almost identical, and that is the point: **write the readable version first.** Rust makes one cost visible that JavaScript hid (the owned `String` key), but you do *not* eliminate it preemptively. You ship this, then measure.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::time::Instant;
 
@@ -126,7 +126,7 @@ In Rust the costs are far more visible — `clone()` is a copy, `Vec` is contigu
 
 This is the most common first mistake, and it makes every other measurement meaningless. Consider a numeric kernel:
 
-```rust
+```rust playground
 fn sum_of_squares(n: u64) -> u64 {
     // wrapping_* keeps the arithmetic well-defined in both debug and release.
     (0..n).fold(0u64, |acc, x| acc.wrapping_add(x.wrapping_mul(x)))
@@ -159,7 +159,7 @@ That is not a typo: the release build is roughly **17,000× faster** here, becau
 
 Suppose you have a reporting job that sorts events by score and renders each to a text line. Your instinct says the sort is the cost. Measure both candidates instead of trusting the instinct:
 
-```rust
+```rust playground
 use std::fmt::Write as _;
 use std::time::Instant;
 
@@ -323,7 +323,7 @@ error[E0502]: cannot borrow `data` as mutable because it is also borrowed as imm
 
 The clean version is also the fast one — a single in-place pass via the standard library:
 
-```rust
+```rust playground
 fn main() {
     let mut data = vec![1, 2, 3, 4, 5, 6];
     data.retain(|&x| x % 2 != 0); // readable AND fast
@@ -361,7 +361,7 @@ Tuning against a 10-element array tells you about constant factors that vanish a
 
 A small, reusable measurement setup is worth more than any single optimization, because it turns "I think this is faster" into "this is 1.9× faster on our workload." Here is a self-contained one that compares two implementations of a word-frequency counter against a realistic corpus and **proves they agree** before reporting timings: exactly the loop you'd run before deciding whether the "optimized" version is worth keeping.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::time::Instant;
 
@@ -488,7 +488,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Instant;
 
 fn timed<T>(label: &str, f: impl FnOnce() -> T) -> T {
@@ -580,7 +580,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::time::Instant;
 

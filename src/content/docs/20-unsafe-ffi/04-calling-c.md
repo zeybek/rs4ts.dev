@@ -235,7 +235,7 @@ A second difference is **zero marshaling**. A Node addon converts every JavaScri
 
 In the 2024 edition an `extern` block must be `unsafe extern`. Writing the old bare form:
 
-```rust
+```rust playground edition="2021"
 use std::ffi::c_int;
 
 extern "C" {                       // does not compile (edition 2024)

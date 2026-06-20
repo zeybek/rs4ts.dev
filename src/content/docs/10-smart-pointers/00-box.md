@@ -114,7 +114,7 @@ The `Box::new(...)` call allocates on the heap and returns an owning pointer. Wh
 
 A `Box<T>` is a pointer-sized value (8 bytes on a 64-bit machine) stored on the stack, pointing at a `T` stored on the heap. That is the entire data structure. There is no reference count and no extra metadata (for `Sized` types). It is the lowest-overhead way to put something on the heap.
 
-```rust
+```rust playground
 fn main() {
     let boxed: Box<i32> = Box::new(42);
     println!("boxed value = {}", *boxed); // explicit dereference
@@ -131,7 +131,7 @@ boxed value = 42
 
 The `*boxed` syntax **dereferences** the box to reach the `i32` it owns. Because `Box<T>` implements the `Deref` trait, you rarely need the explicit `*`: method calls, field access, and most trait usage automatically "see through" the box (this is **deref coercion**, covered in the Deref trait topic of this section).
 
-```rust
+```rust playground
 fn main() {
     let boxed = Box::new(vec![1, 2, 3]);
     println!("len = {}", boxed.len());        // auto-deref: (*boxed).len()
@@ -179,7 +179,7 @@ help: insert some indirection (e.g., a `Box`, `Rc`, or `&`) to break the cycle
 
 The compiler literally suggests the fix: wrap the recursive field in a `Box`. A `Box<List>` is always one pointer wide regardless of how deep the list goes, so `List` now has a finite, known size. We can confirm it:
 
-```rust
+```rust playground
 use std::mem;
 
 enum List {
@@ -210,7 +210,7 @@ size of i32 = 4
 
 The second classic use is storing a value whose concrete type you do not know at compile time, but which implements a known trait. `Box<dyn Trait>` is the owning version of a trait object.
 
-```rust
+```rust playground
 trait Shape {
     fn area(&self) -> f64;
     fn name(&self) -> &str;
@@ -328,7 +328,7 @@ You cannot move ownership out through a *shared* `&`. Either borrow the inner va
 
 `Box<T>` is special: unlike most types, dereferencing an *owned* box (a "deref move") moves the value out and frees the box.
 
-```rust
+```rust playground
 fn main() {
     let boxed = Box::new(String::from("hello"));
     let owned: String = *boxed; // moves the String off the heap into `owned`
@@ -360,7 +360,7 @@ A common over-correction is boxing small values "to be safe." A plain `i32`, a s
 
 A production-flavored use of `Box` is an **abstract syntax tree (AST)**: for example, evaluating an arithmetic expression. Each operator node holds sub-expressions of arbitrary depth, so the children live behind `Box`. This is exactly the shape a calculator, query parser, or template engine uses internally.
 
-```rust
+```rust playground
 // An arithmetic expression AST. Each operator node owns boxed sub-expressions,
 // so an expression of any depth has a fixed-size root node.
 #[derive(Debug)]
@@ -502,7 +502,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 enum Link {
     Empty,
     More(Box<Node>),
@@ -575,7 +575,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Json {
     Null,
@@ -630,7 +630,7 @@ Note that `Array(Vec<Json>)` does *not* need a `Box`; `Vec` already heap-allocat
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Command {
     fn run(&self, state: &mut i32);
     fn describe(&self) -> String;

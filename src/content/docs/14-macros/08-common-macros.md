@@ -66,7 +66,7 @@ Three things to carry into Rust. First, `console.assert` **logs and keeps runnin
 
 The same jobs map onto standard macros. Each one is expanded into ordinary, fully type-checked Rust at compile time.
 
-```rust
+```rust playground
 use std::fmt::Write as _; // brings the write!/writeln! target trait into scope
 
 fn main() {
@@ -514,7 +514,7 @@ fn main() {
 
 Use `{label:<10}` for left-align width 10 and `{value:>8.2}` for right-align width 8, precision 2:
 
-```rust
+```rust playground
 fn row(label: &str, value: f64) -> String {
     format!("{label:<10}: {value:>8.2}")
 }
@@ -569,7 +569,7 @@ fn main() {
 
 `matches!` accepts the full pattern grammar, so a `|` alternative with a struct pattern (`{ .. }` ignores the fields) does the whole job:
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Status {
     Active,
@@ -627,7 +627,7 @@ fn main() {
 
 `writeln!` into a `String` requires `use std::fmt::Write`. Build the header, loop the rows, then count lines with `.lines().count()`:
 
-```rust
+```rust playground
 use std::fmt::Write as _;
 
 fn to_csv(rows: &[(&str, u32)]) -> String {

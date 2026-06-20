@@ -68,7 +68,7 @@ TypeScript's `private`/`protected` keywords add compile-time field access contro
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 mod billing {
     // Private by default — visible only inside `billing`.
     fn internal_tax_rate() -> f64 {
@@ -234,7 +234,7 @@ This is where Rust goes beyond `export`. Between "private" and "fully public" si
 | `pub(super)`       | The **parent** module and everything nested under that parent            |
 | `pub(in some::path)` | Only within the named ancestor module (and its descendants)            |
 
-```rust
+```rust playground
 mod network {
     // Visible anywhere in THIS crate, but NOT to external crates.
     pub(crate) fn connection_id() -> u64 {
@@ -288,7 +288,7 @@ The mental model for `pub(super)` deserves care. It means "visible to my parent 
 
 Unlike struct fields, **enum variants and their fields are automatically as public as the enum itself**. You do not (and cannot) write `pub` on a variant:
 
-```rust
+```rust playground
 mod payments {
     pub enum Status {
         Pending,
@@ -480,7 +480,7 @@ Marking helpers `pub` "so my other modules can use them" silently enlarges your 
 
 A production-flavored event store that uses field visibility to enforce an invariant: every stored event gets a store-assigned sequence number, and the internal index is kept in sync with the event list. Callers can never corrupt either because the fields are private: the only way in is through `push`.
 
-```rust
+```rust playground
 mod store {
     use std::collections::HashMap;
 
@@ -616,7 +616,7 @@ fn main() {
 
 Only `area` needs to be public; `scale_factor` stays private and remains reachable from inside the module.
 
-```rust
+```rust playground
 mod geometry {
     pub fn area(width: f64, height: f64) -> f64 {
         scale_factor() * width * height
@@ -686,7 +686,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 mod bank {
     pub struct Account {
         pub owner: String, // public: freely readable/writable
@@ -773,7 +773,7 @@ fn main() {
 - `tick` must be visible to `engine` (its grandparent module), so `pub(super)` exposes it to `engine` and everything nested under it.
 - `next_id` should be confined to the `engine` subtree, which `pub(in crate::engine)` states explicitly.
 
-```rust
+```rust playground
 mod engine {
     pub mod scheduler {
         // Visible to the parent (`engine`) and its descendants.

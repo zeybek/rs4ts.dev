@@ -53,7 +53,7 @@ Things to notice that Rust will handle differently: indexing out of bounds retur
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn main() {
     // A growable list of `String`s. The `T` here is `String`.
     let mut recently_viewed: Vec<String> = Vec::new();
@@ -99,7 +99,7 @@ fn main() {
 
 There are three idiomatic ways to make one, and the choice mirrors how much you know up front.
 
-```rust
+```rust playground
 fn main() {
     // 1. Empty, type annotated. Use when you'll push later.
     let mut empty: Vec<i32> = Vec::new();
@@ -131,7 +131,7 @@ Verified output:
 
 ### `push` and `pop`
 
-```rust
+```rust playground
 fn main() {
     let mut stack = vec![1, 2, 3];
     stack.push(4); // append to the end (amortized O(1))
@@ -152,7 +152,7 @@ The critical difference from JavaScript: **`pop` returns `Option<T>`, not `T | u
 
 This is the single biggest behavioral difference from JavaScript arrays.
 
-```rust
+```rust playground
 fn main() {
     let v = vec![10, 20, 30];
 
@@ -178,7 +178,7 @@ In JavaScript, `arr[99]` silently gives `undefined`; in Rust, `v[99]` aborts the
 
 JavaScript has one iteration model. Rust has three, and the difference is *ownership*:
 
-```rust
+```rust playground
 fn main() {
     let mut scores = vec![1, 2, 3];
 
@@ -224,7 +224,7 @@ x y
 
 A `Vec` tracks two numbers: **length** (how many elements it holds) and **capacity** (how many it *could* hold before it must allocate a bigger buffer). JavaScript hides this entirely; Rust exposes it because it directly affects performance.
 
-```rust
+```rust playground
 fn main() {
     let mut v: Vec<i32> = Vec::new();
     let mut last_cap = v.capacity();
@@ -253,7 +253,7 @@ When `push` runs out of capacity, the `Vec` allocates a larger buffer (currently
 
 If you know roughly how many elements you'll store, pre-allocate with `Vec::with_capacity(n)` to skip the intermediate reallocations:
 
-```rust
+```rust playground
 fn main() {
     let mut c: Vec<i32> = Vec::with_capacity(10);
     println!("len={}, cap={}", c.len(), c.capacity());
@@ -278,7 +278,7 @@ Note that `with_capacity(10)` sets capacity to 10 while length stays 0: capacity
 
 ### Other everyday methods
 
-```rust
+```rust playground
 fn main() {
     let mut v = vec![1, 2, 3, 4, 5, 6];
 
@@ -393,7 +393,7 @@ error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immuta
 
 **Fix:** collect the changes first, or use `retain`/`extend`, or iterate over indices. For example, decide what to add, then push after the loop:
 
-```rust
+```rust playground
 fn main() {
     let mut v = vec![1, 2, 3];
     let mut to_add = Vec::new();
@@ -454,7 +454,7 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 
 **Fix:** when the index might be invalid, use `.get(i)` and handle the `Option`:
 
-```rust
+```rust playground
 fn main() {
     let v = vec![1, 2, 3];
     match v.get(10) {
@@ -506,7 +506,7 @@ error[E0382]: borrow of moved value: `nums`
 
 A read-only function should take a **slice** `&[T]`, not `&Vec<T>`. Slices accept vectors, arrays, and sub-ranges alike, so your function is more reusable and avoids forcing the caller to own a `Vec`.
 
-```rust
+```rust playground
 // Idiomatic: works for `&Vec<T>`, `&[T; N]`, and slices.
 fn average(values: &[f64]) -> f64 {
     if values.is_empty() {
@@ -531,7 +531,7 @@ If you're about to push `n` items, call `Vec::with_capacity(n)` first to avoid r
 
 Building a new `Vec` by transforming another is clearer (and often faster) with iterator adaptors than with a manual `for` + `push`:
 
-```rust
+```rust playground
 fn main() {
     let prices = vec![100, 250, 75];
     // idiomatic
@@ -556,7 +556,7 @@ When an index could be out of range (user input, parsed data), use the `Option`-
 
 A shopping cart: a `Vec` of line items with pre-allocation, predicate-based removal, and an aggregate computed with an iterator.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct CartItem {
     name: String,
@@ -672,7 +672,7 @@ Notice the patterns: `with_capacity` to avoid early reallocations, `retain` for 
 
 **Instructions:** Start with an empty `Vec<f64>`. Push the temperatures `20.5`, `22.0`, and `19.5`. Then compute and print their average. Watch the integer-vs-float cast for the length.
 
-```rust
+```rust playground
 fn main() {
     let mut temps: Vec<f64> = Vec::new();
     // TODO: push the three temperatures
@@ -684,7 +684,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let mut temps: Vec<f64> = Vec::new();
     temps.push(20.5);
@@ -713,7 +713,7 @@ avg = 20.666666666666668
 
 **Instructions:** Given `let v = vec![10, 20, 30];`, write code that prints the element at index 5 if it exists, or `"no element at index 5"` if it does not, without ever panicking. Then read index 1 with a fallback default of `0`.
 
-```rust
+```rust playground
 fn main() {
     let v = vec![10, 20, 30];
     // TODO: print element at index 5, or a "not found" message
@@ -724,7 +724,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let v = vec![10, 20, 30];
 
@@ -756,7 +756,7 @@ val = 20
 
 **Instructions:** Given `vec![3, 1, 2, 3, 1, 2]`, produce a sorted list of the **unique** values, then build a *second* `Vec` containing each unique value doubled. Print both. (Hint: `dedup` only removes *consecutive* duplicates, so you must sort first.)
 
-```rust
+```rust playground
 fn main() {
     let mut nums = vec![3, 1, 2, 3, 1, 2];
     // TODO: sort, then remove consecutive duplicates
@@ -768,7 +768,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let mut nums = vec![3, 1, 2, 3, 1, 2];
     nums.sort(); // [1, 1, 2, 2, 3, 3]

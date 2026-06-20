@@ -77,7 +77,7 @@ The three pain points that drive every decision below:
 
 Rust pushes you to make those choices explicit. A **library** module returns a precise enum the caller can match on; an **application** layer consumes it, adds human context, and lets it bubble up, only matching the specific variant it actually wants to handle.
 
-```rust
+```rust playground
 // Real-world: a "billing" library module exposes a typed error.
 // The application layer (main) consumes it with anyhow + context.
 
@@ -327,7 +327,7 @@ If the answer is "other code that needs to branch," design a `thiserror` enum. I
 
 Make each message a self-contained noun-phrase or short clause describing *what failed*, and let context layers describe *what you were doing*. The two combine cleanly:
 
-```rust
+```rust playground
 use anyhow::{Context, Result};
 
 fn read_setting(raw: Option<&str>) -> Result<u32> {
@@ -410,7 +410,7 @@ When you do panic, use `expect("reason this can't happen")` rather than a bare `
 
 A common production shape: a recoverable parser that returns a precise enum, alongside a helper whose contract is enforced by a panic. The granularity is chosen so callers can recover from a *miss* but not from a *broken store*.
 
-```rust
+```rust playground
 // Granularity chosen so callers can recover from one variant and not the other.
 use thiserror::Error;
 
@@ -511,7 +511,7 @@ Notice the design decisions baked in: two variants because callers treat them di
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use thiserror::Error;
 
 #[derive(Debug, Error, PartialEq)]
@@ -572,7 +572,7 @@ Each failure is a distinct variant, so a caller can branch on exactly the one it
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 mod inventory {
     use thiserror::Error;
 
@@ -654,7 +654,7 @@ The library exposes structure (`InventoryError`); the app stays coarse with `any
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 /// Recoverable: user input may be malformed -> Result.
 pub fn parse_hex_byte(raw: &str) -> Result<u8, String> {
     u8::from_str_radix(raw.trim_start_matches("0x"), 16)

@@ -69,7 +69,7 @@ Key facts about the JavaScript model:
 
 In Rust, a thread is just a function (closure) you hand to `thread::spawn`. It runs on a real OS thread, in parallel, on the *same* heap as the rest of your program, and the borrow checker guarantees you do not corrupt that shared heap.
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -108,7 +108,7 @@ No isolate to boot, no serialization, no message channel for a simple result: th
 
 ### `thread::spawn` and `JoinHandle`
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -128,7 +128,7 @@ Compare to JavaScript: a `JoinHandle<T>` plays a role similar to a `Promise<T>`,
 
 A spawned thread can outlive the function that created it, so by default Rust will not let the closure borrow local variables: those locals might be gone by the time the thread reads them. The `move` keyword transfers **ownership** of captured variables into the closure:
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -160,7 +160,7 @@ This is the big contrast with JavaScript's `Worker`: there, `data` would be *dee
 
 What if you do not want to *give away* your data, you just want a few threads to read it (or write to disjoint parts) and then get control back? Moving works for one thread, but moving into many is impossible (you only have one value to give). Historically you wrapped everything in `Arc` and cloned the pointer. Since Rust 1.63, `std::thread::scope` offers a cleaner answer: **scoped threads can borrow non-`'static` data** because the scope guarantees they *all finish* before it returns.
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -197,7 +197,7 @@ The closures here capture `left` and `right` by *shared reference*: no `move`, n
 
 To size your work to the machine, ask how many cores you can actually use, then spawn and join a batch:
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -231,7 +231,7 @@ squares = [0, 1, 4, 9]
 
 `thread::spawn` uses sensible defaults. For control over the thread name (shown in panics and debuggers) and stack size, use `thread::Builder`:
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -400,7 +400,7 @@ note: required by a bound in `spawn`
 
 **Fix:** use `Arc` (Atomic Reference Counted), which *is* `Send + Sync`:
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::thread;
 
@@ -436,7 +436,7 @@ See [reference counting](/05-ownership/07-reference-counting/) for `Rc` vs `Arc`
 
 When `main` returns, the whole process exits, taking any still-running threads with it. There is no "wait for background threads" at exit:
 
-```rust
+```rust playground
 use std::thread;
 use std::time::Duration;
 
@@ -462,7 +462,7 @@ The worker's `println!` never runs: the process was already gone. **Fix:** hold 
 
 A panic *unwinds only its own thread*. The default panic behavior is `unwind`, so a panicking worker does not take down `main`; instead, `join()` returns `Err`:
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -509,7 +509,7 @@ The panic message is printed to stderr by the default hook, but the program keep
 
 A production-flavored task: compute a content hash (checksum) for several files concurrently and collect the results into a shared map. This pattern — fan out over inputs, each worker computes independently, results aggregate under a lock — is the bread and butter of native threading. It uses `thread::scope` to *borrow* the inputs and the result map (no `Arc` needed) and a `Mutex` to serialize the inserts.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::sync::Mutex;
 use std::thread;
@@ -599,7 +599,7 @@ Notice what the borrow checker did for us: the worker closures hold a `&Mutex<Ha
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::thread;
 
 fn parallel_sum(data: &[u64], chunks: usize) -> u64 {
@@ -644,7 +644,7 @@ Each thread borrows its `chunk` (a `&[u64]`) directly from `data`; `scope` guara
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::{Arc, Mutex};
 use std::thread;
 
@@ -703,7 +703,7 @@ The key discipline is the size of the critical sections: each worker holds the q
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::thread;
 
 /// Compute per-row maxima of a matrix in parallel using scoped threads.

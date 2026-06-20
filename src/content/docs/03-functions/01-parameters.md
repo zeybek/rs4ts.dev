@@ -73,7 +73,7 @@ sendEmail(["ada@example.com"], "Hi", "Body"); // options optional
 
 Rust has no syntax for any of those. Each one maps to a deliberate, type-driven pattern instead:
 
-```rust
+```rust playground
 // 1. Default parameter  ->  Option<T> + unwrap_or
 fn greet(name: &str, greeting: Option<&str>) -> String {
     let greeting = greeting.unwrap_or("Hello");
@@ -149,7 +149,7 @@ To: ada@example.com | Hi [Normal]
 
 In TypeScript, `port?: number` and `port: number = 8080` both let the caller omit the argument. Rust has no "omit," so the absence is encoded *in the type* with `Option<T>`. The caller passes `None` to mean "not provided" and `Some(value)` otherwise, and the function decides the fallback:
 
-```rust
+```rust playground
 fn connect(retries: Option<u32>, timeout: Option<u64>) {
     // Match handles the present/absent cases explicitly...
     let retries = match retries {
@@ -185,7 +185,7 @@ Two things worth noticing:
 
 TypeScript's `...numbers: number[]` collects trailing arguments into an array. Rust passes a **slice** — a borrowed view `&[T]` over contiguous elements — so any array or `Vec` works without copying:
 
-```rust
+```rust playground
 fn sum_all(numbers: &[i32]) -> i32 {
     numbers.iter().sum()
 }
@@ -205,7 +205,7 @@ The trade-off is at the call site: instead of `sumAll(1, 2, 3)` you write `sum_a
 
 When a function has many optional settings, bundle them into a struct and derive `Default`. The caller constructs the struct, overriding only the fields they care about and filling the rest with **struct update syntax** (`..Default::default()`):
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct ServerConfig {
     host: String,
@@ -277,7 +277,7 @@ The unifying idea: **TypeScript bends the call syntax; Rust bends the type.** Op
 
 Rust has no function overloading: you cannot declare `fn log(x: i32)` and `fn log(x: &str)` in the same scope. The idiomatic substitute is a **trait** that both types implement, plus one generic function:
 
-```rust
+```rust playground
 trait Describe {
     fn describe(&self) -> String;
 }
@@ -326,7 +326,7 @@ Unlike TypeScript overloads (which are erased at runtime and resolved purely by 
 
 A lighter-weight form of polymorphic parameter is `impl Trait` in argument position. The classic case is "accept either a `&str` or an owned `String`":
 
-```rust
+```rust playground
 // `impl Into<String>` accepts anything convertible into a String.
 fn add_tag(tags: &mut Vec<String>, tag: impl Into<String>) {
     tags.push(tag.into());
@@ -468,7 +468,7 @@ Because `Option` is a real enum, a present-but-zero value is distinct from an ab
 
 A small email-sending API that combines several techniques: required fields are positional parameters, recipients use a slice (the "rest params" stand-in), the subject accepts both `&str` and `String` via `impl Into<String>`, and the grab-bag of optional settings lives in a `Default` struct.
 
-```rust
+```rust playground
 #[derive(Debug, Default)]
 struct EmailOptions {
     cc: Vec<String>,
@@ -550,7 +550,7 @@ Body: Build #128 is live.
 
 If you genuinely want `println!`-style "any number of arguments of mixed types," that is the job of **macros**, not functions. `macro_rules!` can match a repetition of expressions:
 
-```rust
+```rust playground
 // A variadic sum macro (one or more arguments).
 macro_rules! sum {
     ($($x:expr),+ $(,)?) => {{
@@ -614,7 +614,7 @@ function power(base: number, exponent: number = 2): number {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn power(base: i64, exponent: Option<u32>) -> i64 {
     let exponent = exponent.unwrap_or(2);
     base.pow(exponent)
@@ -649,7 +649,7 @@ function average(...values: number[]): number | null {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn average(values: &[f64]) -> Option<f64> {
     if values.is_empty() {
         return None;
@@ -680,7 +680,7 @@ Returning `Option<f64>` makes the "no values" case impossible to ignore: the cal
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, PartialEq)]
 struct Query {
     table: String,

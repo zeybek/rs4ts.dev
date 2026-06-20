@@ -70,7 +70,7 @@ Notice the shape: each unit of work is a self-contained message, results come ba
 
 The minimal channel: one producer thread sends, the main thread consumes.
 
-```rust
+```rust playground
 use std::sync::mpsc;
 use std::thread;
 
@@ -162,7 +162,7 @@ The spawned thread may outlive `main`'s current stack frame, so the closure must
 
 `mpsc` is *multi*-producer: clone the sender, one clone per producer thread.
 
-```rust
+```rust playground
 use std::sync::mpsc;
 use std::thread;
 
@@ -215,7 +215,7 @@ Each `tx.clone()` is a new handle to the *same* channel. The `drop(tx)` on the o
 
 `mpsc::sync_channel(capacity)` creates a **bounded** channel. Once the buffer is full, `send` *blocks* until the consumer makes room. This is **backpressure**: your fast producer is forced to slow down to match a slow consumer, instead of building an unbounded backlog in memory.
 
-```rust
+```rust playground
 use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
@@ -268,7 +268,7 @@ Look at the third message: `trying to send 2` prints, but `sent 2` does **not** 
 
 ### Non-blocking and timed receives
 
-```rust
+```rust playground
 use std::sync::mpsc;
 use std::time::Duration;
 
@@ -338,7 +338,7 @@ cargo add crossbeam-channel
 
 > **Note:** `cargo add` is built into Cargo (since 1.62); no `cargo-edit` needed. This resolves to `crossbeam-channel = "0.5"` on current stable.
 
-```rust
+```rust playground
 use crossbeam_channel::unbounded;
 use std::thread;
 
@@ -390,7 +390,7 @@ The *total* is always 12 — every job is handled exactly once — but which wor
 
 The other crossbeam strength is `select!`, which waits on several channels at once and runs whichever is ready first; there is no `mpsc` equivalent:
 
-```rust
+```rust playground
 use crossbeam_channel::{select, unbounded};
 use std::thread;
 use std::time::Duration;
@@ -552,7 +552,7 @@ A bounded worker pool: the main thread feeds jobs into a channel, a fixed set of
 
 Because std `mpsc` has a single consumer, we share the *job* receiver across workers with `Arc<Mutex<Receiver<_>>>` (lock briefly, pull one job, unlock). The *results* channel is plain `mpsc` — many producers, one consumer — which is exactly what `mpsc` is built for.
 
-```rust
+```rust playground
 use std::sync::mpsc;
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -679,7 +679,7 @@ For handling untrusted input that arrives over such a pipeline — sizing bounde
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::mpsc;
 use std::thread;
 
@@ -730,7 +730,7 @@ Key points: clone `tx` once per thread, `drop(tx)` before collecting so the `rx.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::mpsc;
 use std::thread;
 
@@ -787,7 +787,7 @@ With capacity 4 and three producers, sends block whenever four items are already
 cargo add crossbeam-channel
 ```
 
-```rust
+```rust playground
 use crossbeam_channel::{after, select, unbounded};
 use std::thread;
 use std::time::Duration;

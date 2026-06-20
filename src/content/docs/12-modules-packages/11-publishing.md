@@ -496,7 +496,7 @@ With both fields present, the metadata warning disappears and the dry run ends w
 
 You can verify the classification mechanically with the same `semver` engine Cargo uses:
 
-```rust
+```rust playground
 use semver::Version;
 
 fn classify(old: &str, new: &str) -> &'static str {

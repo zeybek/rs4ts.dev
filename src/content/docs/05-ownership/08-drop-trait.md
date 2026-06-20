@@ -67,7 +67,7 @@ cache = null; // now unreachable — but when is it collected? Unknown.
 
 Rust ties cleanup to scope. You implement `Drop::drop` once, and the compiler runs it automatically at the closing `}`, on *every* exit path, including early returns and panics. No `try/finally`, no `close()` to forget.
 
-```rust
+```rust playground
 struct DbConnection {
     id: u32,
 }
@@ -144,7 +144,7 @@ When a value that implements `Drop` goes out of scope, the compiler inserts a ca
 
 The compiler inserts the destructor call wherever the owner's scope ends: at a literal closing brace you can see, but equally at early `return`s and even during a panic unwind. Here a value moved *into* a function is dropped inside that function, not back in the caller:
 
-```rust
+```rust playground
 struct Loud(&'static str);
 impl Drop for Loud {
     fn drop(&mut self) {
@@ -179,7 +179,7 @@ Because ownership moved into `consume`, that function's scope now owns the value
 
 Within a single scope, local variables are dropped in **reverse order of declaration**: last declared, first dropped, like popping a stack:
 
-```rust
+```rust playground
 struct Tracer(&'static str);
 impl Drop for Tracer {
     fn drop(&mut self) {
@@ -210,7 +210,7 @@ This reverse order matters: if `_b` depends on `_a` (say `_a` is a connection an
 
 Nested values follow a different rule from local bindings. When a struct is dropped, **its own `drop` runs first**, and then **its fields are dropped in declaration order** (top to bottom):
 
-```rust
+```rust playground
 struct Noisy(&'static str);
 impl Drop for Noisy {
     fn drop(&mut self) {
@@ -262,7 +262,7 @@ fn drop<T>(_value: T) {} // takes ownership by value, then its scope ends immedi
 
 It takes the value **by value** (a move), so the value is now owned by `drop`'s parameter, whose scope ends instantly, running the destructor. It's already in the prelude, so you write `drop(x)`, not `std::mem::drop(x)`:
 
-```rust
+```rust playground
 struct Guard(&'static str);
 impl Drop for Guard {
     fn drop(&mut self) {
@@ -444,7 +444,7 @@ During a normal panic, Rust *unwinds* the stack and runs destructors: `Drop` sti
 
 A classic production use of RAII: a **transaction guard** that automatically rolls back if it is dropped without being explicitly committed. This makes "every early-return path rolls back" a *compile-time guarantee* rather than something a reviewer has to verify by reading every branch — the JavaScript `try/finally` equivalent that you can never forget.
 
-```rust
+```rust playground
 /// An RAII transaction guard. If it is dropped without `commit()`, it rolls back.
 struct Transaction {
     name: String,
@@ -552,7 +552,7 @@ ROLLBACK transfer-funds (guard cleanup)
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct TempFile {
     name: String,
 }
@@ -593,7 +593,7 @@ Local bindings drop in **reverse** order of declaration (LIFO), so `b.tmp` — d
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Buffer {
     label: &'static str,
 }
@@ -635,7 +635,7 @@ phase 2: long-running work without the buffer
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Span {
     name: String,
     finished: bool,

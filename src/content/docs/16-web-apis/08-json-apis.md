@@ -345,7 +345,7 @@ This symmetry is why a "round-trip" type — one accepted *and* returned — der
 
 `#[derive(Serialize)]` and `#[derive(Deserialize)]` generate, at compile time, code that maps your struct to and from JSON. By default a Rust field `display_name` becomes the JSON key `"display_name"`. Real APIs usually want `camelCase`, optional fields that disappear when empty, and defaults for missing fields. serde attributes give you all of that declaratively. Here is a compile-verified demonstration:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -480,7 +480,7 @@ The fix is exactly what the note says: add `#[derive(Deserialize)]` (or both `Se
 
 By default, serde **ignores** JSON keys that do not match a struct field. A client can send `{"title":"x","body":"y","admin":true}` to `CreateNote` and the `admin` field is silently dropped: handy for forward compatibility, surprising if you wanted to reject it. To make unknown fields an error, add `#[serde(deny_unknown_fields)]`:
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]

@@ -303,7 +303,7 @@ The fix is to call `.into_response()` on every arm so each yields a `Response`, 
 
 JavaScript objects carry whatever keys you wrote, typically camelCase. Rust structs are conventionally snake_case, and Serde serializes field names verbatim by default, so the JSON shape moves the moment you port a `fullName` field to `full_name`. This is a contract break that no test catches unless you check the actual bytes:
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -630,7 +630,7 @@ async fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]

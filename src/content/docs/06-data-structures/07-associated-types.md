@@ -54,7 +54,7 @@ For a constant-shared-across-a-contract, TypeScript developers usually fall back
 
 Rust offers the generic-parameter style too, but the *idiomatic* choice for "one element type per implementer" is an **associated type**:
 
-```rust
+```rust playground
 trait Container {
     type Item; // associated type: the implementer decides what this is
 
@@ -110,7 +110,7 @@ None
 
 For the constant side, here is the associated-const counterpart: both the inherent kind (attached directly to a type via an `impl` block) and the trait kind.
 
-```rust
+```rust playground
 // (1) An inherent associated const: lives on the type itself.
 struct Circle {
     radius: f64,
@@ -188,7 +188,7 @@ The payoff is that the method signatures stay clean. `get` returns `Option<&Self
 
 The everyday place a TypeScript developer meets associated-type syntax is in a generic bound. To say "any `Container` whose `Item` is `i32`," you write `Container<Item = i32>`:
 
-```rust
+```rust playground
 trait Container {
     type Item;
     fn get(&self, index: usize) -> Option<&Self::Item>;
@@ -229,7 +229,7 @@ first = 7
 
 That `Container<Item = i32>` syntax looks like passing a generic argument, but the `Item =` part makes it clear you are *constraining the associated type*, not supplying a normal type parameter. You see it constantly with iterators. `impl Iterator<Item = i32>` means "some iterator that yields `i32`s":
 
-```rust
+```rust playground
 fn sum_doubled(it: impl Iterator<Item = i32>) -> i32 {
     it.map(|x| x * 2).sum()
 }
@@ -251,7 +251,7 @@ Real output:
 
 Nearly every Rust program uses associated types, because `Iterator` is built on one:
 
-```rust
+```rust playground
 struct Counter {
     count: u32,
     max: u32,
@@ -324,7 +324,7 @@ Use an **associated type** when each implementing type has a *single, canonical*
 
 A **generic** trait — implementable many times for one type:
 
-```rust
+```rust playground
 trait Producer<Output> {
     fn produce(&self) -> Output;
 }
@@ -483,7 +483,7 @@ The fix is `&dyn Container<Item = i32>` (or whatever concrete `Item` you mean). 
 
 A storage-layer abstraction is a textbook case for associated types and consts: every repository stores **one** kind of entity, keyed **one** way, in **one** named collection. Encoding those as a generic parameter would force every caller to repeat them; as associated items they are decided once, by the implementer, and generic code can stay blissfully unaware of the specifics.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 // Each repository decides what it stores (Entity), how rows are keyed (Key),
@@ -625,7 +625,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Shape {
     const SIDES: u32;
     fn name(&self) -> &'static str;
@@ -693,7 +693,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Fib {
     a: u64,
     b: u64,
@@ -737,7 +737,7 @@ Output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Parser {
     type Output;
     const LABEL: &'static str;

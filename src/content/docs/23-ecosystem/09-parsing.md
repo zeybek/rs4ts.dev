@@ -63,7 +63,7 @@ Here is the same semver parser built with **nom** as a set of composable functio
 nom = "8"
 ```
 
-```rust
+```rust playground
 // src/main.rs
 // cargo add nom
 use nom::{
@@ -274,7 +274,7 @@ The regex matched `(x)` and stopped; it has no concept of depth, so it cannot re
 
 The Rust `regex` crate makes this boundary explicit by *rejecting* the features people use to fake structure. Backreferences, for instance, simply do not compile:
 
-```rust
+```rust playground
 // src/main.rs
 // cargo add regex
 use regex::Regex;
@@ -315,7 +315,7 @@ Stay with **regex** when the input is flat — log fields, a date inside prose, 
 
 This trips up nearly every newcomer. A nom parser can succeed while leaving trailing garbage in the leftover input. If you only check `is_ok()`, you will accept malformed input.
 
-```rust
+```rust playground
 // cargo add nom
 use nom::{
     character::complete::digit1,
@@ -392,7 +392,7 @@ That line/column report is something a regex will never give you, and a big reas
 
 Parsing a structured access-log line into a typed record is a textbook nom job: there is light structure (quoted request, numeric fields) but no deep nesting, and you want a precise error and typed output. This is production-flavored — the kind of code you would put behind a log-ingestion pipeline.
 
-```rust
+```rust playground
 // src/main.rs
 // cargo add nom
 use nom::{
@@ -599,7 +599,7 @@ The grammar declares *what* an expression is; the `PrattParser` configuration de
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add nom
 use nom::{
     bytes::complete::{take_while, take_while1},
@@ -644,7 +644,7 @@ Ok(("", ("PORT", "8080")))
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add nom
 use nom::{
     branch::alt,

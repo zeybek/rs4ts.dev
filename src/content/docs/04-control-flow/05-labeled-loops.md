@@ -72,7 +72,7 @@ Two things to note about JavaScript labels: there is **no leading sigil** (just 
 
 The same two programs in Rust. The structure is nearly identical: the differences are the leading apostrophe on the label and that we iterate with iterators instead of C-style index loops:
 
-```rust
+```rust playground
 fn main() {
     // Find the first cell matching a target in a 2-D grid.
     let grid = [
@@ -107,7 +107,7 @@ Found 99 at row 1, col 2
 
 And `continue` to a label:
 
-```rust
+```rust playground
 fn main() {
     let matrix = [
         [1, 2, -1, 4],
@@ -188,7 +188,7 @@ Without a label, control flow always targets the closest loop, exactly like Java
 
 Without labels, escaping nested loops in many languages requires a boolean flag that you check after the inner loop:
 
-```rust
+```rust playground
 fn main() {
     let grid = [[1, 2, 3], [4, 5, 99], [7, 8, 9]];
     let target = 99;
@@ -222,7 +222,7 @@ The labeled version removes the flag and the second check entirely. It is shorte
 
 This is where Rust goes beyond JavaScript. A plain `loop` can return a value via `break value` (see [Break and Continue](/04-control-flow/04-break-continue/)), and that works through a label too. So you can search nested loops and produce the result as an expression:
 
-```rust
+```rust playground
 fn main() {
     let needle = 7;
     let haystack = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
@@ -257,7 +257,7 @@ Here `'search` labels a `loop`, the inner `for` loops do the scanning, and `brea
 
 Since Rust 1.65, you can label a *plain block* and `break` out of it, no loop involved. This is handy for "compute a value with early exits" without a function:
 
-```rust
+```rust playground
 fn classify(score: i32) -> &'static str {
     let label = 'check: {
         if score < 0 {
@@ -413,7 +413,7 @@ help: use `break` on its own without a value inside this `for` loop
 
 If you label a loop but every `break`/`continue` inside is unlabeled, the label does nothing, and Rust warns you, which often reveals a bug (you *meant* to write `break 'rows`):
 
-```rust
+```rust playground
 fn main() {
     'outer: for i in 0..3 { // label defined but never targeted
         for j in 0..3 {
@@ -473,7 +473,7 @@ As in Pitfall 5: a label on a single loop scanning one collection usually wants 
 
 A common production pattern: try a list of endpoints, and for each, retry a few times before moving on. The moment any attempt succeeds, abandon *all* remaining endpoints and attempts. A labeled `loop` returning a value expresses this cleanly:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Endpoint {
     name: &'static str,
@@ -589,7 +589,7 @@ fn main() {
 
 Because a `for` loop cannot `break` with a value, record the hit in a `mut` variable and then break the labeled loop:
 
-```rust
+```rust playground
 fn first_common(a: &[i32], b: &[i32]) -> Option<i32> {
     let mut result = None;
     'outer: for &x in a {
@@ -647,7 +647,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn sum_valid_rows(grid: &[[i32; 3]]) -> i32 {
     let mut total = 0;
     'rows: for row in grid {
@@ -710,7 +710,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn find_in_cube(cube: &[[[i32; 2]; 2]; 2], target: i32) -> Option<(usize, usize, usize)> {
     'search: loop {
         for (x, plane) in cube.iter().enumerate() {

@@ -122,7 +122,7 @@ fn main() -> std::io::Result<()> {
 
 A matching client:
 
-```rust
+```rust playground
 use std::io::{Read, Write};
 use std::net::TcpStream;
 
@@ -228,7 +228,7 @@ fn main() -> std::io::Result<()> {
 
 A UDP client. Calling `connect` on a UDP socket does not open a connection; it just sets a default peer so you can use `send`/`recv` instead of `send_to`/`recv_from`:
 
-```rust
+```rust playground
 use std::net::UdpSocket;
 
 fn main() -> std::io::Result<()> {
@@ -363,7 +363,7 @@ Match on the kind so your retry/backoff logic is portable.
 
 A blocking `read` with no data, or a `connect` to a black-holed host, will otherwise hang the thread for the OS default (often ~75 seconds for `connect`). Set explicit limits:
 
-```rust
+```rust playground
 use std::net::{SocketAddr, TcpStream};
 use std::time::Duration;
 
@@ -463,7 +463,7 @@ fn main() -> std::io::Result<()> {
 
 A small client that drives it through a `hello`/`world`/`quit` exchange:
 
-```rust
+```rust playground
 use std::io::{BufRead, BufReader, Write};
 use std::net::TcpStream;
 
@@ -644,7 +644,7 @@ fn main() -> std::io::Result<()> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::net::UdpSocket;
 use std::time::{SystemTime, UNIX_EPOCH};
 

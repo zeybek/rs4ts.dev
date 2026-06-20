@@ -63,7 +63,7 @@ The point: TypeScript's `!` is **silent and unsafe**. Bad assumptions leak throu
 
 Rust's `unwrap`/`expect` make the same "trust me" claim, but they are **loud and safe**: if the claim is false, the program panics *immediately, at the exact line*, with a message. It never hands you a corrupt value.
 
-```rust
+```rust playground
 fn main() {
     // unwrap on Option: returns the value, or panics on None.
     let nums = vec![1, 2, 3];
@@ -162,7 +162,7 @@ Notice the panic message includes `ParseIntError { kind: InvalidDigit }` — the
 
 A common source of confusion: the `expect` message should describe **why you expected success**, not restate that something failed. The Rust standard library docs explicitly recommend the "should/because" phrasing.
 
-```rust
+```rust playground
 fn main() {
     // Restates the obvious; tells you nothing new when it fires.
     // let p: i32 = "x".parse().expect("parse failed");
@@ -186,7 +186,7 @@ When this panics, the message reads as a sentence: *"PORT should be a valid inte
 
 `unwrap`/`expect` are the **panic-on-failure** end of a spectrum. The other end recovers gracefully:
 
-```rust
+```rust playground
 fn main() {
     let maybe: Option<i32> = None;
 
@@ -246,7 +246,7 @@ fn main() {
 
 If `PORT` is unset, this panics with the `Err` value `NotPresent` printed in the message: a perfectly ordinary, recoverable situation turned into a crash. **Fix:** propagate with `?` or supply a default:
 
-```rust
+```rust playground
 use std::env;
 
 fn main() {
@@ -273,7 +273,7 @@ When an `Option::unwrap` fires, the message is only the generic "called `Option:
 
 `unwrap_or(x)` always evaluates `x`, even when the value is `Some`/`Ok`. If the fallback is expensive (or has side effects), that's wasted work.
 
-```rust
+```rust playground
 fn expensive_default() -> String {
     println!("(computing expensive default)");
     "fallback".to_string()
@@ -312,7 +312,7 @@ Note `(computing expensive default)` prints for `unwrap_or` despite the value be
 
 Clippy has **restriction lints** (off by default) that flag every `unwrap`/`expect`. Enabling them in application code forces a deliberate decision at each call site:
 
-```rust
+```rust playground
 #![warn(clippy::unwrap_used)]
 
 fn first_word(s: &str) -> &str {
@@ -397,7 +397,7 @@ A regex you write yourself is a compile-time-constant pattern. After it compiles
 
 > **Note:** This example uses the external `regex` crate. Add it with `cargo add regex` (this guide uses **regex 1.x**, currently `1.12.3`).
 
-```rust
+```rust playground
 use regex::Regex;
 
 /// Extracts the major version from a tag like "v1.2.3".
@@ -525,7 +525,7 @@ The single `expect` is on data we fully control (the regex literal); every decis
 
 **Instructions:** The function below parses a port from a string with a bare `unwrap`. Rewrite it to use `expect` with a message that explains *why* success is expected and where the value comes from.
 
-```rust
+```rust playground
 fn parse_port(raw: &str) -> u16 {
     raw.parse().unwrap() // TODO: replace with a meaningful expect
 }
@@ -538,7 +538,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn parse_port(raw: &str) -> u16 {
     raw.parse()
         .expect("PORT must be a valid u16 (set via the PORT env var)")
@@ -581,7 +581,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn middle_element(data: &[i32]) -> Option<i32> {
     if data.is_empty() {
         return None;
@@ -615,7 +615,7 @@ None
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn middle_element(data: &[i32]) -> Option<i32> {
     if data.is_empty() {
         return None;

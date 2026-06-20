@@ -87,7 +87,7 @@ This is genuinely close to Rust's model, but it is **opt-in per variable** (you 
 
 In Rust you implement the **`Drop`** trait. There is no `close()` to call and no `finally` to write: the destructor runs automatically when `conn` leaves scope.
 
-```rust
+```rust playground
 struct Connection {
     id: u32,
 }
@@ -142,7 +142,7 @@ You have been relying on RAII guards since your first Rust program, perhaps with
 
 Here is the lock guard in action, the canonical "release a lock" case:
 
-```rust
+```rust playground
 use std::sync::Mutex;
 
 fn main() {
@@ -196,7 +196,7 @@ A few rules make it behave the way it does, and each one differs from a TypeScri
 
 Within a scope, values are dropped in **reverse order of declaration** — last declared, first dropped — which mirrors how nested resources should unwind. Nested blocks drop their values at the inner `}`.
 
-```rust
+```rust playground
 struct Guard(&'static str);
 
 impl Drop for Guard {
@@ -241,7 +241,7 @@ Notice three things: the nested `_inner` drops at its closing brace; `drop(early
 
 This is the property that makes RAII trustworthy. When a thread panics, Rust **unwinds** the stack, dropping every value along the way — exactly like a `finally` block, but for *every* value, automatically.
 
-```rust
+```rust playground
 struct Connection {
     id: u32,
 }
@@ -284,7 +284,7 @@ The connection closes even though the function never reached its end. (The one e
 
 Go has `defer`, Swift has `defer`, and TypeScript has `try/finally`. Rust does not need a `defer` keyword because *any* type with a `Drop` impl is a deferral mechanism. To defer arbitrary code, wrap a closure in a guard:
 
-```rust
+```rust playground
 // A hand-rolled "defer" via a generic scope guard holding a closure.
 struct ScopeGuard<F: FnMut()> {
     cleanup: F,
@@ -353,7 +353,7 @@ The headline difference is **ownership-driven**. JavaScript ties cleanup to synt
 
 This is the single most common RAII bug, and it does **not** produce a compiler error — only wrong behavior. A bare wildcard pattern `_` binds *nothing*, so the value is a temporary that drops at the end of the statement. A named binding (even `_named`) lives to the end of the scope.
 
-```rust
+```rust playground
 struct Guard(&'static str);
 impl Drop for Guard {
     fn drop(&mut self) { println!("dropping {}", self.0); }
@@ -466,7 +466,7 @@ This compiles fine and then hangs. The fix is to *scope the guard*: put the firs
 
 `scopeguard` packages the patterns above. `defer!` runs a block at scope end; `guard(value, closure)` attaches cleanup to a value and derefs to it transparently:
 
-```rust
+```rust playground
 use scopeguard::{defer, guard};
 
 fn main() {
@@ -505,7 +505,7 @@ The most useful feature is **defusing** a guard with `ScopeGuard::into_inner`, w
 
 A **connection pool** is RAII at its most idiomatic. Connections are checked out as a `Lease` guard; while the lease is alive it owns a connection; when the lease drops, the connection returns to the pool automatically. The caller cannot leak a connection because there is no way to hold one *except* through a lease, and the lease cleans up on drop.
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -590,7 +590,7 @@ This is precisely how real pools such as `r2d2` and `bb8` work: their `PooledCon
 
 The other production staple is a transaction that **rolls back by default** and commits only on the explicit success path. `scopeguard`'s `into_inner` defuses the rollback when we are ready to commit:
 
-```rust
+```rust playground
 use scopeguard::{guard, ScopeGuard};
 
 struct Transaction { id: u32 }
@@ -677,7 +677,7 @@ The `?` operator on the failure path returns early, and the rollback guard fires
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Instant;
 
 struct Timer {
@@ -734,7 +734,7 @@ The `_timer` binding has a name (not `_`), so it lives until the end of `do_work
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::Cell;
 use std::rc::Rc;
 
@@ -811,7 +811,7 @@ Because the decrement lives in `Drop`, the indentation is impossible to leave un
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Defer<F: FnOnce()>(Option<F>);
 
 impl<F: FnOnce()> Drop for Defer<F> {

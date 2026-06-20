@@ -221,7 +221,7 @@ A `TokenStream` is a flat sequence of **token trees**: identifiers, literals, pu
 
 You can build and inspect a `proc_macro2::TokenStream` entirely on the host, which is why the standalone demo below runs as a normal binary:
 
-```rust
+```rust playground
 use proc_macro2::TokenStream;
 use quote::quote;
 use syn::DeriveInput;

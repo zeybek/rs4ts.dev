@@ -80,7 +80,7 @@ The dependency is a **trait**; the service receives an implementation. Here it i
 
 The service is generic over its dependencies. The compiler generates a specialized copy of `WelcomeService` for each concrete `(Clock, UserStore)` pair you actually use (monomorphization), so every call is statically dispatched and inlinable: no vtable, no boxing.
 
-```rust
+```rust playground
 // Rust - the service is generic over its dependencies (static dispatch).
 trait Clock {
     fn now_unix(&self) -> u64;
@@ -142,7 +142,7 @@ Welcome grace@example.com (at 1000)
 
 When you need to decide an implementation at runtime (from config, a feature flag, or because you store a heterogeneous collection of services), hold the dependency as a **boxed trait object**. This is the form closest to a TypeScript DI container: one field type, many possible concrete values, dispatched through a vtable.
 
-```rust
+```rust playground
 // Rust - the service owns boxed trait objects, chosen at runtime.
 use std::collections::HashMap;
 
@@ -402,7 +402,7 @@ The fix is to use the thread-safe counterpart — `Arc<Vec<String>>` instead of 
 
 A `Notifier` that depends on a clock, an email sender, and an audit log — the kind of service you would register as application state in an axum/tokio app. Dependencies are injected as `Arc<dyn Trait + Send + Sync>` so the graph is cheap to clone into every request handler and safe to share across threads. The `#[cfg(test)]` module shows the payoff: all three real dependencies are swapped for deterministic fakes, and the service code is never touched.
 
-```rust
+```rust playground
 // Rust - dependencies injected as Arc<dyn Trait>, the shape used for shared
 // application state in a web service. Compile-verified.
 use std::sync::Arc;
@@ -588,7 +588,7 @@ Because `email.clone()` is just an `Arc` clone, the test keeps a typed `Arc<SpyE
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait PriceFeed {
     fn price(&self, symbol: &str) -> Option<f64>;
 }
@@ -647,7 +647,7 @@ total: 50
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Notifier {
     fn notify(&self, msg: &str) -> String;
 }
@@ -702,7 +702,7 @@ sms: build passed
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 trait Clock {

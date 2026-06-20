@@ -214,7 +214,7 @@ TypeScript's spread-with-defaults trick (`{ ...defaults, ...overrides }`) has no
 1. **A constructor with the common arguments**, like `User::new(id, name)`, then mutate the one or two fields a test cares about.
 2. **Struct update syntax** (`..`) when you have a default value to start from:
 
-```rust
+```rust playground
 #[derive(Debug, Clone, PartialEq)]
 struct User {
     id: u32,
@@ -287,7 +287,7 @@ This `Drop`-on-scope-exit pattern is called **RAII** (Resource Acquisition Is In
 
 TypeScript's module-level `const TEST_CONFIG = ...` runs once and is visible everywhere in the file. Rust `static` items must be initialized with a *constant expression*, so you cannot write `static CONFIG: HashMap<...> = { ... }` with runtime work. The fix is a lazily-initialized static, initialized the first time it is touched, then shared:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::sync::LazyLock;
 
@@ -315,7 +315,7 @@ Before `LazyLock` was stabilized, the community crate **`once_cell`** filled thi
 once_cell = "1"
 ```
 
-```rust
+```rust playground
 use once_cell::sync::Lazy;
 
 static GREETING: Lazy<String> = Lazy::new(|| format!("hello, {}", "world"));
@@ -356,7 +356,7 @@ A few of these deserve emphasis:
 
 The single most common RAII mistake: binding a guard to `_` (a bare underscore) instead of a named variable. `let _ = expr;` evaluates `expr` and **drops the result at the end of that statement**: your fixture is torn down before the test body even starts.
 
-```rust
+```rust playground
 struct Guard(&'static str);
 impl Drop for Guard {
     fn drop(&mut self) {
@@ -419,7 +419,7 @@ error[E0277]: `RefCell<u32>` cannot be shared between threads safely
 
 The fix is to use a thread-safe interior-mutability type: `Mutex`, `RwLock`, or an atomic such as `AtomicU32`. (Smart pointers and interior mutability are covered in [Section 10 — Smart Pointers](/10-smart-pointers/).)
 
-```rust
+```rust playground
 use std::sync::{LazyLock, Mutex};
 
 static CALL_LOG: LazyLock<Mutex<Vec<String>>> = LazyLock::new(|| Mutex::new(Vec::new()));

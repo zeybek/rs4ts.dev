@@ -60,7 +60,7 @@ console.log(`ok=${ok}, token=${token}`);
 
 Here is the same `auth` / `session` structure in Rust, written **inline** (everything in one file) so you can see the whole module tree at a glance.
 
-```rust
+```rust playground
 // src/main.rs — the crate root.
 
 // `mod auth { ... }` defines a module named `auth` right here, inline.
@@ -530,7 +530,7 @@ The takeaway: `orders` depends on `catalog` and `pricing`, but a *consumer* of t
 
 **Instructions:** Create a `geometry` module with a child module `shapes`. `shapes` should expose a public `describe()` that returns `"circle, square, triangle"`. `geometry` should expose a public `summary()` that calls `shapes::describe()` and returns `"Shapes: circle, square, triangle"`. From `main`, print both `geometry::summary()` and `geometry::shapes::describe()`.
 
-```rust
+```rust playground
 fn main() {
     // TODO: build the geometry / shapes module tree above this,
     // then print summary() and shapes::describe().
@@ -540,7 +540,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 mod geometry {
     pub mod shapes {
         pub fn describe() -> &'static str {

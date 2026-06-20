@@ -61,7 +61,7 @@ Two things matter here. First, the overload *signatures* are pure compile-time a
 
 On stable Rust you cannot write overlapping impls, so the idiomatic equivalent of the overloaded `describe` is a **trait with a default method that specific types override**. The blanket behavior lives in the trait's default body; any type that wants something more specific provides its own `impl`. Because the consumer is generic, dispatch is resolved at compile time with zero runtime cost:
 
-```rust
+```rust playground
 use std::fmt::Debug;
 
 // A metrics sink. Every metric type gets a sensible *default* encoding; types
@@ -338,7 +338,7 @@ This is the pattern in the [Rust Equivalent](#rust-equivalent) above: put the ge
 
 If you know *all* the types up front, do not abstract over them at all; enumerate them. An `enum` plus an exhaustive `match` is faster, clearer, and impossible to get wrong than any specialization scheme:
 
-```rust
+```rust playground
 // When the set of "specialized" cases is closed, an enum + match beats any
 // specialization machinery: one type, exhaustive dispatch, no overlap problem.
 enum Value {
@@ -380,7 +380,7 @@ list of 3
 
 If you have a truly generic `fn f<T: ...>(x: &T)` and want a fast path for one or two concrete types, you can ask at runtime via [`std::any::Any`](https://doc.rust-lang.org/std/any/trait.Any.html). This trades a tiny runtime check for not needing nightly:
 
-```rust
+```rust playground
 use std::any::Any;
 use std::fmt::Debug;
 
@@ -418,7 +418,7 @@ some value: [1, 2, 3]
 
 When you genuinely need the compiler to choose at compile time between "T implements Display" and "T only implements Debug," you can exploit how method resolution prefers fewer autorefs. Two traits share a method name; one is implemented on `T` (fewer autorefs, tried first), the other on `&T`. The compiler reaches the `&T` impl only when the `T` impl does not apply:
 
-```rust
+```rust playground
 use std::fmt::{Debug, Display};
 
 // More specific: requires Display. Implemented on `T`, so it is tried first.
@@ -477,7 +477,7 @@ This compiles cleanly on stable; the `(&value).render()` call site forces method
 
 A common production need: a serializer that wants a **zero-extra-allocation fast path** for string slices and a **general path** for anything `Display`. With true specialization you would write one generic method and let a `&str` impl override it. On stable, the honest, zero-magic version exposes two explicit methods and lets the call site pick: clearer than the autoref trick and just as fast, because both are statically dispatched:
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 // A tiny JSON-string encoder. We want a fast path for `&str` (push the bytes
@@ -559,7 +559,7 @@ Cross-links within this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Notify {
     fn message(&self) -> String {
         String::from("You have a notification")
@@ -611,7 +611,7 @@ You have a notification
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::any::Any;
 
 fn byte_len<T: Any>(value: &T) -> Option<usize> {
@@ -655,7 +655,7 @@ None
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt::Debug;
 
 // We want: if T: Clone, say "cloned"; otherwise (T: Debug) say "debug: ...".

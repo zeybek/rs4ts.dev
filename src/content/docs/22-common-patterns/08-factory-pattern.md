@@ -107,7 +107,7 @@ Two shapes to carry forward. `NotifierFactory.create` returns *some* `Notifier` 
 
 `User` has no constructor. Instead it has **associated functions**: functions namespaced under the type, called with `Type::function()`. `new` is just the conventional name for the primary one; `admin`, `guest`, and `from_row` are named alternatives that replace TypeScript's overloads and `static` factory methods.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct User {
     id: u64,
@@ -173,7 +173,7 @@ Err("expected `id,name`")
 
 When the products are a *known, fixed set*, model them as an **enum** and make the factory a single `match` that turns input into a variant. There is one concrete type (`Shape`), so the products live happily in a `Vec`, and the compiler forces every consumer to handle every variant.
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Shape {
     Circle { radius: f64 },
@@ -230,7 +230,7 @@ blob 1 2 3 -> error: bad spec: "blob 1 2 3"
 
 When callers should not know the concrete type, and the set of products is open or selected at runtime, the factory returns `Box<dyn Trait>`. This is the direct analogue of `NotifierFactory.create` returning `Notifier`.
 
-```rust
+```rust playground
 trait Notifier {
     fn send(&self, message: &str) -> String;
     fn channel(&self) -> &'static str;
@@ -352,7 +352,7 @@ This is the same closed-vs-open axis as the [The Visitor Pattern](/22-common-pat
 
 A factory does not have to produce a struct. When the product is "a behavior," the factory returns a closure. `make_parser` below is a factory whose product is a `Box<dyn Fn>` configured by the captured `radix`:
 
-```rust
+```rust playground
 // A factory whose product is a closure (a function value).
 type Parser = Box<dyn Fn(&str) -> Result<i64, String>>;
 
@@ -572,7 +572,7 @@ A factory that parses untrusted input must not `unwrap`/`panic!` on bad data; th
 
 A report exporter whose **output format is chosen from configuration**. It combines two factory styles cleanly: a *fallible enum factory* (`Format::parse`) that validates the config string into a closed set, and a *trait-object factory* (`Format::exporter`) that turns the chosen format into a `Box<dyn Exporter>`. Callers touch only `render_report`.
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 /// One row of the report.
@@ -755,7 +755,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Temperature {
     celsius: f64,
@@ -804,7 +804,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 trait Animal {
@@ -895,7 +895,7 @@ dragon: (unknown)
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Factory {
     type Product;
     fn create(&self) -> Self::Product;

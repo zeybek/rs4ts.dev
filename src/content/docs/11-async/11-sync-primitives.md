@@ -101,7 +101,7 @@ Two things to notice, because they map directly onto the Rust version:
 
 Rust gives you these primitives as battle-tested library types instead of hand-rolled classes. Because tasks can run on **different OS threads** under Tokio's multi-thread scheduler, the lock does real memory-safety work here, beyond just ordering.
 
-```rust
+```rust playground
 // Rust — tokio::sync primitives for shared async state
 use std::sync::Arc;
 use tokio::sync::{Mutex, Semaphore};
@@ -198,7 +198,7 @@ The decision tree is therefore:
 
 It is a common misconception that "async code must use async locks everywhere." In fact, for a short critical section that does no `.await`, `std::sync::Mutex` is the idiomatic and faster choice; even Tokio's own documentation recommends it. The async `Mutex` carries extra bookkeeping (a wait queue of tasks) and lets the task yield, which is pure overhead if you never actually need to yield while holding the lock.
 
-```rust
+```rust playground
 // std: drop the guard in a tight scope BEFORE any .await
 use std::sync::{Arc, Mutex};
 use tokio::time::{sleep, Duration};
@@ -233,7 +233,7 @@ The explicit `{ ... }` scope is the workhorse pattern: it forces the guard's `Dr
 
 When reads vastly outnumber writes (a config map, a cache index), an `RwLock` lets many readers proceed concurrently and only serializes writers.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -272,7 +272,7 @@ final len = 2
 
 A `Semaphore` hands out a fixed number of *permits*. A task calls `acquire().await`; if no permit is free, the task waits. When the returned permit is dropped, a permit is returned to the pool. This is the direct analog of the JavaScript `p-limit` / hand-rolled semaphore above, and `std` has no equivalent.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use tokio::sync::Semaphore;
 use tokio::time::{sleep, Duration};
@@ -388,7 +388,7 @@ note: required by a bound in `tokio::spawn`
 1. Drop the guard before the `.await` by scoping it (shown earlier) — keeps the cheap `std` lock.
 2. Switch to `tokio::sync::Mutex`, whose guard *is* `Send`, when you genuinely must stay locked across the `.await`:
 
-```rust
+```rust playground
 // tokio::sync::Mutex guard is Send, so holding across .await compiles
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -414,7 +414,7 @@ Real output: `1`.
 
 Unlike Node, where there is no real lock to deadlock on, a Tokio `Mutex` is **not reentrant**. If a task holds the guard and then tries to lock the same mutex again, it waits forever — the permit it is waiting for is held by itself.
 
-```rust
+```rust playground
 use tokio::sync::Mutex;
 use tokio::time::{timeout, Duration};
 
@@ -491,7 +491,7 @@ A `Mutex<u64>` counter incremented under a lock works, but for a single integer 
 - **Use `Semaphore` for backpressure / concurrency limits**, e.g. capping simultaneous outbound HTTP requests or database connections.
 - **For spawned tasks, prefer the `owned` variants** — `Mutex::lock_owned`, `Semaphore::acquire_owned` — to sidestep guard-lifetime issues with `'static` futures:
 
-```rust
+```rust playground
 use std::sync::Arc;
 use tokio::sync::Semaphore;
 
@@ -525,7 +525,7 @@ available permits = 1
 
 A small client that fetches user records from a slow "API", **caches** them behind an `RwLock` (many concurrent readers, occasional writers), and **throttles** outbound calls with a `Semaphore` so it never makes more than `MAX_INFLIGHT` requests at once. This is the production-flavored combination of all three primitives.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::{RwLock, Semaphore};
@@ -640,7 +640,7 @@ Related pages in this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::{Arc, Mutex};
 use tokio::time::{sleep, Duration};
 
@@ -684,7 +684,7 @@ The `.await` happens *before* the lock is taken, so the `std` `MutexGuard` never
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -739,7 +739,7 @@ The writers serialize (each needs exclusive `write()` access), so all five incre
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 use tokio::sync::Semaphore;

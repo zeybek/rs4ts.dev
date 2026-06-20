@@ -52,7 +52,7 @@ The ESLint analogues here would be `prefer-template` (use a template literal ins
 
 Here is the same function written the way a TypeScript developer often writes Rust on day one. It compiles and runs correctly, but Clippy has opinions about almost every line:
 
-```rust
+```rust playground
 // src/main.rs — the "before". Compiles, runs, but Clippy flags it.
 #[derive(Debug)]
 struct Order {
@@ -84,7 +84,7 @@ fn main() {
 
 Running `cargo clippy` on this (with `#![warn(clippy::uninlined_format_args)]` added so the format-string lint also fires) produces real warnings for `len() == 0`, the identity `.map(|i| i.clone())`, the trailing `return`, and the un-inlined format arguments. Here is the cleaned-up **after**. It is Clippy-clean even under the stricter `clippy::pedantic` group, and arguably easier to read:
 
-```rust
+```rust playground
 // src/main.rs — the "after". Clean under `cargo clippy -- -W clippy::pedantic`.
 #[derive(Debug)]
 struct Order {
@@ -628,7 +628,7 @@ cargo clippy -- -W clippy::pedantic        # one run
 
 A small log-parsing utility, written the "first draft" way and then cleaned up using Clippy. The first version compiles and runs, but earns a stack of warnings.
 
-```rust
+```rust playground
 // src/main.rs — first draft, before Clippy
 #[derive(Debug)]
 struct LogLine {
@@ -665,7 +665,7 @@ fn main() {
 
 Running `cargo clippy` flags `ptr_arg` (`&Vec<String>` → `&[String]`), `needless_range_loop`, `len_zero`, `get(0)` → `first()`, `unwrap_or` constructing a default, `redundant_field_names`, and `needless_return`. After taking the suggestions (and inlining the format args), the cleaned-up version is Clippy-clean under `clippy::all`:
 
-```rust
+```rust playground
 // src/main.rs — after Clippy. Clean under `cargo clippy -- -W clippy::all`.
 #[derive(Debug)]
 struct LogLine {
@@ -753,7 +753,7 @@ fn initials(names: &Vec<String>) -> Vec<char> {
 
 Clippy flags `ptr_arg` (`&Vec<String>`), `needless_range_loop`, the redundant `.clone()`, the `match` that should be a `filter_map`, and `needless_return`. The idiomatic version:
 
-```rust
+```rust playground
 // Clean under `cargo clippy`. Verified output below.
 fn initials(names: &[String]) -> Vec<char> {
     names
@@ -800,7 +800,7 @@ fn resolve(o: Option<String>) -> String {
 
 (1) `unwrap_or(slow_default())` evaluates `slow_default()` **eagerly**, every call, even when `o` is `Some` and the result is discarded. (2) Use the lazy `unwrap_or_else` with a closure. (3) The instrumentation confirms it.
 
-```rust
+```rust playground
 fn slow_default() -> String {
     println!("slow_default() was called");
     String::from("fallback")
@@ -877,7 +877,7 @@ fn average_active_age(users: &Vec<User>) -> Option<f64> {
 
 This is clean under `cargo clippy -- -W clippy::all` (the default groups). The `cast_precision_loss` warning only appears under `pedantic`; here we keep the cast but it is justified by `n` being a small count, so a scoped `#[allow]` with a comment is the pragmatic choice.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct User {
     name: String,

@@ -69,7 +69,7 @@ Rust offers an equivalent for each habit. Let's translate them in order.
 
 Here is the same cart in Rust, instrumented with `dbg!` instead of `console.log`. Create it with `cargo new shopping_cart` and paste this into `src/main.rs`:
 
-```rust
+```rust playground
 /// A line item in a shopping cart.
 #[derive(Debug, Clone)]
 struct LineItem {
@@ -139,7 +139,7 @@ let total = dbg!(total_after_discount(&cart, 500));
 
 To inspect a value *without* moving it, borrow inside the macro — `dbg!(&scores)` — exactly as you would pass a reference anywhere else:
 
-```rust
+```rust playground
 fn main() {
     let scores = vec![88, 92, 47, 73];
     dbg!(&scores); // borrow: does NOT take ownership of scores
@@ -372,7 +372,7 @@ As shown above, the same arithmetic bug panics under `cargo run` but silently wr
 
 A common real-world debugging task is parsing messy input, exactly where a TypeScript developer scatters `console.log`. Here is a price parser that strips formatting and returns cents, instrumented with `eprintln!` so the debug output goes to stderr and the parsed results to stdout:
 
-```rust
+```rust playground
 /// Extract the digit-only cents value from a free-form price string.
 /// Returns `None` if there are no digits to parse.
 fn parse_amount(s: &str) -> Option<u64> {
@@ -451,7 +451,7 @@ Related sections of this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let cents = 1299;
     // dbg! wraps the expression in place and returns its value.

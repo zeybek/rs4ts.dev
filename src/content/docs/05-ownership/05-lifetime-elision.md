@@ -54,7 +54,7 @@ console.log(headers.get("host")); // example.com
 
 Here is the same code in Rust. Notice that **none** of these signatures carry a `'a` annotation, even though they take and return references. The elision rules fill them in:
 
-```rust
+```rust playground
 // One reference in, one reference out: the compiler infers the lifetime.
 fn first_word(s: &str) -> &str {
     let bytes = s.as_bytes();
@@ -373,7 +373,7 @@ If a function builds a new string or vector rather than borrowing from an argume
 
 A small, production-flavored HTTP header parser. It borrows the raw request text and hands back slices into it. Almost every method relies on elision. The only explicit lifetime is on the struct itself (where elision never applies) and on a free function that overrides rule defaults:
 
-```rust
+```rust playground
 /// A zero-copy view over raw HTTP header text.
 /// The struct borrows the buffer, so it needs an explicit lifetime.
 struct Headers<'a> {
@@ -481,7 +481,7 @@ fn main() {
 
 Elision **succeeds**: there is one input lifetime (rule 1), and rule 2 copies it to any elided output lifetime. Here the return type is `Option<char>` — `char` is an owned `Copy` type, not a reference — so there's no output lifetime to assign at all. No annotation is needed either way.
 
-```rust
+```rust playground
 fn last_char(s: &str) -> Option<char> {
     s.chars().last()
 }
@@ -529,7 +529,7 @@ fn main() {
 
 Rule 3 ties the elided output lifetime to `&self`, so the returned slice borrows from `self.data` with no annotation needed:
 
-```rust
+```rust playground
 struct Buffer {
     data: String,
 }
@@ -577,7 +577,7 @@ fn main() {
 
 Rule 1 gives `a` and `b` separate lifetimes; rule 2 doesn't apply (two inputs); rule 3 doesn't apply (no `self`). With the output lifetime unassigned, elision fails. Tie both inputs and the output to a single lifetime `'a`:
 
-```rust
+```rust playground
 fn pick<'a>(flag: bool, a: &'a str, b: &'a str) -> &'a str {
     if flag { a } else { b }
 }

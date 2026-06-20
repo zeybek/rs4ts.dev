@@ -50,7 +50,7 @@ There is one important limitation hiding here: because Node runs your JavaScript
 
 `tokio::spawn` takes a future and hands it to the runtime as a task. It returns a `JoinHandle<T>`, roughly the analogue of the `Promise` you would have gotten back from an async call, except the work is now an independently scheduled task:
 
-```rust
+```rust playground
 use tokio::task::JoinHandle;
 
 #[tokio::main]
@@ -86,7 +86,7 @@ The shape mirrors `const p = fetchUser(1); const u = await p;` in JavaScript —
 
 To fetch many things concurrently, spawn in a loop and collect the handles:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -191,7 +191,7 @@ These are the compile-time price of real parallelism. JavaScript needs neither b
 
 Unlike some task systems, dropping a `JoinHandle` does **not** stop the task; it simply detaches it, and the task runs to completion in the background. You just lose the ability to await its result.
 
-```rust
+```rust playground
 use tokio::sync::oneshot;
 
 #[tokio::main]
@@ -222,7 +222,7 @@ background work finished
 
 To actually stop a task, call `abort()` on its handle. The task is cancelled at its next `.await` point, and awaiting the handle then returns a `JoinError` for which `is_cancelled()` is true:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::sleep;
 
@@ -258,7 +258,7 @@ Async tasks are **cooperative**: a task only yields control at an `.await`. If a
 
 `tokio::task::spawn_blocking` moves a synchronous closure onto a **separate, dedicated thread pool** reserved for blocking work, so the async workers stay free:
 
-```rust
+```rust playground
 use tokio::task;
 
 // A CPU-bound, synchronous function. It blocks the thread it runs on.
@@ -302,7 +302,7 @@ It is worth being precise, because "task" and "thread" are casually conflated. R
 
 An OS thread:
 
-```rust
+```rust playground
 use std::thread;
 
 fn main() {
@@ -485,7 +485,7 @@ If you simply want to run a known set of futures concurrently and wait for all o
 
 When you spawn a variable number of tasks and want to collect results as they finish, `tokio::task::JoinSet` is cleaner than a `Vec<JoinHandle<_>>`. It owns the handles, hands you results in completion order, and can abort the whole group at once:
 
-```rust
+```rust playground
 use tokio::task::JoinSet;
 
 async fn work(id: u32) -> u32 {
@@ -538,7 +538,7 @@ The unstable `tokio::task::Builder` can name tasks (under `tokio_unstable`), and
 
 A production-flavored pattern: a small concurrent crawler. We spawn one task per URL, cap how many run at once with a `Semaphore` (like a connection-pool limit), fetch the body asynchronously, and offload the CPU-bound checksum to `spawn_blocking`. Each task returns its result through a `JoinHandle`.
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::Semaphore;
@@ -696,7 +696,7 @@ sum of squares 1..=10 = 385
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use tokio::task;
 
 /// Synchronous, CPU-bound: count primes up to n (a stand-in for heavy work).
@@ -741,7 +741,7 @@ Running this loop inside a plain `tokio::spawn` would pin an async worker for th
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::task::JoinSet;
 use tokio::time::sleep;

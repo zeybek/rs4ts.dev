@@ -83,7 +83,7 @@ This works, but notice the soft edges: `meta.size` is a JavaScript `number` (an 
 
 Here is the same set of capabilities in idiomatic Rust. Metadata is typed, sizes are exact `u64`, permission bits are reached through an explicit extension trait, and we lean on the [`walkdir`](https://docs.rs/walkdir) crate for an ergonomic, prunable recursive walk:
 
-```rust
+```rust playground
 // cargo add walkdir
 use std::collections::HashMap;
 use std::fs;
@@ -174,7 +174,7 @@ by extension = [("md", 1), ("rs", 1)]
 
 `fs::metadata(path)` returns `io::Result<Metadata>`. A [`Metadata`](https://doc.rust-lang.org/std/fs/struct.Metadata.html) value answers a fixed, compile-checked set of questions:
 
-```rust
+```rust playground
 use std::fs;
 use std::io;
 
@@ -225,7 +225,7 @@ A few contrasts with `node:fs`:
 
 Cross-platform code uses `Permissions::readonly()` / `set_readonly()`. On Unix you usually want the real mode bits, which live behind the `std::os::unix::fs::PermissionsExt` trait. **Importing the trait is what makes the `mode()` and `set_mode()` methods appear**, a recurring source of confusion for newcomers:
 
-```rust
+```rust playground
 use std::fs::{self, File};
 use std::io;
 use std::os::unix::fs::PermissionsExt;
@@ -266,7 +266,7 @@ The `{:o}` formatter prints octal, the natural base for Unix modes. We mask with
 
 This is the single most important distinction in this file. `fs::metadata` resolves symbolic links (like `stat(2)` / Node's `stat`); `fs::symlink_metadata` reports on the link object itself (like `lstat(2)` / Node's `lstat`):
 
-```rust
+```rust playground
 use std::fs;
 use std::io;
 use std::os::unix::fs as unix_fs;
@@ -316,7 +316,7 @@ Note that on Unix `symlink` lives in `std::os::unix::fs`; on Windows the equival
 
 For a single level, `fs::read_dir` yields `io::Result<DirEntry>` items. Each `DirEntry` caches its file type, so `entry.file_type()` is usually free of an extra syscall:
 
-```rust
+```rust playground
 use std::fs;
 use std::io;
 
@@ -347,7 +347,7 @@ top level = ["Cargo.toml", "src"]
 
 `read_dir` does **not** recurse. The standard library deliberately omits a built-in recursive walker, so the ecosystem standard is the [`walkdir`](https://docs.rs/walkdir) crate. It handles depth limits, symlink-loop detection, and, most importantly, `filter_entry`, which prunes a subtree *before descending into it* (so you never pay to walk `target/` or `node_modules/`):
 
-```rust
+```rust playground
 // cargo add walkdir
 use std::fs;
 use std::io;
@@ -511,7 +511,7 @@ Calling `std::fs::read_to_string` from inside a `tokio` task blocks the runtime 
 
 A common tool to build is a **disk-usage analyzer**: walk a project, skip the build directory, and report total on-disk bytes per file extension. It exercises `walkdir`, `filter_entry` pruning, cached `file_type()`, and per-entry `metadata().len()` — and demonstrates the exact `u64` arithmetic that JavaScript's `number` cannot guarantee:
 
-```rust
+```rust playground
 // cargo add walkdir
 use std::collections::HashMap;
 use std::fs;
@@ -603,7 +603,7 @@ The `rs` total is `100 + 50 = 150` — the two source files only — because `fi
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fs;
 use std::io;
 use std::path::Path;
@@ -651,7 +651,7 @@ file, 11 bytes, modified at 1796000000s
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fs;
 use std::io;
 use std::os::unix::fs::PermissionsExt;
@@ -706,7 +706,7 @@ data.bin executable = false
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fs;
 use std::io;
 use std::path::Path;

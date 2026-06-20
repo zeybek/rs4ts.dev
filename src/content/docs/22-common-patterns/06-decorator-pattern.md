@@ -92,7 +92,7 @@ There are two idiomatic encodings. Start with the **trait-object** version becau
 
 The inner value is a `Box<dyn DataSource>`, exactly like TypeScript's `inner: DataSource`: a pointer to *anything* implementing the trait, chosen at runtime.
 
-```rust
+```rust playground
 trait DataSource {
     fn read(&self) -> String;
     fn write(&mut self, data: &str);
@@ -164,7 +164,7 @@ This is the same behavior and the same shape as the TypeScript: each decorator i
 
 Make the inner type a **type parameter** instead of a boxed trait object. Now there is no `Box`, no heap allocation, and no vtable: the compiler monomorphizes each layer and can inline straight through the stack.
 
-```rust
+```rust playground
 trait DataSource {
     fn read(&self) -> String;
 }
@@ -243,7 +243,7 @@ This is the same static-vs-dynamic-dispatch trade-off you meet everywhere in Rus
 
 Rust's I/O traits are built on decoration. `BufReader<R>` wraps **any** `R: Read` and adds buffering, and `BufReader<R>` is *itself* a `Read`, so it composes. Same for `BufWriter<W>`, `flate2`'s `GzEncoder<W>`, and so on: each wraps a `Read`/`Write` and is one too.
 
-```rust
+```rust playground
 use std::io::{BufReader, Read};
 
 fn main() {
@@ -389,7 +389,7 @@ In TypeScript every method call is already a dynamic dispatch, so a `Box<dyn>` d
 
 A production-flavored client that layers two independent concerns over a base fetcher: a **cache** decorator that memoizes responses, and a **retry** decorator that re-attempts failed fetches. Each is a generic wrapper implementing the shared `Fetcher` trait; the cache uses `RefCell` for interior mutability behind `&self`.
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::collections::HashMap;
 
@@ -496,7 +496,7 @@ tokio = { version = "1.52", features = ["rt", "macros"] }
 
 Or run `cargo add tower --features util` and `cargo add tokio --features rt,macros`.
 
-```rust
+```rust playground
 use std::convert::Infallible;
 use std::future::Future;
 use std::pin::Pin;
@@ -670,7 +670,7 @@ The structure is identical to the synchronous `Cached`/`Retry` decorators: each 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Notifier {
     fn send(&self, msg: &str) -> String;
 }
@@ -730,7 +730,7 @@ Note how each layer sees the message at *its* point in the chain: `AlsoSlack` fo
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::cell::Cell;
 
 trait Source {
@@ -789,7 +789,7 @@ value=42, calls=3
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // `with_logging` takes any handler closure and returns a wrapped one.
 fn with_logging<F>(handler: F) -> impl Fn(&str) -> String
 where

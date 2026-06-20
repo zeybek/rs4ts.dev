@@ -59,7 +59,7 @@ console.log(user.name); // TypeError at runtime: Cannot read properties of undef
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn parse_port(input: &str) -> Result<u16, String> {
     match input.parse::<u16>() {
         Ok(port) => Ok(port),
@@ -138,7 +138,7 @@ enum Result<T, E> {
 
 Because they are enums, you construct and inspect them with the same tools as any other enum (see [Section 06: Enums](/06-data-structures/)):
 
-```rust
+```rust playground
 fn main() {
     let some_number: Option<i32> = Some(5);
     let no_number: Option<i32> = None;
@@ -161,7 +161,7 @@ Ok(200) Err("boom")
 
 In JavaScript, *any* reference might secretly be `null` or `undefined`, which is why "Cannot read properties of undefined" is the most common runtime error in the ecosystem. Rust has no `null`. If a value might be absent, its type is `Option<T>`, and `T` and `Option<T>` are different types. You literally cannot pass a "maybe-missing" value where a "definitely-present" one is required without first unwrapping it. Indexing past the end of a slice does not return `undefined`; `Vec::get` returns `None`:
 
-```rust
+```rust playground
 fn main() {
     let names = vec!["Ada", "Linus"];
     let third: Option<&&str> = names.get(2); // out of bounds -> None, never a panic
@@ -177,7 +177,7 @@ None
 
 The fundamental way to get at the inner value is `match`, which is exhaustive: you must cover every variant or the program does not compile. The two arms of a `Result` are `Ok` and `Err`; the two arms of an `Option` are `Some` and `None`:
 
-```rust
+```rust playground
 fn parse_port(input: &str) -> Result<u16, String> {
     input.parse::<u16>().map_err(|_| format!("'{input}' is not a valid port number"))
 }
@@ -201,7 +201,7 @@ fn main() {
 
 When you only care about one variant, `match` is verbose. `if let` matches a single pattern:
 
-```rust
+```rust playground
 #[derive(Clone)]
 struct User {
     id: u32,
@@ -223,7 +223,7 @@ fn main() {
 
 `let ... else` binds the value when the pattern matches, and runs a diverging block (one that `return`s, `break`s, or panics) when it does not. Perfect for "extract or bail":
 
-```rust
+```rust playground
 #[derive(Clone)]
 struct User {
     id: u32,
@@ -250,7 +250,7 @@ fn main() {
 
 For everyday transformations you rarely write `match`. Both types carry a rich set of methods. The most useful ones:
 
-```rust
+```rust playground
 fn parse_port(input: &str) -> Result<u16, String> {
     input.parse::<u16>().map_err(|_| format!("'{input}' is not a valid port number"))
 }
@@ -284,7 +284,7 @@ These are conceptually close to TypeScript's `?.` (optional chaining) and `??` (
 
 The two types interconvert when you want to discard or supply error context:
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct User {
     id: u32,
@@ -420,7 +420,7 @@ help: try wrapping the expression in `Some`
 
 In JavaScript you can call a throwing function and never wrap it in `try`/`catch`. In Rust, `Result` is marked `#[must_use]`, so discarding one triggers a warning:
 
-```rust
+```rust playground
 fn parse_port(input: &str) -> Result<u16, String> {
     input.parse::<u16>().map_err(|_| "bad port".to_string())
 }
@@ -494,7 +494,7 @@ A full `match` is the right tool when each variant needs genuinely different log
 
 Beginners often write a `match` that returns `Ok(x)` in the `Ok` arm and a transformed error in the `Err` arm. That entire `match` is just `.map` (to change the `Ok` value) or `.map_err` (to change the `Err` value):
 
-```rust
+```rust playground
 fn raw() -> Result<u16, std::num::ParseIntError> { "x".parse() }
 
 // Verbose:
@@ -530,7 +530,7 @@ If a struct field is genuinely optional, make it `Option<T>` in the struct and s
 
 A small configuration loader that parses `key = value` lines. It uses `Option` for "this line might not be a valid pair" and `Result` for "this whole config might be invalid, and here's why." Notice how `Option`'s `split_once` + `?`, `Result`'s `map_err` + `?`, and `unwrap_or` for defaults all combine.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct ServerConfig {
     host: String,
@@ -678,7 +678,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn safe_divide(a: f64, b: f64) -> Option<f64> {
     if b == 0.0 {
         None
@@ -737,7 +737,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, PartialEq)]
 enum CheckoutError {
     EmptyCart,
@@ -821,7 +821,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn env_lookup(key: &str) -> Option<&'static str> {
     match key {
         "PORT" => Some("8080"),

@@ -54,7 +54,7 @@ The result is correct, the code is clean, and you never wrote `malloc` or `free`
 
 The same logic in Rust. The records live in one contiguous `Vec` of plain 24-byte structs: no per-element heap object, no header, no GC.
 
-```rust
+```rust playground
 #[derive(Clone)]
 struct Point {
     x: f64,
@@ -131,7 +131,7 @@ In JavaScript, `{ x, y, label }` is always a heap object accessed through a poin
 
 The iterator chain, the closure, the generic — in release mode these compile down to the same machine code as a hand-written loop, with no runtime dispatch and no boxing. You do not pay for the abstraction. JavaScript's high-level constructs (`.map`, `.filter`, spread) usually allocate intermediate arrays and box numbers, so the convenient style is the slow style. In Rust the convenient style *is* the fast style. [Zero-Cost Abstractions](/21-performance/06-zero-cost/) shows the disassembly evidence; here is the behavioral equivalence:
 
-```rust
+```rust playground
 fn sum_even_squares_iter(data: &[u64]) -> u64 {
     data.iter().filter(|&&n| n % 2 == 0).map(|&n| n * n).sum()
 }
@@ -216,7 +216,7 @@ $ cargo run --release  # optimized — this is the fair comparison
 
 In JavaScript every `number` is an IEEE-754 double, so integers above 2^53 silently lose precision (they do **not** wrap — that is a separate myth). Rust's integer types are exact across their full range:
 
-```rust
+```rust playground
 fn main() {
     let big: i64 = 9_007_199_254_740_993; // 2^53 + 1
     println!("i64 stays exact: {}", big);
@@ -290,7 +290,7 @@ Do not benchmark "Rust vs TypeScript" by timing a one-shot script that spends it
 
 A production-flavored task that genuinely favors Rust: aggregating a stream of request-log lines into per-route latency stats in a single allocation-light pass. This is the kind of in-memory data crunching where Rust's borrowing and contiguous layout pay off, and it is realistic for a metrics pipeline or log processor.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -386,7 +386,7 @@ Related sections of this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::hint::black_box;
 use std::time::Instant;
 
@@ -425,7 +425,7 @@ The debug build keeps overflow checks, does no inlining, and stores everything t
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let exact: u64 = u64::MAX / 2 + 5;
     println!("u64 exact:        {exact}");
@@ -460,7 +460,7 @@ The `u64` line behaves like JavaScript's `BigInt`: exact across the full 64-bit 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::hint::black_box;
 use std::thread::sleep;
 use std::time::{Duration, Instant};

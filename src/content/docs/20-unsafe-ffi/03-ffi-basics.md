@@ -206,7 +206,7 @@ This is the one that bites people. Rust's default struct layout (`repr(Rust)`) i
 
 The difference is observable. These two structs have identical fields:
 
-```rust
+```rust playground
 struct DefaultLayout {
     flag: bool, // 1 byte
     id: u64,    // 8 bytes
@@ -322,7 +322,7 @@ The fix is exactly what the compiler suggests: `#[unsafe(no_mangle)]`.
 
 The same edition-2024 change applies when you *declare* foreign functions:
 
-```rust
+```rust playground edition="2021"
 extern "C" { // does not compile under edition 2024
     fn abs(input: i32) -> i32;
 }

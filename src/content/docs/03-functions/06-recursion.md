@@ -54,7 +54,7 @@ function sumTo(n: number): number {
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 // Recursive factorial with a base case.
 fn factorial(n: u64) -> u64 {
     if n <= 1 {
@@ -149,7 +149,7 @@ The process exits with a failure (code 134 / `SIGABRT` on this machine). This is
 
 A call is in **tail position** if it is the very last thing the function does — its result is returned directly without any further work. The factorial above is *not* tail-recursive (it still has to multiply by `n` after the call returns), but an accumulator-passing version is:
 
-```rust
+```rust playground
 // Accumulator style: still recursive, but the recursive call is in
 // "tail position". Rust does NOT guarantee this is optimized away,
 // so it can still overflow - shown here only to contrast the shape.
@@ -178,7 +178,7 @@ In a language with **guaranteed** tail-call optimization (such as Scheme, or Saf
 
 Two functions can call each other. Because Rust resolves module items regardless of order (no hoisting needed — see [Basic Functions and Signatures](/03-functions/00-basic-functions/)), neither has to be declared "first."
 
-```rust
+```rust playground
 // Mutual recursion: two functions that call each other.
 fn is_even(n: u64) -> bool {
     if n == 0 {
@@ -229,7 +229,7 @@ The same stack-depth caveat applies: mutual recursion consumes one frame per cal
 
 In JavaScript you often reach for recursion because it reads nicely and the engine's limit feels far away. In Rust, iterators (`for`, `while`, and the `Iterator` methods like `.fold()`, `.sum()`) are **zero-cost abstractions** that compile down to tight loops with no per-element stack growth. So the idiomatic Rust instinct is: *use an iterator unless the data itself is recursive (a tree) and shallow.* This is the same code, rewritten iteratively:
 
-```rust
+```rust playground
 // Iterative factorial: a loop instead of recursion - constant stack usage.
 fn factorial_iter(n: u64) -> u64 {
     let mut result = 1u64;
@@ -388,7 +388,7 @@ For overlapping-subproblem recursions like Fibonacci, cache results in a `HashMa
 
 Recursion shines on genuinely recursive data. Here is a directory-tree size calculator, the kind of traversal a build tool, bundler, or `du`-style utility performs. The tree is a recursive `enum` (a directory owns its children), and both the traversal functions are naturally recursive. Importantly, the recursion depth equals the **tree's depth**, which is small and bounded, so this is exactly where recursion belongs.
 
-```rust
+```rust playground
 // Real-world example: compute the total size of a directory tree.
 // The tree is a recursive data structure (a node owns its children),
 // and the traversal is naturally recursive.
@@ -544,7 +544,7 @@ This is only a teaser. `Box`, `Rc`, and recursive data structures get full cover
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn countdown(n: u32) {
     if n == 0 {
         println!("liftoff!"); // base case
@@ -590,7 +590,7 @@ This is safe because the depth (`n`) is tiny. If `n` could be in the millions, y
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn gcd(a: u64, b: u64) -> u64 {
     if b == 0 {
         a // base case
@@ -628,7 +628,7 @@ gcd(48, 18) = 6
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // O(2^n): recomputes the same subproblems exponentially many times.
 fn fib_rec(n: u32) -> u64 {
     match n {

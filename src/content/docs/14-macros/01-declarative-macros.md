@@ -50,7 +50,7 @@ Two things to notice, because they are exactly where Rust macros differ:
 
 A declarative macro lets you define new *syntax* that expands into code. Below, `hashmap!` accepts `key => value` pairs and expands — at compile time — into a sequence of `insert` calls. The current stable toolchain is Rust 1.96.0 on the 2024 edition; `cargo new` selects it automatically, and `macro_rules!` works on every edition.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 // Define a macro that builds a HashMap from `key => value` pairs.
@@ -97,7 +97,7 @@ A `macro_rules!` definition is a set of **rules**, each of the form `(matcher) =
 
 ### Anatomy of the simplest macro
 
-```rust
+```rust playground
 // A macro with no arguments: it always expands to the same fixed block.
 macro_rules! greet {
     () => {
@@ -171,7 +171,7 @@ In `hashmap!` the transcriber is wrapped in `{{ ... }}`. The outer braces are ma
 
 Rust macros are **hygienic**: identifiers a macro introduces internally live in their own syntactic context and cannot accidentally collide with the caller's variables.
 
-```rust
+```rust playground
 macro_rules! double_it {
     ($x:expr) => {{
         let result = $x * 2; // `result` here is the macro's own, hygienic binding
@@ -313,7 +313,7 @@ Because `:expr` fragments behave as if parenthesized, you do **not** need to wra
 - **Name fragments descriptively** (`$key`, `$value`, `$body`) rather than `$x`, `$y`. The matcher is documentation.
 - **Forward formatting macros transparently** with `$($arg:tt)*`. A logging wrapper should accept exactly what `println!` accepts:
 
-  ```rust
+  ```rust playground
   macro_rules! log_info {
       ($($arg:tt)*) => {{
           print!("[INFO]  ");
@@ -396,7 +396,7 @@ fn main() {
 
 A common production need is lightweight instrumentation: log a message at a level, and time how long a block of work takes. In TypeScript you would write helper functions and pass a callback. In Rust a small set of declarative macros gives you cleaner call sites and zero indirection: the timing code is inlined directly where you use it.
 
-```rust
+```rust playground
 use std::time::Instant;
 
 // Structured logging macros. `$($arg:tt)*` captures *all* the remaining tokens,
@@ -489,7 +489,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! triple {
     ($x:expr) => {
         ($x) * 3
@@ -530,7 +530,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! max_of {
     ($a:expr, $b:expr) => {
         if $a >= $b { $a } else { $b }
@@ -573,7 +573,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 macro_rules! debug_vars {
     ( $( $name:ident ),* $(,)? ) => {
         $(

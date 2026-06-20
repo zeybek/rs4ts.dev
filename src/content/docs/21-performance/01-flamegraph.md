@@ -84,7 +84,7 @@ You then open the flame graph and look for the widest tower. You would discover 
 
 The same program in idiomatic Rust, with the same deliberately-wasteful `normalize`:
 
-```rust
+```rust playground
 // src/main.rs
 use std::collections::HashMap;
 
@@ -301,7 +301,7 @@ A wide `word_counts` box does not mean `word_counts`'s own code is slow; almost 
 
 The release optimizer inlines small functions into their callers, so the frame you expected to see (`normalize`) can be fused into `word_counts` and never appear as its own box. If a function you suspect is missing from the graph, mark it `#[inline(never)]` *temporarily* so it shows up as a distinct frame:
 
-```rust
+```rust playground
 // Force a distinct frame so the profiler attributes time to THIS function,
 // instead of inlining it into its caller. Remove once you are done profiling.
 #[inline(never)]
@@ -349,7 +349,7 @@ A sampler that fires ~1000 times/second collects almost nothing from a 5 ms prog
 
 A common production hot spot is a request handler that serializes a large response. Here a service builds a JSON report from rows; a naive version re-formats and re-allocates per row, and a flame graph immediately shows the `format!`/allocation tower. This is a self-contained program you can flame-graph end to end.
 
-```rust
+```rust playground
 // src/main.rs — build a CSV-style report from many records.
 // Run: cargo flamegraph --bin report   (with [profile.release] debug = true)
 
@@ -481,7 +481,7 @@ Flame-graph this binary and you will see `render_naive` dominated by a `format!`
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // src/main.rs
 /// Count lines that contain `needle`, case-insensitively.
 /// The per-line `to_lowercase()` allocation is the hot spot.
@@ -546,7 +546,7 @@ open flamegraph.svg
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // src/main.rs
 /// Reuse one buffer across all lines: lowercase into `buf`, then search it.
 fn count_matches(lines: &[String], needle: &str) -> usize {

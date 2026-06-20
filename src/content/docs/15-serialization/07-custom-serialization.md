@@ -61,7 +61,7 @@ This works, but notice the weaknesses Rust will close. `toJSON` is invoked by re
 
 In Rust you implement the `Serialize` and `Deserialize` traits directly. The two impls sit next to each other, both are type-checked, and a bad input becomes a real, recoverable error instead of a silent `NaN`:
 
-```rust
+```rust playground
 // Cargo.toml:
 //   [dependencies]
 //   serde = { version = "1", features = ["derive"] }
@@ -195,7 +195,7 @@ A `Visitor` can implement many `visit_*` methods (`visit_str`, `visit_u64`, `vis
 
 The `Color` decode only handles `visit_str`. When your external form is a JSON *object* with several keys, you instead implement `visit_map`, walk the keys with `map.next_key()` / `map.next_value()`, and assemble the fields yourself. Here is that fuller pattern — a `Rectangle` that emits a *computed* `area` field on the way out (which the derive cannot do) and ignores it on the way in:
 
-```rust
+```rust playground
 // Cargo.toml:
 //   [dependencies]
 //   serde = { version = "1", features = ["derive"] }
@@ -311,7 +311,7 @@ This is exactly what `#[derive(Deserialize)]` generates internally; the derive w
 
 Hand-writing the full traits for a whole struct just to special-case one field is overkill. The `serialize_with` and `deserialize_with` attributes let you keep `#[derive(Serialize, Deserialize)]` on the struct and point a single field at standalone functions. Those functions have the *same signatures* as the trait methods, but they are free functions, not impls:
 
-```rust
+```rust playground
 // Cargo.toml:
 //   [dependencies]
 //   serde = { version = "1", features = ["derive"] }
@@ -578,7 +578,7 @@ The instinct from other languages is to write `impl Serialize for chrono::DateTi
 
 A payment record exchanged with an external API. Three divergences from a naive derive: money is stored as integer **cents** (never floats — JavaScript's IEEE-754 `number` famously loses precision on money) but exchanged as a `"49.99"` decimal string; the upstream service sends statuses in `SCREAMING_SNAKE_CASE`; and the money codec lives in a reusable module wired in with a single `#[serde(with = "money")]`.
 
-```rust
+```rust playground
 // Cargo.toml:
 //   [dependencies]
 //   serde = { version = "1", features = ["derive"] }
@@ -704,7 +704,7 @@ Internally `amount_cents` is always an exact integer — arithmetic on it cannot
 2. Implement `Serialize` so a `Percentage(75)` serializes to the JSON string `"75%"` (with a literal percent sign), not the number `75`.
 3. In `main`, serialize `Percentage(75)` and print the result.
 
-```rust
+```rust playground
 use serde::ser::{Serialize, Serializer};
 
 struct Percentage(u8);
@@ -727,7 +727,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::ser::{Serialize, Serializer};
 
 struct Percentage(u8);
@@ -773,7 +773,7 @@ Real output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::de::Error;
 use serde::{Deserialize, Deserializer};
 
@@ -845,7 +845,7 @@ Some("not a boolean: \"maybe\" at line 1 column 21")
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::de::{self, Deserialize, Deserializer, Visitor};
 use serde::ser::{Serialize, Serializer};
 use std::fmt;

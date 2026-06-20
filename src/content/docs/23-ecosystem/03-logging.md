@@ -57,7 +57,7 @@ Add the two crates to a binary project:
 cargo add log env_logger
 ```
 
-```rust
+```rust playground
 // src/main.rs
 use log::{debug, error, info, trace, warn};
 
@@ -187,7 +187,7 @@ The mental-model shift: in Node, logging is a *function you call*; in Rust, logg
 
 The most common surprise: log calls compile fine but produce **no output**, even at `RUST_LOG=trace`, because no logger was installed.
 
-```rust
+```rust playground
 use log::info;
 
 fn main() {
@@ -269,7 +269,7 @@ Every log record carries a **target** string. By default the target is the **mod
 
 `RUST_LOG` accepts a comma-separated list of `target=level` directives, plus an optional bare global level. This is the precise, hierarchical analogue of Node's `DEBUG=app:db,app:http` globbing, but matched by module path prefix:
 
-```rust
+```rust playground
 use log::{debug, info};
 
 mod payments {
@@ -327,7 +327,7 @@ Notice three things in that output:
 
 When constructing a message is genuinely expensive (serializing a large structure, walking a graph), guard it so the work happens only when the level is active:
 
-```rust
+```rust playground
 use log::{info, log_enabled, Level};
 
 fn expensive_summary() -> String {
@@ -349,7 +349,7 @@ For ordinary arguments you do *not* need this guard; the macros already skip arg
 
 `env_logger::Builder` lets the binary configure the default level, honor `RUST_LOG` overrides, and rewrite the line format:
 
-```rust
+```rust playground
 use log::{info, warn, LevelFilter};
 use std::io::Write;
 
@@ -391,7 +391,7 @@ WARN  probe: disk usage at 85%
 
 A production-flavored layout: a `billing` module that behaves like a reusable **library** — it emits records through the `log` facade and chooses a `target`, but never installs a logger — while `main` owns logger configuration. The binary sets a useful default level so operators see `info` without configuring anything, while `RUST_LOG` can still dial in per-target detail.
 
-```rust
+```rust playground
 use log::{info, warn};
 
 /// A library-style module. It only depends on the `log` facade — never on a
@@ -524,7 +524,7 @@ A bare `cargo run` leaves `RUST_LOG` unset, and `env_logger::init()` defaults to
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use log::{debug, error, info, trace, warn, LevelFilter};
 
 fn level_from_verbosity(v: u8) -> LevelFilter {

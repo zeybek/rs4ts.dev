@@ -173,7 +173,7 @@ route: /health
 
 A **build script** is a file named `build.rs` in the package root. Cargo compiles and runs it *before* compiling the crate, exactly like an npm `prebuild` step, but it communicates with Cargo through structured `println!` directives rather than by convention. Here is the Rust version of "bake the git hash in":
 
-```rust
+```rust playground
 // build.rs
 use std::process::Command;
 
@@ -410,7 +410,7 @@ Seeing a `#![feature(...)]` in a blog post and pinning your project to nightly i
 
 A production pattern that uses *both* mechanisms together: a build script that bakes build metadata into the binary, exposed through a tiny stable API. This is what `--version` output relies on in countless CLI tools.
 
-```rust
+```rust playground
 // build.rs
 use std::process::Command;
 
@@ -514,7 +514,7 @@ using the build-enabled fast path
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // build.rs
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -607,7 +607,7 @@ This prints `Foo`. The macro echoes the struct back verbatim (`#item_struct`) an
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // build.rs
 use std::process::Command;
 
@@ -635,7 +635,7 @@ fn main() {
 }
 ```
 
-```rust
+```rust playground
 // src/main.rs
 fn main() {
     #[cfg(nightly_compiler)]

@@ -69,7 +69,7 @@ This "the GC will sort it out" freedom is exactly what Rust removes, and lifetim
 
 The same two patterns in Rust require us to *name* the lifetime relationship with `'a`:
 
-```rust
+```rust playground
 // A function that returns one of its borrowed inputs must declare a
 // lifetime: the output borrows for as long as BOTH inputs are valid.
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
@@ -168,7 +168,7 @@ This is the single most important idea, and the one that trips up newcomers most
 
 The annotation pays off when references have *different* scopes. This compiles, because both inputs and the use of `result` all overlap:
 
-```rust
+```rust playground
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() { x } else { y }
 }
@@ -271,7 +271,7 @@ The `impl<'a> Parser<'a>` line declares `'a` for the impl and then uses it on th
 
 You do **not** have to give every reference the same `'a`. If the output only ever borrows from *one* argument, give the others their own lifetime so callers are not over-constrained:
 
-```rust
+```rust playground
 // The return is only ever borrowed from `text`, never from `prefix`,
 // so they get independent lifetimes 'a and 'b.
 fn strip_prefix<'a, 'b>(text: &'a str, prefix: &'b str) -> &'a str {
@@ -387,7 +387,7 @@ Because of [lifetime elision](/05-ownership/05-lifetime-elision/), many single-r
 
 A log-line parser is a realistic place where borrowing (and therefore lifetimes) earns its keep: parsing a `&str` into structured fields that are *slices of the original buffer* avoids allocating new strings for every line, important in a hot logging path.
 
-```rust
+```rust playground
 /// A parsed log line whose fields borrow directly from the original buffer.
 /// `LogLine<'a>` cannot outlive the string it was parsed from.
 #[derive(Debug)]
@@ -475,7 +475,7 @@ fn first_word<'a>(s: &'a str) -> &'a str {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn first_word<'a>(s: &'a str) -> &'a str {
     match s.find(' ') {
         Some(i) => &s[..i],
@@ -505,7 +505,7 @@ The single `'a` ties the output slice to the input string, so the compiler knows
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Tokenizer<'a> {
     input: &'a str,
 }
@@ -543,7 +543,7 @@ Note that `tokens` returns `Vec<&'a str>`, not `Vec<&str>` tied to `&self`: each
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn longest_in<'a>(items: &'a [String]) -> Option<&'a str> {
     items
         .iter()

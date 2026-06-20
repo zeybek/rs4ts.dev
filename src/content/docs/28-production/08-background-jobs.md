@@ -99,7 +99,7 @@ cargo add tokio-util          # CancellationToken for graceful shutdown
 cargo add anyhow              # ergonomic job-error handling
 ```
 
-```rust
+```rust playground
 use std::time::Duration;
 
 use tokio::sync::mpsc;
@@ -320,7 +320,7 @@ Output: `hashed:hunter2`. This mirrors moving CPU work off Node's event loop int
 
 `mpsc::unbounded_channel()` never makes the sender wait, so a fast producer can outrun a slow worker and exhaust memory: the same failure mode as a JavaScript array you keep `push`ing to. Prefer a bounded channel and decide explicitly what to do when it is full:
 
-```rust
+```rust playground
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -604,7 +604,7 @@ result: Ok("delivered")
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 
 use tokio::sync::mpsc;
@@ -684,7 +684,7 @@ shutdown complete
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::time::Duration;
 
 use tokio::time::{interval, MissedTickBehavior};

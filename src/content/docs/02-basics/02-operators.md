@@ -490,7 +490,7 @@ console.log(fahrenheitToCelsius(32)); // 0
 
 **Rust:**
 
-```rust
+```rust playground
 fn celsius_to_fahrenheit(celsius: f64) -> f64 {
     (celsius * 9.0) / 5.0 + 32.0
 }
@@ -520,7 +520,7 @@ console.log(percentage(1, 3)); // 33.333...
 
 **Rust:**
 
-```rust
+```rust playground
 fn percentage(value: f64, total: f64) -> f64 {
     (value / total) * 100.0
 }
@@ -533,7 +533,7 @@ fn main() {
 
 ### Bit Manipulation (Flags)
 
-```rust
+```rust playground
 // Permission flags using bitwise operations
 const READ: u8 = 0b0001;    // 1
 const WRITE: u8 = 0b0010;   // 2
@@ -613,7 +613,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn average(a: i32, b: i32) -> f64 {
     (a + b) as f64 / 2.0
 }
@@ -643,7 +643,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn in_range(x: i32) -> bool {
     x >= 10 && x <= 20
 }
@@ -660,7 +660,7 @@ fn main() {
 
 Swap two values without a temporary variable:
 
-```rust
+```rust playground
 fn main() {
     let mut a = 5;
     let mut b = 10;
@@ -677,7 +677,7 @@ fn main() {
 
 The classic "arithmetic swap" (`a = a + b; b = a - b; a = a - b;`) works for small numbers but **overflows and panics in debug** when the values are near the integer bounds (e.g. `a = i32::MAX`). Rust gives you two safe, idiomatic alternatives instead:
 
-```rust
+```rust playground
 fn main() {
     // Option 1: tuple destructuring assignment
     let mut a = 5;
@@ -717,7 +717,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn is_power_of_two(n: u32) -> bool {
     n != 0 && (n & (n - 1)) == 0
 }

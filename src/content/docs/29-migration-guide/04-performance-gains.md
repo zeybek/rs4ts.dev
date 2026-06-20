@@ -90,7 +90,7 @@ The **mean of 814.5 ms is a lie**: no single request took that long. Half the us
 
 The same percentile logic in Rust, with the same data, produces the same conclusion (the average hides the tail):
 
-```rust
+```rust playground
 /// Value at a given percentile from a sorted slice, using the nearest-rank method.
 fn percentile(sorted: &[u64], pct: f64) -> u64 {
     if sorted.is_empty() {
@@ -141,7 +141,7 @@ For real workloads, do not hand-roll percentiles over a giant `Vec`: it costs me
 hdrhistogram = "7.5.4"
 ```
 
-```rust
+```rust playground
 use hdrhistogram::Histogram;
 
 fn main() {
@@ -210,7 +210,7 @@ Notice what is **not** on that list: a 10x drop in median latency for an I/O-bou
 
 Here is the naive Rust micro-benchmark equivalent to the TypeScript one, and it is just as misleading:
 
-```rust
+```rust playground
 use std::hint::black_box;
 use std::time::Instant;
 
@@ -286,7 +286,7 @@ The biggest conceptual shift for a TypeScript developer is that **the average st
 
 The single most common mistake. A debug build (`cargo run`, no flags) has **no optimizations** and can be 10-100x slower than release. If you compare a Node.js service against a debug-mode Rust binary, Rust may look *slower*. Always benchmark `--release`.
 
-```rust
+```rust playground
 fn main() {
     // Run this with `cargo run` and again with `cargo run --release`.
     let start = std::time::Instant::now();
@@ -411,7 +411,7 @@ Throughput is half the story; the other half is **memory footprint**, which is o
 
 You can prove the Rust side with a global allocator that counts live bytes:
 
-```rust
+```rust playground
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -471,7 +471,7 @@ Exactly 800,000 bytes -- `100_000 × 8` -- with no per-element overhead. That pr
 
 Once you have a baseline p99, turn it into a budget the build enforces, so a future change cannot silently regress the tail:
 
-```rust
+```rust playground
 /// Fail CI if the new p99 regressed by more than `tolerance` (e.g. 0.10 = 10%).
 fn check_regression(baseline_p99: f64, new_p99: f64, tolerance: f64) -> Result<(), String> {
     let allowed = baseline_p99 * (1.0 + tolerance);
@@ -543,7 +543,7 @@ within budget
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn percentile(sorted: &[u64], pct: f64) -> u64 {
     if sorted.is_empty() {
         return 0;
@@ -594,7 +594,7 @@ A median of 10 ms looks great on a dashboard, but 1% of users wait 250 ms, 25x l
 hdrhistogram = "7.5.4"
 ```
 
-```rust
+```rust playground
 use hdrhistogram::Histogram;
 
 fn main() {
@@ -636,7 +636,7 @@ With spikes at only 1% frequency, even p99 sits at the fast value; you would nee
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Clone, Copy)]
 struct Measurement {
     p99_ms: f64,

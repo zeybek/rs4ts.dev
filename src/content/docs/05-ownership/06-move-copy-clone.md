@@ -70,7 +70,7 @@ Rust makes every one of these distinctions explicit and enforces them at compile
 
 The same three behaviors (alias-by-reference, copy-by-value, and explicit deep copy) become **move**, **`Copy`**, and **`Clone`**:
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct Account {
     id: u64,
@@ -141,7 +141,7 @@ This is the single biggest mental shift from JavaScript. In JS, `const s2 = s1` 
 
 Some types are so cheap to duplicate that moving them would be pointless ceremony. Integers, floats, `bool`, `char`, and tuples/arrays of such types implement the **`Copy`** trait. For these, `let y = x;` performs a bitwise copy and leaves `x` fully usable — exactly like a JavaScript primitive:
 
-```rust
+```rust playground
 fn square(n: i32) -> i32 {
     n * n
 }
@@ -184,7 +184,7 @@ Passing a non-`Copy` value to a function *moves* it, just like assignment. The f
 
 You can move a single field out of a struct. After that, the field is invalid but `Copy` fields remain readable:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Profile {
     username: String,
@@ -374,7 +374,7 @@ When the compiler suggests `.clone()`, it is one valid fix — but reaching for 
 
 A job-processing loop shows all three behaviors working together: a `Copy` ID type passed freely, a shared `Config` that is only *borrowed* (never cloned), and jobs that are *moved* into the processor and consumed.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// Shared, read-only configuration loaded once at startup.
@@ -496,7 +496,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let a = String::from("data");
     let b = a.clone(); // explicit deep copy: now there are two owners
@@ -538,7 +538,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Copy, PartialEq)]
 struct Meters(f64);
 
@@ -583,7 +583,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn collect_unique(items: &[&str]) -> Vec<String> {
     let mut out: Vec<String> = Vec::new();
     for &item in items {

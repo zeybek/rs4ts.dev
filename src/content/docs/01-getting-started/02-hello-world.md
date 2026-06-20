@@ -50,7 +50,7 @@ node hello.js    # Runs the JS file
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 // hello.rs
 fn main() {
     println!("Hello, world!");
@@ -94,7 +94,7 @@ main(); // Call the function
 
 **Rust:**
 
-```rust
+```rust playground
 fn main() {                    // Function declaration
     println!("Hello, world!"); // Print to console (with newline)
 }
@@ -354,7 +354,7 @@ main(); // ← Required!
 
 **Rust:**
 
-```rust
+```rust playground
 // main() is automatically called at program start
 fn main() {
     println!("Hello!");
@@ -405,7 +405,7 @@ fn main() {
 
 **Right:**
 
-```rust
+```rust playground
 fn main() {
     println!("Hello, world!"); // Correct: println! is a macro
 }
@@ -436,7 +436,7 @@ no semicolon is fine — it just becomes the block's return value.
 
 **Compiles and runs** (the trailing expression evaluates to `()`):
 
-```rust
+```rust playground
 fn main() {
     println!("Hello, world!")  // OK as the last expression — no `;` needed
 }
@@ -576,7 +576,7 @@ cargo fmt -- --check
 
 ### 4. Use `println!` for Debugging
 
-```rust
+```rust playground
 fn main() {
     let x = 42;
     println!("The value is: {}", x);        // Format with variables
@@ -616,7 +616,7 @@ main();
 
 **Rust:**
 
-```rust
+```rust playground
 fn greet(name: &str) {
     println!("Hello, {}!", name);
 }
@@ -691,7 +691,7 @@ cargo run
 
 Change the program to print your name:
 
-```rust
+```rust playground
 fn main() {
     println!("Hello, <YOUR_NAME>!");
 }
@@ -701,7 +701,7 @@ fn main() {
 
 Create a program that prints multiple lines:
 
-```rust
+```rust playground
 fn main() {
     println!("Line 1");
     println!("Line 2");
@@ -713,7 +713,7 @@ fn main() {
 
 Use `print!` to print on the same line:
 
-```rust
+```rust playground
 fn main() {
     print!("Hello, ");
     print!("world!");
@@ -723,7 +723,7 @@ fn main() {
 
 ### Exercise 5: Format with Variables
 
-```rust
+```rust playground
 fn main() {
     let name = "Rustacean";
     let age = 5;

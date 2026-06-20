@@ -51,7 +51,7 @@ console.log([..."\u{1F44B}"].length); // 1  (spread iterates by code point)
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn main() {
     // Two types, two jobs:
     let literal: &str = "Hello";              // borrowed slice, baked into the binary
@@ -114,7 +114,7 @@ A `&str` is a **fat pointer**: just a pointer to some UTF-8 bytes plus a length.
 
 ### Creating each type
 
-```rust
+```rust playground
 fn main() {
     // &str: just write a literal
     let a: &str = "hello";
@@ -140,7 +140,7 @@ hello hello hello hello
 
 Rust applies **deref coercion** so that a `&String` automatically becomes a `&str` wherever one is expected. This is why a single `&str` parameter accepts every common caller:
 
-```rust
+```rust playground
 fn main() {
     let s = String::from("greetings");
     takes_str(&s);        // &String -> &str (deref coercion)
@@ -169,7 +169,7 @@ Every Rust string — `String` or `&str` — is guaranteed to be **valid UTF-8**
 
 First, `len()` is bytes, and `chars().count()` is characters:
 
-```rust
+```rust playground
 fn main() {
     let cafe = "café";  // 'c' 'a' 'f' are 1 byte each; 'é' is 2 bytes
     println!("len (bytes)      = {}", cafe.len());           // 5
@@ -198,7 +198,7 @@ Contrast with Node v22, where `"café".length` is `4` and `"\u{1F44B}".length` i
 
 JavaScript lets you write `s[0]`. Rust does **not** let you index a string by an integer, because answering "what is byte 0?" versus "what is character 0?" is ambiguous in a variable-width encoding, and a single-`char` answer might require reading several bytes. Instead you slice by a **byte range**:
 
-```rust
+```rust playground
 fn main() {
     let hello = "hello";
     let h = &hello[0..1]; // a &str of length 1: "h"
@@ -221,7 +221,7 @@ Slicing returns a `&str` (a borrowed view): no allocation, no copy. But the byte
 
 ### Iterating: `chars()`, `bytes()`, `char_indices()`
 
-```rust
+```rust playground
 fn main() {
     for (i, ch) in "café".char_indices() {
         print!("({i},{ch}) ");
@@ -313,7 +313,7 @@ byte index 4 is not a char boundary; it is inside 'é' (bytes 3..5) of `café`
 
 The fix is to use boundaries you got from `char_indices()`, or use the non-panicking `.get(range)` which returns an `Option` instead:
 
-```rust
+```rust playground
 fn main() {
     let s = "café";
     println!("{:?}", s.get(0..3)); // Some("caf")
@@ -389,7 +389,7 @@ The compiler's suggested fix is correct: return an owned `String`. You can only 
 
 ### Accept `&str`, return `String` (the default rule of thumb)
 
-```rust
+```rust playground
 fn main() {
     let owned = String::from("the quick brown fox");
     println!("{}", first_word(&owned)); // borrow input, return a borrowed slice
@@ -416,7 +416,7 @@ Returning a `&str` here is fine because it borrows from the `s` parameter, which
 
 The `+` operator on strings consumes (moves) the left-hand `String` and borrows the right-hand `&str`, which is awkward and easy to get wrong. Prefer `format!` for assembling, or `push_str` in a loop:
 
-```rust
+```rust playground
 fn main() {
     // `format!` borrows its arguments — nothing is consumed:
     let a = String::from("foo");
@@ -445,7 +445,7 @@ Hello, world!
 
 Unlike some languages, you compare string contents with `==`, and `String` compares cleanly against `&str` in either order:
 
-```rust
+```rust playground
 fn main() {
     let name = String::from("alice");
     println!("{}", name == "alice"); // true
@@ -470,7 +470,7 @@ If you know roughly how big a `String` will get, `String::with_capacity(n)` pre-
 
 A small text-normalization module of the kind you'd find in a web backend: canonicalizing user handles, and truncating a bio for display without ever splitting a multi-byte character. Note how every function takes `&str` (so callers pass a `String`, a `&String`, or a literal) and only allocates a `String` when it must build new text.
 
-```rust
+```rust playground
 /// Normalize a user-supplied handle into a canonical form.
 /// Takes `&str` so callers can pass a `String`, a `&String`, or a literal.
 fn normalize_handle(raw: &str) -> String {
@@ -560,7 +560,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn count_vowels(s: &str) -> usize {
     s.chars()
         .filter(|c| matches!(c.to_ascii_lowercase(), 'a' | 'e' | 'i' | 'o' | 'u'))
@@ -605,7 +605,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn safe_prefix(s: &str, n: usize) -> Option<&str> {
     match s.char_indices().nth(n) {
         // The nth char's start byte is a guaranteed boundary.
@@ -652,7 +652,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn title_case(input: &str) -> String {
     input
         .split_whitespace()

@@ -83,7 +83,7 @@ Real output:
 
 And here is what the trait you are plugging into actually looks like when you write your *own* allocator, a wrapper around `System` that counts live bytes:
 
-```rust
+```rust playground
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -160,7 +160,7 @@ Walking through the pieces a TypeScript developer has never had to think about:
 
 - **`Layout`.** Every request carries a `Layout`: the `(size, align)` pair the allocation must satisfy. There is no "allocate me an object of unknown size": the size and alignment are always known up front, because Rust types have a fixed, compile-time layout (see [Memory Layout](/21-performance/04-memory-layout/)).
 
-  ```rust
+  ```rust playground
   use std::alloc::Layout;
 
   fn main() {
@@ -342,7 +342,7 @@ Fix it with `cargo add tikv-jemalloc-ctl --features stats`.
 
 A production-flavored use case where a custom allocator helps even though raw speed is not the goal: a **memory budget guardrail** for staging/test builds. It forwards every allocation to `System`, tracks the peak and current live bytes, and flips a flag if the program ever exceeds a configured budget. A cheap way to catch a memory regression in CI before it reaches production.
 
-```rust
+```rust playground
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 
@@ -473,7 +473,7 @@ Start from the counting allocator. Add a `static PEAK: AtomicUsize`. In `alloc`,
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -580,7 +580,7 @@ Create a 64 KiB static arena inside an `UnsafeCell<[u8; N]>` wrapped in a `#[rep
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::alloc::{GlobalAlloc, Layout, System};
 use std::cell::UnsafeCell;
 use std::sync::atomic::{AtomicUsize, Ordering};

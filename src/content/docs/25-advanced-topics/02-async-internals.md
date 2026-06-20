@@ -193,7 +193,7 @@ The `cx: &mut Context<'_>` parameter currently carries exactly one thing: a refe
 
 When you write `let a = some_future.await;`, the compiler does not block. It generates, in effect:
 
-```rust
+```rust playground
 // What `let value = inner().await;` becomes inside the generated state machine
 // (driven here manually to show the loop; normally the runtime drives it).
 use std::future::Future;
@@ -233,7 +233,7 @@ desugared await produced: 99
 
 Rust ships *no* executor in the standard library, so a `Future` left alone does nothing. A **runtime** (Tokio, async-std, smol, or `futures::executor`) owns a queue of tasks and a `poll` loop. Here is a complete, minimal single-threaded executor — the same shape Tokio uses, just tiny — so you can see the moving parts: a run queue, a `Waker` that re-enqueues a task, and the poll loop.
 
-```rust
+```rust playground
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll, Waker};
@@ -487,7 +487,7 @@ future completed after 3 polls
 
 A common production need: instrument a future to see how often it is polled. A future polled hundreds of times before completing is a red flag — it may be waking spuriously (re-enqueuing itself without real progress) and burning CPU. The idiomatic way to wrap another future and add behavior around its `poll` is a combinator future. Because it stores the inner future by value, we use `pin-project-lite` to safely get a `Pin<&mut Inner>` for the inner field (the safe alternative to hand-written `unsafe` pin projection, covered in [Pin and Unpin](/25-advanced-topics/01-pin-unpin/)).
 
-```rust
+```rust playground
 // Cargo.toml:
 //   tokio = { version = "1.52", features = ["full"] }
 //   pin-project-lite = "0.2"

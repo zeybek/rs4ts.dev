@@ -58,7 +58,7 @@ So in TypeScript the length is a *hint to the checker*, not a property of the ru
 
 In Rust the length is a first-class generic parameter. One definition covers every length, and the length is part of the type at runtime:
 
-```rust
+```rust playground
 use std::ops::{Add, Index, IndexMut};
 
 // A fixed-size mathematical vector, generic over its length N.
@@ -187,7 +187,7 @@ To write methods that work for *every* `N`, the `impl` block itself must introdu
 
 The array type `[T; N]` is the most pervasive const-generic type in Rust, and the standard library exposes const-generic combinators over it:
 
-```rust
+```rust playground
 fn main() {
     // `<[T; N]>::map` keeps the length in the type: [i32; 4] -> [i32; 4].
     let doubled = [1, 2, 3, 4].map(|x| x * 2);
@@ -364,7 +364,7 @@ Where TypeScript catches this only during type-checking (and plain JavaScript no
 - **Use `std::array::from_fn` to initialize non-`Copy` arrays.** `[None; N]` fails when the element is not `Copy`; `std::array::from_fn(|_| None)` works for any `N`.
 - **Give const parameters defaults when one size dominates.** `struct Buffer<T, const N: usize = 32>` lets callers write `Buffer<u8>` for the common case and `Buffer<u8, 8>` to override:
 
-  ```rust
+  ```rust playground
   struct Buffer<T, const N: usize = 32> {
       data: [T; N],
   }
@@ -390,7 +390,7 @@ Where TypeScript catches this only during type-checking (and plain JavaScript no
   heapless = "0.9.3"
   ```
 
-  ```rust
+  ```rust playground
   use heapless::Vec;
 
   fn main() {
@@ -420,7 +420,7 @@ Where TypeScript catches this only during type-checking (and plain JavaScript no
 
 A statically-sized matrix where the type system enforces multiplication shapes. A `2x3` matrix can only multiply a `3xK` matrix: the shared inner dimension `3` must match, and the result type `2xK` is computed by the compiler. A shape mismatch never reaches runtime.
 
-```rust
+```rust playground
 // An R x C matrix whose dimensions live in the type.
 #[derive(Debug, Clone, Copy)]
 struct Matrix<const R: usize, const C: usize> {
@@ -512,7 +512,7 @@ Cross-links within this guide:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Square<const N: usize> {
     cells: [[f64; N]; N],
@@ -551,7 +551,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Stack<T, const CAP: usize> {
     items: [Option<T>; CAP],
     len: usize,
@@ -607,7 +607,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Polynomial<const N: usize> {
     coeffs: [f64; N], // coeffs[i] is the coefficient of x^i
 }

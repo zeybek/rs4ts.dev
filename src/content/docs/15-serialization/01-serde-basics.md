@@ -75,7 +75,7 @@ The `features = ["derive"]` part is the piece TypeScript developers most often m
 
 Now the equivalent round-trip in `src/main.rs`:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -280,7 +280,7 @@ The first is a missing field, the second a type mismatch, the third a number tha
 
 A common first task is loading and saving a service's configuration as JSON. This `ServerConfig` loader reads a file, parses it into a typed struct, writes a pretty default back out, and also shows parsing directly from a byte buffer (as you would from an HTTP body). It is a complete, runnable `src/main.rs` using only `serde` (with `derive`) and `serde_json`:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 use std::fs;
 
@@ -368,7 +368,7 @@ The `Box<dyn std::error::Error>` return type lets both the file-I/O errors (from
 
 **Instructions:** In a fresh project (`cargo new`, then `cargo add serde --features derive` and `cargo add serde_json`), define a `Todo` struct with `id: u32`, `text: String`, and `done: bool`. Serialize an instance with `to_string`, parse it back with `from_str`, and `assert_eq!` that the original equals the parsed value. (You will need to derive `PartialEq` so the two values can be compared.)
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // TODO: derive the traits needed to serialize, deserialize, AND compare with assert_eq!
@@ -388,7 +388,7 @@ fn main() -> Result<(), serde_json::Error> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
@@ -432,7 +432,7 @@ round-trip ok: {"id":1,"text":"Learn Serde","done":false}
 
 **Instructions:** Define `Author { name: String, email: String }` and `Book { title: String, year: u16, authors: Vec<Author> }`. Parse the JSON literal below into a `Book` and print the title, year, and each author. Note how `Vec<Author>` and the nested struct require no extra wiring — Serde recurses automatically.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // TODO: define Author and Book with the right derives
@@ -454,7 +454,7 @@ fn main() -> Result<(), serde_json::Error> {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -514,7 +514,7 @@ Programming Rust (2021) by 2 authors
 
 **Instructions:** Reuse the `Book` type from Exercise 2. Try to parse JSON where `year` is the *string* `"2021"` instead of a number. Match on the `Result`: print the parsed book on `Ok`, and the error's message on `Err`. Confirm you get a descriptive type-mismatch error rather than a silently wrong value.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -532,7 +532,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]

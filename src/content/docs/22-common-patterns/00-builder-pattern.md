@@ -91,7 +91,7 @@ Notice what TypeScript *cannot* do here: nothing stops you from calling `.build(
 
 There are two idiomatic shapes for a Rust builder. The most common is the **owned (move) builder**: each setter takes `self` by value, mutates it, and returns it. Because the value is moved through the chain, the compiler guarantees you never accidentally reuse a half-finished builder.
 
-```rust
+```rust playground
 // Rust - an owned (move) builder: each setter consumes `self` and returns it
 #[derive(Debug)]
 struct HttpRequest {
@@ -210,7 +210,7 @@ In TypeScript a builder is mostly about *fluency* and *readability*; you could j
 
 The other common shape borrows the builder mutably instead of moving it. Each setter takes `&mut self` and returns `&mut Self`:
 
-```rust
+```rust playground
 // Rust - a `&mut self` builder; the builder lives in a local you keep
 #[derive(Debug, Default)]
 struct ServerConfig {
@@ -392,7 +392,7 @@ Coming from TypeScript, where `return this;` is easy to drop, the equivalent sli
 - **Put truly required, non-defaultable values in `new` / the constructor function.** A builder's job is the *optional* surface. If exactly one value is mandatory (the URL above), require it up front and you avoid needing fallible builds at all.
 - **Do not hand-roll a builder when the struct just needs defaults.** Often `#[derive(Default)]` plus struct-update syntax is enough and far less code:
 
-```rust
+```rust playground
 // Rust - sometimes Default + struct-update beats a whole builder
 #[derive(Debug)]
 struct Settings {
@@ -529,7 +529,7 @@ Under the hood `bon` is generating the type-state machinery described in the nex
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Pizza {
     size: String,
@@ -599,7 +599,7 @@ Pizza { size: "large", cheese: false, toppings: ["mushroom"] }
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct ApiClient {
     base_url: String,
@@ -671,7 +671,7 @@ Err("base_url is required")
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 struct NoTable;

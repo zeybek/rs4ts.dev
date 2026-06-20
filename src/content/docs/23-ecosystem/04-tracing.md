@@ -164,7 +164,7 @@ In Node you simulate span context with `AsyncLocalStorage`; in `tracing` it is t
 
 Each macro accepts structured fields *before* the message:
 
-```rust
+```rust playground
 use tracing::info;
 
 fn main() {
@@ -311,7 +311,7 @@ The mental shift: in Node, "context that follows execution" is a bolt-on (`Async
 
 The most common surprise mirrors the `log` facade: events compile fine but produce **no output** because no subscriber was installed.
 
-```rust
+```rust playground
 use tracing::info;
 
 fn main() {
@@ -338,7 +338,7 @@ The rule is simple: never hold a `span.enter()` guard across `.await`. Use `#[in
 
 `tokio::spawn` starts an independent task; the new future does **not** automatically inherit the span that was current at the spawn site. The result is a log line missing its request context:
 
-```rust
+```rust playground
 use tracing::{info, info_span, Instrument};
 
 #[tokio::main]
@@ -612,7 +612,7 @@ cargo add tracing-subscriber --features env-filter,tracing-log
 cargo add log
 ```
 
-```rust
+```rust playground
 use tracing::info;
 use tracing_subscriber::fmt::format::FmtSpan;
 
@@ -676,7 +676,7 @@ Two things to note: the `log::info!` record appears alongside native events, and
 
 **Instructions:** Consider the program below. Without running it, answer: (a) what is printed if you remove the `tracing_subscriber::fmt().init()` line entirely? (b) With the subscriber present, which of the two `info!` lines will carry the `outer{user="ada"}` span context, and which will not? Then run it to confirm.
 
-```rust
+```rust playground
 use tracing::{info, info_span};
 
 fn main() {
@@ -732,7 +732,7 @@ error[E0277]: `ParseError` doesn't implement `std::fmt::Display`
 
 The fix is `err(Debug)`, which records the error via its `Debug` impl instead:
 
-```rust
+```rust playground
 use tracing::instrument;
 
 #[derive(Debug)]

@@ -56,7 +56,7 @@ for (const [word, n] of counts) {
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// Counting how many times each word appears.
@@ -432,7 +432,7 @@ If a test or output depends on order, collect into a `Vec` and `sort` (as shown 
 
 Aggregating per-key totals in a single pass is a daily task: order line items by SKU, request counts by route, error counts by type. Here we summarize an order into per-SKU units and revenue using the `entry` API, then print a sorted report.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// One line of an order: which SKU and how many units at what price.
@@ -519,7 +519,7 @@ The interesting line is `totals.entry(item.sku.clone()).or_insert((0, 0))`: it d
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn count_votes(votes: &[&str]) -> HashMap<String, u32> {
@@ -558,7 +558,7 @@ yes=3 no=2
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn invert(map: &HashMap<String, String>) -> HashMap<String, String> {
@@ -596,7 +596,7 @@ Some("Alice")
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn merge_sum(

@@ -58,7 +58,7 @@ console.log(collectUntilFatal(entries));
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct LogEntry {
     level: String,
@@ -117,7 +117,7 @@ fn main() {
 
 `continue` immediately abandons the current iteration and moves to the next one. Anything in the loop body *after* the `continue` is skipped for that pass only.
 
-```rust
+```rust playground
 fn main() {
     let mut i = 0;
     let mut kept = String::new();
@@ -145,7 +145,7 @@ non-multiples of 3: 1 2 4 5 7 8 10
 
 `break` exits the nearest enclosing loop. Execution resumes at the first statement *after* the loop.
 
-```rust
+```rust playground
 fn main() {
     let mut sum = 0;
     for n in 1..=10 {
@@ -171,7 +171,7 @@ sum of odd numbers <= 7: 16
 
 This is the part with no JavaScript equivalent. Because `loop { ... }` is an **expression**, you can give `break` a value and that value becomes the value of the whole loop:
 
-```rust
+```rust playground
 fn main() {
     let mut attempts = 0;
     let result = loop {
@@ -198,7 +198,7 @@ Read `break attempts;` as "stop looping, and the loop expression evaluates to `a
 
 A `loop` that `continue`s on failure and `break`s with a value on success is an extremely common idiom. Think "find the first item that parses, otherwise a sentinel":
 
-```rust
+```rust playground
 fn main() {
     let inputs = ["abc", "not a number", "42", "99"];
     let mut idx = 0;
@@ -285,7 +285,7 @@ help: use `break` on its own without a value inside this `for` loop
 
 **Fix:** Use `loop` when you need a value, or restructure with an iterator method like `.find()`:
 
-```rust
+```rust playground
 fn main() {
     let found = (1..10).find(|&n| n == 5); // Option<i32>
     println!("{:?}", found); // Some(5)
@@ -330,7 +330,7 @@ error[E0308]: mismatched types
 
 **Fix:** Make all `break` values share a type (here, both `&str`):
 
-```rust
+```rust playground
 fn main() {
     let x = loop {
         if true {
@@ -401,7 +401,7 @@ error: expected one of `.`, `;`, `?`, `}`, or an operator, found `0`
 
 **<span class="inline-icon inline-icon--x" role="img" aria-label="no"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span> JavaScript-style: declare, mutate, break separately**
 
-```rust
+```rust playground
 fn main() {
     let mut result = 0; // needs `mut`, starts as a meaningless 0 (rustc warns this initial value is never read — which is exactly the point)
     let mut n = 0;
@@ -418,7 +418,7 @@ fn main() {
 
 **<span class="inline-icon inline-icon--check" role="img" aria-label="yes"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span> Idiomatic Rust: let the loop be the value**
 
-```rust
+```rust playground
 fn main() {
     let mut n = 0;
     let result = loop {
@@ -437,7 +437,7 @@ The second version makes `result` immutable and removes the meaningless initial 
 
 `continue` to skip and `break` to stop early often map directly onto `filter`, `take_while`, `find`, and friends. The iterator version states the *intent* and is harder to get wrong.
 
-```rust
+```rust playground
 fn main() {
     // Imperative: `continue` to skip evens, `break` to stop past 19.
     let mut sum_imperative = 0;
@@ -484,7 +484,7 @@ As noted above, a `continue` in a `while` loop bypasses any code below it, inclu
 
 A small networking utility: given a list of candidate port strings (from a config file, environment variable, CLI args, etc.), find the first one that is both a valid port number and a non-privileged port (>= 1024). This combines `continue` (skip invalid candidates) with `break Some(_)` / `break None` (produce a typed result).
 
-```rust
+```rust playground
 /// Return the first candidate that parses as a valid, non-privileged port.
 fn first_valid_port(candidates: &[&str]) -> Option<u16> {
     let mut idx = 0;
@@ -555,7 +555,7 @@ Notice how `break Some(8080)` and `break None` give the `loop` a uniform `Option
 
 **Instructions:** Implement `sum_positive_until_zero`. It should iterate over a slice of `i32`, *ignore* any negative numbers (use `continue`), *stop* completely as soon as it sees a `0` (use `break`), and return the sum of the positive numbers seen before the zero.
 
-```rust
+```rust playground
 fn sum_positive_until_zero(nums: &[i32]) -> i32 {
     let mut sum = 0;
     // TODO: loop with continue (skip negatives) and break (stop at 0)
@@ -571,7 +571,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn sum_positive_until_zero(nums: &[i32]) -> i32 {
     let mut sum = 0;
     for &n in nums {
@@ -624,7 +624,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn first_square_over(limit: u32) -> u32 {
     let mut n = 0;
     loop {
@@ -674,7 +674,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn first_even_parse(candidates: &[&str]) -> Option<i32> {
     let mut idx = 0;
     loop {

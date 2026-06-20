@@ -60,7 +60,7 @@ Map(3) { 'a' => 3, 'b' => 2, 'c' => 1 }
 
 Rust does not let you reopen a foreign type to add a method. The idiomatic move is to declare a **local trait** carrying the method and write a **blanket implementation** for every iterator. The capability appears only where the trait is in scope.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::hash::Hash;
 
@@ -151,7 +151,7 @@ Every extension trait follows the same three-step shape:
 
 Here it is on the primitive `str`, adding two text-formatting helpers:
 
-```rust
+```rust playground
 // 1. Local trait with the methods we want on string slices.
 trait StrExt {
     fn truncate_with_ellipsis(&self, max: usize) -> String;
@@ -202,7 +202,7 @@ The pattern shines when you combine the two: a few small required methods plus m
 
 Extension methods are not limited to "consume and return a value." You can return a brand-new lazy iterator type, exactly like `map` returns `Map<...>`. Define the adapter struct, implement `Iterator` for it, then add a method on an extension trait that wraps `self`:
 
-```rust
+```rust playground
 // A lazy iterator adapter that yields cumulative sums.
 struct RunningTotal<I> {
     iter: I,
@@ -365,7 +365,7 @@ Implement on `str` rather than `String`, on `[T]` rather than `Vec<T>`, and use 
 
 Sometimes you want an extension trait that *only you* can implement, so you can add methods later without it being a breaking change and so downstream code cannot implement it for surprising types. The **sealed trait** idiom enforces this with a private supertrait:
 
-```rust
+```rust playground
 mod sealed {
     pub trait Sealed {}
     impl Sealed for i32 {}
@@ -410,7 +410,7 @@ For iterators specifically, `itertools` already provides a huge `Itertools` exte
 
 A production codebase frequently wants ergonomic helpers on `Result`: log the error branch without consuming the `Result`, or attach a higher-level message. These belong on an extension trait so they read like native combinators (`?`-friendly, chainable). This mirrors the shape of helpers found across the `anyhow`/`tracing` ecosystem.
 
-```rust
+```rust playground
 use std::fmt::Display;
 
 // A local extension trait that adds ergonomic helpers to ANY Result.
@@ -525,7 +525,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait SliceExt<T> {
     fn second(&self) -> Option<&T>;
 }
@@ -563,7 +563,7 @@ Some(20)
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait StrCaseExt {
     fn to_title_case(&self) -> String;
 }
@@ -612,7 +612,7 @@ The Rust Language
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // The lazy adapter: keeps every other item, starting with the first.
 struct EveryOther<I> {
     iter: I,

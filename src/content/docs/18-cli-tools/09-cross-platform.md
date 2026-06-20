@@ -186,7 +186,7 @@ A text file's line ending is just bytes. Unix-family systems (Linux, macOS) use 
 
 Rust's standard library leans your way here. `str::lines()` splits on `\n` **and strips a trailing `\r`** if present, so it transparently handles both styles:
 
-```rust
+```rust playground
 fn main() {
     let windows_text = "line one\r\nline two\r\nline three\r\n";
     for (i, line) in windows_text.lines().enumerate() {
@@ -206,7 +206,7 @@ Real output. Note that there is **no** trailing `\r` in any line:
 
 This is the same convenience as JavaScript's `text.split(/\r?\n/)`, but built into the iterator you would reach for anyway. The catch: `lines()` only helps on **read**. When you **write**, Rust emits exactly the bytes you give it: `writeln!` and `println!` always emit `\n`, never `\r\n`, on every platform. That is usually what you want (LF is the portable default and Git normalizes for you), but if you must produce CRLF for a Windows-only consumer, do it explicitly:
 
-```rust
+```rust playground
 fn main() {
     // Collapse to LF, then expand — handles mixed-ending input.
     let normalized = "a\r\nb\nc".replace("\r\n", "\n");
@@ -231,7 +231,7 @@ Rust gives you two related tools, and the difference matters.
 
 **`cfg!(...)`** is a macro that evaluates to a `bool` *at compile time* but is used like a normal runtime expression. Both branches of the surrounding `if` must type-check and compile, even on the platform where the condition is false:
 
-```rust
+```rust playground
 fn main() {
     let shell = if cfg!(windows) { "cmd.exe" } else { "/bin/sh" };
     println!("default shell: {shell}");
@@ -246,7 +246,7 @@ default shell: /bin/sh
 
 **`#[cfg(...)]`** is an *attribute* that includes or **excludes the item entirely** before type-checking. Code behind a `#[cfg(windows)]` that doesn't compile on macOS is simply not compiled there, which lets you call Windows-only APIs without `#[cfg]`-ing every use:
 
-```rust
+```rust playground
 #[cfg(windows)]
 fn config_template() -> &'static str {
     "%APPDATA%\\mytool" // only compiled on Windows
@@ -270,7 +270,7 @@ config: $HOME/.config/mytool
 
 You can also query the target at runtime via `std::env::consts`:
 
-```rust
+```rust playground
 fn main() {
     println!("OS         = {}", std::env::consts::OS);          // "macos", "windows", "linux"
     println!("FAMILY     = {}", std::env::consts::FAMILY);      // "unix" or "windows"
@@ -294,7 +294,7 @@ These are baked in at compile time for the *target* you built for, so cross-comp
 
 Paths are the densest source of portability bugs, so they get their own page ([Path and PathBuf](/18-cli-tools/07-path-handling/)). The cross-platform rule of thumb: **never hardcode a separator, never split a path on `'/'`.** Build paths with `Path::join` or collect components, and the right separator is inserted for the target:
 
-```rust
+```rust playground
 use std::path::{Path, PathBuf};
 
 fn main() {
@@ -386,7 +386,7 @@ The deeper conceptual difference: **Node defers everything to runtime, Rust push
 
 ### Pitfall 1: Splitting a path on a literal `'/'`
 
-```rust
+```rust playground
 fn main() {
     let raw = "config/app/settings.toml";
     // Works on Unix, WRONG on Windows where '\' separates components.
@@ -397,7 +397,7 @@ fn main() {
 
 This compiles and looks fine on your Mac, then misbehaves on a Windows path like `config\app\settings.toml`. The fix is to let `Path` parse it:
 
-```rust
+```rust playground
 use std::path::Path;
 
 fn main() {
@@ -445,7 +445,7 @@ Use `p.display()` for human output, or `p.to_string_lossy()` when you need an ow
 
 On Windows and the default macOS filesystem, `PHOTO.JPG` and `photo.jpg` are the *same* file, and extensions are not case-significant. A naive equality check silently misbehaves:
 
-```rust
+```rust playground
 use std::path::Path;
 
 fn main() {
@@ -626,7 +626,7 @@ Running with no argument exits `2`; pointing it at a non-directory exits `1`. On
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     println!(
         "os={} family={} sep={:?}",

@@ -62,7 +62,7 @@ Notice the pattern: each capability (printing, copying, comparing, defaulting, k
 
 In Rust you declare the capabilities you want in one line, and the compiler generates correct, shape-aware implementations that **cannot go stale**: add a field and the generated code updates automatically.
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Default)]
@@ -129,7 +129,7 @@ One `#[derive(...)]` line replaced the debug formatter, the deep-clone, the equa
 
 When the compiler sees `#[derive(Clone)]` above a type, it runs the `Clone` derive macro. That macro receives the **tokens** of your type definition and produces an `impl` block. Conceptually, `#[derive(Clone)]` on `User` expands to something like this, which you could also write by hand:
 
-```rust
+```rust playground
 // This is (approximately) what #[derive(Clone)] generates for you.
 struct User {
     id: u32,
@@ -182,7 +182,7 @@ These are detailed below. (`Serialize` / `Deserialize` are *not* in this list be
 
 `Copy` is a *marker* for types that are cheap to duplicate by copying their bytes — like `i32` or a small `struct` of integers. When a type is `Copy`, assigning or passing it makes a copy automatically instead of moving it (ownership and moves are covered in [05-ownership](/05-ownership/)). A type can only be `Copy` if **all of its fields are `Copy`**, and `Copy` always requires `Clone`.
 
-```rust
+```rust playground
 // Copy: every field is Copy, so the whole struct can be Copy.
 #[derive(Debug, Clone, Copy, PartialEq)]
 struct Point {
@@ -249,7 +249,7 @@ Low < High? true
 
 `Default` generates a `T::default()` constructor. For a struct, each field is set to its own type's default (`0` for integers, `false` for `bool`, `""` for `String`, an empty `Vec`, and so on). Combined with **struct update syntax** (`..Default::default()`), this gives you concise "set a few fields, default the rest" construction: the idiomatic Rust answer to optional fields in a TypeScript object literal.
 
-```rust
+```rust playground
 // `Default` on an enum needs one unit variant marked #[default].
 #[derive(Debug, Default, PartialEq)]
 enum Status {
@@ -297,7 +297,7 @@ serde_json = "1"
 
 You can add both with `cargo add serde --features derive` and `cargo add serde_json` (no extra plugin needed — `cargo add` is built into Cargo).
 
-```rust
+```rust playground
 use serde::{Serialize, Deserialize};
 
 // Serialize / Deserialize are CUSTOM derive macros from the serde crate,
@@ -540,7 +540,7 @@ note: trait bound `NotClone: Clone` was not satisfied
 
 A small banking/domain model that leans on derives the way production code does: an `enum` used as a `HashMap` key, a money type that sorts, and an account record that has a meaningful default and is cloned for snapshots.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 // Eq + Hash -> usable as a HashMap key by value.
@@ -661,7 +661,7 @@ fn main() {
 
 `f64` is `PartialEq` but not `Eq` (because of `NaN`), so derive `PartialEq` — not `Eq`. You also need `Debug` for `{:?}` and `Clone` for `.clone()`.
 
-```rust
+```rust playground
 #[derive(Debug, Clone, PartialEq)]
 struct Temperature {
     celsius: f64,
@@ -711,7 +711,7 @@ fn main() {
 
 The derived `PartialEq` compares every field with `==` and combines them with `&&`. Writing it by hand makes the generated code concrete:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct PointManual {
     x: i32,
@@ -768,7 +768,7 @@ fn main() {
 
 Derive `Default` (and `Debug` to print it). Then use `..Default::default()` to fill in `max_conns` and `tls`:
 
-```rust
+```rust playground
 #[derive(Debug, Default)]
 struct ServerConfig {
     host: String,

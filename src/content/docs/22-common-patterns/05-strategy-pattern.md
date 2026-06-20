@@ -90,7 +90,7 @@ Here is the same checkout three ways. Start with the most idiomatic Rust answer 
 
 When a strategy is "just a function," make it a function. Any `Fn(f64) -> f64` is a discount strategy; no trait, no struct, no class.
 
-```rust
+```rust playground
 // Rust - the strategy is a closure. `impl Fn` means "any function-like value".
 fn checkout(subtotal: f64, discount: impl Fn(f64) -> f64) -> f64 {
     let after = discount(subtotal);
@@ -130,7 +130,7 @@ boxed:   60.00
 
 When a strategy has more than one method or carries state worth naming, define a **trait** and make the context **generic** over it. The compiler generates a specialized copy per concrete strategy (monomorphization), so calls are inlined with no vtable.
 
-```rust
+```rust playground
 // Rust - the strategy is a trait; the context is generic over it (static dispatch).
 trait Validator {
     fn validate(&self, input: &str) -> Result<(), String>;
@@ -200,7 +200,7 @@ Ok(())
 
 When the strategy is selected at runtime — from a config file, a CLI flag, a database column — and you want to store different strategies in the same field or collection, use a **trait object**: `Box<dyn Strategy>`. This is the encoding that maps one-to-one onto the TypeScript class hierarchy.
 
-```rust
+```rust playground
 // Rust - the strategy is a `Box<dyn Trait>` chosen at runtime (dynamic dispatch).
 trait CompressionStrategy {
     fn compress(&self, data: &str) -> String;
@@ -289,7 +289,7 @@ In `fn checkout(subtotal: f64, discount: impl Fn(f64) -> f64)`, the parameter ty
 - `FnMut`: needs `&mut self` to run because it mutates captured state (e.g. a counter, an accumulator).
 - `FnOnce`: consumes captured values, so it can be called only once (e.g. a strategy that moves a `String` out of itself).
 
-```rust
+```rust playground
 trait Renderer {
     fn render(&self) -> String;
 }
@@ -347,7 +347,7 @@ You reach for `dyn` when the strategy is genuinely runtime-selected, when you ne
 
 The standard library is full of closure-as-strategy APIs. `Vec::sort_by` takes the comparison *strategy* as a closure; swapping the closure swaps the algorithm without touching the sort.
 
-```rust
+```rust playground
 fn main() {
     let mut words = vec!["pear", "fig", "banana", "kiwi"];
 
@@ -439,7 +439,7 @@ error[E0308]: mismatched types
 
 The fix is exactly what the compiler suggests: box them into a uniform trait-object type:
 
-```rust
+```rust playground
 fn main() {
     let pct = 0.10_f64;
     let amount = 10.0_f64;
@@ -540,7 +540,7 @@ In TypeScript every method call is already a dynamic lookup, so `dyn`-style disp
 
 A request router whose **load-balancing policy** is chosen at startup from configuration. The policy genuinely varies at runtime and has more than one method, so this is the case where a trait object is the right call, and it shows the strategy, context, and factory working together.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// The strategy: how to pick a backend for a request.
@@ -693,7 +693,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn total_price(items: &[f64], discount: impl Fn(f64) -> f64) -> f64 {
     let subtotal: f64 = items.iter().sum();
     let discounted = discount(subtotal);
@@ -734,7 +734,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 trait HashStrategy {
@@ -807,7 +807,7 @@ None
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 trait Transform {
     fn apply(&self, input: &str) -> String;
 }

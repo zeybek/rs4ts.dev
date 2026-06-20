@@ -81,7 +81,7 @@ let x = 5; // This is x
 
 ### Regular Comments
 
-```rust
+```rust playground
 // This is a single-line comment
 
 // You can chain them

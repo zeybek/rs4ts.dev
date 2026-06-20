@@ -64,7 +64,7 @@ In TypeScript, destructuring (pulling values *out*) and matching (deciding *whic
 
 In Rust, destructuring and matching are **the same mechanism**. A pattern simultaneously *tests* a value's shape and *binds* its parts to names. And `match` is exhaustive by construction.
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Shape {
     Circle { radius: f64 },
@@ -124,7 +124,7 @@ Triangle { base: 6.0, height: 2.0 } -> area 6.00
 
 A JavaScript `switch` is a statement: it runs side effects, and you `return` or `break` out. A Rust `match` is an **expression**: it evaluates to a value you can assign or return directly. Each arm is `pattern => expression`.
 
-```rust
+```rust playground
 fn main() {
     let score = 84;
     let grade = match score {
@@ -147,7 +147,7 @@ Each arm's left side is a **pattern**. When the pattern matches, any names insid
 
 Patterns can be concrete values, inclusive ranges (`..=`), or alternatives joined with `|`:
 
-```rust
+```rust playground
 fn describe_status(code: u16) -> &'static str {
     match code {
         200 => "OK",
@@ -202,7 +202,7 @@ Here `Point { x: 0, y }` matches any point on the y-axis and binds the y-coordin
 
 Sometimes you want to *test* a value against a range and also *keep* the value. The `@` operator binds a name to a value while also pattern-matching it:
 
-```rust
+```rust playground
 fn main() {
     let id = 42;
     match id {
@@ -220,7 +220,7 @@ Without `@`, the range pattern `1..=50` would match but give you no name for the
 
 This is the part that trips up TypeScript developers, because JavaScript has no concept of ownership. When you `match` a value by reference (`match &thing`), the bindings inside the pattern are also references, so the original value is not consumed:
 
-```rust
+```rust playground
 fn main() {
     let owned = String::from("config.toml");
     let maybe = Some(owned);
@@ -249,7 +249,7 @@ Modern Rust applies **match ergonomics**: when you match a reference (`&maybe`) 
 
 Patterns nest arbitrarily, mirroring the structure of the data.
 
-```rust
+```rust playground
 fn main() {
     // Tuple destructuring, including nested tuples.
     let record = ("Bob", (98.5, 87.0), true);
@@ -293,7 +293,7 @@ Slice patterns (`[head, tail @ ..]`) are the closest Rust equivalent to JavaScri
 
 `match` is the heavyweight, but four lighter forms cover the common cases:
 
-```rust
+```rust playground
 fn main() {
     // 1. `if let` — match one pattern, ignore the rest. Like a `match` with
     //    one interesting arm. Equivalent in spirit to TS `if (x !== undefined)`.
@@ -333,7 +333,7 @@ popped 1
 
 The fourth form is the [`matches!`](https://doc.rust-lang.org/std/macro.matches.html) macro, which returns a `bool` for "does this value match this pattern?", handy in conditions and `.filter()` closures:
 
-```rust
+```rust playground
 #[allow(dead_code)] // `Click` is never constructed in this isolated snippet
 #[derive(Debug)]
 enum Event { Click { x: i64, y: i64 }, Close }
@@ -450,7 +450,7 @@ Put specific patterns first and the wildcard last.
 
 This is the trap that surprises every TypeScript developer. In a `switch`, `case expected:` compares against the *value* of `expected`. In a Rust `match`, a bare lowercase identifier is a **new binding** that matches anything — it does *not* compare against an existing variable.
 
-```rust
+```rust playground
 fn main() {
     let expected = 3;
     let value = 7;
@@ -482,7 +482,7 @@ note: there is a binding of the same name; if you meant to pattern match against
 
 **Fix** — use a match guard, or match against a `const` (which *does* compare, because `const` names in patterns are treated as values):
 
-```rust
+```rust playground
 const EXPECTED: i32 = 3;
 
 fn main() {
@@ -525,7 +525,7 @@ fn main() {
 
 A plain `let` requires a pattern that *always* matches. `Some(x)` might be `None`, so it is refutable. Use `if let`, `let ... else`, or a full `match` instead:
 
-```rust
+```rust playground
 fn main() {
     let opt: Option<i32> = Some(5);
     let Some(x) = opt else {
@@ -554,7 +554,7 @@ fn main() {
 
 A small HTTP-style request router driven entirely by pattern matching. It exercises tuple matching, struct and enum destructuring, reference bindings, guards, and an exhaustive response mapping: the kind of dispatch logic you would otherwise write as a tangle of `if`/`else` in Express.
 
-```rust
+```rust playground
 // A tiny HTTP-style request router driven entirely by pattern matching.
 // Demonstrates: enum + struct destructuring, tuple matching, ref bindings,
 // guards, and exhaustiveness.
@@ -714,7 +714,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum TrafficLight {
     Red,
@@ -785,7 +785,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Coord {
     x: i32,
@@ -877,7 +877,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Json {
     Null,

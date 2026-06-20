@@ -86,7 +86,7 @@ console.log("total:", scores.reduce((a, b) => a + b, 0));
 
 Rayon ships a global pool that is already sized to your machine, so the "score every document" workload above is one line. For divide-and-conquer you use `rayon::join`, which forks two closures and only actually parallelizes them if a worker is free to pick up the second one.
 
-```rust
+```rust playground
 // Cargo.toml: run `cargo add rayon`  (this pulls rayon 1.12)
 use rayon::prelude::*;
 
@@ -164,7 +164,7 @@ That self-tuning behavior is why `sum_of_primes` can recurse all the way down wi
 
 Sometimes you do *not* want the global pool: a latency-sensitive request handler should not be starved by a giant background batch job, and a CPU-bound batch should not fight your async runtime's threads. Build a dedicated pool with `ThreadPoolBuilder`:
 
-```rust
+```rust playground
 // cargo add rayon
 use rayon::prelude::*;
 use rayon::ThreadPoolBuilder;
@@ -226,7 +226,7 @@ Three ways to feed a custom pool:
 
 You can also resize the *global* pool, but exactly once and before first use:
 
-```rust
+```rust playground
 // cargo add rayon
 use rayon::prelude::*;
 use rayon::ThreadPoolBuilder;
@@ -358,7 +358,7 @@ Keep the pool alive (store it in a long-lived struct or a `static OnceLock`) for
 - **Name your pool threads.** `thread_name(|i| format!("scorer-{i}"))` makes panics, profilers, and `top` output readable.
 - **Propagate errors cleanly.** A parallel pipeline of fallible work can `collect()` into a `Result<Vec<T>, E>` (stops conceptually at the first error) or use `try_reduce`/`try_for_each`:
 
-```rust
+```rust playground
 // cargo add rayon
 use rayon::prelude::*;
 
@@ -394,7 +394,7 @@ sum = Ok(60)
 
 A document-scoring batch job — the Rust counterpart to the Node `WorkerPool` at the top. It runs on a **dedicated** pool (so a huge batch never starves the rest of the service) and combines per-document scores with a parallel `reduce`:
 
-```rust
+```rust playground
 // cargo add rayon
 use rayon::prelude::*;
 use rayon::ThreadPoolBuilder;
@@ -541,7 +541,7 @@ The key insight is that `split_at_mut` proves to the compiler that the two halve
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add rayon
 use rayon::prelude::*;
 use rayon::ThreadPoolBuilder;
@@ -580,7 +580,7 @@ max = 99
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add rayon
 use rayon::ThreadPoolBuilder;
 use std::sync::mpsc::channel;

@@ -516,7 +516,7 @@ Notice how returning `ExitCode` from `main` lets the tool report failure to the 
 
 **Instructions:** Write a `greet` tool that takes a required `name` and an optional `--count` / `-c` (default `1`) and prints `Hello, <name>!` that many times.
 
-```rust
+```rust playground
 use clap::Parser;
 
 #[derive(Parser, Debug)]
@@ -643,7 +643,7 @@ error: the following required arguments were not provided:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use clap::{Parser, ValueEnum};
 
 #[derive(ValueEnum, Clone, Debug)]

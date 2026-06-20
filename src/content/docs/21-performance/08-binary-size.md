@@ -51,7 +51,7 @@ In Rust the equivalent of "minify and tree-shake" lives in the **release profile
 
 Start from a small but realistic program. Create it with `cargo new word_freq` (which selects the current stable 2024 edition automatically), then put this in `src/main.rs`:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// Count word frequencies in the arguments and print the top 3.
@@ -149,7 +149,7 @@ By default a Rust `panic!` **unwinds** the stack: it walks back up through every
 
 The behavioral consequence is real and worth understanding. With the default (unwind), `std::panic::catch_unwind` can intercept a panic:
 
-```rust
+```rust playground
 fn main() {
     let result = std::panic::catch_unwind(|| {
         panic!("boom");
@@ -353,7 +353,7 @@ panic = "abort"
 strip = true
 ```
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]

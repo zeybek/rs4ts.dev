@@ -60,7 +60,7 @@ console.log(user.loginCount); // 0 — `user` and `alias` ARE the same object
 
 Rust makes the distinction explicit. A plain `&` reference is a **read-only loan**: the borrower may look at the value but not change it. The owner keeps the value the whole time.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct User {
     name: String,
@@ -120,7 +120,7 @@ User { name: "Ada", email: "ada@example.com", login_count: 7 }
 
 A reference is a pointer: a small value that holds the **memory address** of something else. The `&` operator creates a reference; the `*` operator **dereferences** it (follows the pointer to read the value behind it).
 
-```rust
+```rust playground
 fn main() {
     let x = 10;
     let r = &x; // r is a reference to x (a pointer under the hood)
@@ -155,7 +155,7 @@ The two printed addresses are identical because `r` literally points at `x`. In 
 
 Here is the canonical example. We borrow a `String` so the function can measure it without consuming it.
 
-```rust
+```rust playground
 fn main() {
     let message = String::from("hello, borrow");
 
@@ -186,7 +186,7 @@ The action of creating a reference is called **borrowing**. The function `calcul
 
 A shared reference promises **read-only** access. Because no one can mutate, it is perfectly safe to hand out any number of shared references simultaneously:
 
-```rust
+```rust playground
 fn main() {
     let data = vec![1, 2, 3, 4, 5];
 
@@ -238,7 +238,7 @@ fn dangle() -> &String {
 
 The compiler refuses this outright (see [Common Pitfalls](#common-pitfalls) for the full message). The fix is to return the **owned** `String` instead of a reference to it. Then ownership moves out to the caller and nothing is left dangling:
 
-```rust
+```rust playground
 fn no_dangle() -> String {
     let s = String::from("temporary");
     s // ownership moves out to the caller — perfectly safe
@@ -441,7 +441,7 @@ fn word_count(text: &str) -> usize {
 
 A `&str` accepts both string literals and borrowed `String`s (via automatic deref coercion), so it is strictly more general. Likewise, `&[T]` accepts arrays, `Vec`s, and other slices.
 
-```rust
+```rust playground
 fn shout(text: &str) -> String {
     text.to_uppercase()
 }
@@ -469,7 +469,7 @@ If you find yourself cloning to "make the error go away," pause: a borrow is usu
 
 A small order-processing module. Three functions all **borrow** a slice of orders; none takes ownership, so the caller can run every report in sequence on the same data without any copying.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -604,7 +604,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn longest_name(names: &[String]) -> &String {
     let mut longest = &names[0];
     for name in names {
@@ -662,7 +662,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn first_word(s: &str) -> &str {
     match s.find(' ') {
         Some(i) => &s[..i],
@@ -719,7 +719,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Counter {
     value: i32,

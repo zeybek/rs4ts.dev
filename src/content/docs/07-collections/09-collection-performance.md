@@ -59,7 +59,7 @@ Two cost questions JavaScript never makes you answer: *Is `perMinute` actually s
 
 The same analysis, but each collection is chosen for its cost characteristics, and the one that needs ordered range queries uses `BTreeMap`.
 
-```rust
+```rust playground
 use std::collections::{BTreeMap, HashMap, HashSet};
 
 #[derive(Debug)]
@@ -179,7 +179,7 @@ A `Vec` of `(key, value)` pairs *can* act like a tiny map — and for a handful 
 
 Using a `Vec` and `contains()` as a stand-in for a `HashSet` is the single most common performance trap. Each `contains()` is an O(n) scan, and doing it inside a loop makes the whole thing O(n²).
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -231,7 +231,7 @@ A `Vec` (and a `HashMap`/`HashSet`) has both a **length** (how many items it hol
 
 If you know roughly how many items you'll add, tell the collection up front with `with_capacity`:
 
-```rust
+```rust playground
 fn main() {
     // Count reallocations: Vec::new() vs Vec::with_capacity(n).
     let mut grown: Vec<u64> = Vec::new();
@@ -269,7 +269,7 @@ with_capacity()  -> 0 reallocations to reach len 1000
 
 Nine reallocations (each copying the entire buffer) versus zero. `HashMap` and `HashSet` work the same way: `HashMap::with_capacity(n)` and `reserve(n)` pre-size them. The deep-dive on `Vec` capacity and growth lives in [Vectors](/07-collections/00-vectors/); this page is about *when* the pre-allocation is worth it.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn main() {
@@ -299,7 +299,7 @@ capacity after reserve(1000): >= true
 
 When you build a collection from an iterator with `.collect()`, you usually get this for free: the iterator reports a size hint and `collect` pre-allocates accordingly, so an explicit `with_capacity` is rarely needed in that case. Reclaiming over-allocated memory is the job of `shrink_to_fit`:
 
-```rust
+```rust playground
 fn main() {
     let mut v: Vec<i32> = Vec::with_capacity(100);
     v.extend([1, 2, 3]);
@@ -320,7 +320,7 @@ after shrink:  len=3, cap=3
 
 In JavaScript, `arr.map().filter().reduce()` allocates one or more intermediate arrays and runs several passes, so it can be meaningfully slower than a single hand-written `for` loop on a hot path. **In Rust this trade-off essentially does not exist.** Iterator adaptors are lazy and get fused and inlined by the compiler into the same machine code a manual loop would produce. This is what "zero-cost abstraction" means. The iterator chain also drops per-element bounds checks that a manual `v[i]` would incur.
 
-```rust
+```rust playground
 fn main() {
     let data: Vec<u64> = (0..1_000_000).collect();
 
@@ -352,7 +352,7 @@ even_doubled  = 499999000000
 
 Because the iterator version compiles to equivalent (often better) code, the rule is: **write whichever is clearest, which is almost always the iterator.** The important difference from JavaScript is that `.filter().map().sum()` here makes **no intermediate `Vec`** — adaptors are lazy and only pull one element through the whole chain at a time. The mechanics of laziness are covered in [Iterators](/07-collections/06-iterators/) and [Iterator Consumers](/07-collections/07-iterator-consumers/). Pre-sizing applies to iterators too: `collect()` uses the size hint, as below.
 
-```rust
+```rust playground
 fn main() {
     // collect into a Vec sizes the allocation from the iterator's size hint.
     let squares: Vec<u64> = (1..=5u64).map(|n| n * n).collect();
@@ -399,7 +399,7 @@ This is the trap shown above, restated as the mistake itself. If you find yourse
 
 Coming from JavaScript, where `Map` and modern `Object` preserve insertion order, it is natural to assume iteration order is stable. A Rust `HashMap` iterates in an **unspecified, randomized** order that can differ between runs of the same program.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn main() {
@@ -420,7 +420,7 @@ fn main() {
 
 `dedup` only removes **consecutive** duplicates; it is not a general "make unique" operation.
 
-```rust
+```rust playground
 fn main() {
     let mut v = vec![1, 2, 1, 1, 3];
     v.dedup();
@@ -472,7 +472,7 @@ The default `HashMap` hasher is DoS-resistant, which is right for untrusted keys
 
 Deduplicating a large stream of IDs is a textbook "wrong collection" decision. Here both approaches are factored into functions and timed at scale so you can see the curve rather than take it on faith.
 
-```rust
+```rust playground
 use std::collections::HashSet;
 use std::time::Instant;
 
@@ -583,7 +583,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn word_frequencies(text: &str) -> HashMap<String, u32> {
@@ -635,7 +635,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn build_ids(n: usize) -> Vec<u64> {
     let mut ids = Vec::with_capacity(n); // exact size known -> zero reallocations
     for i in 0..n as u64 {
@@ -668,7 +668,7 @@ Because the capacity (5) exactly matches the number of pushes, the buffer is all
 
 **Instructions:** Given a list of `(name, score)` pairs, build a `BTreeMap<u32, &str>` keyed by score. Then (a) print everyone whose score falls in the B band `[80, 90)` using a range query, and (b) print the top scorer by reading the last entry of the sorted map — no manual scan over all entries.
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn main() {
@@ -682,7 +682,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 fn main() {

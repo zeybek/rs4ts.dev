@@ -53,7 +53,7 @@ The call `parsePort(env.PORT)` has no syntactic marker that it might throw. The 
 
 In Rust the fallibility is in the return type, and each propagation point is marked with a single `?`:
 
-```rust
+```rust playground
 use std::fmt;
 use std::num::ParseIntError;
 
@@ -163,7 +163,7 @@ If no suitable `From` impl exists, the code does not compile; see [Common Pitfal
 - `Some(value)` evaluates to `value`.
 - `None` returns `None` from the enclosing function early.
 
-```rust
+```rust playground
 fn first_char_upper(s: &str) -> Option<char> {
     let first = s.chars().next()?; // returns None early if the string is empty
     Some(first.to_ascii_uppercase())
@@ -397,7 +397,7 @@ fn describe(maybe_name: Option<&str>) -> String {
 
 A small but production-flavored configuration loader. It parses a `KEY = VALUE` block, collects two distinct error kinds (missing fields and bad numbers) into one error type, and uses `?` at every fallible step. Note how `?` short-circuits on the *first* failure encountered.
 
-```rust
+```rust playground
 use std::fmt;
 use std::num::ParseIntError;
 
@@ -556,7 +556,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::num::ParseIntError;
 
 fn sum_all(inputs: &[&str]) -> Result<i32, ParseIntError> {
@@ -617,7 +617,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn nested_lookup<'a>(
@@ -687,7 +687,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt;
 use std::num::ParseIntError;
 

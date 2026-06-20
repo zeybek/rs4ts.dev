@@ -93,7 +93,7 @@ anyhow = { git = "https://github.com/dtolnay/anyhow", version = "1.0.102" }
 
 A small program that exercises the crates.io dependencies above (compile-verified):
 
-```rust
+```rust playground
 // src/main.rs
 use serde::{Deserialize, Serialize};
 
@@ -329,7 +329,7 @@ The most common feature mistake: the function you want lives behind a non-defaul
 uuid = "1"          # missing features = ["v4"]
 ```
 
-```rust
+```rust playground
 use uuid::Uuid;
 
 fn main() {
@@ -405,7 +405,7 @@ serde = { version = "1.0", features = ["derive"] }
 toml = "1"
 ```
 
-```rust
+```rust playground
 // src/main.rs
 use serde::Deserialize;
 

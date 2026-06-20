@@ -65,7 +65,7 @@ user-7
 
 A newtype gives you a genuinely separate type. The compiler enforces the distinction everywhere, with no escape hatch and no runtime overhead.
 
-```rust
+```rust playground
 // A newtype: a one-field tuple struct wrapping an existing type.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 struct UserId(u64);
@@ -120,7 +120,7 @@ Rust *does* have type aliases — `type UserId = u64;` — but an alias is purel
 
 Writing `UserId(42)` everywhere is fine, but for conversions from a single canonical source type, implementing `From` makes the newtype feel native. `From` gives you `Into` for free (the standard library has a blanket `impl<T, U: From<T>> Into<U> for T`).
 
-```rust
+```rust playground
 #[derive(Debug, Clone, PartialEq)]
 struct Email(String);
 
@@ -144,7 +144,7 @@ Email("alice@example.com")
 
 `From` is for conversions that **cannot fail**. When construction can fail — the whole point of a validating newtype — use `TryFrom`, which returns a `Result` (see [Error Handling](/08-error-handling/)):
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Age(u8);
 
@@ -209,7 +209,7 @@ error[E0117]: only traits defined in the current crate can be implemented for ty
 
 The compiler's own suggestion — "define and implement a trait or new type instead" — *is* the newtype pattern. Wrap the foreign type in a local newtype, and now the type is local, so the impl is allowed:
 
-```rust
+```rust playground
 use std::fmt;
 
 struct Tags(Vec<String>); // a LOCAL type wrapping the foreign Vec<String>
@@ -238,7 +238,7 @@ This is one of the most common reasons to reach for a newtype in real code: you 
 
 By default a newtype exposes *none* of the inner type's methods; you have to reach in via `.0` or write your own accessors. When the wrapper genuinely "is a kind of" the inner type, you can implement `Deref` so the inner methods come through automatically (full coverage in [The `Deref` Trait](/10-smart-pointers/06-deref-trait/)):
 
-```rust
+```rust playground
 use std::ops::Deref;
 
 struct Username(String);
@@ -265,7 +265,7 @@ len=5, upper=AHMET
 
 Only `&self` methods leak through `Deref` (it hands back a shared `&Target`), which is often exactly what you want: read-only access without exposing mutators that could break an invariant:
 
-```rust
+```rust playground
 use std::ops::Deref;
 
 struct SortedVec(Vec<i32>); // invariant: always sorted ascending
@@ -304,7 +304,7 @@ len = 3
 
 A lighter-weight alternative to `Deref` is `AsRef`, which forwards by an explicit `.as_ref()` call rather than implicit coercion; it advertises a "view as" without pretending the newtype *is* the inner type:
 
-```rust
+```rust playground
 struct Slug(String);
 
 impl AsRef<str> for Slug {
@@ -335,7 +335,7 @@ Output:
 
 Wrapping is not limited to concrete types. A generic newtype can mark a *property* of any collection — here, "non-empty" — and bake the invariant into the API:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct NonEmpty<T>(Vec<T>);
 
@@ -459,7 +459,7 @@ struct UserId(u64);
 
 This is the flagship use. If two parameters share a primitive type, callers can swap them; wrap each and the swap becomes a compile error.
 
-```rust
+```rust playground
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 struct AccountId(u64);
 
@@ -486,7 +486,7 @@ transfer 500 cents: 1 -> 2
 
 Make the inner field private and the only constructor a validator. Then the type itself is a *certificate* that validation passed; downstream code never re-checks.
 
-```rust
+```rust playground
 #[derive(Debug, Clone, PartialEq)]
 pub struct Email(String); // private field
 
@@ -534,7 +534,7 @@ A newtype can (de)serialize as its inner value while still enforcing its invaria
 
 A production payload often carries fields that are "just strings" in JSON but must satisfy invariants in your domain. Here `Email` deserializes from a plain JSON string, normalizes and validates during parsing, and serializes back to a plain string: the validation lives in exactly one place and runs automatically. This combines the *parse-don't-validate* newtype with serde's `try_from`/`into` attributes.
 
-```rust
+```rust playground
 // Cargo.toml:
 //   serde = { version = "1", features = ["derive"] }
 //   serde_json = "1"
@@ -662,7 +662,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -712,7 +712,7 @@ Output:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt;
 
 #[derive(Debug, Clone, PartialEq)]
@@ -769,7 +769,7 @@ err: 150 is not a valid percentage (0..=100)
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt;
 
 // Foreign trait (Display) on a foreign type (Duration) is forbidden directly,

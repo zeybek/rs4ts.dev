@@ -50,7 +50,7 @@ logMessage("INFO", "service started"); // "[INFO] service started"
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 // Rust - every parameter and the return value is explicitly typed
 fn greet(name: &str) -> String {
     format!("Hello, {name}!")
@@ -140,7 +140,7 @@ This is the idea that trips up most TypeScript developers. Rust distinguishes be
 
 A function body is a **block**, and a block is itself an expression: its value is the value of its **final expression**, provided that expression has no trailing semicolon.
 
-```rust
+```rust playground
 // statements vs expressions
 fn classify(score: u32) -> &'static str {
     // `if` is an expression in Rust; it evaluates to a value.
@@ -194,7 +194,7 @@ So a function whose last line is `a + b;` returns `()`, not the sum. That is one
 
 JavaScript hoists `function` declarations so you can call them before they appear in the file. Rust does not need hoisting because items in a module are resolved regardless of order. You can call a function defined later in the same file (or even later in the same module) freely.
 
-```rust
+```rust playground
 // Functions can be called before their definition (order-independent).
 fn main() {
     println!("{}", double(21));
@@ -233,7 +233,7 @@ fn double(n: i32) -> i32 {
 
 TypeScript's `void` is a "don't use this value" marker. Rust's `()` is a genuine value (the empty tuple) that every expression-with-no-other-value produces. A function with no `-> Type` returns `()`, and you can even bind it:
 
-```rust
+```rust playground
 // A function with no `-> Type` returns the unit type `()`.
 fn print_banner(title: &str) {
     println!("==== {title} ====");
@@ -454,7 +454,7 @@ Do not write `-> ()`. Omitting the return type for side-effecting functions is t
 
 A small order-pricing module that uses several typed functions, tail expressions, and `if`/`match` as expressions. This is the shape of code you would find in a real billing service.
 
-```rust
+```rust playground
 // Real-world example: a tiny order-pricing module.
 
 /// A line item in a shopping cart.
@@ -564,7 +564,7 @@ Total (10% off): $88.16
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn celsius_to_fahrenheit(c: f64) -> f64 {
     c * 9.0 / 5.0 + 32.0
 }
@@ -606,7 +606,7 @@ Note the literals are `9.0`, `5.0`, `32.0` — using integer literals like `9` w
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn is_strong_password(password: &str) -> bool {
     let long_enough = password.chars().count() >= 8;
     let has_digit = password.chars().any(|c| c.is_ascii_digit());
@@ -649,7 +649,7 @@ true
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 /// Returns the price tier name for a given amount in cents.
 fn price_tier(amount_cents: u32) -> &'static str {
     // `match` is an expression; the matched arm's value becomes the result.

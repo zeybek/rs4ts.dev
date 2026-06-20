@@ -70,7 +70,7 @@ The key thing to notice: `"mapping 1/2/3"` prints **even though we never use the
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn main() {
     let prices = vec![19.99, 4.50, 120.0, 9.99, 250.0];
 
@@ -142,7 +142,7 @@ Ranges like `1..=100` and `0..` are *also* iterators, with no backing collection
 
 ### `map` — transform every element
 
-```rust
+```rust playground
 fn main() {
     let cents = vec![100, 250, 75];
     let dollars: Vec<f64> = cents.iter().map(|&c| c as f64 / 100.0).collect();
@@ -160,7 +160,7 @@ Verified output:
 
 ### `filter` — keep elements matching a predicate
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![1, 2, 3, 4, 5, 6];
     let evens: Vec<&i32> = nums.iter().filter(|&&n| n % 2 == 0).collect();
@@ -178,7 +178,7 @@ Note the `|&&n|` pattern. `nums.iter()` yields `&i32`. `filter`'s closure receiv
 
 ### `enumerate` — pair each element with its index
 
-```rust
+```rust playground
 fn main() {
     let tasks = vec!["build", "test", "deploy"];
     for (i, task) in tasks.iter().enumerate() {
@@ -199,7 +199,7 @@ In JavaScript, the index is the *second argument* to `map`/`forEach`/`filter` ca
 
 ### `take` and `skip` — slicing without allocating
 
-```rust
+```rust playground
 fn main() {
     let feed = vec![10, 20, 30, 40, 50, 60, 70];
 
@@ -226,7 +226,7 @@ page two: [40, 50, 60]
 
 ### `zip` — walk two iterators in lockstep
 
-```rust
+```rust playground
 fn main() {
     let metrics = vec!["cpu", "mem", "disk"];
     let percentages = vec![80, 55, 40, 99]; // one extra — ignored
@@ -254,7 +254,7 @@ Verified output:
 
 This is the single most important difference from JavaScript. Building an adaptor chain runs **no** code. The closures fire only when a consumer pulls values through.
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![1, 2, 3];
 
@@ -287,7 +287,7 @@ Compare this to the JavaScript example earlier, where `"mapping 1/2/3"` printed 
 
 Because values are *pulled* one at a time, an adaptor chain only does the work the consumer actually demands. This lets Rust iterate over **infinite** sequences and stop early:
 
-```rust
+```rust playground
 fn main() {
     let result: Vec<i32> = (1..) // 1, 2, 3, ... infinite!
         .map(|n| {
@@ -342,7 +342,7 @@ Laziness lets the compiler **fuse** the whole chain into a single loop with no i
 
 This is the number-one surprise for JavaScript developers. You write a `map` for its side effect, and nothing happens.
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![1, 2, 3];
     nums.iter().map(|n| println!("{n}")); // adaptor created but never consumed
@@ -432,7 +432,7 @@ note: `into_iter` takes ownership of the receiver `self`, which moves `names`
 
 A JavaScript developer used to `b[i]` returning `undefined` past the end may expect `zip` to surface mismatched lengths. It does not; it silently stops at the shorter one.
 
-```rust
+```rust playground
 fn main() {
     let keys = vec!["a", "b", "c"];
     let vals = vec![1, 2]; // shorter!
@@ -457,7 +457,7 @@ Verified output:
 
 Use adaptor chains to *transform data into a new value*. Use a plain `for` loop when the point is a **side effect** (printing, mutating external state, I/O). A chain that ends in `for_each` purely for side effects is usually less readable than the loop.
 
-```rust
+```rust playground
 // Transforming -> use a chain ending in a consumer.
 fn main() {
     let prices = vec![100, 250, 75];
@@ -475,7 +475,7 @@ fn main() {
 
 Instead of a mutable counter, use `enumerate`. It is clearer and the index type (`usize`) is always correct.
 
-```rust
+```rust playground
 // idiomatic
 fn main() {
     let items = vec!["x", "y", "z"];
@@ -493,7 +493,7 @@ It reads as "skip a page, take a page," handles short inputs gracefully (no pani
 
 `collect` is generic over its output, so the compiler needs to know what you want, either via a `let` annotation or the turbofish `::<>`:
 
-```rust
+```rust playground
 fn main() {
     let evens: Vec<i32> = (1..=10).filter(|n| n % 2 == 0).collect(); // annotate the binding
     let odds = (1..=10).filter(|n| n % 2 == 1).collect::<Vec<i32>>(); // or turbofish
@@ -511,7 +511,7 @@ When chaining off `iter()` produces awkward `&&T` items or you want owned values
 
 A log-processing pipeline: number raw log lines, parse them into structs, keep only warnings and errors, and cap the output at the first three problems, all in one lazy chain. This is the kind of code you'd write in a command-line tool or a server's log scanner.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct LogLine {
     line_no: usize,
@@ -607,7 +607,7 @@ The pipeline never builds an intermediate `Vec` of all parsed lines; laziness fu
 
 **Instructions:** Given `let temps_c = vec![0.0, 25.0, 37.0, 100.0];`, build a new `Vec<f64>` of the same temperatures converted to Fahrenheit using the formula `f = c * 9/5 + 32`. Print the result.
 
-```rust
+```rust playground
 fn main() {
     let temps_c = vec![0.0, 25.0, 37.0, 100.0];
     // TODO: map each Celsius value to Fahrenheit and collect into a Vec<f64>
@@ -619,7 +619,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let temps_c = vec![0.0, 25.0, 37.0, 100.0];
     let temps_f: Vec<f64> = temps_c.iter().map(|c| c * 9.0 / 5.0 + 32.0).collect();
@@ -643,7 +643,7 @@ Output:
 
 **Instructions:** Given `let scores = vec![88, 42, 95, 60, 73, 31];`, produce a `Vec<(usize, i32)>` of `(original_index, score)` pairs where the score is a passing grade (`>= 60`), then skip the first passing result and take the next two. (Hint: `enumerate` *before* `filter` so the index reflects the original position.)
 
-```rust
+```rust playground
 fn main() {
     let scores = vec![88, 42, 95, 60, 73, 31];
     // TODO: enumerate -> filter passing -> skip(1) -> take(2) -> collect
@@ -653,7 +653,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let scores = vec![88, 42, 95, 60, 73, 31];
     let top_passing: Vec<(usize, i32)> = scores
@@ -686,7 +686,7 @@ The passing scores are at indices 0, 2, 3, 4. `skip(1)` drops index 0; `take(2)`
 
 **Instructions:** Given `let labels = vec!["jan", "feb", "mar"];` and `let revenue = vec![100, 150, 90];`, build a `Vec<String>` where each entry looks like `"1. jan: $100"` (a 1-based row number, the label, and the revenue). Use `zip` to pair labels with revenue and `enumerate` for the row number. Print each line.
 
-```rust
+```rust playground
 fn main() {
     let labels = vec!["jan", "feb", "mar"];
     let revenue = vec![100, 150, 90];
@@ -698,7 +698,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let labels = vec!["jan", "feb", "mar"];
     let revenue = vec![100, 150, 90];

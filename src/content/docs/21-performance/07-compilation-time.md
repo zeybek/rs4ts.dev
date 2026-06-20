@@ -205,7 +205,7 @@ This is the concept with no TypeScript analogue, and the one most likely to sile
 
 Consider a deliberately generic helper:
 
-```rust
+```rust playground
 use std::fmt::Write;
 
 // Generic: the compiler produces a fresh copy of `process` for EVERY
@@ -255,7 +255,7 @@ The compiler must type-check, optimize, and emit machine code for each one. The 
 
 The fix is an old C++ trick adapted to Rust: keep the *generic* surface tiny, and delegate to a single *non-generic* inner function that holds the real work. The generic shim only does the cheap conversion; the expensive body is compiled exactly once.
 
-```rust
+```rust playground
 use std::fmt::Write;
 
 // The real work lives in ONE non-generic function, compiled exactly once.
@@ -650,7 +650,7 @@ $ cargo build
 
 **Instructions:** Start from this fully-generic function and a `main` that calls it with several distinct types. Install `cargo-llvm-lines` (`cargo install cargo-llvm-lines`) and record the `Lines`/`Copies` for `count_words`. Then refactor so the real work lives in a single non-generic function and `count_words` is only a thin generic shim. Re-measure and confirm the duplicated work shrank.
 
-```rust
+```rust playground
 // Starting point — refactor this.
 fn count_words<T: AsRef<str>>(text: T) -> usize {
     let s = text.as_ref();
@@ -676,7 +676,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // The work is non-generic now: compiled once regardless of how many
 // string-ish types the shim is called with.
 fn count_words_inner(s: &str) -> usize {

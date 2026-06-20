@@ -101,7 +101,7 @@ function render(node: Expr): string {
 
 The idiomatic Rust form drops both interfaces. The structure is an `enum`; each operation is a function that `match`es on it. Here is an arithmetic expression tree with two operations — evaluate and render — written as plain recursive functions.
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 enum Expr {
     Number(f64),
@@ -217,7 +217,7 @@ Note the **or-pattern** `Expr::Add(a, b) | Expr::Sub(a, b) | Expr::Mul(a, b)`: w
 
 The `enum` form has one limitation: the set of variants is **closed**. Only the crate that defines `Expr` can add a variant. If you are writing a library and want *downstream* crates to plug in their own node types — the "open structure" scenario — you need the trait-object form, which trades exhaustiveness for extensibility.
 
-```rust
+```rust playground
 trait Shape {
     fn accept(&self, visitor: &mut dyn ShapeVisitor);
 }
@@ -433,7 +433,7 @@ A self-referential `enum` has no finite size, so a naive `Add(Expr, Expr)` is re
 
 A production-flavored use: walking a JSON document with two independent passes — one that gathers statistics, one that collects every string leaf in document order — plus a compact serializer. This is exactly the shape of work a linter, a config validator, or a redaction tool does, and it shows multiple "visitors" over one owned `enum`.
 
-```rust
+```rust playground
 use std::collections::BTreeMap;
 
 #[derive(Debug, Clone)]
@@ -574,7 +574,7 @@ Three operations, one data type, zero `accept`/`visit*` ceremony. Note `collect_
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 enum Expr {
     Number(f64),
@@ -633,7 +633,7 @@ Running it prints:
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 enum Expr {
     Number(f64),
@@ -704,7 +704,7 @@ nodes = 5
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 enum Expr {
     Number(f64),

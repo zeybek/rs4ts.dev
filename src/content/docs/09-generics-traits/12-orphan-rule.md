@@ -61,7 +61,7 @@ This freedom is exactly what Rust's orphan rule trades away, on purpose.
 
 Rust lets you do the *useful* version of the above (adding a method to `Vec`) but forces you to own at least one side of the relationship. Here we define our **own** trait and implement it for the foreign `String` and `i64` types, which is allowed:
 
-```rust
+```rust playground
 // Rust - implementing a LOCAL trait for FOREIGN types is fine.
 trait Summarize {
     fn summary(&self) -> String;
@@ -158,7 +158,7 @@ The final note — "define and implement a trait or new type instead" — is the
 
 A **newtype** is a tuple struct with a single field that wraps another type: `struct Wrapper(Vec<String>);`. The wrapper is **local to your crate**, so implementing a foreign trait for it satisfies the orphan rule. It compiles to the same layout as the inner value (no runtime overhead), and it exists purely to give you a *local* type you are allowed to add impls to.
 
-```rust
+```rust playground
 use std::fmt;
 
 // `Wrapper` is a local newtype: a tuple struct holding one foreign type.
@@ -186,7 +186,7 @@ w = [hello, world]
 
 You reach the inner value through the tuple field `self.0`. To convert in and out ergonomically, a `From` impl is idiomatic:
 
-```rust
+```rust playground
 struct Wrapper(Vec<String>);
 
 impl From<Vec<String>> for Wrapper {
@@ -320,7 +320,7 @@ Coming from TypeScript's structural typing, you might expect that if your type "
 
 A common production need: render HTTP headers in a custom format. `Display` is foreign and `HashMap` is foreign, so you cannot implement `Display for HashMap` directly. The orphan-rule-respecting solution is a `Headers` newtype, given a custom `Display` and a `Deref` so callers can still use the underlying `HashMap` API transparently.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::fmt;
 use std::ops::Deref;
@@ -423,7 +423,7 @@ This is the same instinct as the TypeScript monkey-patch — "give this collecti
 
 **Instructions:** Define a newtype `Celsius(f64)`. Implement `std::fmt::Display` for it so that a temperature prints with one decimal place followed by `°C` (for example, `21.5°C`). In `main`, construct `Celsius(21.5)` and print it with `println!`.
 
-```rust
+```rust playground
 use std::fmt;
 
 struct Celsius(f64);
@@ -438,7 +438,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::fmt;
 
 struct Celsius(f64);
@@ -473,7 +473,7 @@ Current temperature: 21.5°C
 
 **Instructions:** Define a newtype `IntList(Vec<i32>)` and derive `Debug`. Implement `Add` so that adding two `IntList`s concatenates their inner vectors (the elements of the left list followed by the elements of the right). In `main`, add `IntList(vec![1, 2, 3])` and `IntList(vec![4, 5])` and print the result with `{:?}`.
 
-```rust
+```rust playground
 use std::ops::Add;
 
 #[derive(Debug)]
@@ -489,7 +489,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::ops::Add;
 
 // Newtype around the foreign type `Vec<i32>`.
@@ -533,7 +533,7 @@ IntList([1, 2, 3, 4, 5])
 
 **Instructions:** Treat `Money { cents: u64 }` and the trait `Render { fn render(&self) -> String; }` as if they came from two different external crates you cannot edit (so `impl Render for Money` is impossible by the orphan rule). Define a local newtype `Priced(Money)`. Implement `Deref<Target = Money>` so that `priced.cents` reads through to the inner value, then implement `Render` for `Priced` to format the amount as dollars (for example, `1995` cents becomes `$19.95`; always show two cents digits). In `main`, build `Priced(Money { cents: 1995 })`, print its raw `cents` (via `Deref`), and print `render()`.
 
-```rust
+```rust playground
 use std::ops::Deref;
 
 #[derive(Clone, Copy)]
@@ -558,7 +558,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::ops::Deref;
 
 // Imagine `Money` is a type from an external crate that we cannot edit,

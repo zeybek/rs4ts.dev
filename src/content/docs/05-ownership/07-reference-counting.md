@@ -56,7 +56,7 @@ console.log(forLogger.timeoutMs); // 10000 — ...is visible through all of them
 
 Rust will not let you alias an owned value freely (that is the whole point of [the ownership rules](/05-ownership/01-ownership-rules/)). To opt into shared ownership, you wrap the value in `Rc<T>` and create additional owners with `Rc::clone`. Each clone bumps a strong count; each drop lowers it; the value is freed when the count hits zero.
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 #[derive(Debug)]
@@ -135,7 +135,7 @@ Read this as "make another owner of the same allocation." It copies a pointer an
 
 You can confirm all clones point at the same heap value: `Rc::as_ptr` returns the address of the inner `T`, and it is identical across clones (the exact address varies per run):
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 fn main() {
@@ -156,7 +156,7 @@ All three printed pointers are the same address, and `strong_count` is `3`. No `
 
 `Rc::strong_count(&rc)` reports how many owners exist right now. The count goes up on every clone and down on every drop, including the implicit drop at the end of a scope and the explicit `std::mem::drop` (the same `drop` from [the Drop trait page](/05-ownership/08-drop-trait/)):
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 fn main() {
@@ -190,7 +190,7 @@ When the count would reach `0`, the inner `Vec` is dropped and its heap memory f
 
 `Rc<T>` gives you shared ownership, and shared access in Rust means **immutable** access (the same one-mutable-XOR-many-shared rule from [Mutable References](/05-ownership/03-mutable-references/), now enforced at the type level). You cannot get a `&mut T` out of an `Rc<T>` while it might be shared, so you cannot mutate the inner value directly. To have shared *and* mutable data, you combine `Rc<T>` with a cell type that provides **interior mutability**, almost always `RefCell<T>` (single-threaded):
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -222,7 +222,7 @@ strong_count = 3
 
 `Rc<T>` deliberately uses a **non-atomic** counter, which is fast but not safe to touch from multiple threads. The compiler enforces this: an `Rc` is not `Send`, so you cannot move one into another thread. When you need to share across threads, switch to `Arc<T>` — identical API, but the count is updated with **atomic** operations:
 
-```rust
+```rust playground
 use std::sync::Arc;
 use std::thread;
 
@@ -364,7 +364,7 @@ error[E0277]: `Rc<String>` cannot be sent between threads safely
 
 This is the one case where reference counting fails to clean up. If two `Rc`s point at each other (directly or through a chain), their counts never reach zero, so neither is ever dropped — a real memory **leak**, even in safe Rust:
 
-```rust
+```rust playground
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -436,7 +436,7 @@ Two confusions, opposite directions:
 
 A common production scenario: a parsed form/schema where many fields reuse the **same** validated field type. Instead of cloning the `FieldType` into every `Field` (wasteful) or threading borrows and lifetimes through the whole structure (awkward when fields are built dynamically), you share one canonical `FieldType` via `Rc`. Every field is an independent owner of the shared type; the type is freed only when the last field referencing it is gone.
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 /// A reusable field definition that several form sections share.
@@ -528,7 +528,7 @@ shared FieldType strong_count = 4
 
 **Instructions:** Wrap a `Palette` (with a `name: String` and `colors: Vec<String>`) in an `Rc`. Make two additional owners called `header` and `footer` with `Rc::clone`. Print the palette name from each handle, print the colors once, and finally print the strong count (it should be `3`).
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 #[derive(Debug)]
@@ -549,7 +549,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 #[derive(Debug)]
@@ -595,7 +595,7 @@ There are three owners: the original `palette` plus the two clones. None of them
 
 **Instructions:** Create an `Rc<Vec<i32>>`, clone it twice into `a` and `b`, then `drop(a)` and `drop(b)` one at a time. **Before running it, write down** the count after each step. Then print the count at each step to confirm, and show the data is still usable after both clones are dropped.
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 fn main() {
@@ -611,7 +611,7 @@ fn main() {
 
 Predicted counts: `3` after two clones, `2` after `drop(a)`, `1` after `drop(b)`.
 
-```rust
+```rust playground
 use std::rc::Rc;
 
 fn main() {
@@ -656,7 +656,7 @@ data still usable: [1, 2, 3]
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::sync::{Arc, Mutex};
 use std::thread;
 

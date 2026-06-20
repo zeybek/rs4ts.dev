@@ -74,7 +74,7 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 ```
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // The same shape as the TypeScript `interface BlogPost`.
@@ -161,7 +161,7 @@ fn from_str<T: Deserialize>(s: &str) -> Result<T, serde_json::Error>
 
 Two things follow. First, the type `T` you want out is part of the call — usually supplied by the binding's type annotation (`let parsed: BlogPost = ...`) or a turbofish (`from_str::<BlogPost>(...)`). Second, the return is a **`Result`** (covered in [Section 08: Error Handling](/08-error-handling/)). Where `JSON.parse` throws, and where its `as BlogPost` cast lies about validation, Serde forces you to acknowledge that parsing can fail:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -211,7 +211,7 @@ Look at the third line: `invalid type: string "oops", expected u16`. This is the
 
 By default Serde is forgiving about *extra* fields and strict about *missing* ones, the opposite of `JSON.parse`'s "anything goes":
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -291,7 +291,7 @@ Your type's `Serialize` impl describes itself in terms of the **data model** ("I
 
 The `#[derive(Serialize, Deserialize)]` macros live behind an opt-in feature of the `serde` crate. If you add plain `serde = "1"` (for example via `cargo add serde` without `--features derive`), the *traits* are in scope but the *derive macros* are not:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)] // does not compile: derive macros not enabled
@@ -400,7 +400,7 @@ serde_json = "1"
 toml = "1"
 ```
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // One set of types. They implement Serialize + Deserialize, so they can travel
@@ -511,7 +511,7 @@ The `Repository` and `Owner` types never mention JSON or TOML. The nesting (`own
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -560,7 +560,7 @@ Movie { title: "Arrival", year: 2016, rating: 8.0 }
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -619,7 +619,7 @@ serde_json = "1"
 toml = "1"
 ```
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]

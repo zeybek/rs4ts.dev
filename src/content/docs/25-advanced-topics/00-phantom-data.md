@@ -61,7 +61,7 @@ fetchUser(userId); // ok
 
 Here is the same "typed IDs" idea in Rust. We make `Id<T>` generic over a marker type, but the only data we store is a `u64`; the `T` lives in a `PhantomData<T>`:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 // Same u64 representation, but the compiler keeps the two ID kinds distinct.
@@ -136,7 +136,7 @@ The marker type itself (`User`, `Order` above) is usually a fieldless struct —
 
 The most important *correctness* use of `PhantomData` is telling the compiler that your struct **owns** a `T` it only points at. Consider a hand-rolled `Box`-like container built over a raw pointer:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 use std::ptr::NonNull;
 
@@ -210,7 +210,7 @@ The *type you put inside* `PhantomData` matters, because different forms convey 
 
 For a "nominal tag" like `Id<T>` or units of measure, `PhantomData<fn() -> T>` is often the most conservative choice: it claims no ownership and stays `Send + Sync` regardless of `T`. This is verifiable: `PhantomData<fn() -> T>` is `Send` even when `T` is the `!Send` type `Rc<i32>`:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 use std::rc::Rc;
 
@@ -237,7 +237,7 @@ Conversely, `PhantomData<*const ()>` is the standard way to make a struct **`!Se
 
 `PhantomData` is one ZST, but ZSTs are a general concept. The unit type `()`, an empty struct, and an empty enum's inhabited unit variants all have size `0`. The compiler and standard library exploit this:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 use std::mem::{size_of, size_of_val};
 
@@ -326,7 +326,7 @@ The compiler itself suggests the fix: add a `PhantomData<T>` field. Rust forbids
 
 Once you add `_marker: PhantomData<T>`, you must initialize it in every constructor, but it is just the literal `PhantomData`:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 struct Wrapper<T> {
@@ -421,7 +421,7 @@ If you wanted the struct to remain `Send`, use `PhantomData<fn() -> T>` (or `Pha
 
 A production-grade use of `PhantomData` is the **typestate pattern**: encode an object's state in its type so that methods only valid in one state are *unavailable* in others, enforced at compile time. Here, a database/socket connection cannot be sent on before it is opened, and cannot be opened twice, and there is zero runtime cost, because the state lives entirely in a `PhantomData`:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 // State markers — fieldless ZSTs that are never constructed.
@@ -485,7 +485,7 @@ A few things to notice. `send` exists *only* in `impl Connection<Open>`, so call
 
 A second realistic use is **units of measure**, where the unit is a phantom tag that prevents mixing dimensions:
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 use std::ops::Add;
 
@@ -565,7 +565,7 @@ Adding meters to seconds is a compile error (`error[E0308]: mismatched types ...
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 struct Raw;
@@ -618,7 +618,7 @@ rendered: &lt;script&gt;alert(1)&lt;/script&gt;
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 struct Token<'src> {
@@ -685,7 +685,7 @@ The `Token` is just two `usize`s (16 bytes on a 64-bit target); the `PhantomData
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::marker::PhantomData;
 
 struct GlHandle {

@@ -57,7 +57,7 @@ console.log(unique);
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -116,7 +116,7 @@ unique count: 3
 
 `HashSet` lives in `std::collections`, so it always needs a `use` line. There is no `Set` in the prelude the way `Vec` and `String` are:
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -144,7 +144,7 @@ fn main() {
 
 This is the single most useful difference from JavaScript's `add`/`delete`, which return the set and a boolean respectively but are rarely used for their return value. In Rust the return value is *the* idiomatic way to do "insert if new":
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -169,7 +169,7 @@ removed = true, missing = false
 
 ### Membership: `contains`, `get`, and `take`
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -195,7 +195,7 @@ fn main() {
 
 `union`, `intersection`, `difference`, and `symmetric_difference` do **not** allocate a new set. They return an **iterator** of references (`&T`) that you consume, typically with `.collect()` or `.copied()/.cloned()` first. This is consistent with Rust's [lazy iterator philosophy](/07-collections/06-iterators/).
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -239,7 +239,7 @@ symmetric_difference = [1, 2, 5, 6]
 
 For sets of `Clone` elements, the bitwise operators are overloaded to mirror set algebra. They operate on **references** and produce an **owned** `HashSet`:
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -265,7 +265,7 @@ fn main() {
 
 ### Relationship predicates
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -281,7 +281,7 @@ fn main() {
 
 ### In-place mutation: `extend` and `retain`
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -321,7 +321,7 @@ fn main() {
 
 A hash set finds elements by hashing them into buckets and comparing for equality within a bucket. So `T` must be able to (a) produce a hash (`Hash`) and (b) be compared for total equality (`Eq`, which implies `PartialEq`). Most built-in types — integers, `bool`, `char`, `String`, `&str`, tuples and `Vec`s of those — already implement both. For your own structs and enums, derive them:
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -420,7 +420,7 @@ console.log([...s]); // ['c', 'a', 'b'] — always
 
 In Rust, `for x in &set` visits elements in a random order that changes between program runs. Do not write tests or output that assume an order. To compare a set to an expected sequence, sort first:
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn main() {
@@ -453,7 +453,7 @@ fn main() {
 
 A small access-control check: given the permissions a user has been **granted** and the permissions an action **requires**, compute exactly which permissions are missing, and deduplicate an incoming audit log of accessed resources.
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -553,7 +553,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn count_unique_words(text: &str) -> usize {
@@ -596,7 +596,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn common(a: &[i32], b: &[i32]) -> Vec<i32> {
@@ -641,7 +641,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashSet;
 
 fn first_duplicate(items: &[&str]) -> Option<String> {

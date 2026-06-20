@@ -59,7 +59,7 @@ console.log(result); // undefined  <-- void really means `undefined`
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 // The last expression IS the return value: no `return`, no semicolon.
 fn square(n: i32) -> i32 {
     n * n
@@ -524,7 +524,7 @@ Omit the return type for unit-returning functions; `fn f() {}` is preferred over
 
 A small slice of an API layer: computing pagination metadata (early returns + a tuple result) and parsing a `key=value` line (early return + `Option` of a tuple).
 
-```rust
+```rust playground
 /// Compute pagination metadata for a list endpoint.
 ///
 /// Returns `(offset, limit, total_pages)`. Uses early returns to clamp
@@ -623,7 +623,7 @@ Notice three return-value techniques working together: a **tuple** for `(offset,
 
 **Instructions:** Rewrite this function in idiomatic Rust style (no `return`, no trailing semicolon on the result). It converts Celsius to Fahrenheit.
 
-```rust
+```rust playground
 fn celsius_to_fahrenheit(c: f64) -> f64 {
     return c * 9.0 / 5.0 + 32.0;
 }
@@ -636,7 +636,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn celsius_to_fahrenheit(c: f64) -> f64 {
     c * 9.0 / 5.0 + 32.0
 }
@@ -672,7 +672,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn divmod(a: i32, b: i32) -> (i32, i32) {
     (a / b, a % b) // tuple tail expression
 }
@@ -710,7 +710,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn parse_kv(input: &str) -> Option<(String, String)> {
     let (key, value) = input.split_once('=')?; // `?` returns None early if no '='
     let key = key.trim();

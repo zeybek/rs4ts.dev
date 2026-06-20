@@ -146,7 +146,7 @@ Older guides and Stack Overflow answers tell you to set **`rust-analyzer.checkOn
 
 Setting `check.command` to `"clippy"` means every save runs `cargo clippy` and surfaces Clippy lints as inline warnings, the closest analogue to ESLint highlighting issues in your editor. With a small program like this:
 
-```rust
+```rust playground
 fn double(x: i32) -> i32 {
     return x * 2;
 }
@@ -338,7 +338,7 @@ A production Rust repository ships a `.vscode/` folder so a new teammate gets a 
 
 Open this program in the configured editor:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -446,13 +446,13 @@ You see that yellow squiggle the instant you save; no terminal round-trip. With 
 
 Paste this into `src/main.rs` and save:
 
-```rust
+```rust playground
 fn main(){let nums=vec![3,1,2];let mut s=nums.clone();s.sort();println!("{:?}",s);}
 ```
 
 On save it becomes:
 
-```rust
+```rust playground
 fn main() {
     let nums = vec![3, 1, 2];
     let mut s = nums.clone();
@@ -483,7 +483,7 @@ If nothing happens, you either skipped the `[rust]` scope or the extension is no
 
 `src/main.rs`:
 
-```rust
+```rust playground
 fn double(x: i32) -> i32 {
     return x * 2;
 }
@@ -549,7 +549,7 @@ extra = []
 
 `src/main.rs`:
 
-```rust
+```rust playground
 #[cfg(feature = "extra")]
 fn experimental() {
     let _x: i32 = "nope"; // does not compile (error[E0308]: mismatched types) — only when `extra` is active

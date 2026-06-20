@@ -63,7 +63,7 @@ cd async_demo
 cargo add tokio --features full
 ```
 
-```rust
+```rust playground
 // src/main.rs
 use std::time::Duration;
 use tokio::time::sleep;
@@ -169,7 +169,7 @@ This is the inverse of JavaScript: there, the whole program runs *inside* the ev
 
 ### The two scheduler flavors
 
-```rust
+```rust playground
 use tokio::runtime::Builder;
 
 fn main() {
@@ -260,7 +260,7 @@ multi-threaded runtime, 2 workers
 
 Because `#[tokio::main]` produces an ordinary `main`, your async `main` can return a `Result`, which lets you use the `?` operator at the top level, handy for prototypes and CLIs:
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::time::{sleep, timeout};
 
@@ -445,7 +445,7 @@ A single-threaded runtime has lower overhead and avoids `Send` bounds on your fu
 
 Constructing a runtime allocates threads and drivers; do not create one per operation. Build it once, then call `block_on` (or spawn tasks) as many times as you like:
 
-```rust
+```rust playground
 use tokio::runtime::Builder;
 
 async fn square(n: u64) -> u64 {
@@ -517,7 +517,7 @@ test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 A common production pattern: a service starts a Tokio runtime *explicitly* (rather than via `#[tokio::main]`) so it can name threads for observability and pin a worker count, then runs concurrent I/O on it. Here we fetch several pages of a paginated API concurrently and gather the results.
 
-```rust
+```rust playground
 use std::time::Duration;
 use tokio::runtime::Builder;
 use tokio::time::sleep;
@@ -650,7 +650,7 @@ Hello, Ada!
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // src/main.rs
 use tokio::runtime::Runtime;
 
@@ -696,7 +696,7 @@ Hello, Ada!
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // src/main.rs
 use tokio::runtime::Builder;
 

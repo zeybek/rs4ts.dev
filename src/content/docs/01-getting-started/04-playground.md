@@ -53,7 +53,7 @@ The Rust Playground ([play.rust-lang.org](https://play.rust-lang.org/)) lets you
 
 **When you open it, you see:**
 
-```rust
+```rust playground
 fn main() {
     println!("Hello, world!");
 }
@@ -76,7 +76,7 @@ fn main() {
 
 **Try this:**
 
-```rust
+```rust playground
 fn main() {
     let x = 5;
     println!("x = {}", x);
@@ -241,7 +241,7 @@ No such file or directory (os error 2)
 
 **Solution:** Use string literals instead:
 
-```rust
+```rust playground
 fn main() {
     let content = "This is my file content";
     println!("{}", content);
@@ -303,7 +303,7 @@ fn main() {
 
 **Good use:**
 
-```rust
+```rust playground
 // Test how Option works
 fn main() {
     let x: Option<i32> = Some(5);
@@ -328,7 +328,7 @@ Quick test, immediate feedback!
 
 **Click "Clippy"** to get suggestions. Clippy goes beyond compiler errors and flags non-idiomatic code:
 
-```rust
+```rust playground
 fn main() {
     let s = String::from("hello");
     if s.len() == 0 {
@@ -374,7 +374,7 @@ Much better than pasting code in a forum post!
 **1. Go to playground**
 **2. Write code:**
 
-```rust
+```rust playground
 fn divide(a: i32, b: i32) -> Result<i32, String> {
     if b == 0 {
         Err("Cannot divide by zero".to_string())
@@ -440,7 +440,7 @@ Open the tools/options menu and choose to expand macros (this uses the nightly t
 
 See what macros expand to:
 
-```rust
+```rust playground
 fn main() {
     println!("Hello, {}", "world");
 }
@@ -594,7 +594,7 @@ Variables are immutable by default in Rust!
 
 **Fix:**
 
-```rust
+```rust playground
 fn main() {
     let mut x = 5;  // Add 'mut'
     x = 10;
@@ -608,7 +608,7 @@ fn main() {
 
 Write this code:
 
-```rust
+```rust playground
 fn main() {
     let s = String::from("hello");
     let len = s.len();
@@ -622,7 +622,7 @@ Click "Clippy". Does it suggest anything?
 
 Paste this:
 
-```rust
+```rust playground
 fn main(){let x=5;let y=10;println!("{} {}",x,y);}
 ```
 

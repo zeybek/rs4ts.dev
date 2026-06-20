@@ -49,7 +49,7 @@ This pattern is everywhere: HTML escaping, input sanitizing, path normalization,
 
 `Cow<'_, str>` expresses exactly that distinction, and the compiler guarantees the borrow is valid:
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 fn ensure_https(url: &str) -> Cow<'_, str> {
@@ -124,7 +124,7 @@ So `Cow<'a, str>` is "either a `&'a str` or a `String`," and `Cow<'a, [i32]>` is
 
 `Cow<'_, B>` implements `Deref<Target = B>`, so every read-only method of the borrowed type is available directly — you do not match on the variant just to call `.len()`:
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 fn main() {
@@ -167,7 +167,7 @@ The "clone on write" name comes from two methods:
 - **`to_mut(&mut self) -> &mut <B as ToOwned>::Owned`** — gives you a mutable handle to the owned form. If the `Cow` is currently `Borrowed`, it clones the data into an owned value *first* (that is the "write" that triggers the "clone"), switches the variant to `Owned`, and hands you `&mut` to it. If it was already `Owned`, no clone happens.
 - **`into_owned(self) -> <B as ToOwned>::Owned`** — unconditionally consumes the `Cow` and returns the owned value, cloning only if it was borrowed.
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 fn main() {
@@ -200,7 +200,7 @@ The `push_str` call works because `to_mut()` returns `&mut String`, and `String`
 
 Imagine a sanitizer applied to every field of every request. If 99% of inputs are already clean, eagerly calling `.to_string()` allocates a `String` for every single one. `Cow` lets the clean path stay a borrow:
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 // Replace any control chars; only allocate if there is something to replace.
@@ -242,7 +242,7 @@ dirty value:    "badtext"
 
 `Cow<'_, [T]>` works for any slice whose element is `Clone`. The decision and the deref behavior are identical:
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 // Cow works for any [T] where T: Clone, not just str.
@@ -353,7 +353,7 @@ error[E0599]: no method named `push_str` found for enum `Cow<'_, str>` in the cu
 
 If *every* code path produces an owned value, `Cow` buys you nothing but ceremony — just return `String`. `Cow` pays off only when at least one common path can stay borrowed.
 
-```rust
+```rust playground
 // Anti-pattern: both arms are Owned, so Cow adds no value.
 // fn f(s: &str) -> Cow<'_, str> { Cow::Owned(s.to_uppercase()) }
 // Prefer:
@@ -389,7 +389,7 @@ Comparisons and most reads work via `Deref`, so they are fine — but remember t
 
 A small templating layer that HTML-escapes interpolated values. The vast majority of values are plain text needing no escaping, so we keep those borrowed and only allocate for values that contain `<`, `>`, `&`, or `"`.
 
-```rust
+```rust playground
 use std::borrow::Cow;
 use std::collections::HashMap;
 
@@ -503,7 +503,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 fn trim_if_needed(input: &str) -> Cow<'_, str> {
@@ -564,7 +564,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 fn normalize_newlines(text: &str) -> Cow<'_, str> {
@@ -643,7 +643,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::borrow::Cow;
 
 #[derive(Debug)]

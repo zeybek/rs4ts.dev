@@ -69,7 +69,7 @@ Two JavaScript subtleties to keep in mind, because they differ in Rust:
 
 The same fan-out in Rust uses `tokio::join!`. Each `fetch_*` call builds a lazy future; `join!` polls all of them concurrently on the current task and hands back a **tuple** (not an array; the results can have different types).
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 
@@ -124,7 +124,7 @@ all done in ~152 ms
 
 The total is ~150 ms — the duration of the *slowest* branch — not 120 + 90 + 150. That is concurrency: all three timers count down together. And for `Promise.race`, the Rust analogue is `tokio::select!`:
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn primary() -> &'static str {
@@ -191,7 +191,7 @@ This is the first place the JavaScript analogy bends. `Promise.all([a, b, c])` r
 
 When every future returns `Result<T, E>`, `tokio::try_join!` waits for all of them to succeed and gives you `Ok((T1, T2, ...))`. But the moment any future returns `Err`, it stops and returns that error immediately. This is the `Promise.all`-with-rejection pattern, made explicit by Rust's `Result` type.
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 
@@ -240,7 +240,7 @@ It returned after ~40 ms (the moment `fetch_posts` failed) without waiting for t
 
 `tokio::select!` polls several futures and runs the body of **whichever finishes first**, then **drops all the other futures**. Each arm is `pattern = future => expression`, and `select!` evaluates to the chosen arm's expression, so all arms must produce a compatible type.
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn from_cache() -> Option<String> {
@@ -276,7 +276,7 @@ The pattern position (`v = ...`) can destructure, which lets a `select!` arm fir
 
 This is the headline difference from `Promise.race`. When a `select!` arm wins, the other futures are **dropped mid-flight**: any work they had not yet completed never runs. The following makes that visible. Each branch logs every step it completes:
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn step_writer(label: &str, steps: u32) -> &str {
@@ -314,7 +314,7 @@ winner: fast
 
 Because `select!` returns after a single event, it is almost always used inside a `loop` to build an event-driven task that reacts to whichever source is ready: a channel message, a timer tick, a shutdown signal. This is the closest Rust comes to Node's "one event loop handling many sources."
 
-```rust
+```rust playground
 use tokio::sync::{mpsc, oneshot};
 use tokio::time::{sleep, Duration};
 
@@ -367,7 +367,7 @@ Note `&mut shutdown_rx`: the `oneshot::Receiver` is awaited *by mutable referenc
 
 By default, `select!` checks its arms in a **random** order on each poll to avoid starving any branch. When you want a deterministic priority (for example, "always drain pending work before checking the timer"), add `biased;` as the first line; arms are then polled top-to-bottom.
 
-```rust
+```rust playground
 use tokio::sync::mpsc;
 
 #[tokio::main]
@@ -404,7 +404,7 @@ drained 3 items
 
 `join!` and `try_join!` are macros with a *fixed* number of arms known at compile time. When you have a **`Vec` of futures** whose length is decided at runtime (the most common real-world case), use the `futures` crate's `join_all` / `try_join_all`, which take an iterator of futures and return a `Vec` of results.
 
-```rust
+```rust playground
 use futures::future::join_all;
 use tokio::time::{sleep, Duration};
 
@@ -433,7 +433,7 @@ Real output:
 
 `try_join_all` is the fail-fast variant: it returns `Result<Vec<T>, E>`, short-circuiting on the first `Err` just like `try_join!`.
 
-```rust
+```rust playground
 use futures::future::try_join_all;
 use tokio::time::{sleep, Duration};
 
@@ -575,7 +575,7 @@ Reaching for a non-existent macro and then assuming `try_join!` "ignores errors"
 
 A pricing service queries several regional mirrors and uses the **fastest** response (a `select!` race with an overall deadline), while *simultaneously* fetching the current FX rate it needs to convert the price (a `join!` of the race against the rate fetch). This combines `select!` and `join!` in one realistic flow.
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 
@@ -678,7 +678,7 @@ The fastest mirror (`eu-west`, 60 ms) won the `select!` race; the slower mirrors
 
 **Instructions:** The program below fetches weather and news one after another, taking ~200 ms. Rewrite it so both run concurrently (~100 ms total) and keep both results. Do not change the two `async fn`s.
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 
@@ -708,7 +708,7 @@ async fn main() {
 
 Combine the two futures with `tokio::join!`. Building them is not enough. The macro is what drives them together.
 
-```rust
+```rust playground
 use std::time::Instant;
 use tokio::time::{sleep, Duration};
 
@@ -753,7 +753,7 @@ done in ~102 ms
 
 **Instructions:** `build_report` takes 300 ms. Use a `tokio::select!` with a 150 ms timer branch so that if the report is not ready in time, the program prints `report timed out` instead of waiting. Then, in the solution, note the idiomatic one-liner alternative.
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn build_report() -> String {
@@ -774,7 +774,7 @@ async fn main() {
 
 Add a timer arm; whichever finishes first wins, and the loser is cancelled.
 
-```rust
+```rust playground
 use tokio::time::{sleep, Duration};
 
 async fn build_report() -> String {
@@ -804,7 +804,7 @@ report timed out
 
 The idiomatic shortcut for "bound a single future with a timeout" is `tokio::time::timeout`, which does exactly this and returns `Result<T, Elapsed>`:
 
-```rust
+```rust playground
 use tokio::time::{sleep, timeout, Duration};
 
 async fn build_report() -> String {
@@ -837,7 +837,7 @@ report timed out
 
 **Instructions:** A producer sends three jobs on an `mpsc` channel, then fires a `oneshot` shutdown signal. Write a `loop { tokio::select! { ... } }` that processes each job as it arrives and `break`s when the shutdown signal fires, printing how many jobs it processed. Remember that the `oneshot` receiver must be awaited by `&mut` so it survives across iterations.
 
-```rust
+```rust playground
 use tokio::sync::{mpsc, oneshot};
 use tokio::time::{sleep, Duration};
 
@@ -863,7 +863,7 @@ async fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use tokio::sync::{mpsc, oneshot};
 use tokio::time::{sleep, Duration};
 

@@ -62,7 +62,7 @@ console.log(applyTwice((x) => x + 3, 10)); // 16
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5];
 
@@ -125,7 +125,7 @@ fn main() {
 
 In JavaScript, `numbers.map(...)` is a method on the array that returns a brand-new array. In Rust, `map` is a method on an **iterator**, not on the `Vec` itself. So you first turn the collection into an iterator, then adapt it, then collect the results back into a concrete collection:
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5];
     let doubled: Vec<i32> = numbers.iter().map(|n| n * 2).collect();
@@ -143,7 +143,7 @@ The `: Vec<i32>` annotation on the left is usually required because `collect` is
 
 JavaScript's array methods are eager. Each `.map(...)` allocates a new array on the spot. Rust's iterator adapters are **lazy**: they do nothing until consumed. This is closer to a generator pipeline than to `Array.prototype.map`.
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5];
 
@@ -162,7 +162,7 @@ The payoff is that a long chain of adapters fuses into a single pass with no int
 
 You will see odd-looking patterns like `|&&n|` in `filter`. Here is the why: `numbers.iter()` yields `&i32`. `filter`'s closure receives a *reference to the item*, so it gets `&&i32`. The pattern `|&&n|` destructures both references, binding `n` to a plain `i32` you can compare:
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5];
     let evens: Vec<i32> = numbers
@@ -202,7 +202,7 @@ where
 
 Use `Fn` when the closure only reads captured state, `FnMut` when it mutates captured state, and `FnOnce` when it consumes captured state. Asking for the *least* demanding trait you need makes your function accept the *most* callers.
 
-```rust
+```rust playground
 // FnMut: the closure mutates state it captured
 fn call_n_times<F: FnMut()>(mut f: F, n: usize) {
     for _ in 0..n {
@@ -244,7 +244,7 @@ The `move` keyword forces the closure to *take ownership* of `n` so the closure 
 
 **Option 2 — `Box<dyn Fn>`** when the concrete closure type can differ between branches. Because `impl Fn` means "one specific hidden type," you cannot return two different closures from two `if`/`match` arms with it. Boxing them behind a trait object (`dyn Fn`) erases the difference, at the cost of a heap allocation and dynamic dispatch:
 
-```rust
+```rust playground
 fn make_op(kind: &str) -> Box<dyn Fn(i32) -> i32> {
     match kind {
         "double" => Box::new(|x| x * 2),
@@ -289,7 +289,7 @@ The mental model shift: in TypeScript a function is *a value of one type*. In Ru
 
 A TypeScript developer expects `map` to *do something*. In Rust, an unconsumed adapter does nothing, and the compiler warns you:
 
-```rust
+```rust playground
 fn main() {
     let names = vec!["alice", "bob"];
     names.iter().map(|n| println!("Hello, {n}!"));
@@ -328,7 +328,7 @@ help: you might have meant to use `Iterator::for_each`
 
 **Fix:** if you only want side effects, use `for_each` (or a plain `for` loop); if you want results, `collect` them.
 
-```rust
+```rust playground
 fn main() {
     let names = vec!["alice", "bob"];
     names.iter().for_each(|n| println!("Hello, {n}!"));
@@ -432,7 +432,7 @@ fn make_greeter(name: String) -> impl Fn() -> String {
 
 JavaScript's `reduce(fn, init)` is Rust's `fold(init, fn)`. Rust's `reduce` is the *seedless* variant and returns `Option<T>` (because an empty iterator has no first element to start from):
 
-```rust
+```rust playground
 fn main() {
     let numbers = vec![1, 2, 3, 4, 5];
 
@@ -456,7 +456,7 @@ Mixing up the argument order (`fold(fn, init)`) or forgetting that `reduce` yiel
 
 `impl Fn` (and the generic `F: Fn` form) is zero-cost. Reach for `Box<dyn Fn>` only when you genuinely need to return or store closures of *different* concrete types (e.g., from different `match` arms, or in a `Vec` of callbacks).
 
-```rust
+```rust playground
 // Good: zero-cost, single closure shape
 fn scaler(factor: f64) -> impl Fn(f64) -> f64 {
     move |x| x * factor
@@ -488,7 +488,7 @@ Bound on `Fn` if you only read, `FnMut` if you mutate, `FnOnce` if you consume. 
 
 `sum()`, `product()`, `count()`, `max()`, `min()`, `any()`, `all()`, and `find()` express intent more clearly than a hand-rolled `fold` and are just as fast.
 
-```rust
+```rust playground
 fn main() {
     let prices = vec![19.99, 5.49, 120.0];
     let total: f64 = prices.iter().sum();             // clearer than fold
@@ -501,7 +501,7 @@ fn main() {
 
 A struct field typed `Box<dyn Fn(...)>` lets you hold a callback whose body you do not know at compile time — the Rust equivalent of stashing a TypeScript function on an object.
 
-```rust
+```rust playground
 struct Button {
     on_click: Box<dyn Fn()>,
 }
@@ -520,7 +520,7 @@ fn main() {
 
 A small order-processing report, the kind of thing you would write in a backend service. It demonstrates a higher-order function that *returns* a reusable predicate (`min_total`), plus a `filter`/`map`/`fold` pipeline that processes the data in a single pass.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Order {
     id: u32,
@@ -622,7 +622,7 @@ console.log(result); // (5+8+4)*2 = 34
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn main() {
     let lengths = [2, 5, 3, 8, 1, 4];
     let result: i32 = lengths
@@ -649,7 +649,7 @@ You could also write the last step as `.fold(0, |acc, n| acc + n)`, which mirror
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn make_multiplier(factor: i32) -> impl Fn(i32) -> i32 {
     move |x| x * factor
 }
@@ -683,7 +683,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn total_valid(inputs: &[&str]) -> i32 {
     inputs
         .iter()

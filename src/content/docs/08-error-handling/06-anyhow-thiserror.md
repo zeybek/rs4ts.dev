@@ -215,7 +215,7 @@ fn pick(raw: &str) -> Result<u16> {
 
 `anyhow::Error` formats itself three ways, all verified:
 
-```rust
+```rust playground
 use anyhow::{Context, Result};
 
 fn load(raw: &str) -> Result<u16> {
@@ -246,7 +246,7 @@ failed to parse timeout from "abc": invalid digit found in string
 
 To branch on a specific concrete error after the fact, `downcast_ref`:
 
-```rust
+```rust playground
 use anyhow::Result;
 use thiserror::Error;
 
@@ -405,7 +405,7 @@ Unlike a JavaScript `Error`, which captures `.stack` automatically, a `thiserror
 - **Add context at boundaries.** Wrap an error with `.with_context(...)` when it crosses a meaningful layer ("while reading config", "while connecting to the database"), not on every line.
 - **Use `#[error(transparent)]` for pass-through variants.** It forwards `Display` and `source()` to the inner error so you do not invent a redundant message:
 
-```rust
+```rust playground
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -559,7 +559,7 @@ Notice the three-level chain for id 42: the application's context (`while greeti
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -621,7 +621,7 @@ bad number on line 2
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use anyhow::{Context, Result};
 use thiserror::Error;
 

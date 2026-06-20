@@ -166,7 +166,7 @@ The `avatarUrl` key is absent, matching the Express output byte-for-byte. This i
 
 `serde` serializes Rust field names verbatim by default, so a `full_name` field becomes `"full_name"` in JSON: snake_case, which would break a JS client expecting `fullName`. The container attribute `#[serde(rename_all = "camelCase")]` rewrites every field's key. Without it:
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -213,7 +213,7 @@ round-trip equal to original string: false
 
 If your Node service already sends large IDs as JSON **strings** to dodge this, your Rust service must do the same. An `i64` serializes as a JSON *number* by default, so you encode it as a string explicitly:
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -250,7 +250,7 @@ The id is a quoted string; the `balanceCents`, which stays comfortably within th
 
 Node usually serializes a `Date` with `toISOString()`, producing RFC 3339 strings like `"2026-06-02T10:00:00.000Z"`. With `chrono` (add `chrono` with the `serde` feature), a `DateTime<Utc>` serializes to RFC 3339 automatically:
 
-```rust
+```rust playground
 use chrono::{DateTime, Utc};
 use serde::Serialize;
 
@@ -379,7 +379,7 @@ When a request body fails to parse, Axum's `Json` extractor rejects it with `400
 
 Before you delete a single line of Node, record real responses — status, headers, body — for representative requests. A few `curl -i` captures committed as files become your contract. Then assert the Rust service reproduces them. Compare bodies as parsed `serde_json::Value`, not as strings, so key ordering and whitespace do not cause false failures while still catching every shape difference:
 
-```rust
+```rust playground
 use serde_json::json;
 
 fn main() {
@@ -455,7 +455,7 @@ This is the single biggest lever for error-contract parity. Map your Node error 
 
 When the Rust version adds an optional request field, old clients omit it. Mark it `#[serde(default)]` so their requests still parse:
 
-```rust
+```rust playground
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
@@ -655,7 +655,7 @@ Define a Rust struct with `#[derive(Serialize)]` and the right `serde` attribute
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -805,7 +805,7 @@ Model this in Rust so that serializing it produces JSON with a `"type"` discrimi
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::Serialize;
 
 // `tag = "type"` makes serde emit an internally-tagged enum,

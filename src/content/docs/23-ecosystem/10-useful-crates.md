@@ -145,7 +145,7 @@ Rust's standard `Iterator` trait is already richer than `Array.prototype` (`map`
 
 A few you will reach for constantly:
 
-```rust
+```rust playground
 use itertools::Itertools;
 
 fn main() {
@@ -192,7 +192,7 @@ Some(3)
 
 itertools also adds `izip!`, which zips three or more iterators at once. std's `zip` only takes two:
 
-```rust
+```rust playground
 use itertools::izip;
 
 fn main() {
@@ -215,7 +215,7 @@ c 40 SF
 
 This is the crate with the best effort-to-reward ratio in the ecosystem. To parallelize a sequential iterator chain, you change `.iter()` to `.par_iter()` (or `.into_iter()` to `.into_par_iter()`) and add `use rayon::prelude::*;`. rayon spreads the work across a thread pool sized to your CPU cores using work-stealing, and the compiler still enforces that your closure does not race on shared data.
 
-```rust
+```rust playground
 use rayon::prelude::*;
 
 fn main() {
@@ -252,7 +252,7 @@ A global that is expensive to build (a compiled regex, a config table, a connect
 - **`std::sync::LazyLock`** — built into the standard library, **stable since Rust 1.80**. Prefer this in new code; it needs no dependency.
 - **`once_cell::sync::Lazy`**: the original crate that `LazyLock` was modeled on. You will still see it everywhere in existing code and crates that support older compilers, and its API is nearly identical.
 
-```rust
+```rust playground
 use once_cell::sync::Lazy;
 use std::sync::LazyLock;
 use std::collections::HashMap;
@@ -284,7 +284,7 @@ The closure runs exactly once, the first time the static is accessed, and the re
 
 The `uuid` crate generates and parses UUIDs. You opt into the versions you need via Cargo features; the two you want today are **v4** (random) and **v7** (timestamp-ordered, the modern default for database keys because the ids sort by creation time, which is friendlier to B-tree indexes).
 
-```rust
+```rust playground
 use uuid::Uuid;
 
 fn main() {
@@ -314,7 +314,7 @@ Node's built-in `crypto.randomUUID()` only gives you v4. If you want time-ordere
 
 Rust's standard `HashMap` is **unordered**, and its iteration order is even randomized per-run to discourage you from depending on it. That is the opposite of a JavaScript `Map`, which guarantees insertion order. When you need that guarantee — serializing config back out in a stable order, building an ordered cache, preserving the order of HTTP headers — reach for **indexmap**.
 
-```rust
+```rust playground
 use indexmap::IndexMap;
 
 fn main() {
@@ -338,7 +338,7 @@ first entry: Some(("zulu", 1))
 
 > **Warning:** `IndexMap` has two ways to remove an entry, and they are not interchangeable. `swap_remove(key)` is O(1) but moves the *last* element into the gap, **breaking order**. `shift_remove(key)` is O(n) but **preserves order** by sliding subsequent entries down. If you chose `IndexMap` *for* its ordering, you almost always want `shift_remove`. The default `.remove()` was deliberately removed from the API to force this choice:
 
-```rust
+```rust playground
 use indexmap::IndexMap;
 
 fn main() {
@@ -363,7 +363,7 @@ Network and protocol code constantly slices and shares byte buffers. Copying the
 
 The key property: **cloning a `Bytes` is O(1)**. It bumps a reference count and shares the underlying allocation rather than copying the data. Slicing is likewise O(1) and shares memory.
 
-```rust
+```rust playground
 use bytes::{Bytes, BytesMut, Buf, BufMut};
 
 fn main() {
@@ -506,7 +506,7 @@ The borrow checker cannot catch this because both guards borrow the `DashMap` im
 
 Coming from JavaScript's `Map`, it is tempting to assume any map keeps order. Rust's `HashMap` does not — and its iteration order is randomized per process, so a test that happens to pass locally can fail in CI:
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 fn main() {
@@ -630,7 +630,7 @@ The interesting part is what is *not* there: no `Worker` threads, no `postMessag
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add itertools
 use itertools::Itertools;
 
@@ -687,7 +687,7 @@ carol: 100
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 // cargo add rayon
 // cargo add uuid --features v7
 use rayon::prelude::*;

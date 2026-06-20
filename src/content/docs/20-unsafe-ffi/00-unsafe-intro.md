@@ -55,7 +55,7 @@ This is the model many TypeScript developers carry into Rust — "a keyword that
 
 There is no single keyword in Rust that corresponds to `any`. The thing people *think* `unsafe` does — opt out of checking — is closest to nothing in safe Rust at all. What `unsafe` actually does is grant five abilities. Here is one tiny example of each, all in one compile-verified program.
 
-```rust
+```rust playground
 // src/main.rs
 
 // --- Superpower 4: implement an `unsafe` trait ---
@@ -371,7 +371,7 @@ Because `unsafe` doesn't always misbehave *immediately*, it is easy to write uns
 - **Keep `unsafe` blocks as small as possible.** Wrap only the operation that needs the power, not the surrounding safe logic. A tight block is easier to audit and keeps the `unnecessary unsafe block` lint honest.
 - **Write a `// SAFETY:` comment on every `unsafe` block** stating the invariant and why it holds, and a `/// # Safety` doc on every public `unsafe fn`. This is the corrected version of the Pitfall 3 example:
 
-```rust
+```rust playground
 /// # Safety
 /// `index` must be less than `slice.len()`.
 unsafe fn read_unchecked(slice: &[i32], index: usize) -> i32 {
@@ -402,7 +402,7 @@ value = 20
 
 A classic place `unsafe` is *justified* is in a data structure where the borrow checker is too conservative, but where the **author** can prove safety. The standard library's `split_at_mut` hands out two mutable slices into the same backing array. The borrow checker rejects the naive version (two `&mut` into one buffer), yet it is perfectly sound because the two slices cover **disjoint** ranges. The implementation uses raw pointers internally and exposes a fully safe signature:
 
-```rust
+```rust playground
 // src/main.rs
 use std::slice;
 
@@ -532,7 +532,7 @@ fn main() {
 
 Two problems. First, in the 2024 edition the body of an `unsafe fn` is "safe by default," so the call to `get_unchecked` (itself an `unsafe fn`) must be inside its own `unsafe` block; otherwise you get `warning[E0133] ... unsafe_op_in_unsafe_fn`. Second, calling `nth` (an `unsafe fn`) from `main` requires an `unsafe` block at the call site, or you get `error[E0133]: call to unsafe function ... requires unsafe block`. Best practice adds a documented contract and a safety justification:
 
-```rust
+```rust playground
 /// Returns `slice[index]` without a bounds check.
 ///
 /// # Safety
@@ -570,7 +570,7 @@ $ cargo run
 
 The non-empty invariant can be enforced entirely by the constructor and the absence of any operation that removes the last element. With the invariant guaranteed at the API boundary, indexing `[0]` is provably in bounds, so `first()` is infallible *and* fully safe — no `unsafe` required:
 
-```rust
+```rust playground
 /// A vector guaranteed to contain at least one element.
 pub struct NonEmptyVec<T> {
     inner: Vec<T>,

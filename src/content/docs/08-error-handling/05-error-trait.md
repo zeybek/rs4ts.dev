@@ -63,7 +63,7 @@ Three things to notice, because they map almost one-to-one onto Rust:
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 
@@ -153,7 +153,7 @@ The `Display` impl receives a `Formatter` and uses the `write!` macro, which beh
 
 By returning a *trait object* (`&dyn Error`), the chain is heterogeneous: each link can be a completely different concrete error type, yet you can walk the whole chain uniformly. Here is a high-level error that wraps a standard-library `ParseIntError`:
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseIntError;
@@ -253,7 +253,7 @@ Two things just happened automatically:
 
 Type erasure is not a one-way door. Because `dyn Error` carries enough type information, you can attempt to recover the original concrete type with `downcast_ref` — the Rust analog of `e instanceof ConfigError`:
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 
@@ -405,7 +405,7 @@ note: required by a bound in `spawn`
 
 **Fix:** use the thread-safe alias `Box<dyn Error + Send + Sync>`:
 
-```rust
+```rust playground
 use std::error::Error;
 use std::thread;
 
@@ -458,7 +458,7 @@ Because `source()` already exposes the inner error, *also* baking it into your `
 
 A price-feed loader that parses lines like `AAPL,189.95`. The domain error carries a human-readable message *and* keeps the lower-level cause reachable through `source()`, so a single reporting helper can print the full diagnostic chain.
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseFloatError;
@@ -602,7 +602,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 
@@ -650,7 +650,7 @@ error: input was empty
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseIntError;
@@ -717,7 +717,7 @@ error: environment variable `MAX_RETRIES` is not a valid integer
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::error::Error;
 use std::fmt;
 use std::num::ParseIntError;

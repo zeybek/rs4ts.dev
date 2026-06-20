@@ -67,7 +67,7 @@ cargo add serde_json
 cargo add serde --features derive
 ```
 
-```rust
+```rust playground
 use serde_json::{json, Value};
 
 fn main() {
@@ -152,7 +152,7 @@ The difference: TypeScript's version is erased at runtime, so the compiler can't
 
 When you write `println!("{}", payload["event"])`, you are printing a `Value` through its `Display` implementation, and a `Value::String` displays itself as valid JSON, *including the surrounding quotes*. That is why the output was `"order.created"` and not `order.created`. To get the bare Rust `&str`, extract it:
 
-```rust
+```rust playground
 use serde_json::json;
 
 fn main() {
@@ -178,7 +178,7 @@ This is a frequent surprise. `Display` on a `Value` always yields JSON text; the
 
 To pull a Rust value out of a `Value`, use the `as_*` family. Each returns an `Option` because the variant might not match; there is **no coercion**:
 
-```rust
+```rust playground
 use serde_json::json;
 
 fn main() {
@@ -215,7 +215,7 @@ The common accessors:
 
 `[]` is concise but yields `Null` for misses. `.get("key")` / `.get(index)` returns `Option<&Value>`, which composes with `?` for clean early-returns:
 
-```rust
+```rust playground
 use serde_json::{json, Value};
 
 fn city_of(doc: &Value) -> Option<&str> {
@@ -237,7 +237,7 @@ Use `[]` for quick reads where `Null` is an acceptable "miss", and `get(...)?` w
 
 `json!` lets you write JSON-shaped literals directly in Rust, and, importantly, interpolate Rust variables and expressions:
 
-```rust
+```rust playground
 use serde_json::json;
 
 fn main() {
@@ -261,7 +261,7 @@ Any type that implements `Serialize` can be interpolated into `json!`, so `Vec`,
 
 This is where Rust beats JavaScript outright. `serde_json` stores integers as `i64`/`u64` internally, so a 53-bit-plus integer survives a parse round trip unharmed:
 
-```rust
+```rust playground
 use serde_json::{json, Value};
 
 fn main() {
@@ -277,7 +277,7 @@ The same value parsed by Node's `JSON.parse` becomes `9007199254740992`, silentl
 
 A `Value` is just data, so a `mut` binding lets you edit the tree in place:
 
-```rust
+```rust playground
 use serde_json::{json, Value};
 
 fn main() {
@@ -335,7 +335,7 @@ A `Value` owns its strings and nested values. There is no concept of "live" navi
 
 ### Pitfall 1: Forgetting that `Display` adds quotes
 
-```rust
+```rust playground
 use serde_json::json;
 
 fn main() {
@@ -347,7 +347,7 @@ fn main() {
 
 The quotes are not a bug: `v["name"]` is printed as JSON. Extract the bare string with `.as_str()`:
 
-```rust
+```rust playground
 use serde_json::json;
 
 fn main() {
@@ -382,7 +382,7 @@ Guard the type first (`if let Some(obj) = v.as_object_mut()`) or ensure `v` is a
 
 ### Pitfall 3: Assuming `as_i64()` coerces
 
-```rust
+```rust playground
 use serde_json::json;
 
 fn main() {
@@ -399,7 +399,7 @@ fn main() {
 
 `serde_json` implements `PartialEq` between `Value` and many Rust primitives, which is convenient, but integer and float JSON numbers are **distinct**:
 
-```rust
+```rust playground
 use serde_json::json;
 
 fn main() {
@@ -421,7 +421,7 @@ If you need numeric equality regardless of integer/float representation, compare
 
 `serde_json::from_str::<Value>` returns a `Result`, and malformed JSON is a real error you must handle; there is no `undefined`:
 
-```rust
+```rust playground
 use serde_json::Value;
 
 fn main() {
@@ -449,7 +449,7 @@ error: trailing comma at line 1 column 18
 
 `Value` is the right tool for genuinely dynamic JSON. But if you find yourself writing `payload["data"]["id"].as_i64().unwrap()` repeatedly, that field's shape *is* known — model it. You can even mix the two: derive a struct for the part you understand and keep a `Value` for the free-form remainder.
 
-```rust
+```rust playground
 use serde::Deserialize;
 use serde_json::Value;
 
@@ -472,7 +472,7 @@ fn main() {
 
 When you do know the shape, `serde_json::from_value` turns a `Value` into a struct, and `to_value` goes the other way; no string round trip needed:
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
@@ -497,7 +497,7 @@ fn main() {
 
 When the path to a value is itself data (e.g. comes from config), JSON Pointer syntax (RFC 6901) beats hand-written indexing:
 
-```rust
+```rust playground
 use serde_json::{json, Value};
 
 fn main() {
@@ -520,7 +520,7 @@ Parsing into `Value` allocates a node for every element and box every string int
 
 A common production task: layering configuration. You have a base config and a set of overrides (from a file, environment, or CLI), and you want a deep merge where nested objects combine key-by-key but scalars and arrays are replaced. With `Value`, this is a short recursive function:
 
-```rust
+```rust playground
 use serde_json::{json, Map, Value};
 
 /// Recursively merge `patch` into `base`.
@@ -652,7 +652,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde_json::{json, Value};
 
 fn first_tag(doc: &Value) -> Option<&str> {
@@ -705,7 +705,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde_json::{json, Value};
 
 fn total_amount(orders: &Value) -> f64 {
@@ -769,7 +769,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde_json::{json, Value};
 
 fn redact(value: &mut Value, keys: &[&str]) {

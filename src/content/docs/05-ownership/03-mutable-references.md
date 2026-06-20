@@ -58,7 +58,7 @@ Two things are worth noticing:
 
 Rust models "I want to change this value through a borrow" explicitly with `&mut`. The compiler then guarantees no other live reference exists while you hold it.
 
-```rust
+```rust playground
 fn deposit(balance: &mut f64, amount: f64) {
     *balance += amount; // `*` dereferences to reach the value behind the reference
 }
@@ -117,7 +117,7 @@ There are two pieces of syntax to learn:
 - `&mut value` — *create* a mutable reference (you must own a `mut` binding to do this).
 - `*reference` — *dereference*: follow the reference to read or write the underlying value.
 
-```rust
+```rust playground
 fn main() {
     let mut count = 0;       // the binding must be `mut` to be mutably borrowed
     let r = &mut count;      // r has type &mut i32
@@ -135,7 +135,7 @@ When you call a method on a reference, Rust inserts the `*` for you (this is *au
 
 The most common place you will write `&mut` is method receivers. A method that takes `&mut self` can mutate the struct it is called on:
 
-```rust
+```rust playground
 struct Counter {
     value: i32,
 }
@@ -204,7 +204,7 @@ error[E0499]: cannot borrow `data` as mutable more than once at a time
 
 Earlier (pre-2018) the rule above would have been painfully strict, because a borrow used to last until the end of its enclosing `{}` block. Modern Rust uses **non-lexical lifetimes**: a borrow ends at its **last use**, not at the closing brace. That makes the rule far more pleasant in practice: borrows you are "done with" stop counting immediately.
 
-```rust
+```rust playground
 fn main() {
     let mut scores = vec![10, 20, 30];
 
@@ -377,7 +377,7 @@ Method calls auto-dereference, so `r.push(4)` works. But plain operators do not:
 
 Because a `&mut` blocks all other access, the idiom is to take it, do the mutation, and let it end immediately. NLL rewards this: the sooner the reference's last use, the sooner the value is free again.
 
-```rust
+```rust playground
 fn main() {
     let mut log = Vec::new();
     log.push("started");          // implicit short-lived &mut log
@@ -390,7 +390,7 @@ fn main() {
 
 Do not index in a loop with manual bookkeeping; ask the collection for mutable references to its elements.
 
-```rust
+```rust playground
 fn restock_all(inventory: &mut [u32], extra: u32) {
     for stock in inventory.iter_mut() { // each `stock` is &mut u32
         *stock += extra;
@@ -408,7 +408,7 @@ fn main() {
 
 The XOR rule forbids two `&mut` to the *same* value, but two `&mut` to *disjoint* parts are perfectly safe. The standard library exposes this with `split_at_mut`, which hands you two non-overlapping mutable slices:
 
-```rust
+```rust playground
 fn main() {
     let mut data = vec![1, 2, 3, 4, 5, 6];
 
@@ -430,7 +430,7 @@ fn main() {
 
 When you need to move a value *out* through a `&mut` (e.g. to reset a field), these helpers do it without a second borrow:
 
-```rust
+```rust playground
 fn main() {
     let mut a = String::from("first");
     let mut b = String::from("second");
@@ -453,7 +453,7 @@ stolen=[1, 2, 3], owned=[]
 
 Returning a `&mut` to internal state ties that reference's lifetime to the borrow of `self`, so the XOR rule still protects your invariants:
 
-```rust
+```rust playground
 struct Config {
     retries: u32,
 }
@@ -477,7 +477,7 @@ fn main() {
 
 A small inventory service. Notice how each mutation goes through a clearly scoped mutable borrow: `apply_sale` borrows one product, `restock_all` borrows the whole slice, and the final read-only loop only runs once all mutable borrows have ended.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Product {
     name: String,
@@ -565,7 +565,7 @@ In TypeScript you would write the equivalent freely, with several aliases all ab
 
 **Instructions:** Complete `increment_all` so that it mutates the caller's data in place (no allocation, no return value).
 
-```rust
+```rust playground
 fn increment_all(values: &mut [i32]) {
     // TODO: add 1 to every element
 }
@@ -580,7 +580,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn increment_all(values: &mut [i32]) {
     for v in values.iter_mut() {
         *v += 1; // `v` is &mut i32, so dereference to write
@@ -610,7 +610,7 @@ Output:
 
 **Instructions:** Implement `normalize`. First compute the maximum (a read-only pass), then scale every element (a mutable pass). The trick is to make sure the read borrow has fully ended before the write borrow begins; non-lexical lifetimes will allow this if you compute `max` into its own variable first.
 
-```rust
+```rust playground
 fn normalize(values: &mut Vec<f64>) {
     // TODO: divide every element by the maximum value
 }
@@ -625,7 +625,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn normalize(values: &mut Vec<f64>) {
     // Read pass: the shared borrow inside `iter()` ends when `max` is computed.
     let max = values.iter().cloned().fold(f64::MIN, f64::max);
@@ -686,7 +686,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 struct Counter {
     count: u32,
 }

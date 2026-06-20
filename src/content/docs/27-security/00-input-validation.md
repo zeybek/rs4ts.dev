@@ -68,7 +68,7 @@ age - Too small: expected number to be >=18
 
 Rust gives you two complementary tools. First, the type-driven approach: **make an invalid value unrepresentable** by parsing into a dedicated type whose constructor is the only way in:
 
-```rust
+```rust playground
 use std::fmt;
 
 /// A validated username. If you hold one, it is guaranteed to satisfy the rules.
@@ -230,7 +230,7 @@ A **newtype** is a single-field tuple struct (`struct Email(String)`) that wraps
 
 You can also parse *directly at the deserialization boundary* by implementing `Deserialize` for the newtype. Now invalid JSON never even produces a value of your type; the failure happens inside `serde_json::from_str`:
 
-```rust
+```rust playground
 use serde::{Deserialize, Deserializer};
 
 /// A validated email address. Holding one proves it is well-formed.
@@ -578,7 +578,7 @@ This compiles cleanly with axum 0.8 and passes `cargo clippy` with no warnings. 
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug, Clone)]
 struct Slug(String);
 
@@ -700,7 +700,7 @@ sku: invalid_sku
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Deserializer};
 
 #[derive(Debug, Clone, Copy)]

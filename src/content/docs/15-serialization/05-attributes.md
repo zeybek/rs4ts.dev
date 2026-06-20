@@ -71,7 +71,7 @@ Every concern — renaming, casing, skipping, defaults, tagging — is solved wi
 
 In Rust, every one of those concerns is a declarative attribute on the type, and the same declaration governs both directions.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // rename_all renames EVERY field; rename overrides a single one.
@@ -169,7 +169,7 @@ Account { username: "grace", password_hash: "", nickname: None, is_active: false
 1. **Composition**: share a common block (pagination, metadata) across many response types without nesting it.
 2. **Capture** — flatten a `HashMap<String, Value>` to absorb any extra, unknown keys.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -223,7 +223,7 @@ By default, an externally tagged enum serializes as `{"VariantName": <data>}`. T
 
 **Internally tagged** (`tag = "type"`) is the direct analogue of a TypeScript discriminated union and the most common choice for APIs. **Adjacently tagged** keeps the tag and payload in separate, named keys. **Untagged** has no discriminant at all: Serde tries each variant in declaration order and keeps the first that deserializes successfully.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -257,7 +257,7 @@ fn main() {
 
 When a field's natural Rust type does not match its wire format — a `u64` timestamp stored as a JSON string, a date in a custom format, bytes as base64 — `#[serde(with = "module")]` delegates that one field to a module that provides `serialize` and `deserialize` functions. `serialize_with`/`deserialize_with` do the same with a single function each, when you only need one direction or prefer not to write a module.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // A module exposing `serialize` and `deserialize` for a u64 stored as a
@@ -407,7 +407,7 @@ error: expected serde skip_serializing_if attribute to be a string: `skip_serial
 
 An internally tagged enum (`#[serde(tag = "...")]`) injects the tag key *into the variant's object*. A newtype variant wrapping a primitive (like `i64`) has no object to inject into, so it compiles but fails at **runtime**.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -461,7 +461,7 @@ If you flatten two structs that share a key (e.g. both expose `id`), or flatten 
 
 A typical API resource: a Rust-idiomatic struct mapped to a `camelCase` JSON contract, hiding internal fields, omitting empty optionals, filling defaults for forward compatibility, and carrying a polymorphic status as an internally tagged enum.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -594,7 +594,7 @@ This is the kind of struct you would hand to a web framework like Axum to (de)se
 
 **Instructions:** Define a `Product` struct with `product_id: u32`, `display_name: String`, and `discount_code: Option<String>`. The JSON API uses `camelCase` keys, and the discount code must be omitted entirely when there is none. Serialize a product with no discount code and confirm `discountCode` is absent.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -618,7 +618,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -672,7 +672,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -737,7 +737,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 mod comma_list {

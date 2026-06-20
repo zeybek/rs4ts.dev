@@ -71,7 +71,7 @@ This works, but notice what TypeScript does *not* protect you from: nothing forc
 
 The same dual-write control flow in Rust. The legacy store returns `Result`, so its failure propagates with `?`; the new (shadow) store's failure is *deliberately* swallowed and logged, so it can never turn into a request failure.
 
-```rust
+```rust playground
 // Dual-write pattern, distilled to the essential control flow.
 // The OLD store is the source of truth; the NEW store is shadowed.
 // A failure writing the new store must NEVER fail the request.
@@ -162,7 +162,7 @@ The simplest start: the Rust service connects to the **same** database the Node 
 
 The catch: the Rust types must faithfully mirror what Node persists. Node wrote the schema, so Rust is a *guest* in that schema and must not break it. The discipline is to make every Rust schema change **additive and backward-compatible** — add nullable columns, never rename or retype a column Node still reads.
 
-```rust
+```rust playground
 use serde::{Deserialize, Serialize};
 
 // A row as it exists in the LEGACY (Node-written) schema and the NEW (Rust) schema.
@@ -225,7 +225,7 @@ A batch job copies historical rows from the legacy store into the new one. A cor
 - **Resumable**: persist a checkpoint (the last processed id) after each chunk commits, so a crash resumes instead of restarting.
 - **Idempotent**: each row is written with an UPSERT, so re-running over already-migrated rows is a safe no-op. This matters because backfill and live dual-write run concurrently, and you will re-run after fixing bugs.
 
-```rust
+```rust playground
 // Idempotent, chunked, resumable backfill — the shape that matters in production.
 // Key ideas: process by ascending primary key, remember the last id (checkpoint),
 // and make each row's transform a no-op if already done.
@@ -419,7 +419,7 @@ Before flipping the read path to the new store, you run a **reconciliation pass*
 
 Fingerprinting via a hash lets you compare rows cheaply and detect drift even when the two stores format a value differently (trailing whitespace, casing). This uses `sha2` (`cargo add sha2`):
 
-```rust
+```rust playground
 // A reconciliation pass run AFTER backfill, BEFORE flipping the read path.
 // It scans both stores and reports drift, so you gate the cutover on real
 // evidence instead of hope.
@@ -518,7 +518,7 @@ Row 1 differs only in casing and whitespace, and the canonical fingerprint corre
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Default)]
@@ -637,7 +637,7 @@ Because `next` is the only way to advance and `match` is exhaustive, the compile
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 #[derive(Debug, Clone)]

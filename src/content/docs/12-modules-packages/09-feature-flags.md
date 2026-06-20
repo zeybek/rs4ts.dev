@@ -96,7 +96,7 @@ serde_json = { version = "1", optional = true }
 serde_norway = { version = "0.9", optional = true }
 ```
 
-```rust
+```rust playground
 // src/main.rs
 
 // Add the `Serialize` derive ONLY when a serializing format is enabled.
@@ -209,7 +209,7 @@ pub mod compress {
 
 `cfg!(...)` is a **macro** that evaluates to a `bool` at compile time. The key difference from `#[cfg]`: **both branches of the surrounding `if` must still type-check and compile**, because `cfg!` only chooses a value, it does not delete code:
 
-```rust
+```rust playground
 fn main() {
     // Both arms must compile; only the VALUE is decided at compile time.
     let level = if cfg!(feature = "verbose") { "verbose" } else { "quiet" };
@@ -239,7 +239,7 @@ When the `serde` feature is off, the type still derives `Debug` but not `Seriali
 
 `#[cfg]` is not limited to features. It is the same mechanism Rust uses for platform-specific code, which needs **no `[features]` entry at all**:
 
-```rust
+```rust playground
 fn main() {
     if cfg!(target_os = "macos") {
         println!("running on macOS");
@@ -543,7 +543,7 @@ default = []
 pretty = []
 ```
 
-```rust
+```rust playground
 // src/main.rs
 #[cfg(feature = "pretty")]
 fn greeting() -> &'static str {
@@ -604,7 +604,7 @@ full = ["std", "extras"]
 extras = []
 ```
 
-```rust
+```rust playground
 // src/main.rs
 fn main() {
     let mut enabled: Vec<&str> = Vec::new();
@@ -669,7 +669,7 @@ fast = []
 small = []
 ```
 
-```rust
+```rust playground
 // src/main.rs
 // Non-additive features are an anti-pattern; if a conflict is truly
 // unavoidable, fail LOUDLY at compile time instead of miscompiling.

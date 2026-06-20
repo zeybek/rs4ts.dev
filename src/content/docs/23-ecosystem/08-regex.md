@@ -65,7 +65,7 @@ cargo add regex
 regex = "1.12"
 ```
 
-```rust
+```rust playground
 use regex::Regex;
 use std::sync::LazyLock;
 
@@ -128,7 +128,7 @@ Some(("2026", "06", "02"))
 - `&caps[1]` or `&caps["year"]` → `&str`, and **panics** if that group did not participate in the match.
 - `caps.get(1)` or `caps.name("year")` → `Option<Match>`, the safe form for optional groups. A `Match` carries `.as_str()`, `.start()`, and `.end()` (byte offsets).
 
-```rust
+```rust playground
 use regex::Regex;
 
 fn main() {
@@ -158,7 +158,7 @@ group 1 = 2026
 | Substitute | `replace` / `replace_all` | `Cow<str>` |
 | Split on the pattern | `split` | iterator of `&str` |
 
-```rust
+```rust playground
 use regex::Regex;
 
 fn main() {
@@ -179,7 +179,7 @@ c -> 333
 
 **The no-backtracking guarantee.** The crate is built on finite automata, not a recursive backtracking matcher. The upside is a hard worst-case bound: matching is **O(m × n)** in the length of the pattern and the input, with no exponential cliff. The downside is that features which *require* backtracking are simply not in the syntax: **lookahead/lookbehind** (`(?=...)`, `(?<=...)`) and **backreferences** (`\1`, `\k<name>`). This is the single biggest behavioral difference from JavaScript's `RegExp`. The classic ReDoS pattern below is harmless here; it runs in linear time:
 
-```rust
+```rust playground
 use regex::Regex;
 
 fn main() {
@@ -254,7 +254,7 @@ This is the same instinct a JavaScript developer already has — hoist a `new Re
 
 Porting a JavaScript pattern that uses `(?=...)` or `\1` does not fail to compile in Rust. It fails when `Regex::new` *runs*, because the pattern string is rejected at parse time. With a lookahead:
 
-```rust
+```rust playground
 use regex::Regex;
 
 fn main() {
@@ -278,7 +278,7 @@ error: look-around, including look-ahead and look-behind, is not supported
 
 A backreference fails the same way:
 
-```rust
+```rust playground
 use regex::Regex;
 
 fn main() {
@@ -305,7 +305,7 @@ error: backreferences are not supported
 
 `&caps[1]` panics if group 1 did not participate in the match. When a group sits behind `?` or `|` and might be absent, use the `Option`-returning form:
 
-```rust
+```rust playground
 use regex::Regex;
 
 fn main() {
@@ -344,7 +344,7 @@ Writing `Regex::new("\d+")` is not a regex bug; it is a *Rust string* bug. `\d` 
 
 Parsing an NGINX/Apache-style access log line — a job you might do with `String.prototype.match` in Node — using a single compiled, commented (`(?x)` verbose-mode) pattern and named captures:
 
-```rust
+```rust playground
 use regex::Regex;
 use std::sync::LazyLock;
 
@@ -431,7 +431,7 @@ Two things to notice. The pattern is compiled exactly once for the whole process
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use regex::Regex;
 use std::sync::LazyLock;
 
@@ -473,7 +473,7 @@ alternatives without creating a capture group.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use regex::Regex;
 use std::collections::HashSet;
 use std::sync::LazyLock;
@@ -518,7 +518,7 @@ exactly the "skip duplicates" test. The `Vec` keeps insertion order.
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 use regex::{Captures, Regex};
 use std::sync::LazyLock;
 

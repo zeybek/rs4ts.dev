@@ -59,7 +59,7 @@ const u = findUser(99);
 
 ## Rust Equivalent
 
-```rust
+```rust playground
 // Rust - absence is one explicit type: Option<T>
 #[derive(Debug)]
 struct User {
@@ -122,7 +122,7 @@ None
 
 There is nothing magical about `Option`. It is defined in the standard library, roughly, as:
 
-```rust
+```rust playground
 // Conceptual: this is essentially how the standard library defines Option.
 enum MyOption<T> {
     Some(T),
@@ -151,7 +151,7 @@ fn main() {
 
 ### Creating and inspecting Options
 
-```rust
+```rust playground
 fn main() {
     let present: Option<i32> = Some(42);
     let absent: Option<i32> = None;
@@ -171,7 +171,7 @@ When you write a bare `None`, Rust sometimes cannot infer `T`, so you annotate e
 
 The most fundamental way to handle an `Option` is `match`, which forces you to cover both variants:
 
-```rust
+```rust playground
 fn find_user(name: &str) -> Option<&'static str> {
     match name {
         "alice" => Some("Alice Smith"),
@@ -207,7 +207,7 @@ fn main() {
 
 Most real code does not `match` on every `Option`. Instead it uses **combinator methods** — small functions on `Option` that transform or unwrap it. These are the direct counterparts to TypeScript's `?.` and `??`.
 
-```rust
+```rust playground
 fn main() {
     // map: transform the inner value if present (like x?.f())
     let len: Option<usize> = Some("hello").map(|s| s.len());
@@ -275,7 +275,7 @@ The key pair to internalize:
 
 Combinators shine when chained, replacing a nest of TypeScript `?.`/`??`:
 
-```rust
+```rust playground
 fn main() {
     // Read a "port" setting that may be missing, whitespace-padded, or unparseable.
     let cfg: Option<&str> = Some("  9090 ");
@@ -293,7 +293,7 @@ fn main() {
 
 The `?` operator is short-circuit unwrapping: **if the value is `Some`, it pulls out the inner value; if it is `None`, it immediately returns `None` from the enclosing function.** This lets you write a chain of fallible lookups linearly, with no nesting:
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Config {
     database: Database,
@@ -344,7 +344,7 @@ This is the closest Rust gets to TypeScript's optional chaining `a?.b?.c`, but i
 
 A subtle but important point unique to Rust: calling a method like `unwrap()` on an `Option<String>` **moves** the `String` out (ownership rules from [Section 05](/05-ownership/)). Often you only want to *borrow* it. `as_ref` converts `&Option<T>` ergonomically into `Option<&T>`, and `as_deref` goes one step further to `Option<&str>` (or `Option<&[T]>`):
 
-```rust
+```rust playground
 fn main() {
     let owned: Option<String> = Some("hi".to_string());
 
@@ -485,7 +485,7 @@ When serializing to JSON (see [Section 15](/15-serialization/)), `None` typicall
 
 A small in-memory user directory backed by a `HashMap` (collections are covered in [Section 07](/07-collections/)). It shows `?` chaining through genuinely-optional fields, plus `map` + `as_deref` + `unwrap_or` fallbacks: the kind of code you write constantly in a service layer.
 
-```rust
+```rust playground
 use std::collections::HashMap;
 
 /// A user profile where several fields are genuinely optional.
@@ -605,7 +605,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn safe_div(a: f64, b: f64) -> Option<f64> {
     if b == 0.0 {
         None
@@ -654,7 +654,7 @@ Returning `Option` (rather than throwing or returning a sentinel like `NaN`) mak
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn parse_timeout(raw: Option<&str>) -> u64 {
     raw.map(|s| s.trim())                // trim whitespace
         .filter(|s| !s.is_empty())       // reject empty
@@ -704,7 +704,7 @@ Each combinator handles exactly one failure mode, and a `None` anywhere in the c
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Order {
     customer: Option<Customer>,

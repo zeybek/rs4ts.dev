@@ -64,7 +64,7 @@ Notice three friction points a Rust developer will recognize: you re-read `sessi
 
 Rust folds the check and the binding together. Each block below is **compile-verified**.
 
-```rust
+```rust playground
 #[derive(Debug)]
 struct Session {
     user_id: u32,
@@ -125,7 +125,7 @@ The mutable `top` variable that TypeScript needed outside the loop is gone. `whi
 
 `if let PATTERN = EXPRESSION { ... }` evaluates `EXPRESSION`, tries to match it against `PATTERN`, and runs the block only on a match. On a match, any variables in the pattern are bound and **scoped to the block**.
 
-```rust
+```rust playground
 fn main() {
     let maybe_user: Option<&str> = Some("Ada");
 
@@ -141,7 +141,7 @@ fn main() {
 
 This is exactly equivalent to the more verbose:
 
-```rust
+```rust playground
 fn main() {
     let maybe_user: Option<&str> = Some("Ada");
 
@@ -154,7 +154,7 @@ fn main() {
 
 `if let` shines when one of the `match` arms would be a do-nothing `_ => {}`. It works on *any* pattern, not just `Option`: enums, structs, tuples, and ranges all work:
 
-```rust
+```rust playground
 #[derive(Debug)]
 enum Event {
     Click { x: i32, y: i32 },
@@ -189,7 +189,7 @@ Key pressed: q
 
 You can chain alternatives with `else if let`, mixing in regular `else if` and a final `else`:
 
-```rust
+```rust playground
 fn main() {
     let setting: Option<i32> = None;
     let fallback: Option<i32> = Some(42);
@@ -210,7 +210,7 @@ This prints `fallback = 42`. Each `if let` tries its own pattern; the first matc
 
 Since the latest stable edition (2024, stabilized in Rust 1.88), you can join a pattern match and ordinary boolean conditions with `&&` in a single `if let`. All conditions must hold, and bindings from earlier links are visible to later ones:
 
-```rust
+```rust playground
 fn main() {
     let opt: Option<i32> = Some(7);
     let flag = true;
@@ -230,7 +230,7 @@ This prints `matched and n=7 > 5`. Before this feature you had to nest an `if le
 
 `while let PATTERN = EXPRESSION { ... }` re-evaluates `EXPRESSION` before every iteration and stops the first time it does *not* match. It is the idiomatic way to drain anything that yields `Option`:
 
-```rust
+```rust playground
 fn main() {
     // Drain a stack: pop() returns Some(x) until empty, then None
     let mut stack = vec![1, 2, 3];
@@ -252,7 +252,7 @@ fn main() {
 
 `let PATTERN = EXPRESSION else { ... }` binds `PATTERN` for the **rest of the enclosing scope** when it matches. When it does *not* match, the `else` block runs, and that block **must diverge**, meaning it has to leave the current scope via `return`, `break`, `continue`, or a `panic!`. This is Rust's answer to the guard-clause / early-return style.
 
-```rust
+```rust playground
 fn first_word(text: &str) -> &str {
     let Some(word) = text.split_whitespace().next() else {
         return "<empty>";
@@ -294,7 +294,7 @@ fn describe_let_else(input: &str) -> String {
 
 `let ... else` also works mid-loop, where the divergence is `continue` or `break`:
 
-```rust
+```rust playground
 fn sum_even_strings(items: &[&str]) -> i32 {
     let mut total = 0;
     for item in items {
@@ -368,7 +368,7 @@ error[E0425]: cannot find value `name` in this scope
 
 **Fix:** if you need the value afterward, use `let ... else`, which binds for the rest of the scope:
 
-```rust
+```rust playground
 fn main() {
     let maybe_name: Option<&str> = Some("Grace");
     let Some(name) = maybe_name else {
@@ -422,7 +422,7 @@ error[E0308]: `else` clause of `let...else` does not diverge
 
 If the pattern can never fail, `if let` is pointless, and Clippy/rustc will tell you so with a built-in lint.
 
-```rust
+```rust playground
 fn main() {
     let point = (3, 4);
     // A tuple pattern always matches a tuple -> irrefutable
@@ -467,7 +467,7 @@ warning: irrefutable `if let` pattern
 
 Early returns keep the happy path un-indented. This scales far better than a pyramid of nested `if let`s:
 
-```rust
+```rust playground
 fn extract_user_id(header: &str) -> Result<u64, String> {
     let Some(token) = header.strip_prefix("Bearer ") else {
         return Err("missing Bearer prefix".to_string());
@@ -501,7 +501,7 @@ If the compiler could be checking exhaustiveness for you, let it. `match` turns 
 
 A small command interpreter that reads lines, parses each into a typed `Command`, and builds up a profile. It uses `while let` to drain a work queue, `if let` to react only to recognized commands, `let ... else` (via `?`) inside the parser, and an `if let` with a tuple pattern at the end. This compiles and runs as-is.
 
-```rust
+```rust playground
 use std::collections::VecDeque;
 
 /// A command parsed from a line of user input.
@@ -622,7 +622,7 @@ Notice how `"age 36"` parses, `"age not-a-number"` is rejected by the `let ... e
 
 **Instructions:** Implement `greet` so that `greet(Some("Lin"))` prints `Hello, Lin!` and `greet(None)` prints `Hello, guest!`.
 
-```rust
+```rust playground
 fn greet(user: Option<&str>) {
     // TODO: use `if let` with an `else`
 }
@@ -636,7 +636,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn greet(user: Option<&str>) {
     if let Some(name) = user {
         println!("Hello, {name}!");
@@ -661,7 +661,7 @@ fn main() {
 
 **Instructions:** Implement `drain_report` so it repeatedly pops the last job off `queue`, prints `processing job N` for each, and finally prints `queue empty`. (`Vec::pop` returns `Option`.)
 
-```rust
+```rust playground
 fn drain_report(mut queue: Vec<i32>) {
     // TODO: use `while let` and `queue.pop()`
 }
@@ -674,7 +674,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn drain_report(mut queue: Vec<i32>) {
     while let Some(job) = queue.pop() {
         println!("processing job {job}");
@@ -720,7 +720,7 @@ fn main() {
 <details>
 <summary>Solution</summary>
 
-```rust
+```rust playground
 fn extract_user_id(header: &str) -> Result<u64, String> {
     let Some(token) = header.strip_prefix("Bearer ") else {
         return Err("missing Bearer prefix".to_string());
