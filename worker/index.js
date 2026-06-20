@@ -23,9 +23,9 @@ function isPagePath(pathname) {
   return !lastSegment.includes(".");
 }
 
-/** Map a page path to its `.md` sibling. `/a/b/` -> `/a/b.md`. Root has none. */
+/** Map a page path to its `.md` sibling. `/a/b/` -> `/a/b.md`, `/` -> `/index.md`. */
 function toMarkdownPath(pathname) {
-  if (pathname === "/") return null;
+  if (pathname === "/" || pathname === "") return "/index.md";
   const trimmed = pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
   return `${trimmed}.md`;
 }
