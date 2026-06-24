@@ -1,5 +1,5 @@
 ---
-title: "Migration Guide"
+title: "Node.js to Rust Migration Guide"
 sidebar:
   label: "Overview"
 description: "A pragmatic playbook for migrating Node.js services to Rust: strangler-fig increments, API and data compatibility, honest benchmarks, and team challenges."

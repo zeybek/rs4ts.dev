@@ -1,5 +1,5 @@
 ---
-title: "WebAssembly"
+title: "Rust & WebAssembly (WASM)"
 sidebar:
   label: "Overview"
 description: "Compile a Rust crate to a compact .wasm binary that runs beside your JavaScript at near-native speed. Map your front-end toolbox onto wasm-pack and Rust."

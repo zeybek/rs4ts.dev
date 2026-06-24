@@ -1,5 +1,5 @@
 ---
-title: "Serialization"
+title: "Rust Serialization with Serde"
 sidebar:
   label: "Overview"
 description: "TypeScript ships JSON.parse and JSON.stringify; Rust uses Serde, splitting data types from formats so one annotated struct targets JSON, TOML, YAML, and more."

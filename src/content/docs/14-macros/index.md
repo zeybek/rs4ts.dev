@@ -1,5 +1,5 @@
 ---
-title: "Macros"
+title: "Rust Macros"
 sidebar:
   label: "Overview"
 description: "Rust macros are compile-time code generation with zero runtime cost, unlike TS decorators and Babel: macro_rules!, derive, attribute, and proc macros."

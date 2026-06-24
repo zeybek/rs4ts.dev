@@ -1,5 +1,5 @@
 ---
-title: "Common Patterns"
+title: "Rust Design Patterns"
 sidebar:
   label: "Overview"
 description: "TypeScript's Gang-of-Four patterns in idiomatic Rust: builder, strategy, visitor, factory and RAII collapse into enums, generics, or compile-time checks."

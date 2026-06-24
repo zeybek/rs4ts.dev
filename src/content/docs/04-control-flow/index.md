@@ -1,5 +1,5 @@
 ---
-title: "Control Flow"
+title: "Rust Control Flow"
 sidebar:
   label: "Overview"
 description: "Rust control flow is expression-based: if, match, and loop each return a value, replacing the ternary and switch. Plus no truthiness and exhaustive matching."

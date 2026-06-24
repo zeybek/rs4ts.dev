@@ -1,5 +1,5 @@
 ---
-title: "Systems Programming"
+title: "Rust Systems Programming"
 sidebar:
   label: "Overview"
 description: "Threads, Rayon, channels, atomics, files, sockets, signals, and subprocesses in Rust, mapped for a TypeScript developer used to one event loop."

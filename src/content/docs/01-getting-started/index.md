@@ -1,5 +1,5 @@
 ---
-title: "Getting Started"
+title: "Getting Started with Rust"
 sidebar:
   label: "Overview"
 description: "Welcome to Rust! This section will get you up and running with your first Rust program."

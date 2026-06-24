@@ -1,5 +1,5 @@
 ---
-title: "Modules & Packages"
+title: "Rust Modules, Packages & Cargo"
 sidebar:
   label: "Overview"
 description: "Map TypeScript's import/export and npm onto Rust: mod, use and pub for code inside a crate, and Cargo for dependencies, builds, tests, features, and publishing."

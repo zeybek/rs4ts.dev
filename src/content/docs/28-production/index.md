@@ -1,5 +1,5 @@
 ---
-title: "Production"
+title: "Rust in Production"
 sidebar:
   label: "Overview"
 description: "Getting a Rust service past \"it builds\" to production: typed config, graceful shutdown, health probes, metrics, tracing, rate limits, caching, and jobs."

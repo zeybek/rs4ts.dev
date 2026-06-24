@@ -1,5 +1,5 @@
 ---
-title: "Testing"
+title: "Rust Testing with Cargo"
 sidebar:
   label: "Overview"
 description: "Rust bakes testing into Cargo: annotate #[test], run cargo test, no Jest or Vitest setup. Covers assertions, integration and doc tests, mocking, proptest, coverage."

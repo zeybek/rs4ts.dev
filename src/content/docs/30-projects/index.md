@@ -1,5 +1,5 @@
 ---
-title: "Projects"
+title: "Real-World Rust Projects"
 sidebar:
   label: "Overview"
 description: "Six real Rust projects, each rebuilding a Node stack you know, an Express API, ws chat, canvas game, microservice, so you see what changes from TypeScript."

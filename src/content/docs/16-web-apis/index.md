@@ -1,5 +1,5 @@
 ---
-title: "Web APIs"
+title: "Rust Web APIs with Axum"
 sidebar:
   label: "Overview"
 description: "Build web APIs in Rust with Axum, mapping Express's router-handler-middleware model to typed extractors, IntoResponse, and Tower layers on Tokio for a full JSON API."

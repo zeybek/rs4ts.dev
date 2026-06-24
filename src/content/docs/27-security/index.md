@@ -1,5 +1,5 @@
 ---
-title: "Security"
+title: "Rust Security Best Practices"
 sidebar:
   label: "Overview"
 description: "Secure Rust web services across the request lifecycle: input validation, SQL injection, XSS/CSRF, crypto, TLS, secrets, and auditing, mapped from Node habits."

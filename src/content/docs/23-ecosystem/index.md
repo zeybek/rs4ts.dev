@@ -1,5 +1,5 @@
 ---
-title: "Ecosystem"
+title: "Rust Ecosystem & Crates"
 sidebar:
   label: "Overview"
 description: "Map your npm packages to Rust crates: serde, tokio, axum, reqwest, chrono, regex, tracing, plus the web frameworks and async runtimes Node devs need."

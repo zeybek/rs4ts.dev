@@ -1,5 +1,5 @@
 ---
-title: "CLI Tools"
+title: "Rust CLI Tools with clap"
 sidebar:
   label: "Overview"
 description: "Build Rust CLIs that map onto the Node toolbox you know: clap for parsing, ratatui and indicatif for UI, portable paths, env config, and single-binary distribution."

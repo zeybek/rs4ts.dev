@@ -1,5 +1,5 @@
 ---
-title: "Collections"
+title: "Rust Collections & Iterators"
 sidebar:
   label: "Overview"
 description: "JS Array, string, Map, and Set become Rust's typed Vec, String/&str, HashMap, and BTreeMap, reshaped by lazy iterators that do no work until you ask."

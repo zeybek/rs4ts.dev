@@ -1,5 +1,5 @@
 ---
-title: "Data Structures"
+title: "Rust Structs & Enums"
 sidebar:
   label: "Overview"
 description: "Map TypeScript interfaces, unions, and null onto Rust's structs, enums, Option, pattern matching, and impl blocks: nominally typed, exhaustively checked."

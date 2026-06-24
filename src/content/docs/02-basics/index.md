@@ -1,5 +1,5 @@
 ---
-title: "Basics"
+title: "Rust Basics"
 sidebar:
   label: "Overview"
 description: "Learn the fundamental building blocks of Rust: variables, types, operators, and basic syntax."

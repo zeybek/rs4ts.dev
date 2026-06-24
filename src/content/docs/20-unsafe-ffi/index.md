@@ -1,5 +1,5 @@
 ---
-title: "Unsafe & FFI"
+title: "Unsafe Rust & FFI"
 sidebar:
   label: "Overview"
 description: "Safe Rust proves memory safety before your program runs. This section covers the unsafe keyword, the C FFI toolchain, and shipping Rust as a Node.js addon."

@@ -1,5 +1,5 @@
 ---
-title: "Tooling"
+title: "Rust Tooling: Cargo, Clippy & rustfmt"
 sidebar:
   label: "Overview"
 description: "Node scatters tooling across Prettier, ESLint, a test runner, and a bundler. Rust folds most of it into Cargo, plus rustfmt, Clippy, and rust-analyzer."

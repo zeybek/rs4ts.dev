@@ -1,5 +1,5 @@
 ---
-title: "Databases"
+title: "Rust Databases: SQLx, Diesel & SeaORM"
 sidebar:
   label: "Overview"
 description: "Talk to databases from Rust: SQLx checks raw SQL at compile time, Diesel and SeaORM give ORM ergonomics, plus MongoDB, Redis, pooling, and migrations vs TypeScript."

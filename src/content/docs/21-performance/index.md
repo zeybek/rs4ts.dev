@@ -1,5 +1,5 @@
 ---
-title: "Performance"
+title: "Rust Performance & Optimization"
 sidebar:
   label: "Overview"
 description: "Measure before you optimize: profiling, flame graphs, criterion benchmarks, allocation and cache wins, plus an honest Rust-vs-Node.js performance comparison."

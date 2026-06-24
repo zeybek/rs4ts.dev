@@ -1,5 +1,5 @@
 ---
-title: "Advanced Topics"
+title: "Advanced Rust: GATs, Pin, Const Generics"
 sidebar:
   label: "Overview"
 description: "The type-system and runtime frontier: GATs, specialization, Pin, async internals, const generics, allocators, and asm, where stable ends and nightly begins."

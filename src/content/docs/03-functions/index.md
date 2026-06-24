@@ -1,5 +1,5 @@
 ---
-title: "Functions"
+title: "Rust Functions & Closures"
 sidebar:
   label: "Overview"
 description: "Map every TypeScript function piece to Rust: signatures, parameters, returns, closures, higher-order functions, fn pointers, and recursion."

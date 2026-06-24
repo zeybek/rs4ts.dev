@@ -1,5 +1,5 @@
 ---
-title: "Smart Pointers"
+title: "Rust Smart Pointers"
 sidebar:
   label: "Overview"
 description: "TypeScript hides every heap, sharing, and lifetime choice; Rust's smart pointers make them explicit: Box, Rc/Arc, RefCell, Cell, Cow, Weak, and Deref."
