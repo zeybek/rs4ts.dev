@@ -458,7 +458,7 @@ Both languages read the environment that existed when the process started (plus 
 
 Code ported from a single-threaded mindset trips on edition 2024 immediately:
 
-```rust playground edition="2021"
+```rust playground edition="2024"
 use std::env;
 
 fn main() {

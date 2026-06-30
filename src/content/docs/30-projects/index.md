@@ -9,7 +9,7 @@ You have spent twenty-nine sections trading TypeScript intuitions for Rust ones:
 
 Every project mirrors a stack you already know from the Node.js world: an Express REST API, a Commander CLI, a `canvas`-driven browser game, a `ws` chat server, a containerized microservice, and a single-page app talking to its own backend. We rebuild each one in idiomatic Rust so you can see, side by side, what changes and what stays the same. The walkthroughs are written for a senior JavaScript/TypeScript developer: they assume you know *why* you would build the thing and focus on *how* Rust does it differently.
 
-Importantly, each walkthrough has a matching code directory that is a genuine, compiling Cargo project. Nothing here requires an external database, message broker, or cloud account to run: state lives in memory (typically an `Arc<Mutex<HashMap<..>>>` or in-memory SQLite) so you can `cargo run` and poke at it immediately, and every project notes how to swap in a real datastore when you outgrow that. The program output shown in each walkthrough is real, captured from actually running the code. Read the markdown top to bottom, or clone the code directory and start hacking.
+Importantly, each walkthrough has a matching code directory that is a genuine, compiling Cargo project. Nothing here requires an external database, message broker, or cloud account to run: state lives in memory (typically an `Arc<Mutex<HashMap<..>>>` or `Arc<RwLock<HashMap<..>>>`, or a JSON file for the CLI) so you can `cargo run` and poke at it immediately, and every project notes how to swap in a real datastore when you outgrow that. The program output shown in each walkthrough is real, captured from actually running the code. Read the markdown top to bottom, or clone the code directory and start hacking.
 
 ## Projects
 
@@ -66,7 +66,7 @@ rustup target add wasm32-unknown-unknown   # if you have not already
 ./build.sh             # compiles the WASM frontend, then runs the backend
 ```
 
-> **In-memory by default.** None of these projects need Postgres, Redis, or any running service to build or run. They use an in-memory store (or in-memory SQLite). Every walkthrough's **Extending It** section explains how to swap in a real database; see [17-database](/17-database/) for the patterns.
+> **In-memory by default.** None of these projects need Postgres, Redis, or any running service to build or run. They use an in-memory store (or a JSON file for the CLI). Every walkthrough's **Extending It** section explains how to swap in a real database; see [17-database](/17-database/) for the patterns.
 
 ## Prerequisites
 
@@ -91,7 +91,7 @@ Each walkthrough maps to the directory that holds its code:
 | [Project 2](/30-projects/01-cli-tool/) | [`cli-tool-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/cli-tool-code) | `taskr` | Native binary (clap) |
 | [Project 3](/30-projects/02-wasm-app/) | [`wasm-app-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/wasm-app-code) | `game-of-life` | WASM library |
 | [Project 4](/30-projects/03-websocket-chat/) | [`websocket-chat-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/websocket-chat-code) | `websocket-chat-code` | Native binary (Axum + WebSocket) |
-| [Project 5](/30-projects/04-microservice/) | [`microservice-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/microservice-code) | `url-shortener` | Native binary (Axum + SQLite) |
+| [Project 5](/30-projects/04-microservice/) | [`microservice-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/microservice-code) | `url-shortener` | Native binary (Axum + in-memory store) |
 | [Project 6](/30-projects/05-full-stack/) | [`full-stack-code/`](https://github.com/zeybek/rs4ts.dev/tree/main/examples/full-stack-code) | `backend` + `frontend` (workspace) | Native + WASM workspace |
 
 ## A Closing Note

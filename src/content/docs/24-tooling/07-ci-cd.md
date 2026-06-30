@@ -186,7 +186,7 @@ Order the gates so the cheapest check fails first. Formatting is nearly instant,
 
 ### Why `-- -D warnings` is the lint contract
 
-By default `cargo clippy` *warns* but still exits `0`, so CI would pass even with lints present. The `-- -D warnings` part forwards `-D warnings` to the compiler driver, promoting every warning (Clippy's and `rustc`'s) to a hard error. That is the exact analogue of ESLint's `--max-warnings 0`: warnings you tolerate locally become blockers in CI. The everyday `||` after `clippy` here is `--`, which separates Cargo's arguments from the arguments passed through to the lint driver.
+By default `cargo clippy` *warns* but still exits `0`, so CI would pass even with lints present. The `-- -D warnings` part forwards `-D warnings` to the compiler driver, promoting every warning (Clippy's and `rustc`'s) to a hard error. That is the exact analogue of ESLint's `--max-warnings 0`: warnings you tolerate locally become blockers in CI. The `--` after the `clippy` flags separates Cargo's arguments from the arguments passed through to the lint driver.
 
 `--all-targets` makes Clippy check your tests, examples, and benchmarks too — not just `src/`. `--all-features` enables every Cargo feature so feature-gated code is linted as well. Both widen coverage the same way a thorough ESLint config globs your whole repo rather than just `src/`.
 

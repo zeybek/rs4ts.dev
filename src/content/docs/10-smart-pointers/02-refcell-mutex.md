@@ -172,7 +172,7 @@ The real output:
 len is 3
 
 thread 'main' panicked at src/main.rs:8:10:
-RefCell already borrowed
+already borrowed: BorrowMutError
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
@@ -314,11 +314,11 @@ Real output:
 
 ```text
 thread 'main' panicked at src/main.rs:7:27:
-RefCell already borrowed
+already borrowed: BorrowMutError
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
-The opposite ordering (a read while a write is held) panics with a slightly different message — `RefCell already mutably borrowed` — but it is the same class of bug. **Fix:** never hold two borrows that overlap. Finish with the first guard (let it drop, or scope it) before taking the second, and prefer one short `borrow_mut()` per statement over long-lived guard variables.
+The opposite ordering (a read while a write is held) panics with a slightly different message — `already mutably borrowed: BorrowError` — but it is the same class of bug. **Fix:** never hold two borrows that overlap. Finish with the first guard (let it drop, or scope it) before taking the second, and prefer one short `borrow_mut()` per statement over long-lived guard variables.
 
 ### Pitfall 2: Trying to send a `RefCell` across threads
 

@@ -302,7 +302,7 @@ use indicatif::{ProgressBar, ProgressStyle};
 
 fn main() {
     let pb = ProgressBar::new(100);
-    pb.set_style(ProgressStyle::with_template("[{bar}] {pos}/{len}").unwrap()); //
+    pb.set_style(ProgressStyle::with_template("[{bar}] {pos}/{len}").unwrap());
 }
 ```
 

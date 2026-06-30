@@ -9,6 +9,7 @@ import {
 	type Crumb,
 } from './lib/site-meta'
 import { publishedForSlug } from './lib/git-dates.mjs'
+import { buildSeoDescription, buildSeoTitle } from './lib/seo-title'
 
 // Slug of the FAQ chapter — the one page that also gets FAQPage JSON-LD.
 const FAQ_SLUG = '00-introduction/04-faq'
@@ -31,6 +32,59 @@ function ldScript(json: unknown) {
 		attrs: { type: 'application/ld+json' },
 		content: JSON.stringify(json),
 	}
+}
+
+function upsertMeta(
+	head: any[],
+	match: (tag: any) => boolean,
+	entry: { tag: 'meta'; attrs: Record<string, string> }
+) {
+	const existing = head.find(match)
+	if (existing) existing.attrs = { ...(existing.attrs ?? {}), ...entry.attrs }
+	else head.push(entry)
+}
+
+function escapeHtmlText(value: string): string {
+	return value
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+}
+
+function applySeoTitle(head: any[], seoTitle: string) {
+	const title = head.find((tag) => tag.tag === 'title')
+	const escapedTitle = escapeHtmlText(seoTitle)
+	if (title) title.content = escapedTitle
+	else head.push({ tag: 'title', content: escapedTitle })
+
+	upsertMeta(
+		head,
+		(tag) => tag.tag === 'meta' && tag.attrs?.property === 'og:title',
+		{ tag: 'meta', attrs: { property: 'og:title', content: seoTitle } }
+	)
+	upsertMeta(
+		head,
+		(tag) => tag.tag === 'meta' && tag.attrs?.name === 'twitter:title',
+		{ tag: 'meta', attrs: { name: 'twitter:title', content: seoTitle } }
+	)
+}
+
+function applySeoDescription(head: any[], seoDescription: string) {
+	upsertMeta(
+		head,
+		(tag) => tag.tag === 'meta' && tag.attrs?.name === 'description',
+		{ tag: 'meta', attrs: { name: 'description', content: seoDescription } }
+	)
+	upsertMeta(
+		head,
+		(tag) => tag.tag === 'meta' && tag.attrs?.property === 'og:description',
+		{ tag: 'meta', attrs: { property: 'og:description', content: seoDescription } }
+	)
+	upsertMeta(
+		head,
+		(tag) => tag.tag === 'meta' && tag.attrs?.name === 'twitter:description',
+		{ tag: 'meta', attrs: { name: 'twitter:description', content: seoDescription } }
+	)
 }
 
 function hasCurrent(entry: any): boolean {
@@ -61,6 +115,22 @@ export const onRequest = defineRouteMiddleware((context) => {
 
 	const canonical = new URL(context.url.pathname, site).href
 	const ogImage = new URL(`/og/${slug || 'index'}.png`, site).href
+	const section = slug ? sectionLabel(route.sidebar) : undefined
+	const seoTitle = buildSeoTitle({
+		slug,
+		title: route.entry.data.title,
+		seoTitle: (route.entry.data as { seoTitle?: string }).seoTitle,
+		section,
+	})
+	const seoDescription = buildSeoDescription({
+		slug,
+		title: route.entry.data.title,
+		description: route.entry.data.description,
+		seoDescription: (route.entry.data as { seoDescription?: string }).seoDescription,
+		section,
+	})
+	applySeoTitle(head, seoTitle)
+	applySeoDescription(head, seoDescription)
 
 	const imageAlt = route.entry.data.title
 	head.push({ tag: 'meta', attrs: { property: 'og:image', content: ogImage } })
@@ -84,13 +154,12 @@ export const onRequest = defineRouteMiddleware((context) => {
 	const dateModified =
 		route.lastUpdated instanceof Date ? route.lastUpdated.toISOString() : undefined
 	const datePublished = publishedForSlug(slug)
-	const section = sectionLabel(route.sidebar)
 
 	head.push(
 		ldScript(
 			buildArticleGraph({
-				title: route.entry.data.title,
-				description: route.entry.data.description,
+				title: seoTitle,
+				description: seoDescription,
 				url: canonical,
 				image: ogImage,
 				section,

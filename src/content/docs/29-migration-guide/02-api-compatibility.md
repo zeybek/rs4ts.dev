@@ -367,9 +367,9 @@ It is worth repeating because it is silent. Default `Option<T>` emits `null`; th
 
 Express matches `/users/42` and `/users/42/` somewhat loosely depending on configuration. Axum is stricter and uses `{id}`, not `:id`. If clients call a trailing-slash variant, add explicit routes or a normalization layer rather than assuming parity.
 
-### Structured deserialize errors leak as 400, not 422
+### Deserialize errors are 422, syntax errors are 400
 
-When a request body fails to parse, Axum's `Json` extractor rejects it with `400 Bad Request` and a plain-text message — not your JSON error envelope, and not the `422` your Node validation layer may have used. The underlying `serde` error is precise and useful (``missing field `fullName` at line 1 column 27``), but you must catch it and remap it to keep the contract. See the Best Practices and the Real-World example below.
+When a request body is valid JSON but the wrong *shape* — a missing field, a wrong type — Axum's `Json` extractor rejects it with `422 Unprocessable Entity` and a plain-text message, not your JSON error envelope. (A genuine JSON *syntax* error returns `400 Bad Request` instead.) Either way the underlying `serde` error is precise and useful (``missing field `fullName` at line 1 column 27``), but it is plain text — not the `422` JSON envelope your Node validation layer may have used — so you must catch the rejection and remap it to keep the contract. See the Best Practices and the Real-World example below.
 
 ---
 

@@ -70,7 +70,7 @@ fn main() {
 
     let d = Meters(5.0);
     let t = Seconds(2.0);
-    let total = add_distance(d, Meters(2.0)); //
+    let total = add_distance(d, Meters(2.0));
     println!("{}", total.0); // 7
     // add_distance(d, t);    // does not compile (error[E0308]): expected `Meters`, found `Seconds`
     let _ = t;

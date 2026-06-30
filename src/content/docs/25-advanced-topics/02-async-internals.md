@@ -203,8 +203,8 @@ use std::task::{Context, Poll, Waker};
 async fn inner() -> u32 { 99 }
 
 fn main() {
-    let waker = Waker::noop();
-    let mut cx = Context::from_waker(&waker);
+    let waker = Waker::noop(); // returns &'static Waker
+    let mut cx = Context::from_waker(waker);
     let mut fut = pin!(inner());
     let value = loop {
         match fut.as_mut().poll(&mut cx) {
@@ -398,8 +398,8 @@ use std::task::{Context, Waker};
 async fn work() -> i32 { 42 }
 
 fn main() {
-    let waker = Waker::noop();
-    let mut cx = Context::from_waker(&waker);
+    let waker = Waker::noop(); // returns &'static Waker
+    let mut cx = Context::from_waker(waker);
     let mut fut = work();
     // does not compile (E0599): poll() needs Pin<&mut Self>, not a bare &mut.
     let _ = fut.poll(&mut cx);

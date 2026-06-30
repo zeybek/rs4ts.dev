@@ -253,7 +253,7 @@ fn main() {
 
 ```text
 thread 'main' panicked at src/main.rs:6:18:
-RefCell already borrowed
+already borrowed: BorrowMutError
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 

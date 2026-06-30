@@ -312,7 +312,7 @@ squaring 5
 first 3 odd squares: [1, 9, 25]
 ```
 
-Notice the interleaving: the pipeline squares `1`, checks it (odd, keep), squares `2` (even, drop), and so on, pulling *one element at a time* until `take(3)` is satisfied at `5`. It never tries to materialize the infinite range. In JavaScript, `Array.from({length: Infinity})` would hang or crash; eager methods *cannot* express this. (Lazy JS iteration exists via generators, but the array methods aren't lazy.)
+Notice the interleaving: the pipeline squares `1`, checks it (odd, keep), squares `2` (even, drop), and so on, pulling *one element at a time* until `take(3)` is satisfied at `5`. It never tries to materialize the infinite range. In JavaScript, `Array.from({length: Infinity})` throws a `RangeError` outright (invalid array length); eager methods *cannot* express this. (Lazy JS iteration exists via generators, but the array methods aren't lazy.)
 
 ---
 

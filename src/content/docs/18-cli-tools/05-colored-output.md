@@ -146,7 +146,11 @@ warning: unused import: `std::env`
 
 `use owo_colors::OwoColorize;` brings a trait into scope that adds methods like `.green()`, `.bold()`, and `.on_red()` to **every** type that implements `Display` (and `Debug`). This is the same ergonomic trick TypeScript devs know from prototype extension, but checked at compile time.
 
-The key subtlety: `.green()` does **not** return a `String`. It returns a tiny wrapper struct — `FgColorDisplay<'_, Red, &str>` (here `Red` is shorthand for `owo_colors::colors::Red`, the fully-qualified path the compiler prints in the Pitfall 1 error below) — that holds a reference to your value and remembers the style. No allocation, no escape codes are produced *until the value is actually formatted*. When you eventually `println!("{}", x.green())`, the wrapper's `Display` implementation writes `\x1b[Progress Bars and Spinners with indicatif](/18-cli-tools/04-progress-bars/)) takes the chalk approach: `console::style(..)` returns a `StyledObject` that **auto-detects by default**, so you don't need a separate stream.
+The key subtlety: `.green()` does **not** return a `String`. It returns a tiny wrapper struct — `FgColorDisplay<'_, Red, &str>` (here `Red` is shorthand for `owo_colors::colors::Red`, the fully-qualified path the compiler prints in the Pitfall 1 error below) — that holds a reference to your value and remembers the style. No allocation, no escape codes are produced *until the value is actually formatted*. When you eventually `println!("{}", x.green())`, the wrapper's `Display` implementation writes the green escape code (`\x1b[32m`) before your value and a reset (`\x1b[39m`) after — the escape codes exist only for the duration of that one format call.
+
+### console: chalk-style convenience with auto-detection
+
+`console` — the same crate family behind [Progress Bars and Spinners with indicatif](/18-cli-tools/04-progress-bars/) — takes the chalk approach: `console::style(..)` returns a `StyledObject` that **auto-detects by default**, so you don't need a separate stream.
 
 ```bash
 cargo add console
@@ -168,7 +172,12 @@ fn main() {
 Piped, the auto-detecting styles vanish but the forced one survives (raw bytes):
 
 ```text
-"Deploy succeeded\nRetrying...\n\x1b[Parsing Arguments with the clap Derive API](/18-cli-tools/01-clap-derive/)), but it's worth recognizing:
+"Deploy succeeded\nRetrying...\n\x1b[31malways red\x1b[0m\n"
+```
+
+### anstyle: the shared styling vocabulary
+
+You will rarely reach for `anstyle` directly — it is the minimal, dependency-free crate the rest of the ecosystem agreed on to *describe* a style (it is the same vocabulary [clap](/18-cli-tools/01-clap-derive/) renders its colored `--help` with — see [Parsing Arguments with the clap Derive API](/18-cli-tools/01-clap-derive/)), but it's worth recognizing:
 
 ```rust
 use anstyle::{AnsiColor, Color, Style};

@@ -1,5 +1,10 @@
 # Cloudflare static-asset response headers (Workers/Pages `_headers` format).
-# Our deploy is pure-static (no Worker script), so these apply to every asset.
+#
+# IMPORTANT: this deploy runs a Worker first (wrangler.toml: main = worker/index.js
+# with run_worker_first = true), and Cloudflare does NOT apply `_headers` to
+# Worker-generated responses. So the headers below are actually emitted by
+# worker/index.js (see applyEdgeHeaders) — this file is kept as documentation and
+# as a fallback for a pure-static deploy (no Worker). Keep the two in sync.
 
 # Content-hashed build assets: the hash in the filename changes whenever the
 # bytes change, so a one-year immutable cache can never serve stale code. Fonts

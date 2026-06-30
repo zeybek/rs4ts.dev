@@ -86,7 +86,7 @@ Rust fields are snake_case, so add `#[serde(rename_all = "camelCase")]` to the s
 
 ### Can Serde handle formats other than JSON?
 
-Yes. The same derives work with `serde_yaml`, `toml`, `bincode`, and `rmp-serde` (MessagePack) by swapping the format crate; the struct definition stays the same. See [Other Formats](/15-serialization/06-other-formats/).
+Yes. The same derives work with `serde_norway` (the maintained YAML crate, since `serde_yaml` is deprecated), `toml`, `bincode`, and `rmp-serde` (MessagePack) by swapping the format crate; the struct definition stays the same. See [Other Formats](/15-serialization/06-other-formats/).
 
 ---
 
