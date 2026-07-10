@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rust WebSocket Chat</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f1115;
+        --panel: #181b22;
+        --accent: #f7931e; /* Rust-ish orange */
+        --text: #e6e6e6;
+        --muted: #8a90a0;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        padding: 12px 16px;
+        background: var(--panel);
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        border-bottom: 1px solid #262b35;
+      }
+      header h1 { font-size: 16px; margin: 0 12px 0 0; }
+      header input {
+        background: #0f1115;
+        border: 1px solid #262b35;
+        color: var(--text);
+        padding: 6px 10px;
+        border-radius: 6px;
+      }
+      button {
+        background: var(--accent);
+        border: none;
+        color: #0f1115;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      button:disabled { opacity: 0.5; cursor: not-allowed; }
+      #status { margin-left: auto; color: var(--muted); font-size: 13px; }
+      main { flex: 1; display: flex; min-height: 0; }
+      #messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .msg { line-height: 1.4; }
+      .msg .who { color: var(--accent); font-weight: 600; }
+      .msg .time { color: var(--muted); font-size: 11px; margin-left: 6px; }
+      .system { color: var(--muted); font-style: italic; }
+      .error { color: #ff6b6b; }
+      aside {
+        width: 200px;
+        background: var(--panel);
+        border-left: 1px solid #262b35;
+        padding: 12px;
+        overflow-y: auto;
+      }
+      aside h2 { font-size: 13px; color: var(--muted); text-transform: uppercase; }
+      aside ul { list-style: none; padding: 0; margin: 0; }
+      aside li { padding: 4px 0; }
+      footer {
+        display: flex;
+        gap: 8px;
+        padding: 12px 16px;
+        background: var(--panel);
+        border-top: 1px solid #262b35;
+      }
+      footer input { flex: 1; }
+      footer input {
+        background: #0f1115;
+        border: 1px solid #262b35;
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🦀 Rust Chat</h1>
+      <input id="username" placeholder="username" value="alice" />
+      <input id="room" placeholder="room" value="general" />
+      <button id="join">Join</button>
+      <span id="status">disconnected</span>
+    </header>
+
+    <main>
+      <div id="messages"></div>
+      <aside>
+        <h2 id="roster-title">Users</h2>
+        <ul id="roster"></ul>
+      </aside>
+    </main>
+
+    <footer>
+      <input id="text" placeholder="Type a message and press Enter" disabled />
+      <button id="send" disabled>Send</button>
+    </footer>
+
+    <script>
+      // Plain browser WebSocket — no Socket.IO client needed. The server
+      // speaks JSON frames tagged with a "type" field, matching our serde
+      // enums on the Rust side.
+      let socket = null;
+      let joined = false;
+
+      const $ = (id) => document.getElementById(id);
+      const messagesEl = $("messages");
+      const rosterEl = $("roster");
+      const statusEl = $("status");
+
+      function addMessage(html, cls) {
+        const div = document.createElement("div");
+        div.className = "msg" + (cls ? " " + cls : "");
+        div.innerHTML = html;
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      function escapeHtml(s) {
+        return s.replace(/[&<>"']/g, (c) => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+        }[c]));
+      }
+
+      function renderRoster(users) {
+        rosterEl.innerHTML = "";
+        for (const u of users) {
+          const li = document.createElement("li");
+          li.textContent = u;
+          rosterEl.appendChild(li);
+        }
+        $("roster-title").textContent = `Users (${users.length})`;
+      }
+
+      function connectAndJoin() {
+        const username = $("username").value.trim();
+        const room = $("room").value.trim();
+        if (!username || !room) return;
+
+        // Build a ws:// URL relative to wherever the page is served from.
+        const proto = location.protocol === "https:" ? "wss" : "ws";
+        socket = new WebSocket(`${proto}://${location.host}/ws`);
+
+        socket.onopen = () => {
+          statusEl.textContent = "connected";
+          // First thing we send is a "join" frame.
+          socket.send(JSON.stringify({ type: "join", room, username }));
+        };
+
+        socket.onclose = () => {
+          statusEl.textContent = "disconnected";
+          joined = false;
+          $("text").disabled = true;
+          $("send").disabled = true;
+        };
+
+        socket.onmessage = (event) => {
+          const msg = JSON.parse(event.data);
+          switch (msg.type) {
+            case "welcome":
+              joined = true;
+              $("text").disabled = false;
+              $("send").disabled = false;
+              addMessage(`Joined <b>#${escapeHtml(msg.room)}</b> as <b>${escapeHtml(msg.username)}</b>`, "system");
+              renderRoster(msg.users);
+              break;
+            case "chat": {
+              const when = new Date(msg.ts).toLocaleTimeString();
+              addMessage(
+                `<span class="who">${escapeHtml(msg.username)}</span>: ` +
+                  `${escapeHtml(msg.text)}<span class="time">${when}</span>`
+              );
+              break;
+            }
+            case "joined":
+              addMessage(`<b>${escapeHtml(msg.username)}</b> joined`, "system");
+              break;
+            case "left":
+              addMessage(`<b>${escapeHtml(msg.username)}</b> left`, "system");
+              break;
+            case "roster":
+              renderRoster(msg.users);
+              break;
+            case "error":
+              addMessage(`Error: ${escapeHtml(msg.message)}`, "error");
+              break;
+          }
+        };
+      }
+
+      function sendChat() {
+        const input = $("text");
+        const text = input.value.trim();
+        if (!text || !joined) return;
+        socket.send(JSON.stringify({ type: "chat", text }));
+        input.value = "";
+      }
+
+      $("join").addEventListener("click", () => {
+        if (socket && socket.readyState === WebSocket.OPEN) {
+          // Already connected: just switch rooms.
+          const username = $("username").value.trim();
+          const room = $("room").value.trim();
+          socket.send(JSON.stringify({ type: "join", room, username }));
+        } else {
+          connectAndJoin();
+        }
+      });
+
+      $("send").addEventListener("click", sendChat);
+      $("text").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendChat();
+      });
+    </script>
+  </body>
+</html>

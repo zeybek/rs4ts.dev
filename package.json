@@ -1,0 +1,43 @@
+{
+  "name": "rs4ts",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "test": "node --test worker/index.test.js scripts/content.test.mjs",
+    "test:snippets": "node scripts/check-rust-snippets.mjs",
+    "test:security-snippets": "node scripts/check-security-snippets.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "prebuild": "node scripts/fetch-contributors.mjs || echo 'contributor refresh skipped (using committed cache)'",
+    "contributors": "node scripts/fetch-contributors.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
+    "deploy": "npm run build && wrangler deploy && npm run indexnow"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/starlight": "^0.41.3",
+    "@expressive-code/plugin-collapsible-sections": "^0.44.0",
+    "@expressive-code/plugin-line-numbers": "^0.44.0",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/ibm-plex-sans": "^5.2.8",
+    "astro": "^7.0.6",
+    "astro-og-canvas": "^0.13.0",
+    "reading-time": "^1.5.0",
+    "starlight-heading-badges": "^0.8.0",
+    "starlight-image-zoom": "^0.15.0",
+    "starlight-llms-txt": "^0.11.0",
+    "starlight-scroll-to-top": "^1.0.1"
+  },
+  "devDependencies": {
+    "schema-dts": "^2.0.0",
+    "starlight-links-validator": "^0.25.2",
+    "wrangler": "^4.107.0"
+  }
+}

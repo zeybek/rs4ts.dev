@@ -1,0 +1,53 @@
+# Rust
+target/
+# Keep the runnable example applications reproducible while continuing to
+# ignore lockfiles from ad-hoc/library crates elsewhere in the repository.
+Cargo.lock
+!examples/**/Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# Node / Astro (Starlight site)
+node_modules/
+dist/
+.astro/
+.wrangler/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Rust/WASM build artifacts — scoped on purpose.
+# Do NOT blanket-ignore *.js/*.wasm: the Astro site and examples
+# can contain legitimate .js/.wasm source. target/ and pkg/ cover builds.
+**/pkg/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
+Thumbs.db
+desktop.ini
+
+# Documentation build
+book/
+*.pdf
+*.epub
+
+# Personal notes (keep these private)
+notes.md
+scratch/
+
+
+# Playwright MCP screenshots
+.playwright-mcp/

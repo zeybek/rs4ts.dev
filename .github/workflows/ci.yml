@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history so Starlight's git-based "Last updated" is correct
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=moderate
+      - run: npm test
+      # `npm run build` runs starlight-links-validator, which fails the build
+      # on any broken internal link or anchor.
+      - run: npm run build
+
+  rust-examples:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: cli-tool
+            manifest: examples/cli-tool-code/Cargo.toml
+          - name: rest-api
+            manifest: examples/rest-api-code/Cargo.toml
+          - name: microservice
+            manifest: examples/microservice-code/Cargo.toml
+          - name: websocket-chat
+            manifest: examples/websocket-chat-code/Cargo.toml
+          - name: wasm-app
+            manifest: examples/wasm-app-code/Cargo.toml
+          - name: full-stack
+            manifest: examples/full-stack-code/Cargo.toml
+    name: Rust example (${{ matrix.name }})
+    steps:
+      - uses: actions/checkout@v4
+      # `rust-toolchain.toml` is the source of truth for the exact toolchain,
+      # rustfmt/Clippy components, and the WebAssembly target.
+      - name: Install pinned Rust toolchain
+        run: rustup show active-toolchain
+      - name: Check formatting
+        run: cargo fmt --manifest-path "${{ matrix.manifest }}" --all -- --check
+      - name: Run Clippy
+        run: cargo clippy --manifest-path "${{ matrix.manifest }}" --all-targets --all-features --locked -- -D warnings
+      - name: Run tests
+        run: cargo test --manifest-path "${{ matrix.manifest }}" --all-targets --locked
+      - name: Check WASM application target
+        if: matrix.name == 'wasm-app'
+        run: cargo check --manifest-path "${{ matrix.manifest }}" --target wasm32-unknown-unknown --locked
+      - name: Check full-stack frontend WASM target
+        if: matrix.name == 'full-stack'
+        run: cargo check --manifest-path "${{ matrix.manifest }}" --package frontend --target wasm32-unknown-unknown --locked
+
+  rust-snippets:
+    name: Rust documentation snippets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install pinned Rust toolchain
+        run: rustup show active-toolchain
+      - name: Compile self-contained documentation snippets
+        run: npm run test:snippets
+      - name: Compile security-sensitive documentation programs
+        run: npm run test:security-snippets

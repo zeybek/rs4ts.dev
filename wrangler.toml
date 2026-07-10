@@ -1,0 +1,11 @@
+name = "rs4ts"
+main = "./worker/index.js"
+compatibility_date = "2026-06-05"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
+# Run the Worker before static-asset matching so it can answer page requests
+# with Markdown (Accept: text/markdown) instead of HTML. See worker/index.js.
+run_worker_first = true

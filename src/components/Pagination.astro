@@ -1,0 +1,132 @@
+---
+
+import { Icon } from '@astrojs/starlight/components';
+import CodeLabel from './CodeLabel.astro';
+
+const { dir, pagination } = Astro.locals.starlightRoute;
+const { prev, next } = pagination;
+const isRtl = dir === 'rtl';
+---
+
+<div class="pagination-links print:hidden" dir={dir}>
+	{
+		prev && (
+			<a href={prev.href} rel="prev">
+				<Icon name={isRtl ? 'right-arrow' : 'left-arrow'} size="1.5rem" />
+				<span>
+					{Astro.locals.t('page.previousLink')}
+					<br />
+					<span class="link-title">
+						<CodeLabel text={prev.label} />
+					</span>
+				</span>
+			</a>
+		)
+	}
+	{
+		next && (
+			<a href={next.href} rel="next">
+				<Icon name={isRtl ? 'left-arrow' : 'right-arrow'} size="1.5rem" />
+				<span>
+					{Astro.locals.t('page.nextLink')}
+					<br />
+					<span class="link-title">
+						<CodeLabel text={next.label} />
+					</span>
+				</span>
+			</a>
+		)
+	}
+</div>
+
+<style>
+
+	.pagination-links {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.pagination-links a:only-child {
+		grid-column: 1 / -1;
+	}
+
+	a {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 0.85rem;
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: 0;
+		padding: 1rem 1.25rem;
+		text-decoration: none;
+		color: var(--sl-color-gray-2);
+		background: var(--sl-color-gray-6);
+		overflow-wrap: anywhere;
+		transition:
+			border-color 0.18s ease,
+			box-shadow 0.18s ease,
+			color 0.18s ease;
+	}
+	[rel='next'] {
+		justify-content: end;
+		text-align: end;
+		flex-direction: row-reverse;
+	}
+
+	a:hover {
+		border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+		box-shadow: 0 0 60px -20px var(--accent-glow);
+	}
+
+	a > span {
+		font-family: var(--font-mono);
+		font-size: var(--sl-text-xs);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--sl-color-gray-4);
+		line-height: 1.4;
+	}
+
+	.link-title {
+		display: inline-block;
+		margin-top: 0.4rem;
+		font-family: var(--heading-font);
+		font-weight: 600;
+		font-size: var(--sl-text-lg);
+		letter-spacing: -0.02em;
+		line-height: var(--sl-line-height-headings);
+		text-transform: none;
+		color: var(--sl-color-white);
+		transition: color 0.18s ease;
+	}
+	a:hover .link-title {
+		color: var(--accent-bright);
+	}
+
+	svg {
+		flex-shrink: 0;
+		color: var(--sl-color-gray-4);
+		transition:
+			color 0.18s ease,
+			transform 0.18s ease;
+	}
+	a:hover svg {
+		color: var(--accent);
+	}
+	a[rel='prev']:hover svg {
+		transform: translateX(-3px);
+	}
+	a[rel='next']:hover svg {
+		transform: translateX(3px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		svg {
+			transition: color 0.18s ease;
+		}
+		a:hover svg {
+			transform: none;
+		}
+	}
+</style>

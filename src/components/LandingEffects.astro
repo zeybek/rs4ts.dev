@@ -1,0 +1,89 @@
+---
+
+---
+
+<script>
+	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const hasIO = 'IntersectionObserver' in window;
+
+	(function typewriter() {
+		const el = document.querySelector('[data-typewriter]');
+		if (!el) return;
+		const words = (el.getAttribute('data-words') || '').split('|').filter(Boolean);
+		if (!words.length) return;
+		if (reduce) {
+			el.textContent = words[0];
+			return;
+		}
+		let wi = 0,
+			ci = 0,
+			deleting = false;
+		(function tick() {
+			const word = words[wi];
+			ci += deleting ? -1 : 1;
+			el.textContent = word.slice(0, ci);
+			let delay = deleting ? 45 : 90;
+			if (!deleting && ci === word.length) {
+				delay = 1400;
+				deleting = true;
+			} else if (deleting && ci === 0) {
+				deleting = false;
+				wi = (wi + 1) % words.length;
+				delay = 350;
+			}
+			setTimeout(tick, delay);
+		})();
+	})();
+
+	(function reveal() {
+		if (reduce || !hasIO) return;
+		const els = document.querySelectorAll('.sl-markdown-content > *');
+		if (!els.length) return;
+		document.documentElement.classList.add('js-reveal');
+		const io = new IntersectionObserver(
+			(entries) => {
+				for (const e of entries) {
+					if (e.isIntersecting) {
+						e.target.classList.add('is-visible');
+						io.unobserve(e.target);
+					}
+				}
+			},
+			{ rootMargin: '0px 0px -8% 0px', threshold: 0.06 }
+		);
+		els.forEach((el) => io.observe(el));
+	})();
+
+	(function countUp() {
+		const band = document.querySelector('.stat-band');
+		if (!band || reduce || !hasIO) return;
+		const parse = (t) => {
+			const m = /^(\D*)(\d+)(.*)$/.exec(t.trim());
+			return m ? { pre: m[1], val: +m[2], suf: m[3] } : null;
+		};
+		const targets = [...band.querySelectorAll('.stat-num')]
+			.map((node) => {
+				const p = parse(node.textContent || '');
+				return p && { node, ...p };
+			})
+			.filter(Boolean);
+		if (!targets.length) return;
+		const io = new IntersectionObserver(
+			(entries) => {
+				if (!entries.some((e) => e.isIntersecting)) return;
+				io.disconnect();
+				const dur = 1200,
+					t0 = performance.now();
+				const frame = (now) => {
+					const p = Math.min(1, (now - t0) / dur);
+					const e = 1 - Math.pow(1 - p, 3);
+					for (const t of targets) t.node.textContent = t.pre + Math.round(t.val * e) + t.suf;
+					if (p < 1) requestAnimationFrame(frame);
+				};
+				requestAnimationFrame(frame);
+			},
+			{ threshold: 0.4 }
+		);
+		io.observe(band);
+	})();
+</script>

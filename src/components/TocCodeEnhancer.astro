@@ -1,0 +1,44 @@
+---
+
+---
+
+<script>
+	function richLabel(heading: Element): string {
+		const clone = heading.cloneNode(true) as Element;
+
+		clone
+			.querySelectorAll('.sl-anchor-link, [aria-hidden="true"], .sl-badge, starlight-heading-badge')
+			.forEach((n) => n.remove());
+
+		clone.querySelectorAll('a').forEach((a) => a.replaceWith(...Array.from(a.childNodes)));
+
+		clone.querySelectorAll('code').forEach((c) => c.classList.add('code-token'));
+		return clone.innerHTML.trim();
+	}
+
+	function enhance(root: Element | null) {
+		if (!root) return;
+		root.querySelectorAll('a[href^="#"]').forEach((a) => {
+			const link = a as HTMLAnchorElement;
+			if (link.dataset.codeToc) return;
+			link.dataset.codeToc = '1';
+			const id = decodeURIComponent((link.getAttribute('href') || '').slice(1));
+			if (!id || id === '_top') return;
+			const heading = document.getElementById(id);
+			if (!heading) return;
+			const html = richLabel(heading);
+			if (!html.includes('<code')) return;
+			const host = link.querySelector(':scope > span') || link;
+			host.innerHTML = html;
+		});
+	}
+
+	function run() {
+		enhance(document.querySelector('starlight-toc'));
+		enhance(document.querySelector('mobile-starlight-toc'));
+	}
+
+	run();
+
+	document.addEventListener('astro:page-load', run);
+</script>

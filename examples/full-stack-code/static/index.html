@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notes — Rust Full-Stack</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 40rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+      h1 { margin-bottom: 0.25rem; }
+      form { display: grid; gap: 0.5rem; margin: 1rem 0; }
+      input, textarea, button { font: inherit; padding: 0.5rem; }
+      ul { list-style: none; padding: 0; display: grid; gap: 0.75rem; }
+      .note {
+        border: 1px solid currentColor;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+      }
+      .note h3 { margin: 0 0 0.25rem; }
+      .note p { margin: 0 0 0.5rem; }
+      .delete { cursor: pointer; }
+      #status { min-height: 1.25rem; color: crimson; }
+    </style>
+  </head>
+  <body>
+    <h1>Notes</h1>
+    <p>Backend: Rust + axum. Frontend: Rust compiled to WebAssembly.</p>
+
+    <form id="note-form" onsubmit="return false">
+      <input id="title-input" type="text" placeholder="Title" />
+      <textarea id="body-input" rows="3" placeholder="Body (optional)"></textarea>
+      <button id="add-btn" type="submit">Add note</button>
+    </form>
+
+    <p id="status"></p>
+    <ul id="notes"></ul>
+
+    <!-- wasm-pack (--target web) emits an ES module + the .wasm file in
+         pkg/. We import it and call the default export to initialize. -->
+    <script type="module">
+      import init from "./pkg/frontend.js";
+      init();
+    </script>
+  </body>
+</html>

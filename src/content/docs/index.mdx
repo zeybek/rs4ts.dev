@@ -1,0 +1,266 @@
+---
+title: Rust for TypeScript & JavaScript Developers
+description: Learn Rust through side-by-side TypeScript and JavaScript comparisons covering ownership, errors, async, web APIs, databases, WebAssembly, and production.
+template: splash
+head:
+  # Override the <title> so it isn't "…Developers | …Developers" (the page title
+  # equals the site title) and to spell out the high-value keywords. ~56 chars.
+  - tag: title
+    content: Rust for TypeScript & JavaScript Developers | Free Guide
+# Landing page only: hide the "Edit page" link and the "Last updated" date.
+# No `hero:` block — the hero is built in the body (`.landing-hero`) so its order
+# (eyebrow → headline → tagline → typewriter → CTAs) matches the Pencil mockup,
+# and the bespoke top nav (src/components/Header.astro) can sit above it.
+editUrl: false
+lastUpdated: false
+---
+
+import { Code, LinkButton, Icon } from '@astrojs/starlight/components';
+import LandingEffects from '../../components/LandingEffects.astro';
+
+export const tsCode = `type User = { id: string; name: string };
+
+async function getUser(id: string): Promise<User> {
+  const response = await fetch("/api/users/" + id);
+  if (!response.ok) throw new Error("request failed");
+  return response.json();
+}`;
+
+export const rustCode = `struct User { id: String, name: String }
+
+async fn get_user(id: &str) -> Result<User, ApiError> {
+    let url = format!("/api/users/{id}");
+    let response = reqwest::get(url).await?.error_for_status()?;
+    Ok(response.json().await?)
+}`;
+
+export const ownCode = `let s = String::from("hello");
+let s2 = s;            // ownership moves to s2
+// println!("{s}");    // compile error: s no longer valid
+println!("{s2}");      // ok: s2 owns the string`;
+
+export const errCode = `fn parse_double(input: &str) -> Result<i32, ParseIntError> {
+    let n: i32 = input.trim().parse()?;   // ? propagates the error
+    Ok(n * 2)
+}`;
+
+export const asyncCode = `#[tokio::main]
+async fn main() {
+    // Tokio's runtime drives both futures concurrently
+    let (a, b) = tokio::join!(fetch_user(1), fetch_user(2));
+    println!("{a:?} {b:?}");
+}`;
+
+<div class="landing-hero">
+  <div class="eyebrow">free · open source · written for TS/JS developers</div>
+  <h1 id="_top" class="lh-title">Learn <span class="accent-word">Rust</span> from the <span class="lang-ts">TS</span><span class="lh-slash">/</span><span class="lang-js">JS</span> you know</h1>
+  <p class="lh-tagline">This guide assumes you already write TypeScript or JavaScript. It uses familiar code to explain ownership, error handling, traits, async, and the Rust ecosystem, including the points where Rust needs a different approach.</p>
+  <div class="type-line" aria-hidden="true"><span class="type-prompt">$</span> <span class="type-pre">you'll learn </span> <span class="type-rotate" data-typewriter data-words="ownership and borrowing|Result and Option|traits and generics|async with Tokio|web APIs with Axum|databases with SQLx|WebAssembly">ownership and borrowing</span><span class="type-caret"></span></div>
+  <div class="lh-cta">
+    <LinkButton href="/00-introduction/" variant="primary" icon="right-arrow">start the guide</LinkButton>
+    <LinkButton href="/01-getting-started/00-why-rust/" variant="minimal" icon="right-arrow">why Rust?</LinkButton>
+    <LinkButton href="https://github.com/zeybek/rs4ts.dev" variant="minimal" icon="external">view the source</LinkButton>
+  </div>
+</div>
+
+<div class="st-eyebrow"><span class="st-eyebrow-label">// one_problem_two_languages</span> familiar control flow, explicit error types</div>
+
+<div class="split-terminal">
+  <div class="st-bar">
+    <span class="cw-dots" aria-hidden="true"></span>
+    <span class="st-title"><span class="lang-ts">user.ts</span><span class="st-arrow">→</span><span class="accent-word">user.rs</span></span>
+  </div>
+  <div class="st-body">
+    <div class="st-panel">
+      <div class="st-panel-head"><span class="st-dot st-dot--ts"></span><span class="st-lang">typescript</span><span class="st-note">// familiar control flow</span></div>
+      <Code code={tsCode} lang="ts" frame="none" />
+    </div>
+    <div class="st-divider" aria-hidden="true"></div>
+    <div class="st-panel">
+      <div class="st-panel-head"><span class="st-dot st-dot--rust"></span><span class="st-lang">rust</span><span class="st-note">// failure stays in the return type</span></div>
+      <Code code={rustCode} lang="rust" frame="none" />
+    </div>
+  </div>
+</div>
+
+<div class="stat-band">
+  <div class="stat"><span class="stat-num">31</span><span class="stat-label">Guide sections</span></div>
+  <div class="stat"><span class="stat-num">6</span><span class="stat-label">Capstone projects</span></div>
+  <div class="stat"><span class="stat-num">2024</span><span class="stat-label">Rust edition</span></div>
+  <div class="stat"><span class="stat-num">MIT</span><span class="stat-label">Open source</span></div>
+</div>
+
+<span class="section-label">// how_it_works</span>
+## how the guide is organized
+
+<div class="feature-grid">
+  <div class="feature-card">
+    <span class="fc-icon"><Icon name="translate" /></span>
+    <h3 class="fc-title">Start from familiar code</h3>
+    <p class="fc-body">Chapters put familiar TS/JS code beside its Rust equivalent, then explain the rules behind the differences.</p>
+  </div>
+  <div class="feature-card">
+    <span class="fc-icon"><Icon name="approve-check" /></span>
+    <h3 class="fc-title">Compare semantics, not just syntax</h3>
+    <p class="fc-body">The guide marks places where familiar syntax behaves differently, especially around ownership, errors, async execution, and type modeling.</p>
+  </div>
+  <div class="feature-card">
+    <span class="fc-icon"><Icon name="open-book" /></span>
+    <h3 class="fc-title">Read errors with the working code</h3>
+    <p class="fc-body">Compiler messages and common mistakes are explained beside the corrected version, so the rejected code has context.</p>
+  </div>
+  <div class="feature-card">
+    <span class="fc-icon"><Icon name="rocket" /></span>
+    <h3 class="fc-title">Practice beyond isolated snippets</h3>
+    <p class="fc-body">Exercises reinforce individual topics. Six dependency-locked capstone crates combine them in complete programs checked by CI.</p>
+  </div>
+</div>
+
+<span class="section-label">// core_differences</span>
+## three differences to understand first
+
+<div class="concept-grid">
+  <div class="concept">
+    <div class="concept-text">
+      <div class="concept-head"><span class="ordinal">01</span><h3 class="concept-title">ownership_and_borrowing/</h3></div>
+      <p>JavaScript relies on garbage collection. Rust uses ownership and borrowing to make data lifetime and mutation rules explicit at compile time.</p>
+      <div class="tags"><span class="tag">[ownership]</span><span class="tag">[borrow]</span><span class="tag">[lifetimes]</span><span class="tag">[drop]</span></div>
+    </div>
+    <div class="code-window">
+      <div class="cw-bar"><span class="cw-dots"></span><span class="cw-title">ownership.rs</span></div>
+      <Code code={ownCode} lang="rust" frame="none" />
+    </div>
+  </div>
+
+  <div class="concept concept--reverse">
+    <div class="concept-text">
+      <div class="concept-head"><span class="ordinal">02</span><h3 class="concept-title">result_and_option/</h3></div>
+      <p>For recoverable failures, Rust returns <code>Result&lt;T, E&gt;</code>; missing values are <code>Option&lt;T&gt;</code>. The <code>?</code> operator propagates errors without hiding them from the function signature.</p>
+      <div class="tags"><span class="tag">[result]</span><span class="tag">[option]</span><span class="tag">[question_mark]</span><span class="tag">[error_types]</span></div>
+    </div>
+    <div class="code-window">
+      <div class="cw-bar"><span class="cw-dots"></span><span class="cw-title">errors.rs</span></div>
+      <Code code={errCode} lang="rust" frame="none" />
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="concept-text">
+      <div class="concept-head"><span class="ordinal">03</span><h3 class="concept-title">async_and_concurrency/</h3></div>
+      <p>The <code>async</code>/<code>await</code> syntax is familiar, but Rust futures are lazy and need an executor such as Tokio. Async coordinates waiting; CPU-bound parallelism is a separate choice.</p>
+      <div class="tags"><span class="tag">[future]</span><span class="tag">[tokio]</span><span class="tag">[tasks]</span><span class="tag">[channels]</span></div>
+    </div>
+    <div class="code-window">
+      <div class="cw-bar"><span class="cw-dots"></span><span class="cw-title">async.rs</span></div>
+      <Code code={asyncCode} lang="rust" frame="none" />
+    </div>
+  </div>
+</div>
+
+<span class="section-label">// curriculum</span>
+## one guide, three stages
+
+<div class="path-grid">
+  <div class="path-card">
+    <div class="path-head"><span class="path-name">language/</span><span class="path-hours">00–15</span></div>
+    <p class="path-body">Setup and syntax lead into <strong>ownership</strong>, collections, errors, traits, async, testing, macros, and serialization.</p>
+    <div class="depth-meter" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+  </div>
+  <div class="path-card path-card--featured">
+    <div class="path-head"><span class="path-name">applications/ <b class="popular">build here</b></span><span class="path-hours">16–24</span></div>
+    <p class="path-body">Build with <strong>Axum</strong>, SQLx, CLI tooling, WebAssembly, FFI, performance tools, common patterns, and the Rust ecosystem.</p>
+    <div class="depth-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></div>
+  </div>
+  <div class="path-card">
+    <div class="path-head"><span class="path-name">shipping/</span><span class="path-hours">25–30</span></div>
+    <p class="path-body">Continue with advanced topics, systems programming, <strong>security</strong>, production operations, migration, and the capstone projects.</p>
+    <div class="depth-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+  </div>
+</div>
+
+<p class="path-note">The chapter order is the default route, not a requirement. Use the sidebar to open a topic directly when a project gives you a concrete question.</p>
+
+<span class="section-label">// capstone_projects</span>
+## use Rust in complete programs
+
+<div class="start-list">
+  <a class="start-item" href="/30-projects/00-rest-api/">
+    <span class="start-num">01</span>
+    <span class="start-body">
+      <span class="start-title">REST API<span class="start-route">/30-projects/00-rest-api/</span></span>
+      <span class="start-desc">an Express-style CRUD service with Axum, validation, and typed errors</span>
+    </span>
+    <span class="start-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="start-item" href="/30-projects/01-cli-tool/">
+    <span class="start-num">02</span>
+    <span class="start-body">
+      <span class="start-title">CLI task manager<span class="start-route">/30-projects/01-cli-tool/</span></span>
+      <span class="start-desc">subcommands, JSON persistence, file I/O, and recoverable errors</span>
+    </span>
+    <span class="start-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="start-item" href="/30-projects/03-websocket-chat/">
+    <span class="start-num">03</span>
+    <span class="start-body">
+      <span class="start-title">WebSocket chat<span class="start-route">/30-projects/03-websocket-chat/</span></span>
+      <span class="start-desc">rooms, Tokio broadcast channels, shared state, and JSON messages</span>
+    </span>
+    <span class="start-arrow" aria-hidden="true">→</span>
+  </a>
+  <a class="start-item" href="/30-projects/05-full-stack/">
+    <span class="start-num">04</span>
+    <span class="start-body">
+      <span class="start-title">Full-stack notes app<span class="start-route">/30-projects/05-full-stack/</span></span>
+      <span class="start-desc">an Axum API and WebAssembly frontend in one Cargo workspace</span>
+    </span>
+    <span class="start-arrow" aria-hidden="true">→</span>
+  </a>
+</div>
+
+<p class="start-foot">The project section also includes a WASM Game of Life and a production-shaped URL shortener. <a href="/30-projects/">Browse all six projects →</a></p>
+
+<div class="final-cta">
+
+## start with the introduction
+
+It explains the intended audience, prerequisites, suggested routes, and how to use the TS/JS comparisons without treating them as exact equivalents.
+
+<div class="final-cta-actions">
+  <LinkButton href="/00-introduction/" variant="primary" icon="right-arrow">start the guide</LinkButton>
+  <LinkButton href="/30-projects/" variant="minimal" icon="open-book">browse the projects</LinkButton>
+</div>
+
+<div class="final-cta-meta"><span>github.com/zeybek/rs4ts.dev</span> · <span>MIT licensed</span> · <span>no analytics</span></div>
+
+</div>
+
+<footer class="landing-footer">
+  <div class="lf-wrap">
+    <div class="lf-top">
+      <div class="lf-brand">
+        <div class="lf-logo"><span class="lf-mark">&gt;_</span><span class="lf-word">rs<span class="lf-accent">4</span>ts</span></div>
+        <p class="lf-tagline">A free guide to Rust for developers who already know TypeScript or JavaScript.</p>
+      </div>
+      <div class="lf-social">
+        <a class="lf-soc" href="https://github.com/zeybek/rs4ts.dev" target="_blank" rel="noopener" aria-label="GitHub repository"><Icon name="github" /></a>
+        <a class="lf-soc" href="https://github.com/zeybek/rs4ts.dev/stargazers" target="_blank" rel="noopener" aria-label="Star on GitHub"><Icon name="star" /></a>
+        <a class="lf-soc" href="/llms.txt" aria-label="llms.txt for LLMs & coding agents"><Icon name="document" /></a>
+      </div>
+    </div>
+    <nav class="lf-links" aria-label="Footer">
+      <a href="/00-introduction/">start reading</a>
+      <a href="/30-projects/">projects</a>
+      <a href="/29-migration-guide/">migration</a>
+      <a href="https://github.com/zeybek/rs4ts.dev/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">contributing</a>
+      <a href="https://github.com/zeybek/rs4ts.dev/blob/main/LICENSE" target="_blank" rel="noopener">license</a>
+    </nav>
+    <div class="lf-divider"></div>
+    <div class="lf-bottom">
+      <span>© 2026 rs4ts.dev · MIT licensed · built by <a href="https://github.com/zeybek" target="_blank" rel="noopener">zeybek</a></span>
+      <span>six capstone crates are checked in CI</span>
+    </div>
+  </div>
+</footer>
+
+<LandingEffects />

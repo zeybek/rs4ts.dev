@@ -1,0 +1,16 @@
+# Workspace root: ties the backend (native) and frontend (wasm) crates together.
+# Think of this as the monorepo `package.json` "workspaces" field, but for Cargo.
+[workspace]
+resolver = "3"
+members = ["backend", "frontend"]
+
+# Shared dependency versions live here so both crates stay in sync.
+# Each crate opts in with `serde = { workspace = true }`, etc.
+[workspace.dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.150"
+
+# A release profile tuned for small WASM output (used by the frontend crate).
+[profile.release]
+opt-level = "z"   # optimize for size, not speed (good default for wasm bundles)
+lto = true        # link-time optimization trims dead code across crates
